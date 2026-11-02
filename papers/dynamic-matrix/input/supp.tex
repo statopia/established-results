@@ -1,0 +1,1453 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{natbib}
+\usepackage{url} % not crucial - just used below for the URL 
+\usepackage{amsfonts,amsmath,verbatim,amssymb,epsfig,enumitem,url,amsbsy,enumitem,color,natbib,graphicx}
+% \usepackage{geometry}
+\usepackage{algorithm, algorithmic}
+\usepackage{bm,ulem,courier}
+\usepackage{subfigure}
+\usepackage{float}
+%\pdfminorversion=4
+
+% NOTE: To produce blinded version, replace "0" with "1" below.
+\newcommand{\blind}{1}
+
+% DON'T change margins - should be 1 inch all around.
+\addtolength{\oddsidemargin}{-.5in}%
+\addtolength{\evensidemargin}{-1in}%
+\addtolength{\textwidth}{1in}%
+\addtolength{\textheight}{1.7in}%
+\addtolength{\topmargin}{-1in}%
+
+\def\references{\bibliography{reference}}
+%\bibliographystyle{rss}
+\renewcommand\refname{ \noindent \bf References \vspace{0.0in}}
+  %reduce spacing between bibitems with natbib package
+  \let\oldthebibliography=\thebibliography
+  \let\endoldthebibliography=\endthebibliography
+  \renewenvironment{thebibliography}[1]{
+    \begin{oldthebibliography}{#1}
+      \setlength{\parskip}{0ex}
+      \setlength{\itemsep}{0.ex}}
+  {\end{oldthebibliography}}
+
+\newcommand{\myvec}[1]%
+{\stackrel{\raisebox{-2pt}[0pt][0pt]{\tiny$\rightharpoonup$}}{#1}}
+
+\def\v{{\varepsilon}}
+\def\red{\textcolor{red}}
+\def\blue{\textcolor{blue}}
+% \def\old{\sout{\textcolor{blue}}}
+\makeatletter
+\newenvironment{breakablealgorithm}
+  {% \begin{breakablealgorithm}
+   \begin{center}
+     \refstepcounter{algorithm}% New algorithm
+     \hrule height.8pt depth0pt \kern2pt% \@fs@pre for \@fs@ruled 画线
+     \renewcommand{\caption}[2][\relax]{% Make a new \caption
+       {\raggedright\textbf{\ALG@name~\thealgorithm} ##2\par}%
+       \ifx\relax##1\relax % #1 is \relax
+         \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##2}%
+       \else % #1 is not \relax
+         \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##1}%
+       \fi
+       \kern2pt\hrule\kern2pt
+     }
+  }{% \end{breakablealgorithm}
+     \kern2pt\hrule\relax% \@fs@post for \@fs@ruled 画线
+   \end{center}
+  }
+\makeatother
+
+
+\newcommand{\oldchange}[1]{\textcolor{black}{#1}}
+
+\newcommand{\change}[1]{\textcolor{black}{#1}}
+
+%\startlocaldefs
+%\numberwithin{equation}{section}
+%\theoremstyle{plain}
+%\newtheorem{theorem}{Theorem}%[section]
+%\newtheorem{assumption}{Assumption}
+%\renewcommand\proofname{Proof}
+%\renewcommand\contentsname{Contents}
+\renewcommand\refname{References}
+\renewcommand\figurename{Figure}
+\renewcommand\tablename{Table}
+\newtheorem{thm}{Theorem}
+\newtheorem{cor}{Corollary}
+\newtheorem{prop}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{assump}{Assumption}
+\newtheorem{remark}{Remark}
+\newtheorem{emp}{Example}
+\def\argmin{\mathop{\rm argmin}}
+\def\rank{\mathop{\rm rank}}
+\def\bias{bias}
+\def\myvec{\mathop{\rm vec}}
+\def\Tr{\operatorname{Tr}}
+\def\cost{\mathcal{C}}
+
+\newenvironment{pf}{{\noindent\it Proof}\ }{\hfill $\square$\par}
+%\endlocaldefs
+
+
+\usepackage{xr-hyper}
+\usepackage{hyperref}
+\makeatletter
+\newcommand*{\addFileDependency}[1]{
+\typeout{(#1)}
+\@addtofilelist{#1}
+\IfFileExists{#1}{}{\typeout{No file #1.}}
+}
+\makeatother
+
+% \newcommand*{\myexternaldocument}[1]{%
+% \externaldocument{#1}%
+% \addFileDependency{#1.tex}%
+% \addFileDependency{#1.aux}%
+% }
+% \myexternaldocument{DMC_supp}
+
+
+\begin{document}
+\setcounter{thm}{4}
+\setcounter{cor}{4}
+\setcounter{prop}{0}
+\setcounter{lemma}{0}
+\setcounter{assump}{6}
+\setcounter{remark}{0}
+\setcounter{emp}{2}
+\section{Proof of Theorem 1}\label{pf:thm_error_bound}
+
+We use the manuscript's norm convention: $\|\cdot\|_1$ is the nuclear
+norm, $\|\cdot\|_2$ the Frobenius norm, and $\|\cdot\|_\infty$ the
+operator norm. All inner products below are Frobenius inner products.
+
+\begin{lemma}\label{lem1}\label{lemm_convex}
+Let $\Sigma$ be symmetric positive definite, with smallest eigenvalue
+$\mu>0$ and $\kappa_\Sigma=\lambda_{\max}(\Sigma)/\mu$.
+For all real vectors $\alpha,\beta$ of the appropriate dimension,
+\begin{equation}\label{eq_lemm_convex}
+ \alpha^\top\Sigma(\alpha+\beta)
+ \ge \mu\bigl(\|\alpha\|_2^2-
+       \kappa_\Sigma\|\alpha\|_2\|\beta\|_2\bigr).
+\end{equation}
+\end{lemma}
+\begin{pf}
+The spectral theorem gives
+$\alpha^\top\Sigma\alpha\ge\mu\|\alpha\|_2^2$ and
+$|\alpha^\top\Sigma\beta|\le\|\Sigma\|_{\rm op}
+\|\alpha\|_2\|\beta\|_2=\mu\kappa_\Sigma
+\|\alpha\|_2\|\beta\|_2$. Adding these bounds proves the claim.
+\end{pf}
+
+\begin{pf}
+\textit{of Theorem 1.}
+Fix the time index and a realization of all observations. Write
+\[
+ w_j=\omega_h(j-t),\quad M_0=M_t^0,\quad
+ \bar M=\sum_jw_jM_j^0,\quad
+ E=\sum_jw_j\Delta_j,\quad W=\|E\|_\infty,
+\]
+\[
+ \widehat M=\widetilde M_t^\lambda,\quad
+ H=\widehat M-M_0,\quad D=M_0-\bar M,
+\]
+\[
+ e=\|H\|_2,\quad\delta=\|D\|_2=\delta_hM_t,\quad
+ b=\kappa_\Sigma\delta,\quad N_0=\|M_0\|_1.
+\]
+Let $\mathcal S$ be the self-adjoint linear map on matrices defined by
+$\myvec(\mathcal S A)=\Sigma\myvec(A)$, and let
+$q(A)=\langle\mathcal S A,A\rangle$. The moment assumptions and
+$\mathbb E[\xi_{ji}X_{ji}]=0$ imply
+\[
+ \frac1{n_j}\sum_i\mathbb E[Y_{ji}X_{ji}]=\mathcal S M_j^0,
+ \qquad
+ \sum_j w_j\frac1{n_j}\sum_iY_{ji}X_{ji}=\mathcal S\bar M+E.
+\]
+These expectations exist: Cauchy--Schwarz bounds
+$\mathbb E[|\langle M_j^0,X_{ji}\rangle|\|X_{ji}\|_2]$
+by $\|M_j^0\|_2\mathbb E\|X_{ji}\|_2^2$, and the noise-product
+moment is explicitly assumed. As $\sum_jw_j=1$, the objective is exactly
+\[
+ F(A)=q(A)-2\langle\mathcal S\bar M+E,A\rangle+\lambda\|A\|_1.
+\]
+It is continuous, strongly convex and coercive because
+$q(A)\ge\mu\|A\|_2^2$ and $\lambda\ge0$.
+It therefore attains a unique minimum on the nonempty closed convex
+set $\mathbb M$. Lemma 1 yields
+\begin{equation}\label{dmr:curvature}
+ \langle\mathcal S(H+D),H\rangle
+ \ge\mu(e^2-be).
+\end{equation}
+
+\noindent\textit{Slow bound.}
+For $0<\varepsilon<1$, convexity and $M_0\in\mathbb M$ imply
+$\widehat M-\varepsilon H\in\mathbb M$ and
+\[
+ \|\widehat M-\varepsilon H\|_1
+ \le(1-\varepsilon)\|\widehat M\|_1+\varepsilon N_0.
+\]
+Minimality and exact expansion of the quadratic part give
+\[
+ 0\le F(\widehat M-\varepsilon H)-F(\widehat M)
+ \le-2\varepsilon\langle\mathcal S(H+D)-E,H\rangle
+       +\varepsilon^2q(H)
+       +\varepsilon\lambda(N_0-\|\widehat M\|_1).
+\]
+Divide by $\varepsilon$ and let $\varepsilon\downarrow0$. By
+operator/nuclear norm duality and $2W\le\lambda$,
+\begin{align*}
+ 2\langle\mathcal S(H+D),H\rangle
+ &\le2\langle E,H\rangle+\lambda(N_0-\|\widehat M\|_1)\\
+ &\le2W\|H\|_1+\lambda(N_0-\|\widehat M\|_1)\\
+ &\le\lambda(\|\widehat M\|_1+N_0)
+       +\lambda(N_0-\|\widehat M\|_1)=2\lambda N_0.
+\end{align*}
+Combining with \eqref{dmr:curvature} and solving the quadratic gives
+\begin{equation}\label{dmr:strong-slow}
+ e^2-be\le\frac{\lambda N_0}{\mu},\qquad
+ e\le\frac b2+\sqrt{\frac{b^2}{4}+\frac{\lambda N_0}{\mu}}.
+\end{equation}
+In particular
+$e\le b+\sqrt{b^2+2\lambda N_0/\mu}$, the first branch of the
+stated general bound. When $\lambda=2W$, the stronger display
+\eqref{dmr:strong-slow} also gives
+$e\le b+\sqrt{b^2+2WN_0/\mu}$, the stated special slow branch.
+This uses \eqref{dmr:strong-slow} directly; merely substituting
+$\lambda=2W$ in the weaker general branch would lose this constant.
+
+\noindent\textit{Nuclear norm geometry.}
+Let $r=\rank(M_0)$ and take a thin singular value decomposition
+$M_0=USV^\top$. Put $P_U=UU^\top$ and $P_V=VV^\top$ and define
+\[
+ P_{T^\perp}A=(I-P_U)A(I-P_V),\quad
+ P_TA=P_UA+(I-P_U)AP_V=A-P_{T^\perp}A.
+\]
+These are orthogonal projections for the Frobenius inner product.
+For $r=0$ take $U,V$ empty and $P_U=P_V=0$; all the following
+identities remain valid. Write $H_\perp=P_{T^\perp}H$.
+The two blocks $P_UE$ and $(I-P_U)EP_V$ are Frobenius-orthogonal,
+have rank at most $r$, and each has operator norm at most $W$.
+Consequently
+\begin{equation}\label{dmr:tangent-noise}
+ \|P_TE\|_2^2=\|P_UE\|_2^2+\|(I-P_U)EP_V\|_2^2\le2rW^2,
+\end{equation}
+where we used $\|A\|_2\le\sqrt{\rank(A)}\|A\|_\infty$.
+Also $\|P_{T^\perp}E\|_\infty\le W$, and hence
+\begin{equation}\label{dmr:noise}
+ \langle E,H\rangle
+ \le\sqrt{2r}We+W\|H_\perp\|_1.
+\end{equation}
+No operator-norm contraction property for $P_T$ is being assumed.
+
+Choose the polar factor $Z_\perp$ of $H_\perp$ from its thin SVD,
+with $Z_\perp=0$ if $H_\perp=0$. Its left and right singular
+vectors lie in the orthogonal complements of the columns of $U,V$,
+respectively. Thus
+\[
+ \|Z_\perp\|_\infty\le1,\quad P_UZ_\perp=0,\quad
+ Z_\perp P_V=0,\quad
+ \langle Z_\perp,H\rangle=\|H_\perp\|_1.
+\]
+The matrix $V_0=UV^\top+Z_\perp$ has operator norm at most one
+by its orthogonal row/column blocks, and
+$\langle V_0,M_0\rangle=\|M_0\|_1$.
+Duality therefore shows $V_0\in\partial\|M_0\|_1$:
+for every $A$,
+$\|A\|_1\ge\langle V_0,A\rangle
+=\|M_0\|_1+\langle V_0,A-M_0\rangle$.
+Moreover $\|UV^\top\|_2=\sqrt r$.
+
+\noindent\textit{Rank bound.}
+If $\lambda>0$, finite-dimensional convex optimality gives
+$\widehat V\in\partial\|\widehat M\|_1$ such that
+\begin{equation}\label{dmr:vi}
+ 2\langle\mathcal S(H+D)-E,\widehat M-A\rangle
+ +\lambda\langle\widehat V,\widehat M-A\rangle\le0
+ \qquad(A\in\mathbb M).
+\end{equation}
+Indeed $0\in2(\mathcal S\widehat M-\mathcal S\bar M-E)
++\lambda\partial\|\widehat M\|_1+N_{\mathbb M}(\widehat M)$,
+where $N_C(x)=\{z:\langle z,A-x\rangle\le0\text{ for all }A\in C\}$.
+The subgradient sum rule applies even at the boundary of $\mathbb M$
+because the smooth term and the nuclear norm are finite and continuous
+on the entire finite-dimensional matrix space.
+The two subgradient inequalities at $M_0,\widehat M$ imply
+$\langle\widehat V,H\rangle\ge\langle V_0,H\rangle$.
+Use $A=M_0$ in \eqref{dmr:vi} and then \eqref{dmr:noise} to obtain
+\begin{align*}
+ 2\langle\mathcal S(H+D),H\rangle
+ &\le2\langle E,H\rangle-\lambda\langle V_0,H\rangle\\
+ &\le(\lambda\sqrt r+2\sqrt{2r}W)e
+       -(\lambda-2W)\|H_\perp\|_1\\
+ &\le(1+\sqrt2)\lambda\sqrt r\,e.
+\end{align*}
+The last step uses $2W\le\lambda$ and drops a nonpositive term.
+If $e=0$ the rank bound is immediate. Otherwise apply
+\eqref{dmr:curvature} and divide by $2\mu e$ to conclude
+\begin{equation}\label{dmr:rank}
+ e\le b+\frac{1+\sqrt2}{2}\frac\lambda\mu\sqrt r.
+\end{equation}
+If $\lambda=0$, then $W=0$ and the first inequality of
+\eqref{dmr:strong-slow} gives $e^2-be\le0$, hence $e\le b$;
+this is exactly \eqref{dmr:rank} for $\lambda=0$.
+Combining the two branches and substituting $b=\kappa_\Sigma\delta_hM_t$
+proves \eqref{eq_thm_error_bound}. The stronger slow bound and
+\eqref{dmr:rank} with $\lambda=2W$ prove \eqref{proposed_bound}.
+\end{pf}
+
+\section{Proofs of Theorem 2 and Corollary 1, 2}
+ \begin{prop}\label{prop:bias}
+  Under Assumption 2 and 3, if $h\rightarrow0$ and $(m_1m_2)^{1/2}Th^2\rightarrow\infty$ as $m_1,m_2,T\rightarrow\infty$, then
+  \begin{equation*}
+  \delta_h M_t\le\frac{1}{2} \alpha(K)(m_1m_2)^{1/2}D_2 h^2+o\left((m_1m_2)^{1/2}h^2\right).
+  \end{equation*}
+  \end{prop}
+  \begin{pf}{\it of Proposition \ref{prop:bias}:} 
+  Note that $T^{-1}\ll (m_1m_2)^{-1/2}h^2$.
+  The conclusion follows from the classical nonparametric results (of fixed design) that
+  \begin{align*}
+  \left\|M_t^0 - \sum_{j=1}^T \omega_j M_j^0\right\|_2 
+  &= \left\|\sum_{j=1}^T \frac{1}{Th}K\left(\frac{j-t}{Th}\right) \left\{M\left(\frac{j}{T}\right)-  M\left(\frac{t}{T}\right)\right\}\right\|_2\\ 
+  &= \left\|\int\frac{1}{h}K\left(\frac{u-t/T}{h}\right)\left\{M(u)-M\left(\frac{t}{T}\right)\right\}du \right\|_2+O\left(T^{-1}\right)\\ 
+  &=\left\|\int K(z)\left\{M\left(zh+\frac{t}{T}\right)-M\left(\frac{t}{T}\right)\right\}dz\right\|_2+O\left(T^{-1}\right)\\ 
+  &=\frac{1}{2}\alpha(K)\left\|\nabla^2M(\frac{t}{T})\right\|_2  h^2+o\left((m_1m_2)^{1/2}h^2\right)\\ 
+  &\le \frac{1}{2} \alpha(K)(m_1m_2)^{1/2}D_2 h^2+o\left((m_1m_2)^{1/2}h^2\right).
+  \end{align*}
+  \end{pf}  
+
+  Now we prove two lemmas  which are needed to finish the proofs Lemma \ref{lem_lambda_indpdt} and Theorem 2. For brevity, define that $\|\cdot\|\overset{\triangle}{=}\|\cdot\|_\infty$. 
+  We extend proposition 2 in \cite{koltchinskii2011neumann} to obtain the following Lemma \ref{bernstein_lemma}.
+  \begin{lemma}
+  \label{bernstein_lemma}
+  Let $Z_1,Z_2,\dots,Z_n\in (\mathcal{B}(\mathbb{R}^{m_1\times m_2}), \mathbb{R}^{m_1\times m_2}, \mu^{\otimes m_1m_2})$ be independent, mean-zero 
+  random variables satisfying that $$\|Z_i\|_{L^2} \le \sigma,\quad \|Z_i\|_{\psi(\alpha)} \le K, \quad \|\cdot\|_{\psi(\alpha)}:= \inf\left\{t>0,\mathbb{E}\left[\exp\left(\frac{\|\cdot\|^\alpha}{t^\alpha}\right)\right]\le 2
+  \right\}.$$
+  Let $\alpha >1$ and $a=(a_1,a_2,\dots,a_n)^\top\in \mathbb{R}^n$. There exists a constant $C>0$ such that, for all $t>0$, with probability at least $1-e^{-t}$
+  \begin{equation}
+  \label{bernstein_ineq}
+  \left\|\sum_{i=1}^n a_i Z_i\right\|\le C\max \left(\sqrt{\|a\|_2^2 \sigma^2(t+\log(2m))}, \|a\| K\left(\log \frac{K}{\sigma}\right)^{1/\alpha}(t + \log(2m))\right).
+  \end{equation}
+  \end{lemma}
+
+\begin{pf}{\it of Lemma \ref{bernstein_lemma}:}
+  We follow the proof of proposition 2 in \cite{koltchinskii2011neumann} here.\\
+  Let 
+  $$S_n := \sum_{i=1}^n a_i\widetilde{Z}_i,\quad \widetilde{Z} = \left(\begin{matrix}0&Z\\Z^\top &0\\\end{matrix}\right)\in \mathbb{R}^{m\times m}.$$
+  We know that
+  $\|S_n\|<s $ if and only if $-s I_{m}\prec S_n \prec s I_{m}$. Therefore, 
+  \begin{equation*}
+  P(\|S_n\|\ge s ) = P(S_n \not \preceq s I_{m}) +P(S_n\not  \succeq -s I_{m})
+  \end{equation*}
+  and
+  \begin{equation*}
+  P(S_n\not \preceq s I_{m}) = P\left(e^{\lambda S_n}\not \preceq e^{\lambda s I_{m}}\right)\le P\left(\Tr(e^{\lambda S_n})\ge  e^{\lambda s}\right) \le e^{-\lambda s} \mathbb{E}\Tr(e^{\lambda S_n}).
+  \end{equation*}
+  To bound $\mathbb{E}\Tr(e^{\lambda S_n})$, we use independence and Golden-Thompson inequality 
+  \begin{equation*}
+  \begin{aligned}
+  \mathbb{E}\Tr(e^{\lambda S_n}) & = \mathbb{E}\Tr\left(e^{\lambda S_{n-1} + \lambda a_n Z_n}\right)\\&\le 
+  \mathbb{E}\Tr\left(e^{\lambda S_{n_1}}e^{\lambda a_n Z_n}\right)\\&=
+  \Tr\left(\mathbb{E}e^{\lambda S_{n-1}}\mathbb{E}e^{\lambda a_n Z_{n}}\right)\\& \le 
+  \mathbb{E}\Tr\left(e^{\lambda S_{n-1}}\right)\left\|\mathbb{E}e^{\lambda a_n Z_n}\right\|.
+  \end{aligned}
+  \end{equation*}
+  By induction, we have 
+  \begin{equation*}
+  \mathbb{E}\Tr(e^{\lambda S_n}) \le m\prod_{i=1}^n \left\|\mathbb{E}e^{\lambda a_i Z_i}\right\|.
+  \end{equation*}
+  It remains to bound the norm $\|\mathbb{E}e^{\lambda a_i Z_i}\|$. Using Taylor expansion and $\mathbb{E}(Z_i)=0$, we have
+  \begin{align*}
+  \mathbb{E} e^{\lambda a_i Z_i}&=I_{m}+\mathbb{E} \lambda^{2}a_i^2 Z_i^{2}\left[\frac{1}{2 !}+\frac{\lambda a_i Z_i}{3 !}+\frac{\lambda^{2}a_i^2 Z_i^{2}}{4 !}+\ldots\right] \\&\leq 
+  I_{m}+\lambda^{2} a_i^2\mathbb{E} Z_i^{2}\left[\frac{1}{2 !}+\frac{\lambda a_i\|Z_i\|}{3 !}+\frac{\lambda^{2}a_i^2\|Z_i\|^{2}}{4 !}+\ldots\right]\\&=I_{m}+\lambda^{2}a_i^2 \mathbb{E} Z_i^{2}\left[\frac{e^{\lambda a_i\|Z_i\|}-1-\lambda a_i\|Z_i\|}{\lambda^{2}a_i^2\|Z_i\|^{2}}\right]. 
+  \end{align*}
+  Therefore, for all $\tau >0$ we have
+  \begin{align*}
+  &\left\| \mathbb{E} e^{\lambda a_i Z_i}\right\|\\&\le 1 + \lambda^{2}a_i^2 \left\|\mathbb{E} Z_i^{2}\left[\frac{e^{\lambda a_i\|Z_i\|}-1-\lambda a_i\|Z_i\|}{\lambda^{2}a_i^2\|Z_i\|^{2}}\right]\right\| 
+  \\& \le
+  1 + \lambda^{2} \left\|\mathbb{E} a_i^2 Z_i^{2}\right\|\left[\frac{e^{\lambda \tau}-1-\lambda \tau}{\lambda^2\tau^2}\right] + \lambda^2 \mathbb{E}\|a_iZ_i\|^2\left[\frac{e^{\lambda a_i\|Z_i\|}-1-\lambda a_i\|Z_i\|}{\lambda^{2}a_i^2\|Z_i\|^{2}}\right]I(\|a_iZ_i\|\ge \tau).
+  \end{align*}
+  Let $$\tau = C_2 \|a_i\|_\infty K (\log \frac{K}{\sigma})^{1/\alpha}, \quad \lambda\tau \le 1,$$
+  we have 
+  \begin{equation*}
+  \left\|\mathbb{E} e^{\lambda a_i Z_i} \right\|\le 1 + C_1 \lambda^2 a_i^2 \sigma^2 \le \exp\{C_1\lambda^2 a_i^2 \sigma^2\}.
+  \end{equation*}
+  So when
+  \begin{equation*}
+  P(\|S_n\|\ge s) \le 2m \exp\{-\lambda s + C_1\lambda^2 \|a\|_2^2 \sigma^2\}
+  \end{equation*}
+  and $\lambda$ is chosen to be $$\min\left\{\frac{1}{C_2\|a\|_{\infty}K\left(\log K/\sigma \right)^{1/\alpha}}, \frac{s}{2C_1 \|a\|_2^2 \sigma^2}\right\},$$
+  which can directly deduce (\ref{bernstein_ineq}).
+  
+\end{pf}
+
+  \begin{lemma}
+  \label{lemma_psi_rela}
+  If X,Y are random variables with $\|X\|_{\psi(\alpha)}\le K_1$, $\|Y\|_{\psi(\beta)}\le K_2$, and there exists $\gamma \ge 1$ that $\frac{1}{\alpha} + \frac{1}{\beta} = \frac{1}{\gamma}\le 1$, then we have
+  \begin{equation}
+  \label{psi_rela}
+  \|X Y\|_{\psi(\gamma)} \le K_1K_2.
+  \end{equation}
+  \end{lemma}
+\begin{pf}{\it of Lemma \ref{lemma_psi_rela}:}
+  Using Young's
+  inequality we know that for all $\theta \in (0,1)$
+  \begin{equation*}
+  \frac{\left(\|X\|^\gamma\right)^{\alpha/\gamma}}{ t^{\alpha \theta} \alpha /\gamma} +  \frac{\left(\|Y\|^\gamma\right)^{\beta/\gamma}}{t^{\beta(1-\theta)}\beta /\gamma} \ge
+  \frac{\left(\|X Y\|\right)^{\gamma}}{t^\gamma}.
+  \end{equation*}
+  Thus we have
+  \begin{equation*}
+  \begin{aligned}
+  \mathbb{E}\left[\exp\left(\frac{\|X Y\|^{\gamma}}{t^\gamma}\right)\right]& \le \mathbb{E}\left[\exp\left( \frac{\left(\|X\|^\gamma\right)^{\alpha/\gamma}}{t^{\alpha\theta}\alpha /\gamma } +  \frac{\left(\|Y\|^\gamma\right)^{\beta/\gamma}}{t^{\beta(1-\theta)}\beta /\gamma } \right)\right]
+  \\& \le 
+  \frac{\gamma}{\alpha}\mathbb{E}\left[\exp\left(\frac{(\|X\|^\alpha}{t^{\alpha\theta}}\right)\right] +
+  \frac{\gamma}{\beta}\mathbb{E}\left[\exp\left(\frac{(\|Y\|^\beta}{t^{\beta (1-\theta)}}\right)\right] &\le 2,
+  \end{aligned}
+  \end{equation*}
+  where we choose $t, \theta$ by $t^{\theta}=K_1,t^{1-\theta}=K_2$.\\
+  So we have 
+  \begin{equation*}
+  \mathbb{E}\left[\exp\left(\frac{\|X Y\|^{\gamma}}{(K_1K_2)^\gamma}\right)\right] \le 2.
+  \end{equation*}
+  
+\end{pf}
+
+  We construct the following theorem to bound $\|\sum_{j=1}^T \omega_h(j-t)\Delta_j\|$ and Lemma \ref{lem_lambda_indpdt} is an immediate result of the following theorem. For brevity, we denote $\omega_j = \omega_h(j-t)$.
+
+
+
+  % Two examples are:
+  % \begin{itemize}
+  %     \item[1.](matrix completion) $X_{ji}$ is bounded so $\beta =\infty$. When $\xi_{ji}$ are sub-exponential distributions, then Assumption \ref{assump_distri} is satisfied. Applying Theorem \ref{control_error}, we have that
+  %     \begin{cor}[matrix completion]
+  %     \label{mc_error_bound}
+  %     For all $t>0$, with probability at least $1-3e^{-t}$, 
+  %     \begin{equation}
+  %     \label{mc_err}
+  %     \begin{aligned}
+  %     \left\|\sum_{j=1}^T \omega_j\Delta_j \right\| & \le C_1 \sigma_\xi\max\left( \sqrt{\frac{(t+\log(2m))}{N(m_1\wedge m_2)}},\frac{\left(\log  (m_1\wedge m_2)\right)^{1/\alpha}(t + \log(2m))}{W}\right)\\&+ C_2\sigma_\xi \max\left( \sqrt{\frac{t}{N}},\frac{t}{W}
+  %         \right) \\&+ \mathcal{C}_1\max_{j,p,q}[|M_j^0|]_{p,q}\max \left( \sqrt{\frac{(t+\log(2m))}{N(m_1\wedge m_2)
+  %         }},\frac{t + \log(2m)}{W}\right)
+  %     \end{aligned}
+  %     \end{equation}
+  %     \end{cor}
+
+  %     \item[2.](compress sensing) $X_{ji}$ are sub-gaussian distributions with $\beta= 2$ and $\operatorname{var}(\|X_{ji}\|)\le \sigma_X^2$. When $\xi_{ji}$ are also sub-Gaussian distributions and $\alpha \ge 2$, then Assumption \ref{assump_distri} is also satisfied. Applying Theorem \ref{control_error}, we have that
+  %     \begin{cor}[compress sensing]
+  %         \label{cs_err_bound}
+  %     For all $t>0$, with probability at least $1-3e^{-t}$, 
+  %     \begin{equation}
+  %         \label{cs_err}
+  %         \begin{aligned}
+  %              \left\|\sum_{j=1}^T \omega_j\Delta_j \right\| & \le C_1 \sigma_\xi\sigma_X\max \left( \sqrt{\frac{(t+\log(2m))}{N}},\frac{t + \log(2m)}{W}\right) \\&+ C_2\mu_X \sigma_\xi \max \left(\sqrt{\frac{t}{N}},\frac{t}{W}\right) \\&+ \mathcal{C}_1\max_j\|M_j^0\|_1\sigma_X^2\max \left( \sqrt{\frac{t+\log(2m)}{N}},\frac{t + \log(2m)}{W}\right)
+  %         \end{aligned}
+  %     \end{equation}
+  %     \end{cor}
+  % \end{itemize}
+
+
+  \begin{thm}
+  \label{lem_lambda_indpdt_full}
+    Under Assumption 4-5, for all $t>0$, with probability at least $1-3e^{-t}$, 
+    \begin{equation*}
+    \begin{aligned}
+    \left\|\sum_{j=1}^T \omega_j\Delta_j \right\| & \le C_1\max\left(\sigma \sqrt{\frac{(t+\log(2m))}{N}},\frac{K\left(\log \frac{K}{\sigma}\right)^{1/\gamma}(t + \log(2m))}{W}\right) \\&+ C_2\mu_X \max\left(\sigma_\xi \sqrt{\frac{t}{N}},\frac{K_1 (\log \frac{K_1}{\sigma_\xi})^{1/\alpha}t}{W}
+    \right) \\&+ C_3\max\left(\varsigma \sqrt{\frac{(t+\log(2m))}{N}},\frac{\mathcal{K}\left(\log \frac{\mathcal{K}}{\varsigma}\right)^{2/\beta}(t + \log(2m))}{W}\right),
+    \end{aligned}
+    \end{equation*}
+    where $$N=\frac{1}{\sum_{j=1}^T \omega_j^2/n_j},\quad W  =\frac{1}{\max_{j} \omega_j/n_j}$$
+    and constants with respect to $\omega_j, n_j$ such that
+    \begin{equation*}
+    \begin{aligned}
+    & K=  \max \| \xi_{ji} (X_{ji} - \mathbb{E}X_{ji})\|_{\psi(\gamma)} \lesssim K_1K_2,\\
+    & \sigma= \max \| \xi_{ji} (X_{ji} - \mathbb{E}X_{ji})\|_{L^{2}}\lesssim K_1K_2 2^{1/\gamma},\\
+    & \mu_X = \max \|\mathbb{E} X_{ji}\| \lesssim K_2,\\
+    &\sigma_\xi = \max\|\xi_{ji}\|_{L^2} \lesssim K_1 2^{1/\alpha},\\
+    & \mathcal{K}=\max \| \langle M_j^0, X_{ji}\rangle X_{ji} - \mathbb{E}(\langle M^0_j, X_{ji}\rangle X_{ji})\|_{\psi(\beta/2)} \lesssim C_* K_2^2,\\
+    & \varsigma = \max\|\langle M_j^0, X_{ji}\rangle X_{ji} - \mathbb{E}(\langle M^0_j, X_{ji}\rangle X_{ji})\|_{L^2} \lesssim C_* K_2^2 2^{2/\beta}.
+    \end{aligned}
+    \end{equation*}
+  \end{thm}
+
+
+\begin{pf}{\it of Theorem \ref{lem_lambda_indpdt_full}:}
+  Because that 
+  \begin{equation}
+  \begin{aligned}
+  \left\|\sum_{j=1}^T \omega_j \Delta_j\right\|
+  &=\left\|\sum_{j=1}^{T} \sum_{i=1}^{n_{j}} \frac{1}{n_{j}} \omega_j\left(Y_{j i} X_{j i}-E Y_{j i} X_{j i}\right)\right\| \\ 
+  & \le\left\|\sum_{j=1}^{T} \sum_{i=1}^{n_{j}} \frac{1}{n_{j}} \omega_j\xi_{ji}X_{ij}\right\|\\
+  &+\left\|\sum_{j=1}^{T} \sum_{i=1}^{n_{j}} \frac{1}{n_{j}} \omega_j\left\{\left\langle M_0(j),X_{ji}\right\rangle X_{ji}-E\left(\left\langle M_0(j),X_{ji}\right\rangle X_{ji}\right)\right\}\right\|\\
+  &\le\left\|\sum_{j=1}^{T} \sum_{i=1}^{n_{j}} \frac{1}{n_{j}} \omega_j\xi_{ji}(X_{ij}-EX_{ij})\right\|+\left\|\sum_{j=1}^{T} \sum_{i=1}^{n_{j}} \frac{1}{n_{j}} \omega_j\xi_{ji}\mathbb{E}X_{ij}\right\|\\
+  &+\left\|\sum_{j=1}^{T} \sum_{i=1}^{n_{j}} \frac{1}{n_{j}} \omega_j\left\{\left\langle M_0(j),X_{ji}\right\rangle X_{ji}-E\left(\left\langle M_0(j),X_{ji}\right\rangle X_{ji}\right)\right\}\right\|\\&
+  \label{eq:variance}
+  :=
+  \mathcal{D}_1 +\mathcal{D}_2 +\mathcal{D}_3. 
+  \end{aligned}
+  \end{equation}
+  \begin{itemize}
+  \item[a.] For $\mathcal{D}_1$.
+
+  We denote that $Z_{ji} := \xi_{ji} (X_{ji} - \mathbb{E}X_{ji})$. Using Lemma \ref{lemma_psi_rela}, $Z_{ji}$ are independent, mean-zero random variables satisfying that 
+  \begin{equation*}
+   \|Z_{ji}\|_{\psi(\gamma)} \le K,\quad \|Z_{ji}\|_{L^{2}}\le\sigma (2)^{1/\gamma}.
+  \end{equation*}
+
+  Set $a_{ji} = {\omega_j}/{n_j}$. Using Lemma \ref{bernstein_lemma}, we have that for all $t>0$, with probability at least $1-e^{-t}$
+  \begin{equation}
+  \label{d1_bound}
+  \mathcal{D}_1 = \left\|\sum_{j=1}^{T}\sum_{i=1}^{n_j}a_{ji}Z_{ji}\right\| \le  C\max \left(\sigma \sqrt{\frac{(t+\log(2m))}{N}},\frac{K\left(\log \frac{K}{\sigma}\right)^{1/\gamma}(t + \log(2m))}{W}\right).
+  \end{equation}
+ % where $$N=\frac{1}{\sum_{j=1}^T \omega_j^2/n_j},\quad W  =\frac{1}{\max_{j} \omega_j/n_j}.$$
+  \item[b.] For $\mathcal{D}_2$.
+
+  Directly using Lemma \ref{bernstein_lemma} with $\|\mathbb{E} X_{ji}\| \le  \mu_X,  \|\xi_{ji}\|_{L^2} \le \sigma_\xi$ and $a_{ji} = \frac{\omega_j}{n_j}$ , we know that for all $t\ge 0$, with probability at least $1-e^{-t}$
+  \begin{equation}
+  \label{d2_bound}
+  \mathcal{D}_2 = \left\|\sum_{j=1}^T\sum_{i=1}^{n_j}a_{ji}\mu_X \xi_{ji}\right\| \le C \mu \max\left(\sigma_\xi \sqrt{\frac{t}{N}},\frac{K_1 (\log \frac{K_1}{\sigma_\xi})^{1/\alpha}t}{W}
+  \right).
+  \end{equation}
+  \item[c.] For $\mathcal{D}_3$.
+  Denote that $Z_{ji} = \langle M_j^0, X_{ji}\rangle X_{ji} - \mathbb{E}(\langle M^0_j, X_{ji}\rangle X_{ji})$ and $a_{ji} = \frac{\omega_j}{n_j}$ with 
+  \begin{equation*}
+ \|Z_{ji}\|_{\psi(\beta/2)} \le   \mathcal{K}, \quad \|Z_{ji}\|_{L^2} \le\varsigma .
+  \end{equation*}
+  Using Lemma \ref{bernstein_lemma}, we know that for all $t\ge0$, with probability at least $1-e^{-t}$
+  \begin{equation}
+  \label{d3_bound}
+  \mathcal{D}_3 = \left\|\sum_{j=1}^T \sum_{i=1}^{n_j} a_{ji} Z_{ji}\right\| \le C\max\left(\varsigma \sqrt{\frac{(t+\log(2m))}{N}},\frac{\mathcal{K}\left(\log \frac{\mathcal{K}}{\varsigma}\right)^{2/\beta}(t + \log(2m))}{W}\right).
+  \end{equation}
+  \end{itemize}
+
+  From (\ref{d1_bound}), (\ref{d2_bound}), (\ref{d3_bound}), we know that
+  for all $t>0$, with probability at least $1-3e^{-t}$, 
+  \begin{equation*}
+  \begin{aligned}
+  \left\|\sum_{j=1}^T \omega_j\Delta_j \right\| & \le C_1\max\left(\sigma \sqrt{\frac{(t+\log(2m))}{N}},\frac{K\left(\log \frac{K}{\sigma}\right)^{1/\gamma}(t + \log(2m))}{W}\right) \\&+ C_2\mu_X\max\left(\sigma_\xi \sqrt{\frac{t}{N}},\frac{K_1 (\log \frac{K_1}{\sigma_\xi})^{1/\alpha}t}{W}
+  \right) \\&+ C_3\max\left(\varsigma \sqrt{\frac{(t+\log(2m))}{N}},\frac{\mathcal{K}\left(\log \frac{\mathcal{K}}{\varsigma}\right)^{2/\beta}(t + \log(2m))}{W}\right).
+  \end{aligned}
+  \end{equation*}
+  
+\end{pf}
+
+ \begin{lemma}
+  \label{lem_lambda_indpdt}
+  Under Assumption 4 and 5, if $h\rightarrow0$ and $(m_1m_2)^{1/2}Th^2\rightarrow\infty$ as $m_1,m_2,T\rightarrow\infty$, $nTh\gg (K_*/\sigma_*)^2\log(m_1+m_2)$, then with probability at least $1-3/(m_1+m_2)$, 
+  \begin{equation}\label{lambda_bound_indpdt}
+  \mathcal{W}_h\Delta_{t}  \le
+  C_1\sigma_*\sqrt{\frac{\log(m_1+m_2)}{nTh}},
+  %{C_1}\max\left\{\sigma_*\sqrt{\frac{s+\log(m_1+m_2)}{nTh}},K_*\frac{s + \log(m_1+m_2)}{n T h}\right\}, %\\
+  \end{equation}
+  where  $C_1>0$ is a constant  independent to $\sigma_*,K_*,T,h,m_1,m_2$ such that
+  \begin{align*}
+     \sigma_*& =\max \left\{\sigma ,\mu_X\sigma_\xi,\varsigma \right\},\\
+  K_*&=\max\left\{\mathcal{K}\left(\log \frac{\mathcal{K}}{\varsigma}\right)^{2/\beta},\mu_X K_1 \left(\log \frac{K_1}{\sigma_\xi}\right)^{1/\alpha}, K\left(\log \frac{K}{\sigma}\right)^{1/\gamma}\right\},
+  \end{align*}
+  in which $\mu_X  =\max_{i,j} \|\mathbb{E} X_{ji}\|_{\infty},\ \sigma_\xi = \max_{i,j}\|\xi_{ji}\|_{L^2}$ and
+  \begin{equation*}
+    \begin{aligned}
+     & K=  \max_{i,j} \left \| \xi_{ji} (X_{ji} - \mathbb{E}X_{ji})\right\|_{\psi(\gamma)},\quad \mathcal{K}=\max_{i,j} \| \langle M_j^0, X_{ji}\rangle X_{ji} - \mathbb{E}(\langle M^0_j, X_{ji}\rangle X_{ji})\|_{\psi(\beta/2)},\\
+  & \sigma= \max_{i,j} \| \xi_{ji} (X_{ji} - \mathbb{E}X_{ji})\|_{L^{2}}, \quad \varsigma =\max_{i,j}\|\langle M_j^0, X_{ji}\rangle X_{ji} - \mathbb{E}(\langle M^0_j, X_{ji}\rangle X_{ji})\|_{L^2},
+    \end{aligned}
+  \end{equation*}
+  with $\|X\|_{L^2}=\|\mathbb{E}XX^T\|_{\infty}^{1/2}\vee\|\mathbb{E}X^TX\|_{\infty}^{1/2}$.% In the following, we use $\sigma_*$ and $K_*$ to describe the bounds and we mention that the orders of $\sigma_*$ and $K_*$ are distinct in different problems. 
+  \end{lemma}
+  \begin{pf}{\it of Lemma \ref{lem_lambda_indpdt}:}
+
+  Define that $$\mathcal{N}_h(t)=\{j:t-Th<j<t+Th\},\quad \bar{n}_t=\frac{1}{|\mathcal{N}_h(t)|}\sum_{j\in\mathcal{N}_h(t)}n_j,\quad \check{n}_t=\min_{j\in\mathcal{N}_h(t)}n_j.$$
+  Recall the definition of $\omega_j$ that
+  $\omega_j=\omega_h(j-t)=\frac{K\left(\frac{j-t}{Th}\right)}{\sum_{k=1}^T K\left(\frac{k-t}{Th}\right)},
+  $ we have that
+  \begin{align*}
+  N&= \frac{1}{\sum_{j=1}^T \omega_h(j-t)^2/n_j}
+  = \frac{\left\{\sum_{k=1}^T\frac{1}{Th}K\left(\frac{k-t}{Th}\right)\right\}^2}{\sum_{j=1}^T  \frac{1}{T^2h^2}K\left(\frac{j-t}{Th}\right)^2/n_j}\\ 
+  &\asymp\frac{1}{\sum_{j=1}^T  \frac{1}{n_jT^2h^2}K\left(\frac{j-t}{Th}\right)^2}
+  \asymp\left\{\frac{1}{\bar{n}_tTh}\sum_{j=1}^T\frac{1}{Th}K\left(\frac{j-t}{Th}\right)^2\right\}^{-1}\\
+  &=\bar{n}_tThR(K)^{-1},
+  \end{align*}
+  and
+  \begin{align*}
+  W&=\frac{1}{\max_j \omega_h(j-t)/n_j}=\left\{\max_j\frac{\frac{1}{Th}K\left(\frac{j-t}{Th}\right)}{n_j\frac{1}{Th}\sum_{k=1}^T K\left(\frac{k-t}{Th}\right)}\right\}^{-1}\\
+  &\asymp\left\{\max_j{\frac{1}{n_jTh}K\left(\frac{j-t}{Th}\right)}\right\}^{-1}
+  \asymp \check{n}_tThK(0)^{-1}.
+  \end{align*}
+  
+  With the assumption $\bar{n}_t,\check{n}_t \asymp n$, for $t\le\log(m_1+m_2)$, when $nTh\gg\{K_*/\sigma_*\}^2 \log(m_1+m_2)$, the first terms in \eqref{d1_bound}, \eqref{d2_bound} and \eqref{d3_bound} dominate those bounds which gives
+  $$\mathcal{W}_h\Delta_{t}  \le {C_1}\sigma_*\sqrt{\frac{s+\log(m_1+m_2)}{nTh}}\ll1.$$
+
+  By setting $t=\log (m_1+m_2)$, we can deduce Lemma \ref{lem_lambda_indpdt} directly.
+  
+\end{pf}
+  
+ 
+  
+\begin{pf}{\it of Theorem 2:}
+With Lemma \ref{lem_lambda_indpdt} and Theorem 1, we have $$\left(\delta_h M_{t}^2 + 2\mu^{-1}\mathcal{W}_h\Delta_{t}\left\|M_t^0\right\|_1\right)^{1/2}\gg{(1+\sqrt{2})}{\mu^{-1}}{\mathcal{W}_h\Delta_{t}}\sqrt{r_t},$$ which leads to the following conclusion. 
+  From Lemma \ref{lem_lambda_indpdt}, we know that for all $t>0$, with probability at least $1-3e^{-t}$,
+  \begin{equation*}
+  \left\|\sum_{j=1}^T \omega_j\Delta_j \right\|_\infty  \le {C_1}\max\left\{\sigma^*\sqrt{\frac{t+\log(m_1+m_2)}{\bar{n}_t Th}},K^*\frac{t + \log(m_1+m_2)}{\check{n}_t Th}\right\}.
+  \end{equation*}
+  Choose that $$t=\log(m_1+m_2),\quad 
+  \lambda = 2\sqrt{2}C_1\sigma^*\sqrt{\frac{\log(m_1+m_2)}{\bar{n}_t Th}}.$$
+  If $(\check{n}_t^2/\bar{n}_t) T h \gg\{K^*/\sigma^*\}^2 \log(m_1+m_2)$, than $$\sigma^*\sqrt{\frac{t+\log(m_1+m_2)}{\bar{n}_t Th}}\gg K^*\frac{t + \log(m_1+m_2)}{\check{n}_t Th}.$$
+   From Proposition \ref{prop:bias}
+  \begin{equation*}
+       (m_1m_2)^{-1/2}\left\|M_t^0 - \sum_{j=1}^T \omega_j M_j^0\right\|_2 \le \frac{1}{2} \alpha(K)D_2 h^2.
+  \end{equation*}
+  With Theorem 1, so
+  \begin{align*}
+  (m_1m_2)^{-1/2}\left\|\widetilde{M}_t^\lambda - M_t^0\right\|_2 \le \frac{1}{2}C_2\alpha(K)D_2h^2 + \left(2+\sqrt{2}\right)C_1\sigma^*\left(\frac{r_t\log(m_1+m_2)}{\mu^2m_1m_2 \bar{n}_t Th}\right)^{1/2}
+  \end{align*}
+  holds with probability at least $1-3/(m_1+m_2)$.
+
+  %Choose 
+  %\begin{equation*}
+ % h= \left(\frac{C_2^2K_2^2(K_1\vee C_* K_2)^2\rank(M_t^0)\log2(m_1+m_2)}{C_1^2\mu^2 n T}\right)^{\frac{1}{5}},
+  %\end{equation*}
+ % we have
+ % \begin{equation*}
+  %\left\|\widetilde{M}_t^\lambda - M_t^0\right\|_2 \le C_1^{1/5}(C_2K_2(K_2\vee C_* K_1))^{4/5}\left(\frac{\rank(M_t^0)\log2(m_1+m_2)}{\mu^2 n T}\right)^{\frac{2}{5}}.
+  %\end{equation*}
+\end{pf}
+
+  %     From that $$\sigma = \sigma_\xi \sqrt{\frac{1}{m_{1} \wedge m_{2}}},\quad \gamma = \alpha,\quad K \le 2K_1=\Theta(\sigma_\xi)$$
+  %     we have that
+  %     \begin{equation}
+  %         \label{mc_D1}
+  %         \mathcal{D}_1 \le C\sigma_\xi\max\left(\sigma \sqrt{\frac{(t+\log(2m))}{N(m_1\wedge m_2)}},\frac{\left(\log  (m_1\wedge m_2)\right)^{1/\alpha}(t + \log(2m))}{W}\right)
+  %     \end{equation}
+
+  %     From $\mu =1,\ K_1 = \Theta(\sigma_\xi)$, we have that
+  %     \begin{equation}
+  %         \label{mc_D2}
+  %         \mathcal{D}_2\le C\sigma_\xi \max\left( \sqrt{\frac{t}{N}},\frac{t}{W}
+  %         \right) 
+  %     \end{equation}
+  %     From that
+  %     $$\mathcal{K} =\max_{j,p,q}[|M_j^0|]_{p,q},\quad \varsigma\le \max_{j,p,q}[|M_j^0|]_{p,q}\sqrt{\frac{1}{m_1\wedge m_2}}
+  %     $$
+  %     we have that
+  %     \begin{equation}
+  %         \label{mc_D3}
+  %         \mathcal{D}_3 \le C\max_{j,p,q}[|M_j^0|]_{p,q}\max \left( \sqrt{\frac{(t+\log(2m))}{N(m_1\wedge m_2)
+  %         }},\frac{t + \log(2m)}{W}\right)
+  %     \end{equation}
+
+  %     Combine (\ref{mc_D1}), (\ref{mc_D2}) and (\ref{mc_D3}), we obtain (\ref{mc_err}).
+\begin{pf}{\it of Corollary 1:} Plug in the upper bound of $\mathcal{W}_h\Delta_t$ in Lemma \ref{lem_lambda_indpdt}, Corollary 1 can be obtained immediately.
+\end{pf}
+
+\begin{pf}{\it of Corollary 2:}
+  % From Theorem \ref{lem_lambda_indpdt} with 
+  % \begin{align*}
+  % &\textcolor{red}{\sigma = \sigma_\xi \sqrt{\frac{1}{m_{1} \wedge m_{2}}}},\quad \gamma = \alpha,\quad K \le 2K_1\asymp\sigma_\xi,\quad \textcolor{red}{\mu =(m_1m_2)^{-1}},\\
+  % &\mathcal{K} =\max_{j,p,q}[|M_j^0|]_{p,q},\quad \varsigma\le \max_{j,p,q}[|M_j^0|]_{p,q}\sqrt{\frac{1}{m_1\wedge m_2}},
+  % \end{align*}
+  % we have that with probability $1-3e^{-t}$,
+  % \begin{equation*}
+  % \left\|\sum_{j=1}^T \omega_j \Delta_j\right\|_{\infty} \le C (K_1 \vee M) \max \left(\sqrt{\frac{t +\log(2m)}{(m_1\wedge m_2)N}},\frac{\log^{1/\alpha}(m_1\wedge m_2)(t +\log (2m))}{W}\right).
+  % \end{equation*}
+
+  % When $n T h \gg (m_1\wedge m_2)\log^{1+2/\alpha} 2(m_1+m_2)$, choosing $t= \log(2m)$, the remain proof is the same as proof in Theorem \ref{thm_total}.
+  From the distribution of $X_{ji}$ and Assumption 4, we have that
+  $$\gamma=\alpha,\quad\beta=\infty,\quad\mu=(m_1m_2)^{-1},$$
+  and 
+  \begin{align*}
+  & \sigma\le \sigma_\xi\sqrt{\frac{1}{m_1\wedge m_2}},\quad \mu_X\sigma_\xi= \sigma_\xi\sqrt{\frac{1}{m_1\wedge m_2}},\quad\varsigma\le M\sqrt{\frac{1}{m_1\wedge m_2}},\\
+  &   K\asymp\sigma_\xi,\quad K_1\asymp \sigma_\xi,\quad \mathcal{K}\asymp M.
+  \end{align*}
+  Then it can be obtained that
+  \begin{align*}
+  &\sigma^* = (C_M\vee \sigma_\xi)\sqrt{\frac{1}{m_1\wedge m_2}},\\ 
+  &K^*/\sigma^* \asymp (m_1\wedge m_2)^{1/2}\log^{1/\alpha}(m_1\wedge m_2).
+  \end{align*}
+  Then $(K^*/\sigma^*)^2\log(m_1+m_2)\asymp(m_1\wedge m_2)\log^{2/\alpha}(m_1\wedge m_2)\log(m_1+m_2)$.
+  Note that $\log(m_1+m_2)>\log(m_1\wedge m_2)$, when $(\check{n}_t^2/\bar{n}_t) T h\gg (m_1\wedge m_2)\log^{1+2/\alpha}(m_1+m_2)$, the first term in \eqref{lambda_bound_indpdt} dominates the bound. Apply Theorem 2 and Corollary 1 and the proof is finished.
+  
+\end{pf}
+
+\section{Heterogeneous Scenario}
+\label{supp:hetero}
+Consider the heterogeneous assumption first.
+\begin{assump}
+\label{assump_hete}
+(Heterogeneous Assumption)
+The second moment matrix $\Sigma_t$ of $X_t$ is positive definite with smallest eigenvalue $\mu_t > 0$ for $t=1,2,\cdots,T$.
+\end{assump}
+
+Here we provide the corresponding results of Theorem 1, Theorem 2 and Corollary 1 under the heterogeneous scenario. The key difference between homogeneous and heterogeneous scenarios is that the covariance matrix used for time points $t$ is $\Sigma$ in homogeneous case and $\sum_{j=1}^T \omega_h(j-t) \Sigma_j$ in heterogeneous case. Define $\nu_t = \sum_{j=1}^T\omega_h (j-t) \mu_t$, and the difference is using $\nu_t$ to replace $\mu$ in each theorems and corollaries for the upper bound of $\widetilde{M}_t^\lambda$.
+
+
+\begin{thm}
+(Heterogeneous Theorem 1) 
+  Under Assumption \ref{assump_hete}, if $\lambda \ge 2\mathcal{W}_h\Delta_{t}$, then
+  \begin{equation}
+   \label{eq_thm_error_bound_hete}
+  \left\|\widetilde{M}_t^\lambda - M_t^0\right\|_2 \le\delta_h M_t +\min\left\{ \left((\delta_h M_t)^2 + \frac{2\lambda}{\nu_t}\left\|M_t^0\right\|_1\right)^{1/2}, \frac{1+\sqrt{2}}{2} \frac{\lambda}{\nu_t}\sqrt{r_t}\right\}.
+  \end{equation}
+  When selecting $\lambda=2\mathcal{W}_h\Delta_{t}$, we have
+  \begin{equation}
+  \label{proposed_bound_hete}
+  \left\|\widetilde{M}_t^\lambda - M_t^0\right\|_2 \le\delta_h M_{t} + \min\left\{\left((\delta_h M_{t})^2 + 2\nu_t^{-1}\mathcal{W}_h\Delta_{t}\left\|M_t^0\right\|_1\right)^{1/2},{(1+\sqrt{2})}{\nu_t^{-1}}{\mathcal{W}_h\Delta_{t}}\sqrt{r_t}\right\}.
+  \end{equation}
+\end{thm}
+\begin{pf}
+    In the Proof of Theorem 1, the whole proof is not changed but changing \eqref{eq:homo1} as 
+     \begin{equation*}
+  \begin{aligned}
+  & \left(\myvec({\widehat{M}}_t^\lambda) - \myvec({M}_t^0)\right)^\top \Sigma \left[ \left(\myvec({\widehat{M}}_t^\lambda)- \myvec({M}_t^0)\right) + \left(2 \myvec({M}_t^0) - 2\sum_{j=1}^T \omega_j \myvec({M}_j^0)\right)\right]\\ \ge& 
+  \nu_t\left\|\widetilde{M}_t^\lambda - M_t^0\right\|_2^2 - \nu_t\left\|\widetilde{M}_t^\lambda - M_t^0\right\|_2\left\|M_t^0 - \sum_{j=1}^T \omega_j M_j^0\right\|_2.
+  \end{aligned}
+  \end{equation*}
+    and changing \eqref{eq:homo2} as
+    \begin{equation*}
+  \begin{aligned}
+  &\sum_{j=1}^T \omega_j\left[\mathcal{C}_j(\widetilde{M}_t^\lambda - M_t^0,\widetilde{M}_t^\lambda - M_t^0) +\mathcal{C}_j(\widetilde{M}_t^\lambda-M^0_t,M_t^0 - M_j^0)\right]
+  \\=&
+  \left(\myvec({\widehat{M}}_t^\lambda) - \myvec({M}_t^0)\right)^\top \Sigma \left(  \left(\myvec({\widehat{M}}_t^\lambda) - \myvec({M}_t^0)\right) + \left(M_t^0 - \sum_{j=1}^T\omega_jM_j^0\right)\right)\\\ge &
+  \nu_t\left\|\widetilde{M}_t^\lambda - M_t^0\right\|_2^2 -  \nu_t\left\|\widetilde{M}_t^\lambda - M_t^0\right\|_2\left\|M_t^0 - \sum_{j=1}^T \omega_j M_j^0\right\|_2.
+  \end{aligned}
+  \end{equation*}
+\end{pf}
+
+  \begin{thm}\label{thm_total_hete}
+  (Heterogeneous Theorem 2) 
+  Under Assumption 1-5, let $n T h \gg(K_*/\sigma_*)^2 \log(m_1+m_2)$, $h\rightarrow0$ and $(m_1m_2)^{1/2}Th^2\rightarrow\infty$ as $n,m_1,m_2,T\rightarrow\infty$, when
+  $$\lambda = 2C_1\sigma_*\sqrt{\frac{\log(m_1+m_2)}{n Th}}, $$
+  where $C_1$ and $\sigma_*$ are defined in Lemma \ref{lem_lambda_indpdt} of Supplementary Material, then 
+  with probability at least $1-3/(m_1+m_2)$,
+  \begin{equation} \label{err_bound_indpdt_hete}   
+  \begin{aligned}
+  (m_1m_2)^{-1/2}\left\|\widetilde{M}_t^\lambda - M_t^0\right\|_2 \le \frac{1}{2}\alpha(K)D_2h^2 +\left(1+\sqrt{2}\right)C_1\sigma_*\left(\frac{r_t\log(m_1+m_2)}{\nu_t^2m_1m_2 n Th}\right)^{1/2}+o(h^2),
+  \end{aligned}
+  \end{equation}
+  where $\alpha(K)$ is defined in (10) and $D_2$ in Assumption 2.
+  \end{thm}
+  
+\begin{cor}
+  \label{cor_general_result_hete}
+  (Heterogeneous Corollary 1)
+  Under assumptions of Theorem \ref{thm_total_hete}, when 
+  $$ nT\gg\max\{K_*^{5/2}\sigma_*^{-3}(\nu_t^{2}m_1m_2)^{1/4}\log(m_1+m_2),\ \sigma_*^2(\nu_t^{2}m_1m_2)^{-1}\log(m_1+m_2)\},$$
+  with probability at least $1-3/(m_1+m_2)$,
+  \begin{equation}\label{eq_general_bound_hete}
+  (m_1m_2)^{-1/2}\left\|\widetilde{M}_t^\lambda - M_t^0\right\|_2 \le C_2\left(\frac{\sigma_*^2r_t\log(m_1+m_2)}{\nu_t^2m_1m_2 n T}\right)^{2/5},
+  \end{equation}
+  where $C_2 =1/2\left[(2+2\sqrt{2})C_1\right]^{4/5}\left[\alpha(K)D_2\right]^{1/5}$.
+  \end{cor}
+
+
+
+
+\section{Definition of $\phi-$mixing}
+\label{def:phi}
+The dependence of two $\sigma$-field $\mathcal{A}$ and $\mathcal{B}$ is measured by
+  \begin{equation*}
+    \phi(\mathcal{A},\mathcal{B}) = \sup \left\{\left|P(A) - \frac{P(A\cap B)}{P(B)}\right|;A\in \mathcal{A}, B\in \mathcal{B},P(B)\not =0 \right\}.
+  \end{equation*}
+  And for a sequence of $\sigma$-field $\mathcal{A}_j,j\in \mathbb{N}^*$, the $\phi$-coefficients $\phi_\mathcal{A}(k),k\in \mathbb{N}$ is defined as 
+  \begin{equation*}
+    \phi_{\mathcal{A}}(k) = \sup_{|j-s|\le k }\phi(\mathcal{A}_j,\mathcal{A}_s).
+  \end{equation*}
+  If $\lim_{k\rightarrow \infty} \phi_\mathcal{A}(k)=0$, the sequence of $\sigma$-field $\mathcal{A}_j,j\in \mathbb{N}^*$ is said to be $\phi$-mixing. 
+  
+\section{Proofs of % Lemma \ref{lem_lambda_dependent}, 
+Theorem 3 and Corollary 3%--\ref{cor_compress_sensing_mixing}}
+, \ref{cor_matrix_completion_mixing}}
+\begin{lemma}
+  \label{lem_lambda_dependent}
+  Under Assumption 4 and 6, if $h\rightarrow0$ as $n,T\rightarrow\infty$, $Th\gg\log(m_1+m_2)$ and $nTh \gg \left(K_*/\sigma_*\right)^2\log^3 (m_1+m_2)$, with probability at least $1-3/(m_1+m_2)$,
+   \begin{equation*}%\label{lambda_bound_dependent}
+  \mathcal{W}_h\Delta_{t}  \le \mathcal{C}_1 (\Phi_{\mathcal{X}}\vee \Phi_{\mathcal{Y}})\sigma_* \sqrt{\frac{\log (m_1+m_2)}{nTh}},
+  \end{equation*}
+  where $\mathcal{C}_1>0$ is a constant independent to $\sigma_*,K_*,T,h,m_1,m_2$.
+  \end{lemma}
+\begin{pf}{\it of Lemma \ref{lem_lambda_dependent} and Theorem 3:}
+  Denote $\mathbf{X}_j = (X_{j1},X_{j2},\dots,X_{jn_j})^\top, \mathbf{\xi}_j= (\xi_{j1},\xi_{j2},\dots,\xi_{jn_j})^\top $. We know that $\sigma(\mathbf{X}_{j}-\mathbb{E} \mathbf{X}_{j}) \subseteq \mathcal{X}_j$. Define $ \mathcal{Z}_j$ such that $\mathcal{Z}_j = \sigma((\mathbf{X}^\top_j,\mathbf{\xi}^\top_j)^\top)$, then
+  \begin{align*}
+  &\left|P(A_x\otimes A_y)-\frac{P(A_x\otimes A_y\cap B_x\otimes B_y)}{P(B_x\otimes B_y)}\right|\\=&\left|P(A_x)\left(P(A_y) - \frac{P(A_y\cap B_y)}{P(B_y)}\right) + \frac{P(A_y\cap B_y)}{P(B_y)}\left(P(A_x) - \frac{P(A_x\cap B_x)}{P(B_x)}\right)\right|
+  \\\le & \phi_{\mathcal{X}}(|j-l|) +\phi_{\mathcal{Y}}(|j-l|) - \phi_{\mathcal{X}}(|j-l|) \phi_{\mathcal{Y}}(|j-l|),
+  \end{align*}
+  where $A_x\otimes A_y \in \mathcal{Z}_j,\ B_x\otimes B_y \in \mathcal{Z}_l$.
+  So we know that $\phi_{\mathcal{Z}} \le \phi_{\mathcal{X}} +\phi_{\mathcal{Y}} - \phi_{\mathcal{X}}\phi_{\mathcal{Y}}$, which means that
+  \begin{equation*}
+  \Phi_\mathcal{Z} = \sum_{k=1}^\infty \sqrt{\phi_{\mathcal{Z}}(k)}\le \Phi_\mathcal{X}+ \Phi_{\mathcal{Y}}<\infty.
+  \end{equation*}\\
+  Let $Z_{ji} = \frac{\omega_j}{n_j}\xi_{ji}\left(X_{ji} - \mathbb{E}X_{ji}\right)$ and $Z_{j} = \sum_{i=1}^{n_j} Z_{ji}$. Using Lemma \ref{bernstein_lemma}, we know that
+  \begin{equation*}
+  P\left(\left\|Z_{j}\right\|\ge s\right)  \le 2m \exp\left\{-C\min\left\{\frac{n_j s^2}{w^2
+  _j \sigma^2}, \frac{n_j s}{\omega_j K(\log\frac{K}{\sigma})^{1/\gamma}}\right\}\right\}.
+  \end{equation*}
+  Denote the bounded function 
+  $$g((\mathbf{X}_j^\top,\mathbf{\xi}_j^\top)^\top) = \frac{\omega_j}{n_j}(\mathbf{X}_j-\mathbb{E}\mathbf{X}_j)^\top\mathbf{\xi}_j\mathbf{1}_{\left\| \frac{\omega_j}{n_j}(\mathbf{X}_j-\mathbb{E}\mathbf{X}_j)^\top\mathbf{\xi}_j\right\|\le s},$$
+  we know that
+  \begin{align*}
+  P\left(\left\|\sum_{j=1}^T Z_{j}\right\|\ge t \right) & \le 
+  \sum_{j=1}^T P(\|Z_j\|\ge s) + P\left(\left\|\sum_{j=1}^T Z_j\mathbf{1}_{\|Z_{j}\|\le s}\right\|\ge t\right)\\&=
+  \sum_{j=1}^T P(\|Z_j\|\ge s) + P\left(\left\|\sum_{j=1}^\top g((\mathbf{X}_j^\top,\mathbf{\xi}_j^\top)^\top)\right\|\ge t\right).
+  \end{align*}
+  With the tail distribution assumptions for $X_j,\xi_j$, when $s \le \frac{\omega_j\sigma^2}{K(\log\frac{K}{\sigma})^{1/\gamma}}$, we have the inequalities
+  \begin{align*}
+  \left\| \mathbb{E}\sum_{j=1}^T g((\mathbf{X}_j^\top,\mathbf{\xi}_j^\top)^\top)\right\| &= \left\|\sum_{j=1}^T Z_j \mathbf{1}_{\|Z_j\|\ge s} \right\|\\& \le \sum_{j=1}^T\left|
+  \int_{s}^\infty P(\|Z_j\|\ge s) d x + s P(\|Z_j\|\ge s) \right| \\& \le \left(s+\frac{c} {s n T^2h^2}\right) \sum_{j=1}^T P(\|Z_j\|\ge s).
+  \end{align*}
+  And when $s \ge \frac{\omega_j\sigma^2}{K(\log\frac{K}{\sigma})^{1/\gamma}}$, we have that 
+  \begin{align*}
+  \left\| \mathbb{E}\sum_{j=1}^T g((\mathbf{X}_j^\top,\mathbf{\xi}_j^\top)^\top)\right\| \le \left(s + \frac{c K(\log \frac{K}{\sigma})^{1/\gamma}}{nTh}\right)\sum_{j=1}^T P(\|Z_j\|\ge s).
+  \end{align*}
+  Meanwhile we have the bound
+  \begin{equation*}
+  \left\|\mathbb{E}\sum_{j=1}^T g^2((\mathbf{X}_j^\top,\mathbf{\xi}_j^\top)^\top)\right\| \le \sum_{j=1}^T \frac{\omega_j^2}{n_j} \sigma_\xi^2\sigma_X^2 = \frac{\sigma^2}{N}.
+  \end{equation*}
+  Similar to Theorem 3 in \cite{samson2000concentration}, with the matrix value function $g(\cdot)$ and norm $\|\cdot\|_{\infty}$
+  \begin{align*}
+  & P\left(\left\|\sum_{j=1}^T g((\mathbf{X}_j^\top,\mathbf{\xi}_j^\top)^\top)\right\|\ge t\right) \\\le &P\left(\left\|\sum_{j=1}^T g((\mathbf{X}_j^\top,\mathbf{\xi}_j^\top)^\top) - \mathbb{E}\sum_{j=1}^T g((\mathbf{X}_j^\top,\mathbf{\xi}_j^\top)^\top)\right\|\ge t- \left\| \mathbb{E}\sum_{j=1}^T g((\mathbf{X}_j^\top,\mathbf{\xi}_j^\top)^\top)\right\|\right)\\ \le &
+  2m \exp\left\{-\frac{1}{8\Phi_Z^2}\min\left\{\frac{t}{2s},\frac{N t^2}{16\sigma^2}\right\}\right\},
+  \end{align*}
+  when $t \ge  \left\| \mathbb{E}\sum_{j=1}^T g((\mathbf{X}_j^\top,\mathbf{\xi}_j^\top)^\top)\right\|$.\\
+  Thus we have 
+  \begin{equation*}
+  \begin{aligned}
+  &P\left(\left\|\sum_{j=1}^T Z_{j}\right\|\ge t \right) \\ \le&
+  \sum_{j=(t-h/2)\vee 0}^{(t+h/2)\wedge T} 2m \exp\left\{-C\min\left\{\frac{n_j s^2}{w^2
+  _j \sigma^2}, \frac{n_j s}{\omega_j K(\log\frac{K}{\sigma})^{1/\gamma}}\right\}\right\} \\+ &2m \exp\left\{-\frac{1}{8\Phi_\mathcal{Z}^2}\min\left\{\frac{t}{2s},\frac{N t^2}{16\sigma^2}\right\}\right\}\\\le&
+  \sum_{j=(t-h/2)\vee 0}^{(t+h/2)\wedge T} 2m\exp\left\{-\frac{C n_j s^2}{\omega_j^2\sigma^2}\right\} +2m \exp\left\{-\frac{1}{8\Phi_\mathcal{Z}^2}\min\left\{\frac{t}{2s},\frac{N t^2}{16\sigma^2}\right\}\right\} \\\lesssim&
+  2m\exp\left\{-\frac{C n T^2 h^2 s^2}{\sigma^2} + \log T h\right\} +2m \exp\left\{-\frac{1}{8\Phi_\mathcal{Z}^2}\min\left\{\frac{t}{2s},\frac{N t^2}{16\sigma^2}\right\}\right\}
+  \end{aligned}
+  \end{equation*}
+  when $t\ge  \left\| \mathbb{E}\sum_{j=1}^T g((\mathbf{X}_j^\top,\mathbf{\xi}_j^\top)^\top)\right\| $ and $s \le \frac{\omega_j\sigma^2}{K(\log\frac{K}{\sigma})^{1/\gamma}}$.\\
+  And similarly 
+  \begin{align*}
+      & P\left(\left\|\sum_{j=1}^T Z_{j}\right\|\ge t \right) \\&\lesssim
+  2m\exp\left\{-C\frac{n T h s}{K (\log \frac{K}{\sigma})^{1/\gamma}} +\log Th\right\}+2m \exp\left\{-\frac{1}{8\Phi_\mathcal{Z}^2}\min\left\{\frac{t}{2s},\frac{N t^2}{16\sigma^2}\right\}\right\}
+  \end{align*}
+  when $t \ge  \left\| \mathbb{E}\sum_{j=1}^T g((\mathbf{X}_j^\top,\mathbf{\xi}_j^\top)^\top)\right\| $ and $s \ge \frac{\omega_j\sigma^2}{K(\log\frac{K}{\sigma})^{1/\gamma}}$.\\
+  When $$n\gtrsim \left(K(\log K/\sigma)^{1/\gamma}/\sigma\right)^2 \log (Thm),$$ choose 
+  \begin{equation*}
+      s\asymp n^{-1/2}(Th)^{-1}\sigma \log^{1/2} (Thm),\quad t\asymp n^{-1/2}(Th)^{-1/2}\sigma \Phi_\mathcal{Z} \log^{1/2} m.
+  \end{equation*}
+  If $$Th \gg \Phi_\mathcal{Z}^{2}\log (Thm)\log m,$$ we have that $t\gg s\Phi_\mathcal{Z}^2\log m.$\\
+  Meanwhile, when $$n \lesssim \left(K(\log K/\sigma)^{1/\gamma}/\sigma\right)^2 \log (Thm),$$ choose 
+  \begin{equation*}
+      s \asymp n^{-1}(Th)^{-1}K(\log K/\sigma)^{1/\gamma}\log (Thm),\quad t \asymp n^{-1/2}(Th)^{-1/2}\sigma \Phi_\mathcal{Z} \log^{1/2} m.
+  \end{equation*}
+  If $$nTh \gg (K(\log K/\sigma)^{1/\gamma}/\sigma)^2\Phi_\mathcal{Z}^2\log^2 (Thm) \log m,$$ we have that $t \gg s\Phi_\mathcal{Z}^2 \log m$.\\
+  Thus when $$Th \gg \Phi_\mathcal{Z}^{2}\log (Thm)\log m$$ and $$nTh \gg (K(\log K/\sigma)^{1/\gamma}/\sigma)^2\Phi_\mathcal{Z}^2\log^2 (Thm) \log m,$$ the inequality
+   \begin{equation*}
+  P\left(\left\|\sum_{j=1}^T \sum_{i=1}^{n_j} \frac{\omega_j}{n_j}\xi_{ji}(X_{ji}-\mathbb{E}(X_{ji}))\right\|\ge t \right)  \le \frac{1}{m}.
+  \end{equation*}
+  holds where $t \asymp n^{-1/2}(Th)^{-1/2}\sigma \Phi_\mathcal{Z} \log^{1/2} m.$\\
+  Similarly, we choose $t\asymp n^{-1/2}(Th)^{-1/2}\sigma_\xi \mu_X \Phi_\mathcal{Y}\log^{1/2} m$ and
+  \begin{equation*}
+  P\left(\left\|\sum_{j=1}^T\sum_{i=1}^{n_j} \frac{\omega_j}{n_j}\xi_{j i} \mathbb{E}(X_{ji})\right\|\ge t\right)\le \frac{1}{m}
+  \end{equation*}
+  holds when $Th \gg \Phi_{\mathcal{Y}}^2 \log (Thm)\log m$ and $$nTh \gg (K_1(\log K_1/\sigma_\xi)^{1/\alpha}/\sigma_\xi)^2\Phi_\mathcal{Y}^2\log^2 (Thm) \log m.$$
+  And choose $t\asymp n^{-1/2}(Th)^{-1/2} \varsigma \Phi_\mathcal{X}\log^{1/2} m$, we have
+  \begin{equation*}
+  P\left(\left\|\sum_{j=1}^{T} \sum_{i=1}^{n_{j}} \frac{\omega_j}{n_{j}} \left\{\left\langle M_0(j),X_{j i}\right\rangle X_{ji}-E\left(\left\langle M_0(j),X_{j i}\right\rangle X_{j i}\right)\right\}\right\|\ge t\right)\le \frac{1}{m}
+  \end{equation*}
+  holds when $Th \gg \Phi_{\mathcal{X}}^2 \log (Thm)\log m$ and $nTh \gg (\mathcal{K}(\log \mathcal{K}/\varsigma)^{2/\beta}/\varsigma)^2\Phi_\mathcal{X}^2\log^2 (Thm) \log m$.
+
+  Summarizing the above results with $\Phi_\mathcal{Z} \le \Phi_\mathcal{X}+\Phi_\mathcal{Y}$, we know that when $Th \gg (\Phi^2_{\mathcal{X}}\vee \Phi_\mathcal{Y}^2 )\log (Thm)$ and $nTh \gg \left(K^*/\sigma^*\right)^2(\Phi_\mathcal{X}^2\vee \Phi_{\mathcal{Y}}^2)\log^2(Thm)\log m$, there exists a constant $\mathcal{C}_1>0$, with probability at least $1-3/m$,
+  \begin{equation*}
+  \left\|\sum_{j=1}^T \omega_j \Delta_j\right\| \le \mathcal{C}_1 (\Phi_{\mathcal{X}}\vee \Phi_{\mathcal{Y}})\sigma^* \sqrt{\frac{\log (m_1+m_2)}{nTh}}.
+  \end{equation*}
+  Choose $$\lambda = 2\mathcal{C}_1(\Phi_{\mathcal{X}}\vee \Phi_{\mathcal{Y}})\sigma^* \sqrt{\frac{\log (m_1+m_2)}{nTh}}$$
+  and using Theorem 1 and proof of Theorem 2, we have that
+  \begin{equation*}
+      (m_1m_2)^{-1/2}\left\|\widetilde{M}_t^\lambda - M_t^0\right\|_2 \le \frac{1}{2}\alpha(K) D_2 h^2 + (1+\sqrt{2})\mathcal{C}_1(\Phi_{\mathcal{X}}\vee \Phi_{\mathcal{Y}}) \sigma^*\left(\frac{r_t\log(m_1+m_2)}{\mu^2m_1m_2nTh}\right)^{1/2}.
+  \end{equation*}
+  Note that $Th \gg \log(Th)$ when $Th\rightarrow\infty$, we can represent the condition $Th \gg (\Phi^2_{\mathcal{X}}\vee \Phi_\mathcal{Y}^2 )\log (Thm)$ and $nTh \gg \left(K^*/\sigma^*\right)^2(\Phi_\mathcal{X}^2\vee \Phi_{\mathcal{Y}}^2)\log^2(Thm)\log m$ as $Th \gg (\Phi^2_{\mathcal{X}}\vee \Phi_\mathcal{Y}^2 )\log m$ and $nTh \gg \left(K^*/\sigma^*\right)^2(\Phi_\mathcal{X}^2\vee \Phi_{\mathcal{Y}}^2)\log^3 m$  respectively.
+  
+\end{pf}
+
+\begin{cor}
+  \label{cor_matrix_completion_mixing}
+  Under assumptions of Theorem 3,  when $X_{ji}$ are i.i.d. uniformly distributed on $\mathcal{E}$, $\xi_{ji}$ are independently follow sub-exponential mean-zero distributions, $Th \gg\log (m_1+m_2)$ and $n T h \gg (m_1\wedge m_2)\log^{3+2/\alpha} (m_1+m_2)$,
+  then with probability at least $1-3/(m_1+m_2)$,
+  \begin{align*}
+  (m_1m_2&)^{-1/2}\left\|\widetilde{M}_t^\lambda - M_t^0\right\|_2 \\&\le
+  \frac{1}{2}\alpha(K)D_2h^2+
+  (1+\sqrt{2})\mathcal{C}_1(\Phi_{\mathcal{X}}\vee \Phi_{\mathcal{Y}}) (C_M\vee \sigma_\xi)\left(\frac{r_t(m_1\vee m_2)\log (m_1+m_2)}{nTh}\right)^{1/2}.
+  \end{align*}
+  When $nT\gg (m_1\vee m_2)\log^{(1+5/2\alpha)}(m_1+m_2)$ and $n^{-1}T^4\gg (m_1\vee m_2)^{-1}\log^4(m_1+m_2)$,  we select
+  $$h=\mathcal{C}_{h}\left(\frac{(C_M\vee \sigma_\xi)^2(\Phi_{\mathcal{X}}\vee \Phi_{\mathcal{Y}})^2r_t(m_1\vee m_2)\log(m_1+m_2)}{nT}\right)^{1/5},$$
+  then
+  \begin{equation}\label{eq_upper_bound_mc_mixing}
+  (m_1m_2)^{-1/2}\left\|\widetilde{M}_t^\lambda - M_t^0\right\|_2 \le \mathcal{C}_2(\Phi_{\mathcal{X}}\vee \Phi_{\mathcal{Y}})^{4/5}(C_M\vee \sigma_\xi)^{4/5}\left(\frac{r_t(m_1\vee m_2)\log(m_1+m_2)}{nT}\right)^{2/5},
+  \end{equation}
+  where $\mathcal{C}_1,\mathcal{C}_h,\mathcal{C}_2$ are the same constants as above.
+  \end{cor}
+ 
+The proofs of Corollary 3 %--\ref{cor_compress_sensing_mixing} 
+and \ref{cor_matrix_completion_mixing} are similar to those of Corollary 1 %--\ref{cor_compress_sensing}
+ and 2, which we do not repeat.
+
+\section{Application to Compressed Sensing}
+  \begin{cor}
+  \label{cor_compress_sensing}(Independent case)
+  Under Assumption 1-5, when $X_{ji}$ are random matrices with independent mean-zero sub-gaussian elements with variance $\sigma_X^2$, $\xi_{ji}$ are independently follow sub-gaussian distributions, $nTh\gg m_1\vee m_2$, $h\rightarrow0$ and $(m_1m_2)^{1/2}Th^2\rightarrow\infty$ as $n,m_1,m_2,T\rightarrow\infty$, with probability at least $1-2/(m_1+m_2)$,
+  {\small\begin{align*}     
+ & (m_1m_2)^{-1/2}\left\|\widetilde{M}_t^\lambda - M_t^0\right\|_2 \\&\le \frac{1}{2}\alpha(K)D_2h^2 +\left(1+\sqrt{2}\right)C_1\left[\eta\vee \{M (m_1 m_2)^{1/2}\}\right]\left(\frac{r_t\log(m_1+m_2)}{(m_1\wedge m_2)n Th}\right)^{1/2}+o(h^2),
+  \end{align*}}
+  When $nT\gg(m_1\vee m_2)\log(m_1+m_2)$, let 
+  \begin{equation*}
+    h = C_h\left(\frac{\left\{\eta^2 \vee(M^2 m_1 m_2)\right\}r_t\log(m_1+m_2)}{(m_1\wedge m_2)n T}\right)^{1/5},
+  \end{equation*}
+  then 
+  \begin{equation}\label{eq_upper_bound_cs}
+     (m_1m_2)^{-1/2}\left\|\widetilde{M}_t^\lambda - M_t^0\right\|_2 \le C_2 \left(\frac{\left\{\eta^2 \vee(M^2 m_1 m_2)\right\}r_t\log(m_1+m_2)}{(m_1\wedge m_2)n T}\right)^{2/5},
+  \end{equation}
+  where $\eta = \sigma_\xi/\sigma_X$ and $C_1,C_h,C_2$ are the same constants as above.
+  \end{cor}
+  
+  Theorem 6 in \cite{koltchinskii2011neumann} presented the error bound for static matrix compressed sensing which is
+  \begin{equation*}
+      (m_1m_2)^{-1/2}\left\|\widehat{M}_t^\lambda - M_t^0\right\|_2\le C_4\eta\left(\frac{ r_t}{(m_1\wedge m_2)n}\right)^{1/2}.
+  \end{equation*}
+  Similarly to the matrix completion, when $T\gg\eta^{-1}\{\eta^2 \vee(M^2 m_1 m_2)\}\{n(m_1\wedge m_2)\}^{1/4}\log(m_1+m_2)$, our dynamic method gives a sharper bound than the static method. 
+  
+  From Corollary 2 and Corollary \ref{cor_compress_sensing}, when the variances of observation errors $\xi_{ji}$ are small enough comparing to the variances of $X_{ji}$, i.e., $\sigma_\xi\le M$ in matrix completion setting and $\eta \le M(m_1m_2)^{1/2}$ in compressed sensing setting, the upper bound (15) and \eqref{eq_upper_bound_cs} have the same order such that
+  \begin{equation*}
+     (m_1m_2)^{1/2}\left\|\widetilde{M}_t^\lambda - M_t^0\right\|_2 \le C_2 M^{4/5}\left(\frac{r_t(m_1\vee m_2)\log(m_1+m_2)}{n T}\right)^{2/5}.
+  \end{equation*}
+
+\begin{pf}{\it of Corollary \ref{cor_compress_sensing}:}
+  Because $\mathbb{E}X_{ji}=0$, we know that $\mu_X=0$ and (b) in \eqref{eq:variance} becomes zero. From the distribution of $X_{ji}$ and Assumption 4, we know that $\beta=2$ and $K_2 \asymp (m_1\vee m_2)^{1/2}\sigma_X$ by Theorem 4.4.5 in \cite{vershynin2018high}. Also, it is easy to check that $K\asymp\sigma_\xi \sigma_X(m_1\vee m_2)^{1/2},\ \sigma = \sigma_\xi\sigma_X (m_1\vee m_2)^{1/2}$.
+  With that
+  \begin{align*}
+  &\left\|\mathbb{E}(\langle M_j^0,X_{j i}\rangle X_{j i}- \mathbb{E}(\langle M_j^0,X_{j i}\rangle X_{j i})(\langle M_j^0,X_{j i}\rangle X_{j i}- \mathbb{E}(\langle M_j^0,X_{j i}\rangle X_{j i})^T\right\|_{\infty}
+ % \\\le  &\left\|\mathbb{E}(\langle M_j^0,X_{j i}\rangle X_{j i})(\langle M_j^0,X_{j i}\rangle X_{j i})^T\right\|_{\infty}
+  \\\le &M^2 m_1m_2(m_1\vee m_2) \sigma^4_X
+  \end{align*}
+  and with Lemma \ref{lemma_psi_rela}
+  \begin{align*}
+      \left\|\langle M_j^0, X_{ji}\rangle X_{ji} - \mathbb{E}\langle M_j^0, X_{ji}\rangle X_{ji} \right\|_{\psi(1)} & \asymp \left\|\langle M_j^0,X_{ji}\rangle X_{ji} \right\|_{\psi(1)}
+      \\& \le \left\|\langle M_j^0,X_{ji}\rangle\right\|_{\psi(2)}\left\|X_{ji}\right\|_{\psi(2)}
+      \\&\le M (m_1m_2)^{1/2} \sigma_X^2,
+  \end{align*}
+  we have that $\varsigma\le M (m_1m_2)^{1/2}(m_1\vee m_2)^{1/2}\sigma^2_X,\mathcal{K}\lesssim M(m_1m_2)^{1/2}\sigma_X^2$.
+
+  Then it can be obtained that 
+  \begin{align*}
+      &\sigma^* = \left[\sigma_{\xi}\vee M \sigma_X(m_1 m_2)^{1/2}\right](m_1\vee m_2)^{1/2}\sigma_X\\
+      & K^*/\sigma^* \asymp (m_1\vee m_2)^{-1/2} \log(1/(m_1\vee m_2)).
+  \end{align*}
+  Apply Theorem 2 and Corollary 1, the proof is completed.
+  \end{pf}
+  
+  \begin{cor}
+  \label{cor_compress_sensing_mixing}(Dependent case.)
+  Under assumptions of Theorem 3,  when $X_{ji}$ are random matrices with independent mean-zero sub-gaussian elements with variance $\sigma_X^2$ and $\xi_{ji}$ are independently follow sub-gaussian distributions, $Th \gg \log (m_1+m_2)$ and $nTh \gg(m_1\vee m_2)$, with probability at least $1-2/(m_1+m_2)$,
+  \begin{align*}     
+  &(m_1m_2)^{-1/2}\left\|\widetilde{M}_t^\lambda - M_t^0\right\|_2\\& \le \frac{1}{2}\alpha(K)D_2h^2 +\left(1+\sqrt{2}\right)\mathcal{C}_1(\Phi_{\mathcal{X}}\vee \Phi_{\mathcal{Y}})\left[\eta\vee M (m_1 m_2)^{1/2}\right]\left(\frac{r_t\log(m_1+m_2)}{(m_1\wedge m_2)nTh}\right)^{1/2}.
+  \end{align*}
+  When $nT\gg (m_1\vee m_2)\log (m_1+m_2)$ and $n^{-1}T^4\gg (m_1\vee m_2)^{-1}\log^4(m_1+m_2)$, we select 
+  \begin{equation*}
+    h = \mathcal{C}_h\left(\frac{\left(\eta^2 \vee M^2 m_1 m_2\right)(\Phi_{\mathcal{X}}\vee \Phi_{\mathcal{Y}})^2r_t\log(m_1+m_2)}{(m_1\wedge m_2)nT}\right)^{1/5},
+  \end{equation*}
+  then 
+  \begin{equation*}%\label{eq_upper_bound_cs_mixing}
+     (m_1m_2)^{1/2}\left\|\widetilde{M}_t^\lambda - M_t^0\right\|_2 \le \mathcal{C}_2(\Phi_{\mathcal{X}}\vee \Phi_{\mathcal{Y}})^{4/5} \left(\frac{\left(\eta^2 \vee M^2 m_1 m_2\right)r_t\log(m_1+m_2)}{(m_1\wedge m_2)nT}\right)^{2/5},
+  \end{equation*}
+  where $\eta = \sigma_\xi/\sigma_X$ and $\mathcal{C}_1,\mathcal{C}_h,\mathcal{C}_2$ are the same constants as above.
+  \end{cor}
+The proof of Corollary \ref{cor_compress_sensing_mixing} 
+is similar to that of Corollary \ref{cor_compress_sensing}, which we do not repeat.
+
+
+
+\section{Proof of Theorem 4}
+\begin{pf}{\it of Theorem 4:}
+  First we know that \begin{align*}
+      \nabla f_t(M) = 2\sum_{j=1}^T \omega_j \left[\frac{1}{n_j}\sum_{i=1}^{n_j}\mathbb{E} \langle M,X_{ji}\rangle X_{ji}  - \frac{1}{n_j}\sum_{i=1}^{n_j}Y_{ji}X_{ji}\right].
+  \end{align*}
+  This gives
+  \begin{align*}
+      \left\|\nabla f_t(M) - \nabla f_t(N)\right\|_2 &= \left\|2\sum_{j=1}^T \frac{\omega_j}{n_j}\sum_{i=1}^{n_j} \mathbb{E}\langle M - N,X_{ji}\rangle X_{ji}\right\|_2
+      \\&\le 2\left\|\sum_{j=1}^T \frac{\omega_j}{n_j}\sum_{i=1}^{n_t} \left(\|X_{ji}\|_2X_{ji}\right)\right\|_2\|M-N\|_2.
+  \end{align*}
+  Define that $2L_f = 4\left\|\sum_{j=1}^T \omega_h(j-t)/n_j\sum_{i=1}^{n_j} \left(\|X_{ji}\|_2X_{ji}\right)\right\|_2$,
+  \cite{toh2010accelerated} proved that for any $k>1$,
+  \begin{equation}
+  \label{eq_algorithm}
+  F_t(M_t^{(k)}) - F_t(\widetilde{M}_t^\lambda) \le \frac{2 L_f\|M_t^{(0)} - \widetilde{M}_t^\lambda\|_2^2}{(k+1)^2}.
+  \end{equation}
+  Note that \eqref{eq_algorithm} focuses on the convergence rate of object function $ F_t(M_t^{(k)})$ instead of $M_t^{(k)}$.from (\ref{eq_algorithm}) we know 
+  \begin{equation*}
+  \begin{aligned}
+  & \sum_{j=1}^T \omega_j \mathcal{C}_j(M_t^{(k)},M_t^{(k)}) -2 \sum_{j=1}^T \omega_j \left\langle \frac{1}{n_j}\sum_{i=1}^{n_j} Y_{j i}X_{j i},M^{(k)}_{t} \right\rangle + \lambda \|M^{(k)}_{t} \|_1\\
+  \le &
+  \sum_{j=1}^T \omega_j \mathcal{C}_j(\widehat{M}_t^{\lambda},\widehat{M}_t^{\lambda})-2 \sum_{j=1}^T \omega_j \left\langle \frac{1}{n_j}\sum_{i=1}^{n_j} Y_{j i}X_{j i}, \widehat{M}_t^{\lambda} \right\rangle + \lambda \|\widehat{M}_t^{\lambda}\|_1 + \frac{2L_f\gamma_t^2}{(k+1)^2}
+  \\\le & 
+  \sum_{j=1}^T \omega_j \mathcal{C}_j(M,M) -2 \sum_{j=1}^T \omega_j \left\langle \frac{1}{n_j}\sum_{i=1}^{n_j} Y_{j i}X_{j i}, M\right\rangle + \lambda \|M\|_1 + \frac{2L_f\gamma_t^2}{(k+1)^2}
+  \end{aligned}
+  \end{equation*}
+  for any $M\in \mathbb{M}$.
+  Therefore, we have
+  \begin{equation*}
+  \begin{aligned}
+  &\sum_{j=1}^T \omega_j \mathcal{C}_j(M_t^{(k)}- M_j^0,M_t^{(k)}- M_j^0)\\ \le & \sum_{j = 1}^T \omega_j \mathcal{C}_j(M-M_j^0,M-M_j^0) +\left\langle 2\sum_{j=1}^T \omega_j  \Delta_j,M_t^{(k)} - M\right \rangle \\+&\lambda (\|M\|_1-\|M_t^{(k)}\|_1) +\frac{2L_f\gamma_t^2}{(k+1)^2}.
+  \end{aligned} 
+  \end{equation*}\\
+  With the assumption that $\lambda >2\|\sum_{j=1}^T \omega_j\Delta_j\|_{\infty}$, we use the similar methods in proof of Theorem 1 and immediately know that
+  \begin{equation*}
+  \begin{aligned}
+  &\left\|M_t^{(k)} - M_t^0\right\|_2\\\le & \left\|M_t^0-\sum_{j=1}^T \omega_h(j-t) M_j^0\right\|_2 +\left(\left\|M_t^0-\sum_{j=1}^T \omega_h(j-t) M_j^0\right\|_2^2 +\frac{2\lambda}{\mu}\|M_t^0\|_1 + \frac{2L_f\gamma_t^2}{\mu(k+1)^2}\right)^{1/2}.
+  \end{aligned}
+  \end{equation*}
+  Next, we consider $F_t(\widetilde{M}_t^\lambda +  M) - F_t(\widetilde{M}_t^\lambda)$ with the decomposition 
+  \begin{equation*}
+  \begin{aligned}
+  M &=P_{S_1^\perp} M P_{S_2^\perp}\oplus P_{S_1}M P_{S_2}\oplus P_{S_1}MP_{S_2^\perp} \oplus P_{S_1^\perp}MP_{S_2}\\&:=
+  M^{\perp}\oplus M^{//}\oplus M^{//1}\oplus M^{//2}
+  \\&=  \oplus_{j=1}^{l_1} \sigma^{\perp}_j M^{\perp}_j \oplus_{j=1}^{l_2}\sigma_j^{//}M^{//}_j\oplus_{j=1}^{l_3} \sigma_j^{//1}M_j^{//_1} \oplus_{j=1}^{l_4}\sigma_j^{//2} M_j^{//2},
+  \end{aligned}
+  \end{equation*}
+  where $\widetilde{M}_t^\lambda=\sum_{i=1}^r \sigma_i u_i v_i^\top$ with support $S_1,S_2$, $P_{S_1^\perp}MP_{S_2^{\perp}}=\sum_{i=1}^{l_1} \sigma^{\perp}_i u^{\perp}_i (v^{\perp}_j)^\top$ and 
+  \begin{equation*}
+  \begin{aligned}
+  &\widetilde{M}_t^\lambda +\theta M^{\perp}_j = \sum_{i=1}^r \sigma_i u_i v_i^\top + \theta  u^{\perp}_j (v^{\perp}_j)^\top,\\
+  & \widetilde{M}_t^\lambda+\theta M_j^{//} = \sum_{i=1}^r\sigma_i u_i v_i^\top + \theta u_{\alpha_j}v_{\beta_j}^\top,\\
+  &  \widetilde{M}_t^\lambda+\theta M_j^{//1} = \sum_{i\not = \alpha_{1,j}}\sigma_i u_i v_i^\top + \sqrt{\sigma^2_{\alpha_{1,j}} + \theta^2}u_{\alpha_{1,j}}\left(\frac{\sigma_{\alpha_{1,j}}}{\sqrt{\sigma^2_{\alpha_{1,j}} + \theta^2}}v_{\alpha_{1,j}} +\frac{\theta}{\sqrt{\sigma^2_{\alpha_{1,j}} + \theta^2}}v^{\perp}_{\beta_{1,j}}\right)^\top ,\\
+  &   \widetilde{M}_t^\lambda+\theta M_j^{//2} = \sum_{i\not = \alpha_{2,j}}\sigma_i u_i v_i^\top + \sqrt{\sigma^2_{\alpha_{2,j}} + \theta^2}\left(\frac{\sigma_{\alpha_{2,j}}}{\sqrt{\sigma^2_{\alpha_{2,j}} + \theta^2}}u_{\alpha_{2,j}} +\frac{\theta}{\sqrt{\sigma^2_{\alpha_{2,j}} + \theta^2}}u^{\perp}_{\beta_{2,j}}\right)v_{\alpha_{2,j}}^\top.
+  \end{aligned}
+  \end{equation*}
+  Using the convexity of $F_t(\cdot)$, we have that for all $M,N\in \mathbb{M}$ and $B\in \partial F_t(M)$,
+  \begin{equation}
+  \label{convex_eq}
+  F_t(N) \ge F_t(M)+ \langle B, N-M\rangle
+  \end{equation}
+  and
+  \begin{equation}
+  \label{decom_sum}
+  F_t(\widetilde{M}_t^\lambda + M ) - F_t(\widetilde{M}_t^\lambda ) \ge  \sum_{\cdot \in \mathcal{A}}\left( F_t(\widetilde{M}_t^\lambda +  M^\cdot )- F_t(\widetilde{M}_t^\lambda )\right)
+  \end{equation}
+  where $\mathcal{A}=\left\{\perp,//,//1,//2\right\}$.
+  Because $\widetilde{M}_t^\lambda$ is the minimizer of $F_t(M)$, there exists a matrix $\widehat{B} \in \partial F_t(\widetilde{M}_t^\lambda)$ satisfies that for all $M\in \mathbb{M}$,
+  $$\langle \widehat{B}, \widetilde{M}_t^\lambda- M\rangle \le 0,$$
+  which means that there exists 
+  \begin{equation}
+  \label{partial hat}
+  \widehat{V}_t\in\partial \|\widetilde{M}_t^\lambda \|_1 = \sum_{j=1}^r u_j v_j^\top +P_{S_1^\perp}\widehat{W}P_{S_2^\perp},\quad \|\widehat{W}\|_{\infty}\le 1
+  \end{equation}
+  satisfying that
+  \begin{equation}
+  \label{mono_sub}
+  2\sum_{j=1}^T \omega_j \left(\mathcal{C}_j( \widetilde{M}_t^\lambda, \widetilde{M}_t^\lambda-M) - \left\langle\frac{1}{n_j}\sum_{i=1}^{n_j}Y_{ji}X_{ji},\widetilde{M}_t^\lambda-M\right\rangle\right) +\lambda \langle \widehat{V}_t,\widetilde{M}_t^\lambda -M\rangle \le 0.
+  \end{equation}
+  Set $\varepsilon > \xi>0$.
+  \begin{itemize}
+  \item[a.] We know that for all $B_\xi \in \partial F_t(\widetilde{M}_t^\lambda +\xi M^{\perp})$,
+  \begin{equation*}
+  \begin{aligned}
+  &F_t(\widetilde{M}_t^\lambda +\varepsilon M^{\perp})- F_t(\widetilde{M}_t^\lambda +\xi M^{\perp})  \\\ge &(\varepsilon-\xi )\langle B_\xi,M^{\perp}\rangle\\=&
+  (\varepsilon-\xi)\left[2\sum_{j=1}^T \omega_j \left(\mathcal{C}_j( \widetilde{M}_t^\lambda + \xi M^{\perp}, M^{\perp})- \left\langle\frac{1}{n_j}\sum_{i=1}^{n_j}Y_{j i}X_{j i},M^{\perp}\right\rangle\right) +\lambda \langle V_\xi,M^{\perp}\rangle \right]
+  \end{aligned}
+  \end{equation*}
+  holds for all
+  \begin{align*}&V_\xi \in \partial \|\widetilde{M}_t^\lambda +\xi M^{\perp}\|_1 \\ =&
+  \left\{\sum_{j=1}^r u_j v_j^\top +\sum_{j=1}^{l_1} u^{\perp}_j (v^{\perp}_j)^\top + P_{(S_1\oplus_{j=1}^{l_1} u_j)^{\perp}}W P_{(S_2\oplus_{j=1}^{l_1} v_j)^{\perp}},\|W\|_{\infty}\le 1\right\}.
+  \end{align*}
+  With (\ref{partial hat}) and (\ref{mono_sub}), setting $M= \widetilde{M}_t^\lambda +M^{\perp}$, we know that
+  \begin{equation*}
+  \begin{aligned}
+  &2\sum_{j=1}^T \omega_j \left(\mathcal{C}_j( \widetilde{M}_t^\lambda + \xi M^{\perp}, M^{\perp}) - \left\langle\frac{1}{n_j}\sum_{i=1}^{n_j}Y_{j i}X_{j i},M^{\perp}\right\rangle\right) +\lambda \langle V_\xi,M^{\perp}\rangle
+  \\\ge &
+  2\sum_{j=1}^T \omega_j \mathcal{C}_j( \xi M^{\perp},M^{\perp}) + \lambda\langle V_\xi - \widehat{V},M^{\perp}\rangle \\=&
+  2\xi \sum_{j=1}^T \omega_j \mathcal{C}_j(M^{\perp},M^{\perp})\\+&\lambda \left\langle  \sum_{j=1}^{l_1}u^{\perp}_j (v^{\perp}_j)^\top + P_{(S_1\oplus_{j=1}^{l_1} u_j)^{\perp}}W P_{(S_2\oplus_{j=1}^{l_1} v_j)^{\perp}} - P_{S_1^{\perp}} \widehat{W}P_{S_2^{\perp}},\sum_{j=1}^{l_1}\sigma^\perp_j u_j^\perp (v_j^\perp)^\top\right\rangle \\\ge &
+  2\xi\mu\|M^\perp\|^2_2,
+  \end{aligned}
+  \end{equation*}
+  in which we use that
+  \begin{equation*}
+  \begin{aligned}
+  & \left\langle  \sum_{j=1}^{l_1}u^{\perp}_j (v^{\perp}_j)^\top + P_{(S_1\oplus_{j=1}^{l_1} u_j)^{\perp}}W P_{(S_2\oplus_{j=1}^{l_1} v_j)^{\perp}} - P_{S_1^{\perp}} \widehat{W}P_{S_2^{\perp}},\sum_{j=1}^{l_1}\sigma_j^\perp u_j^\perp (v_j^\perp)^\top\right\rangle \\
+  =& \sum_{j=1}^{l_1}\sigma_j^\perp \left(1- P_{u_j^\perp}P_{S_1^\perp}\widehat{W}P_{S_2^\perp}P_{v_j^\perp}\right)\ge 0.
+  \end{aligned}
+  \end{equation*}
+  So we have 
+  \begin{equation*}
+  F_t(\widetilde{M}_t^\lambda +\varepsilon M^{\perp}) - F_t(\widetilde{M}_t^\lambda + \xi M^{\perp})
+  \ge 2(\varepsilon-\xi)\xi \mu\|M^\perp\|_2^2,
+  \end{equation*}
+  which means that
+  \begin{equation}
+  \label{re_a}
+  F_t(\widetilde{M}_t^\lambda +\varepsilon M^{\perp}) - F_t(\widetilde{M}_t^\lambda)
+  \ge \mu \|M^\perp\|_2^2\int_{0}^ \varepsilon 2\xi d\xi =\varepsilon^2\mu\|M^\perp\|_2^2.
+  \end{equation}
+  \item[b.] Similarly, we know that for all $B_\xi \in \partial F_t(\widetilde{M}_t^\lambda +\xi M^{//})$
+  \begin{equation*}
+  \begin{aligned}
+  &F_t(\widetilde{M}_t^\lambda +\varepsilon M^{//})- F_t(\widetilde{M}_t^\lambda +\xi M^{//})  \\\ge &
+  (\varepsilon-\xi)\left[2\sum_{j=1}^T \omega_j \left(\mathcal{C}_j( \widetilde{M}_t^\lambda + \xi M^{//}, M^{//}) - \left\langle\frac{1}{n_j}\sum_{i=1}^{n_j}Y_{j i}X_{j i},M^{//}\right\rangle\right) +\lambda \langle V_\xi,M^{//}\rangle \right]
+  \end{aligned}
+  \end{equation*}
+  holds for all
+  $$V_\xi \in \partial \|\widetilde{M}_t^\lambda +\xi M^{//}\|_1  \supset \partial \|\widetilde{M}_t^\lambda\|_1 .$$
+  Choose $V_\xi=\widehat{V}$, so
+  \begin{equation*}
+  2\sum_{j=1}^T \omega_j \left(\mathcal{C}_j( \widetilde{M}_t^\lambda + \xi M^{//}, M^{//})- \left\langle\frac{1}{n_j}\sum_{i=1}^{n_j}Y_{j i}X_{j i},M^{//}\right\rangle\right) +\lambda \langle V_\xi,M^{//}\rangle  \ge 2\xi \mu\|M^{//}\|_2^2,
+  \end{equation*}
+  which means that
+  \begin{equation}
+  \label{re_b}
+  F_t(\widetilde{M}_t^\lambda +\varepsilon M^{//})- F_t(\widetilde{M}_t^\lambda)\ge \varepsilon^2 \mu\|M^{//}\|_2^2.
+  \end{equation}
+  \item[c.] Similarly, we have that for all $B_\xi \in \partial F_t(\widetilde{M}_t^\lambda +\xi M^{//1})$
+  \begin{equation*}
+  \begin{aligned}
+  &F_t(\widetilde{M}_t^\lambda +\varepsilon M^{//1})- F_t(\widetilde{M}_t^\lambda +\xi M^{//1})  \\\ge &
+  (\varepsilon-\xi)\left[2\sum_{j=1}^T \omega_j \left(\mathcal{C}_j( \widetilde{M}_t^\lambda + \xi M^{//1}, M^{//1}) - \left\langle\frac{1}{n_j}\sum_{i=1}^{n_j}Y_{j i}X_{j i},M^{//1}\right\rangle\right) +\lambda \langle V_\xi,M^{//1}\rangle \right]
+  \end{aligned}
+  \end{equation*}
+  holds for all
+  \begin{align*}&V_\xi \in \partial \|\widetilde{M}_t^\lambda +\xi M^{//1}\|_1  \\=&\left\{\sum_{j\not\in \alpha_{1}}u_j v_j^\top +\sum_{j=1}^{l_3}u_{\alpha_{1,j}}\widetilde{v}_j^\top + P_{S_1^\perp}W P_{(S_2/_{j=1}^{l_3}v_{\alpha_{1,j}}\oplus_{j=1}^{l_3} \widetilde{v}_{j})^\perp},\|W\|_{\infty}\le 1\right\}\end{align*}
+  with $$\widetilde{v}_j=\frac{\sigma_{\alpha_{1,j}}}{\sqrt{\sigma^2_{\alpha_{1,j}} + \xi^2}}v_{\alpha_{1,j}} +\frac{\xi}{\sqrt{\sigma^2_{\alpha_{1,j}} + \xi^2}}v^{\perp}_{\beta_{1,j}}.$$
+  So we have 
+  \begin{equation*}
+  \begin{aligned}
+  &2\sum_{j=1}^T \omega_j \left(\mathcal{C}_j( \widetilde{M}_t^\lambda + \xi M^{//1}, M^{//1})- \left\langle\frac{1}{n_j}\sum_{i=1}^{n_j}Y_{j i}X_{j i},M^{//1}\right\rangle\right) +\lambda \langle V_\xi,M^{//1}\rangle
+  \\\ge &
+  2\sum_{j=1}^T \omega_j \mathcal{C}_j( \xi M^{//1},M^{//1}) + \lambda\langle V_\xi - \widehat{V},M^{//1}\rangle \\=&
+  2\xi \sum_{j=1}^T \omega_j \mathcal{C}_j(M^{//1},M^{//1}) \\+&\lambda \left\langle  \sum_{j=1}^{l_3}\left(u_{\alpha_{1,j}}\widetilde{v}_j^T - u_{\alpha_{1,j}}v_{\alpha_{1,j}}^T\right)+ P_{S_1^\perp} W P_{(S_2/_{j=1}^{l_3}v_{\alpha_{1,j}}\oplus_{j=1}^{l_3} \widetilde{v}_{j})^\perp} - P_{S_1^\perp}\widehat{W}P_{S_2^\perp}\right.,\\&\left. \sum_{j=1}^{l_3}\sigma_j^{//1} u_{\alpha_{1,j}}v_{\beta_{1,j}}^\perp \right\rangle \\\ge &
+  2\xi\mu\|M^{//1}\|_2^2 + \lambda \sum_{j=1}^{l_3}\frac{\sigma_{j}^{//1}\xi }{\sqrt{\sigma_{\alpha_{1,j}}^2+ \xi^2}}.
+  \end{aligned}
+  \end{equation*}
+  Then
+  \begin{equation*}
+  F_t(\widetilde{M}_t^\lambda +\varepsilon M^{//1})- F_t(\widetilde{M}_t^\lambda +\xi M^{//2})\ge 2(\varepsilon-\xi)\xi \mu\|M^{//1}\|_2^2 +(\varepsilon-\xi)\lambda \sum_{j=1}^{l_3}\frac{\sigma_{j}^{//1}\xi }{\sqrt{\sigma_{\alpha_{1,j}}^2+ \xi^2}},
+  \end{equation*}
+  which means that
+  \begin{equation}
+  \label{re_c}
+  \begin{aligned}
+  F_t(\widetilde{M}_t^\lambda +\varepsilon M^{//1})- F_t(\widetilde{M}_t^\lambda)&\ge \mu\|M^{//1}\|_2^2 \int_{0}^\varepsilon 2\xi d\xi  + \lambda \sum_{j=1}^{l_3}\int_{0}^\varepsilon \frac{\sigma_{j}^{//1}\xi }{\sqrt{\sigma_{\alpha_{1,j}}^2 +\xi^2}}d\xi
+  \\&= \varepsilon^2 \mu\|M^{//1}\|_2^2 + \lambda\sum_{j=1}^{l_3}\sigma_{j}^{//1} \left(\sqrt{\sigma_{\alpha_{1,j}}^2+\varepsilon^2}-\sigma_{\alpha_{1,j}}\right).
+  \end{aligned}
+  \end{equation}
+  \item[d.] The result is similar to (\ref{re_c}) as
+  \begin{equation}
+  \label{re_d}
+  F_t(\widetilde{M}_t^\lambda +\varepsilon M^{//2})- F_t(\widetilde{M}_t^\lambda)\ge  \varepsilon^2 \mu\|M^{//2}\|_2^2 + \lambda\sum_{j=1}^{l_4}\sigma_{j}^{//2} \left(\sqrt{\sigma_{\alpha_{2,j}}^2+\varepsilon^2}-\sigma_{\alpha_{2,j}}\right).
+  \end{equation}
+  \end{itemize}
+  Using (\ref{decom_sum}), (\ref{re_a}), (\ref{re_b}), (\ref{re_c}), (\ref{re_d}), we know that
+  \begin{equation}
+  \label{value_ineq}
+  \begin{aligned}
+  F_t(\widetilde{M}_t^\lambda +  M ) - F_t(\widetilde{M}_t^\lambda ) &\ge  \sum_{\cdot \in \mathcal{A}}\left( F_t(\widetilde{M}_t^\lambda + M^{\cdot} )- F_t(\widetilde{M}_t^\lambda )\right)\\& \ge 
+  \mu \sum_{\cdot \in \mathcal{A}}\|M^\cdot\|_2^2 + \lambda\sum_{j=1}^{l_3}\sigma_{j}^{//1} \left(\sqrt{\sigma_{\alpha_{1,j}}^2+1}-\sigma_{\alpha_{1,j}}\right)\\&+\lambda\sum_{j=1}^{l_4}\sigma_{j}^{//2} \left(\sqrt{\sigma_{\alpha_{2,j}}^2+1}-\sigma_{\alpha_{2,j}}\right)
+  \\& \ge \mu\sum_{\cdot\in \mathcal{A}}\|M^{\cdot}\|_2^2.
+  \end{aligned}
+  \end{equation}
+  Meanwhile, we can easily check that $\langle M^{\cdot},M^{*}\rangle = 0$ hold  for all $\cdot,*\in \mathcal{A},\ \cdot\not = *$, so we have 
+  \begin{equation}
+  \label{norm_ineq}
+  \|M\|_2^2 = \left\|\sum_{\cdot \in\mathcal{A}}M^{\cdot}\right\|_2^2=\sum_{\cdot\in \mathcal{A}}\|M^{\cdot}\|_2^2.
+  \end{equation}
+  With (\ref{eq_algorithm}), (\ref{value_ineq}), (\ref{norm_ineq}) and set $M=M^{(k)}_t-\widetilde{M}_t^\lambda$, we have that
+  \begin{equation*}
+  \|M^{(k)}_t-\widetilde{M}_t^\lambda\|_2^2 \le  \frac{2L_f \gamma_t^2}{(k+1)^2\mu}.
+  \end{equation*}
+  Finally, with Theorem 1, the proof is finished. 
+\end{pf}
+
+
+\section{Proof of Corollary 4}
+\label{sec:iteration}
+\begin{pf}{\it of Corollary 4:}
+  From (18), under the conditions in Corollary 3, with probability at least $1-3/(m_1+m_2)$, 
+   \begin{equation*}
+  (m_1m_2)^{-1/2}\left\|\widetilde{M}_t^\lambda - M_t^0\right\|_2 \le \mathcal{C}_2\left(\frac{{\sigma^*}^2(\Phi_\mathcal{X}\vee \Phi_\mathcal{Y})^2r_t\log(m_1+m_2)}{\mu^2m_1m_2 n T}\right)^{2/5}.
+  \end{equation*}
+  When $k_1$ satisfies
+  \begin{align*}
+      k_1 \ge \mathcal{C}_2^{-1}\left(\frac{{\sigma^*}^2(\Phi_\mathcal{X}\vee \Phi_\mathcal{Y})^2r_t\log(m_1+m_2)}{\mu^2m_1m_2 n T}\right)^{-2/5} \left(\frac{2L_f\gamma_1^2}{\mu m_1m_2}\right)^{1/2}.
+  \end{align*}
+  then
+  \begin{equation*}
+      (m_1m_2)^{-1/2} \left(\frac{2 L_f\gamma_t^2}{\mu (k_1+1)^2}\right)^{1/2} \le \mathcal{C}_2\left(\frac{{\sigma^*}^2(\Phi_\mathcal{X}\vee \Phi_\mathcal{Y})^2r_t\log(m_1+m_2)}{\mu^2m_1m_2 n T}\right)^{2/5}
+  \end{equation*}
+  and thus
+  \begin{equation*}
+      (m_1m_2)^{-1/2} \left\|M_1^{(k_1)} - M_1^0\right\|_2 \le 2\mathcal{C}_2\left(\frac{{\sigma^*}^2(\Phi_\mathcal{X}\vee \Phi_\mathcal{Y})^2r_t\log(m_1+m_2)}{\mu^2m_1m_2 n T}\right)^{2/5}.
+  \end{equation*}
+  Similarly, for $t=2,3,\cdots,T$ in the random initial, we have 
+  \begin{equation*}
+      K_0 =T k_1 \ge \mathcal{C}_2^{-1}\left(\frac{{\sigma^*}^2(\Phi_\mathcal{X}\vee \Phi_\mathcal{Y})^2r_t\log(m_1+m_2)}{\mu^2m_1m_2 n T}\right)^{-2/5} \left(\frac{2L_f\gamma_1^2}{\mu m_1m_2}\right)^{1/2}T.
+  \end{equation*}
+  In the proposed initial strategy, for $t=2,3,\dots,T$,   when 
+  \begin{equation*}
+  k_t \ge \mathcal{C}_2^{-1}\left(\frac{{\sigma^*}^2(\Phi_\mathcal{X}\vee \Phi_\mathcal{Y})^2r_t\log(m_1+m_2)}{\mu^2m_1m_2 n T}\right)^{-2/5} \left(\frac{2L_f\gamma_t^2}{\mu m_1m_2}\right)^{1/2},
+  \end{equation*}
+  we have
+  \begin{equation*}
+  \gamma_t \le 3\mathcal{C}_2(m_1m_2)^{1/2}\left(\frac{{\sigma^*}^2(\Phi_\mathcal{X}\vee \Phi_\mathcal{Y})^2r_t\log(m_1+m_2)}{\mu^2m_1m_2 n T}\right)^{2/5}+ \frac{D_1}{T},
+  \end{equation*}
+  which gives
+  \begin{equation*}
+  (m_1m_2)^{-1/2}\left\|M_t^{(k_t)} - M_1^0\right\|_2\le2\mathcal{C}_2\left(\frac{{\sigma^*}^2(\Phi_\mathcal{X}\vee \Phi_\mathcal{Y})^2r_t\log(m_1+m_2)}{\mu^2m_1m_2 n T}\right)^{2/5}.
+  \end{equation*}
+  Choosing
+  \begin{align*}
+  K_1=\sum_{t=1}^T k_t &= \mathcal{C}_2^{-1}\left(\frac{{\sigma^*}^2(\Phi_\mathcal{X}\vee \Phi_\mathcal{Y})^2r_t\log(m_1+m_2)}{\mu^2m_1m_2 n T}\right)^{-2/5} \left(\frac{2L_f}{\mu m_1m_2}\right)^{1/2}\sum_{t=1}^T {\gamma_t}\\&\le 
+  \mathcal{C}_2^{-1}\left(\frac{{\sigma^*}^2(\Phi_\mathcal{X}\vee \Phi_\mathcal{Y})^2r_t\log(m_1+m_2)}{\mu^2m_1m_2 n T}\right)^{-2/5} \left(\frac{2L_f}{\mu m_1m_2}\right)^{1/2} \times\\&
+  \left(\gamma_1 + T\left(3\mathcal{C}_2(m_1m_2)^{1/2}\left(\frac{{\sigma^*}^2(\Phi_\mathcal{X}\vee \Phi_\mathcal{Y})^2r_t\log(m_1+m_2)}{\mu^2m_1m_2 n T}\right)^{2/5}+ \frac{D_1}{T}\right)\right)\\&=
+  \mathcal{C}_2^{-1}\left(\frac{{\sigma^*}^2(\Phi_\mathcal{X}\vee \Phi_\mathcal{Y})^2r_t\log(m_1+m_2)}{\mu^2m_1m_2 n T}\right)^{-2/5} \left(\frac{2L_f}{\mu m_1m_2}\right)^{1/2}(\gamma_1 +D_1) \\&+ 3\sqrt{2}(\frac{L_f}{\mu})^{1/2}T,
+  \end{align*}
+  and the proof is finished.
+\end{pf}
+For independent case, we need to obtain the error bound
+ \begin{equation}\label{eq_bound_indpt_alg}
+  (m_1m_2)^{-1/2}\left\|M_t^{(k_t)} - M_t^0\right\|_2 \le 2C_2\left(\frac{\sigma_*^2r_t\log(m_1+m_2)}{\mu^2m_1m_2 n T}\right)^{2/5}
+  \end{equation}
+  and the parallel result is 
+  \begin{cor}
+  \label{cor_iteration_step_indpt}
+  Under assumptions of Theorem 2, to attain \eqref{eq_bound_indpt_alg} for each $t=1,\ldots,T$,
+  the total iteration step $K_0$ of random initial choice satisfies
+  \begin{equation*}
+  K_0 \ge  \frac{1}{2}C_2^{-1}\left(\frac{\sigma_*^2r_t\log(m_1+m_2)}{\mu^2m_1m_2}\right)^{-2/5} \left(\frac{2L_f}{\mu m_1m_2}\right)^{1/2}\gamma_1 n^{2/5}T^{7/5},
+  \end{equation*}
+  and total iteration step $K_1$ of the proposed initial strategy satisfies
+  \begin{equation*}
+  K_1 \ge  \frac{1}{2} C_2^{-1}\left(\frac{\sigma_*^2 r_t\log(m_1+m_2)}{\mu^2m_1m_2}\right)^{-2/5}\left(\frac{2L_f}{\mu m_1m_2}\right)^{1/2} (\gamma_1 +D_1) (nT)^{2/5}+ 3\sqrt{2}\left(\frac{L_f}{\mu}\right)^{1/2}T.
+  \end{equation*}
+  \end{cor}
+  The proof of Corollary \ref{cor_iteration_step_indpt} and is similar to that of Corollary 4 and hence we omit it here.% Here we only prove Corollary \ref{cor_iteration_step_mixing} as an example.
+
+
+  
+\section{Additional Numerical Results}
+\label{supp:data}
+\subsection{Netflix Dataset with varying the choosing of number of time intervals $T$}
+
+We conduct a numerical analysis using Netflix data, encompassing 1034 movies that were viewed more than 25000 times. We sample 3000 users from those whose ratings occurred more than 30 times in the dataset. The analysis focus on the first 500000 ratings recorded from October 1998 to November 2005. These ratings are randomly divided, with $80\%$ assigned as training data and the remaining $20\%$ as test data. To explore the impact of varying $T$ while keeping $nT$ constant, we consider 10 different values of $T$ ranging from 1 to 1000 and split the observations into $T$ time intervals in chronological order. After applying our method, results are presented in Figure \ref{fig:netflix_diff_t} and Table \ref{tab:netflix_diff_t}.
+
+
+For sufficiently large $T$ ($T\ge 50$), the variation in $T$ exerts a negligible influence on precision, but it results in an increase in time consumption. When $T$ is too small ($T< 50$), merging data across a substantial temporal range into a single time point can result in a loss of temporal information, rendering the utilization of data inefficient. This observation also corresponds to the dynamic nature inherent in the underlying low-rank matrix, signifying its dynamic essence rather than a static state. 
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.7\linewidth]{netflix_diff_t.pdf}
+    \caption{Mean square error for different $T$ in each time interval.}
+    \label{fig:netflix_diff_t}
+\end{figure}
+
+\begin{table}[!ht]
+    \centering
+    \caption{Average mean square error for different $T$.}
+    \label{tab:netflix_diff_t}
+    \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c}
+    \hline
+         $T$& $1$ & $2$ & $5$ & $10$ & $20$  & $50$ & $100$  & $200$  & $500$  & $1000$ \\
+         \hline
+         MSE*& 1.194 &0.881 & 0.886 & 0.825 &0.812 & 0.800&0.803 &0.802 & 0.801 & 0.802\\
+         \hline
+    \end{tabular}
+\end{table}
+
+
+\subsection{Netflix Dataset with Link Function}
+\label{supp:9.1}
+\change{In the real data experiment with Netflix dataset, each rating $Y_i$ is a discrete integer from $1$ to $5$. %We did not employ pre-processing or link function to handle the discrete values of $Y$ in article. 
+Here we add experiment results with link function for the Netflix dataset. We assume that each user possesses a latent rating to each movie. Given the rating system's constraint of integer values ranging from 1 to 5, we consider the observed rating $Y_i$ derived from a transformation $\varphi$ on the corresponding latent rating $Z_i$, and assume that users typically tend to choose integer values in proximity to their latent ratings with a certain probability as their final ratings, i.e.,}
+  \begin{align*}
+      Y_i = \varphi(Z_i) = \left\{\begin{array}{ll}
+      1 & Z_i < 0.5\\
+           \lfloor Z_i +0.5\rfloor  + \delta_i  & 0.5\le Z_i < 5.5\\
+           5 & Z_i \ge 5.5
+      \end{array}
+      \right.
+  \end{align*}
+  where $\delta_i,i=1,2,\cdots,n$ follow independent Bernoulli distributions with probability $Z_i - \lfloor Z_i +0.5\rfloor$ to take value 1 and $\lfloor\cdot \rfloor$ is the floor operator.
+  And we estimate $M_t^0$ by
+  \begin{align*}
+       \widetilde{M}_t^{\lambda}=\argmin_{M\in\mathbb{M}}\mathbb{E}_{\delta} \sum_{j=1}^T\frac{\omega_h(j-t)}{n_j}\sum_{i=1}^{n_j}\left[\mathbb{E}(\varphi(\left\langle M,X_{ji}\right\rangle))^2 - 2Y_{ji} \varphi\left(\left\langle X_{ji}, M \right\rangle\right)\right] +\lambda \|M\|_1. 
+  \end{align*}
+  \change{ We followed a similar procedure and conducted new experiments with results  presented in Figure \ref{fig:link_version}. It is interesting to note  that the inclusion of this link function performs worse. One possible reason might be that the link function may not accurately reflect the true mechanism of users' ratings. Thus, in this example, we opted to not use such a link function to illustrate the proposed method. However, this does not necessarily imply a link function is not needed in general, e.g., a more flexible form of link function by nonparametric techniques can be considered  for future research.}
+  \begin{figure}[!ht]
+  \centering 
+  \includegraphics[width=0.7\linewidth]{netflix_compare_linkwithnolink.pdf}
+  \caption{MSE with and without link functions}
+  \label{fig:link_version}
+  \end{figure} 
+\subsection{Image Classification}
+\label{supp:cifar10}
+% \change{We conducted an experiment using the CIFAR10 dataset to verify that the trace regression framework was beneficial to the subsequent image tasks like classification or regression when the original dataset only contains incomplete information with noise. Following the same approach described in the real data example that processing the video data, we treated each channel of every image as a matrix $M$ and applied the Robust Principal Component Analysis (RPCA) method to obtain the sparse and low-rank components $S$ and $L$ respectively. To generate the dataset we need, the low-rank component $L$ was compressed by only saving a subset of elements in it and perturbing those elements with i.i.d. normal noises. The recovery process proceeded by applying our method to recover the low-rank component from the saved subset of elements in $L$ and subsequently adding the sparse component $S$.} A performance comparison was conducted between directly using the compressed data and utilizing the data obtained after image recovery based on the trace regression framework. For subsequent classification tasks, we employed LeNet and ResNet18 models, and the corresponding results are presented in Table \ref{table:classfication}. Here, $\rho$ represents the compression rate, and Acc denotes the classification accuracy in the test dataset. The results indicate that by recovering the images prior to classification, the classification accuracy can be enhanced by approximately $3\%\sim 5\%$ for the aforementioned compressed datasets.
+\change{
+ An experiment was conducted utilizing the CIFAR-10 dataset to assess the efficacy of the trace regression framework in improving subsequent image-related tasks, such as classification or regression. The CIFAR-10 dataset is publicly available at \href{https://www.cs.toronto.edu/~kriz/cifar.html}{https://www.cs.toronto.edu/$\sim$ kriz/cifar.html}. This evaluation is particularly relevant when the original dataset is plagued by incomplete information and noise. Employing a similar approach as detailed in the real-world example involving video data processing, we treated each image's individual channel as a matrix denoted by $M$. Subsequently, we employed the Robust Principal Component Analysis (RPCA) method to acquire the sparse ($S$) and low-rank ($L$) components, respectively. For the purpose of dataset generation, we randomly preserved a subset of elements from the low-rank component ($L$), subjecting these elements to perturbation using i.i.d. normal noises. The recovery process involved applying our method to retrieve the low-rank component from the saved subset of elements in $L$ and subsequently adding the sparse component $S$. We compared the performance of directly using the compressed data with utilizing the data obtained after image recovery based on the trace regression framework. For the classification tasks, we utilized LeNet and ResNet18 models. The corresponding results are presented in Table \ref{table:classfication}. In the table, $\rho$ represents the compression rate, and Acc denotes the classification accuracy in the test dataset. The findings suggest that prior image recovery before classification can lead to an enhancement in classification accuracy by approximately $3\%$ to $5\%$ for the aforementioned compressed datasets.
+}
+
+\begin{table}[]
+    \centering
+    \caption{Comparison of classification results}
+    \label{table:classfication}
+    \begin{tabular}{c|c|c|c}
+    \hline
+       $\rho$ & Network  &No recovery Acc & Recovery Acc\\
+       \hline
+        $18.5\%$ & LeNet & $50.59\%$ & $55.94\%$\\
+        \hline
+         $18.5\%$ & ResNet & $74.57\%$& $75.75\%$\\
+        \hline
+        $39.1\%$ & LeNet & $52.86\%$ & $58.7\%$\\
+        \hline
+         $39.1\%$ & ResNet & $76.83\%$ & $80.40\%$\\
+        \hline
+        $58.6\%$ & LeNet & $54.64\%$ & $61.03\%$\\
+        \hline
+         $58.6\%$ & ResNet & $77.24\%$ & $82.1\%$\\
+        \hline
+        $100\%$ & LeNet & $59.09\%$ & $61.56\%$\\
+        \hline
+        $100\%$ & ResNet & $80.69\%$ & $83.41\%$\\
+        \hline
+    \end{tabular}
+\end{table}
+\subsection{The selection of $\lambda$ and other parameters in the FISTA algorithm}  
+\label{secS:lambda}
+
+\change{
+We first remark that the optimal tuning parameter $\lambda$ can be chosen for each time points $t$. The penalty term can be relaxed to depend on $t$, and the theoretical analysis is still valid with slight modification. In practice, based on our experience with  extensive numerical studies, the universal chosen $\lambda$ would not produce similarity in the low-rank structure in terms of ranks and estimated eigen-space, and can substantially reduce the computational cost associated with tuning hyper-parameters. Theoretically, considering the heterogeneous case in Assumption \ref{assump_hete} as an example and assuming that the change of $\nu_t$ over $t$ is not very large, i.e. there exist $\nu$ to bound $\nu_t$ such that $(1-c)\nu <\nu_t< (1+C)\nu$ with constants $c,C>0$. With the same order assumption for sample size $n_t\asymp n$, $\lambda$ and $h$ has the optimal selection from Theorem 2 and (17) for each $t$ by
+\begin{align}
+\label{eq:tuning}
+h_t=C_{h,t}\left(\frac{\sigma_*^2 r_t \log \left(m_1+m_2\right)}{\nu_t^2 m_1 m_2 n T}\right)^{1 / 5},\quad 
+\lambda_t=2 C_{1,t} \sigma_* \sqrt{\frac{\log \left(m_1+m_2\right)}{n T h}},
+\end{align}
+where $C_{h,t}$ and $C_{1,t}$ are related to $M_t^0$. With regularity and smoothness assumption 2, there exist $C_h,C_1>0$ to bound $C_{h,t},c_{1,t}$ as their change is also not very large. So we can choose a universal bandwidth $h$ and tuning parameter $\lambda$ with the error bound for $\widetilde{M}^\lambda_t$ optimal up to a constant scalar.}
+
+\change{
+Next, we present the  detailed parameters in the FISTA algorithm of the simulation.
+In our proposed method, we set the tolerance (tor) to around $1\times 10^{-3}$, which is a commonly used for the termination of optimization. For the initial time point $t=1$, we employ the following strategy,
+{\small\begin{align*}
+    [M_{1}^{(0)}]_{ij} = \left\{\begin{array}{ll}
+        0, & \text{if the $(i,j)$ element is not observed at time 1,} \\
+        Y_{1k}, & \text{if the $(i,j)$ element is observed at time 1, using the observation $Y_{1k}.$}
+    \end{array}\right.
+\end{align*} }
+Then the output of last time $(t-1)$ is used as the initial matrix for current time $t$, i.e., 
+\begin{align*}
+    M_{t}^{(0)} = M_{t-1}^{(k_{t-1})}.
+\end{align*}
+The Lipchitz constant $L_f$ here has an upper bound which can be calculated directly as
+\begin{align*}
+    L_f = 2\left\|\sum_{j=1}^T \frac{\omega_h(j-t)}{n_j}\sum_{i=1}^{n_j} (\|X_{ji}\|_2X_{ji})\right\|_2,
+\end{align*}
+and the detail proof can be found in Supplementary S.6. 
+% Those settings for our benchmarks and for the dependence case are all the same as the independent settings above.
+These parameters are set in the same way for the benchmark, independent and dependent cases.
+}
+
+\change{
+We employ a 5-fold cross-validation (CV) approach to select the tuning parameter $\lambda$ in both independent and dependent settings. In our empirical findings, we observed that the results exhibit minimal differences when $\lambda$ falls within a certain suitable range. To mitigate computational complexity in tuning the parameter, we suggest employing a coarse grid to estimate a rough range for $\lambda$ and subsequently using a finer grid to make the final selection. When altering the matrix size, sample size, or the number of simulation points, it is not necessary to re-select $\lambda$ using CV. Instead, we can rely on the theoretical relationship
+\begin{align*}
+    \lambda = 2C_1\sigma_*\sqrt{\frac{\log(m_1+m_2)}{nTh}}
+\end{align*}
+to adjust the new $\lambda$ accordingly.
+}
+
+\subsection{Rank Changes in Simulation and Real Data Experiment}
+\label{supp:rank}
+For the simulation, we show the rank of recovered matrices in independent setting with $\rho = 0.2$ and $\sigma= 1$ in Table \ref{table:simulation} after truncating those dimensions with single values smaller than $\sigma$. For the Netflix dataset, the rank for Filter 1 is in Table \ref{table:netflix_filter1} and for Filter 2 is in Table \ref{table:netflix_filter2} after truncating those dimensions with single values smaller than $3\sqrt{1035}$. For the lions video dataset, the rank for low rank part $L$ is in Table \ref{table:lions} after truncating those dimensions with single values smaller than $0.5\sqrt{480}$.
+
+\begin{table}[!ht]
+    \centering
+    \caption{Rank for Simulation in independent setting with $\rho = 0.2 $ and $\sigma= 1$}
+    \label{table:simulation}
+    \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c}
+    \hline
+     T & 1&2 &3 &4 &5 & 6 & 7& 8 & 9 & 10&  11  & 12&   13&   14&   15&   16&   17 &  18 &  19  & 20\\
+     Rank & 12 & 10 & 9 & 9 & 9 & 9 & 9 & 9 & 9 & 9& 9 & 9& 9 & 9 & 9 & 9 & 9 & 9 & 9 & 9\\
+     \hline
+    T & 21 &  22  & 23&   24 &  25 &  26 &  27 &  28  & 29 &  30  & 31 &  32 &  33  & 34 &  35&   36&   37 & 38  & 39 &  40 \\
+     Rank  & 9 & 9& 9 & 9 & 9 & 9 & 9 & 9 & 9 & 9& 9 & 9& 9 & 9 & 9 & 9 & 9 & 9 & 9 & 9 \\
+     \hline
+    T &41  & 42&   43 &  44 &  45  & 46  & 47  & 48 &  49 &  50 &  51  & 52& 
+ 53 &  54  & 55  & 56 &  57 &  58 &  59 &  60  \\
+ Rank  & 9 & 9& 9 & 9 & 9 & 9 & 9 & 9 & 9 & 9& 9 & 9& 9 & 9 & 9 & 9 & 9 & 9 & 9 & 9 \\
+  \hline
+T & 61 &  62  & 63 &  64 &  65 &  66 &  67 &  68  & 69&   70  & 71  & 72 &  73 &  74 &  75 &  76  & 77 &  78 &  79  & 80 \\
+  Rank & 9 & 9& 9 & 9 & 9 & 9 & 9 & 9 & 9 & 9& 9 & 9& 9 & 9 & 9 & 9 & 9 & 9 & 9 & 9\\
+ \hline
+T &  81 &  82&   83 &  84  & 85 &  86 &  87  & 88 &  89 &  90 &  91 &  92 &  93&   94 &  95 &  96&   97 &  98 &  99 & 100\\
+  Rank& 9 & 9& 9 & 9 & 9 & 9 & 9 & 9 & 9 & 9  & 9 & 9& 9 & 9 & 9 & 9 & 9 & 9 & 9& 11\\
+   \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[!ht]
+    \centering
+    \caption{Rank for Netflix dataset using Filter 1}
+    \label{table:netflix_filter1}
+    \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c}
+    \hline
+     T & 1&2 &3 &4 &5 & 6 & 7& 8 & 9 & 10&  11  & 12&   13&   14&   15&   16&   17 &  18 &  19  & 20\\
+     Rank & 3& 3 &3 &3 &3 &3 &3& 3& 3 &3 &3& 3 &3& 3& 3& 3& 3 &3& 3& 3 \\
+     \hline
+    T & 21 &  22  & 23&   24 &  25 &  26 &  27 &  28  & 29 &  30  & 31 &  32 &  33  & 34 &  35&   36&   37 & 38  & 39 &  40 \\
+     Rank  & 2& 2&2 &2 &2 &2 &2& 2& 2 &2 &2& 2 &2& 2& 2& 2&2 &2& 2& 2  \\
+     \hline
+    T &41  & 42&   43 &  44 &  45  & 46  & 47  & 48 &  49 &  50 &  51  & 52& 
+ 53 &  54  & 55  & 56 &  57 &  58 &  59 &  60  \\
+ Rank& 2& 2&2 &2 &2 &2 &2& 2& 2 &2 &2& 2 &2& 2& 2& 2&2 &2& 2& 2  \\
+  \hline
+T & 61 &  62  & 63 &  64 &  65 &  66 &  67 &  68  & 69&   70  & 71  & 72 &  73 &  74 &  75 &  76  & 77 &  78 &  79  & 80 \\
+  Rank& 2& 2&2 &2 &2 &2 &2& 2& 2 &2 &2& 2 &2& 2& 2& 2&2 &2& 2& 2 \\
+ \hline
+T &  81 &  82&   83 &  84  & 85 &  86 &  87  & 88 &  89 &  90 &  91 &  92 &  93&   94 &  95 &  96&   97 &  98 &  99 & 100\\
+  Rank & 2& 3 &3 &3 &3 &3 &3& 3& 3 &3 &3& 3 &3& 3& 3& 3& 3 &3& 3& 3\\
+   \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[!ht]
+    \centering
+    \caption{Rank for Netflix dataset using Filter 2}
+    \label{table:netflix_filter2}
+    \begin{tabular}{c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c}
+    \hline
+     T & 1&2 &3 &4 &5 & 6 & 7& 8 & 9 & 10&  11  & 12&   13&   14&   15&   16&   17 &  18 &  19  & 20\\
+     Rank & 3&  3&  3 & 3&  4 & 4 & 3&  3&  4&  4&  4&  4 & 4 & 3 & 4&  4&  3&  3&  4 & 3 \\
+     \hline
+    T & 21 &  22  & 23&   24 &  25 &  26 &  27 &  28  & 29 &  30  & 31 &  32 &  33  & 34 &  35&   36&   37 & 38  & 39 &  40 \\
+     Rank   & 3 & 3&  3&  3 & 4 & 3 & 3&  4&  3&  3 & 3 & 3&  3 & 3&  3 & 3&  3&  3 & 3 & 3 \\
+     \hline
+    T &41  & 42&   43 &  44 &  45  & 46  & 47  & 48 &  49 &  50 &  51  & 52& 
+ 53 &  54  & 55  & 56 &  57 &  58 &  59 &  60  \\
+ Rank & 4 & 3&  3 & 3 & 3 & 3 & 4 & 3 & 3 & 3 & 3&  3&  3 & 3 & 4&  4 & 3&  4 & 3 & 3 \\
+  \hline
+T & 61 &  62  & 63 &  64 &  65 &  66 &  67 &  68  & 69&   70  & 71  & 72 &  73 &  74 &  75 &  76  & 77 &  78 &  79  & 80 \\
+  Rank & 3&  3&  4&  3 & 4 & 3 & 4&  4&  4 & 3 & 3&  3&  3 & 3 & 3 & 4&  4&  4  & 4&  3\\
+ \hline
+T &  81 &  82&   83 &  84  & 85 &  86 &  87  & 88 &  89 &  90 &  91 &  92 &  93&   94 &  95 &  96&   97 &  98 &  99 & 100\\
+  Rank &  4 & 4 & 3 & 4&  4&  4&  3&  3 & 4&  3&  4&  4&  4&  4 & 4 & 4 & 4&  3 & 3 & 3\\
+   \hline
+    \end{tabular}
+\end{table}
+
+\begin{table}[!ht]
+    \centering
+    \caption{Rank for lions video dataset}
+    \label{table:lions}
+    \begin{tabular}{c|c|c|c|c|c}
+    \hline
+         T &  5 & 25 & 45 & 65 & 85 \\
+         \hline
+         Rank (Channel Red)& 6&5&6&5&6\\
+         Rank (Channel Green) & 6&4&5&4&6\\
+         Rank (Channel Blue) & 4 & 4 & 4 & 4& 4\\
+         \hline
+    \end{tabular}
+\end{table}
+
+\end{document}

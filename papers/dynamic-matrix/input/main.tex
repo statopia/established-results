@@ -1,0 +1,1081 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{natbib}
+\usepackage{url} % not crucial - just used below for the URL 
+\usepackage{amsfonts,amsmath,verbatim,amssymb,epsfig,enumitem,url,amsbsy,enumitem,color,natbib,graphicx}
+% \usepackage{geometry}
+\usepackage{algorithm, algorithmic}
+\usepackage{bm,ulem,courier}
+\usepackage{subfigure}
+\usepackage{float}
+%\pdfminorversion=4
+
+% NOTE: To produce blinded version, replace "0" with "1" below.
+\newcommand{\blind}{1}
+
+% DON'T change margins - should be 1 inch all around.
+\addtolength{\oddsidemargin}{-.5in}%
+\addtolength{\evensidemargin}{-1in}%
+\addtolength{\textwidth}{1in}%
+\addtolength{\textheight}{1.7in}%
+\addtolength{\topmargin}{-1in}%
+
+\def\references{\bibliography{reference}}
+%\bibliographystyle{rss}
+\renewcommand\refname{ \noindent \bf References \vspace{0.0in}}
+  %reduce spacing between bibitems with natbib package
+  \let\oldthebibliography=\thebibliography
+  \let\endoldthebibliography=\endthebibliography
+  \renewenvironment{thebibliography}[1]{
+    \begin{oldthebibliography}{#1}
+      \setlength{\parskip}{0ex}
+      \setlength{\itemsep}{0.ex}}
+  {\end{oldthebibliography}}
+
+\newcommand{\myvec}[1]%
+{\stackrel{\raisebox{-2pt}[0pt][0pt]{\tiny$\rightharpoonup$}}{#1}}
+
+\def\v{{\varepsilon}}
+\def\red{\textcolor{red}}
+\def\blue{\textcolor{blue}}
+% \def\old{\sout{\textcolor{blue}}}
+\makeatletter
+\newenvironment{breakablealgorithm}
+  {% \begin{breakablealgorithm}
+   \begin{center}
+     \refstepcounter{algorithm}% New algorithm
+     \hrule height.8pt depth0pt \kern2pt% \@fs@pre for \@fs@ruled 画线
+     \renewcommand{\caption}[2][\relax]{% Make a new \caption
+       {\raggedright\textbf{\ALG@name~\thealgorithm} ##2\par}%
+       \ifx\relax##1\relax % #1 is \relax
+         \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##2}%
+       \else % #1 is not \relax
+         \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##1}%
+       \fi
+       \kern2pt\hrule\kern2pt
+     }
+  }{% \end{breakablealgorithm}
+     \kern2pt\hrule\relax% \@fs@post for \@fs@ruled 画线
+   \end{center}
+  }
+\makeatother
+
+
+\newcommand{\oldchange}[1]{\textcolor{black}{#1}}
+
+\newcommand{\change}[1]{\textcolor{black}{#1}}
+
+%\startlocaldefs
+%\numberwithin{equation}{section}
+%\theoremstyle{plain}
+%\newtheorem{theorem}{Theorem}%[section]
+%\newtheorem{assumption}{Assumption}
+%\renewcommand\proofname{Proof}
+%\renewcommand\contentsname{Contents}
+\renewcommand\refname{References}
+\renewcommand\figurename{Figure}
+\renewcommand\tablename{Table}
+\newtheorem{thm}{Theorem}
+\newtheorem{cor}{Corollary}
+\newtheorem{prop}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{assump}{Assumption}
+\newtheorem{remark}{Remark}
+\newtheorem{emp}{Example}
+\def\argmin{\mathop{\rm argmin}}
+\def\rank{\mathop{\rm rank}}
+\def\bias{bias}
+\def\myvec{\mathop{\rm vec}}
+\def\Tr{\operatorname{Tr}}
+\def\cost{\mathcal{C}}
+
+\newenvironment{pf}{{\noindent\it Proof}\ }{\hfill $\square$\par}
+%\endlocaldefs
+
+
+\usepackage{xr-hyper}
+\usepackage{hyperref}
+\makeatletter
+\newcommand*{\addFileDependency}[1]{
+\typeout{(#1)}
+\@addtofilelist{#1}
+\IfFileExists{#1}{}{\typeout{No file #1.}}
+}
+\makeatother
+
+% \newcommand*{\myexternaldocument}[1]{%
+% \externaldocument{#1}%
+% \addFileDependency{#1.tex}%
+% \addFileDependency{#1.aux}%
+% }
+% \myexternaldocument{DMC_supp}
+
+
+\begin{document}
+
+%\bibliographystyle{natbib}
+
+\def\spacingset#1{\renewcommand{\baselinestretch}%
+{#1}\small\normalsize} \spacingset{1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\if1\blind
+{
+  \title{\bf Dynamic Matrix Recovery}
+  \author{
+  Ziyuan Chen\\    
+    School of Mathematical Sciences, Center for Statistical Science, \\
+    Peking University, Beijing, China\\ 
+  Ying Yang\\
+    Academy of Mathematics and Systems Science, \\ 
+    Chinese Academy of Sciences, Beijing, China\\
+    Fang Yao
+     \thanks{
+    Ziyuan Chen and Ying Yang are the co-first authors, and contribute equally to this work. Fang Yao is the corresponding author, E-mail: fyaomath.pku.edu.cn.  Fang Yao's research is partially supported by the National Key R\&D Program of China (No. 2022YFA1003801, 2020YFE0204200), the National Natural Science Foundation of China (No. 12292981, 11931001), the LMAM and the Fundamental Research Funds for the Central Universities and the LMEQF.  Ying Yang's research is partially supported by China Postdoctoral Science Foundation (No. 2022TQ0360, 2022M723334), the National Natural Science Foundation of China (No. 71988101) and the Guozhi Xu Posdoctoral Research Foundation.
+       }\hspace{.2cm} 
+    \\
+    School of Mathematical Sciences, Center for Statistical Science, \\
+    Peking University, Beijing, China\\ 
+  }  
+\date{}
+\maketitle
+} \fi
+
+\if0\blind
+{
+  \bigskip
+  \bigskip
+  \bigskip
+  \begin{center}
+    {\LARGE\bf Dynamic Matrix Recovery}
+\end{center}
+\date{}
+\medskip
+} \fi
+
+
+
+\bigskip
+\begin{abstract}
+Matrix recovery from sparse observations is an extensively studied topic emerging in various applications, such as recommendation system and signal processing, which includes the matrix completion and compressed sensing models as special cases.
+In this work, we propose a general framework for dynamic matrix recovery of low-rank matrices that evolve smoothly over time. We start from the setting that the observations are independent across time, then extend to the setting that both the design matrix and noise possess certain temporal correlation via modified concentration inequalities. By pooling neighboring observations, we obtain sharp estimation error bounds of both settings, showing the influence of the underlying smoothness, the dependence and effective samples. We propose a dynamic fast iterative shrinkage-thresholding algorithm that is computationally efficient, and characterize the interplay between algorithmic and statistical convergence. Simulated and real data examples are provided to support such findings.
+\end{abstract}
+
+\noindent%
+{\it Keywords:}  compressed sensing, local smoothing, low rank, matrix completion %algorithmic error
+\vfill
+
+\newpage
+\spacingset{1.9} % DON'T change the spacing!
+\section{Introduction}
+\label{intro}
+  Matrix recovery from sparse observations has been extensively studied in a wide range of problems, such as signal processing \citep{li2019survey}, recommendation system \citep{koren2009matrix} and the quantum state tomography \citep{gross2010quantum}. The classical model is to link the response $Y$ with the random matrix $X\in\mathbb{R}^{m_1\times m_2}$ via
+  \begin{equation}\label{eq:static model 0}
+      Y = \Tr(X^\top M^0) + \xi
+  \end{equation}
+  to recover the low-rank matrix $M^0\in\mathbb{R}^{m_1\times m_2}$ from the independent observations $\{(X_i,Y_i)\}_{i=1}^n$, where $\Tr(\cdot)$ is the trace of a matrix, $\xi$ is a mean zero random error and $n$ denotes the sample size, which is typically much smaller than $m_1 m_2$ (i.e., $n \ll m_1 m_2$). By imposing different assumptions
+on $X$, the model includes a variety of matrix recovery models, in which matrix completion and compressed sensing are two important cases.
+  %   \begin{emp}\label{emp:classicalmc} (Matrix completion). $X_{i}$ are i.i.d. uniformly distributed on the set
+  % \begin{equation*}
+  % \mathcal{E}=\{e_j(m_1)e_k^\top(m_2):1\le j\le m_1, 1\le k\le m_2\},
+  % \end{equation*}
+  % where $e_j(m)$ are the canonical basis vectors in $\mathbb{R}^m$.
+  % \end{emp} 
+  % \begin{emp}\label{emp:classicalcs} (Compressed sensing). $X_{i}$ are i.i.d. replications of a random matrix $X$ such that $\langle M,X\rangle$ is a sub-gaussian random variable for any $M\in\mathbb{R}^{m_1\times m_2}$. 
+  % \end{emp} 
+  Most existing works assume that the target matrix $M^0$ is static \citep{klopp2011rank,koltchinskii2015optimal,fan2021shrinkage,xia_statistical_2021}. 
+  However, there are various scenarios where $M^0$ is dynamic and observed at multiple time points,
+  such as in time-varying user interests in recommendation systems \citep{xu2020contextual}, temporally-changed graph models \citep{qiu2017time} and dynamic quantum dot matrices \citep{csurgay2000signal}. 
+  To formulate a general framework accounting the dynamic changes in numerous applications, we propose investigating the recovery of the dynamic matrix as follows,
+  \begin{equation}\label{eq:dynamic model 0}
+      Y_t = \Tr(X_t^\top M_t^0) + \xi_t,\ t=1,\ldots,T,
+  \end{equation}
+  where $t$ is the timestamp, $\{Y_t,X_t,\xi_t\}$ is the tuple of the response, the design matrix and the noise at time $t$, respectively, and $M_t^0$ is a dynamic matrix which is assumed smooth across time $t$ with a low-rank structure. 
+
+A prevalent line of research for solving the classical static model \eqref{eq:static model 0} is to impose strict low-rank constraints based on matrix factorization. For instance, \cite{keshavan2009matrix} proposed singular value decomposition to make the recovery, \cite{zhao2015nonconvex} used QR decomposition instead, and \cite{zheng2016convergence} adopted Burer-Monteiro factorization for rectangle matrix completion. %\red{Various optimization algorithms can be adopted for these approaches, such as alternating minimization in \cite{jain2013low} and \cite{hardt2014understanding} }%and \cite{jain2015fast}. %and \cite{chen_inference_2019}
+  Another stream is the convex approaches, thanks to \cite{candes2009exact} that first relaxed the non-convex rank restriction to nuclear norm for efficient optimization. 
+  A variety of convex algorithms and theoretical results are further established \citep{recht_guaranteed_2010,candes2011tight%,negahban2011estimation
+  ,agarwal2012noisy}. 
+  Though $M_t^0$ in \eqref{eq:dynamic model 0} can be recovered by adopting the static matrix recovery at each time $t$, these {\it single-stage} estimates are less desirable, as they only use data at time $t$ to reconstruct $M_t^0$ and fail to take advantage of the neighboring observations and smoothness of the underlying matrix. %The detailed theoretical and numerical comparisons are presented in Section \ref{theo} and \ref{exper}.
+Related work also includes tensor regression to rebuild $M_t^0$, which views the dynamic model \eqref{eq:dynamic model 0} from a static perspective by letting $N\in\mathbb{R}^{T\times m_1\times m_2}$ be a three order tensor whose $(t,i,j)$th element is the $(i,j)$th element of $M_t^0$. %By assuming the low-rank structure of $N$, one can adopt the tensor trace regression methods to recover $N$. %\cite{zhou2017tensor,zhang2016exact} established tensor factorization methods for low-rank tensor completion and 
+ \cite{gandy2011tensor} and \cite{liu2012tensor} %and \cite{xu2013parallel}
+  proposed algorithms for tensor completion and % and apply convex optimization algorithms like ADMM. %\cite{kressner2014low} performed Riemannian optimization techniques on the manifold of low-rank tensors and
+  \cite{zhang2020islet} considered the low-rank tensor trace regression via the importance sketching algorithm. %We mention that the  tensor trace regression can be viewed as an extension of the static model \eqref{eq:static model 0} to the higher-order case. 
+We mention that their low-rank assumption of $N$ is different from model \eqref{eq:dynamic model 0} that $M_t^0$ is dynamically and smoothly evolving along time $t$. Consequently, one needs to process the whole data to recover $M_t$ in tensor regression setting, which is time- and space-consuming. 
+  % When $T/m_1$ is large, $N$ only possesses smooth property instead of low-rank on the temporal dimension, which is different from the settings of low-rank tensor.
+
+
+A more efficient approach is to adopt the dynamic modeling/algorithm that avoids computing the whole data for update and has been adopted in some relevant problems. 
+%  \cite{fan1999statistical} estimated the time-varying regression model with a two-step local polynomial method and \cite{cai2003local} developed a local partial likelihood technique to estimate the dynamic coefficients in Cox's regression model. For multivariate problems,
+\cite{lois2015online} designed a memory-saving algorithm for batch robust principle component analysis; \cite{gao2018dynamic} studied dynamic robust principal component analysis and proposed a fast iterative algorithm; \cite{hu2021dynamic} proposed a unified framework to directly estimate dynamic principal subspace in high dimension. The dynamic algorithm for matrix recovery has been explored in \cite{xu2016dynamic}, which assumed that $\xi_t$ are independently and identically distributed (i.i.d.) zero-mean Gaussian error and imposed a parametric assumption on structure of the underlying matrix, $M_t^0=M_{t-1}^0+\varepsilon_t$, where $\varepsilon_t$ are i.i.d. zero-mean Gaussian noises.
+\oldchange{Another line of work, namely the dynamic tensors, also finds extensive applications in various domains, and several works have been noted in this direction. For instance, \cite{zhang2021dynamic} proposed a time-varying coefficient model for temporal tensor factorization, employing a polynomial spline approximation, and \cite{zhou2013tensor} introduced a family of rank-R generalized linear tensor regression models. Most of the current research on dynamic tensors relies on tensor decomposition techniques and assumes that only certain decomposition factors or coefficients are changing \citep{zhang2021dynamic,bi2021tensors,koren2009collaborative,wang2016recommending}.}
+% The associated optimization problem is often non-convex, which may result in issues with the stability and algorithm convergence.
+  
+% In this work, we consider general scenarios without a parametric structure {\it priori}. 
+\oldchange{Different from the existing work, we consider the general scenario  where the dynamics are not limited to decomposition components or a parametric structure {\it priori}.}
+There exist two major challenges. First, one needs to maintain the low-rank structure in the whole procedure of dynamic algorithm. Second, the combination of neighboring information often inflates the estimation error when the observations are correlated along time.
+% Thus it is natural to 
+To resolve these, we utilize local smoothing which has the advantages that the manifold structure of low-dimensional matrices can be approximately retained and temporal dependence has less influence when $T$ increases. 
+Based on these considerations, we propose a dynamic matrix recovery algorithm without imposing structural assumption besides smoothness and allowing the measurement error $\xi_t$ and/or design matrix $X_t$ to be possibly dependent across time.
+ The idea is to pool together the observations that lie in the local window to estimate $M_t^0$. Noting that $M_t^0$ is low-rank, we set the target function composed of a locally weighted loss function and the nuclear norm penalty of $M_t^0$ and propose a Dynamic Fast Iterative Shrinkage-Thresholding Algorithm (DFISTA) for optimization. %We start from the ideal case that the observations are independent across time, then further consider the case where both the treatment and measure error possess certain temporal correlation. By assuming that $X_t$ and/or $\xi_t$ are mixing processes that may be  unbounded, the assumptions for classical concentration inequalities are violated \citep{samson2000concentration, merlevede2009bernstein, merlevede2011bernstein,hang2017bernstein}. We propose to use the modified Talagrand's inequalities and appropriate truncation techniques to derive the convergence rate of the proposed estimate in the dependent setting. 
+ 
+  The main contributions of this work are summarized as follows.
+  First, we establish a general framework for dynamic matrix recovery with theoretical guarantees. We allow the underlying matrix varying smoothly under the low-rank constraint and allow the observations to be dependent across time, which has more flexibility and applicability. While existing works only study the estimation error bounds for specific problems such as matrix completion and compressed sensing \citep{koltchinskii_nuclear-norm_2011,negahban2011estimation,xu2016dynamic,fan2021shrinkage}, we derive the error bounds under this general framework, which can be readily adopted to such matrix recovery problems.
+  Second, the proposed method attains a faster convergence rate than classical static methods in the following sense. Take the matrix completion for instance. The ratio of error bounds of the proposed estimator compared to the classical one (i.e., single-stage estimates at each $t$) is $O_p\big(\{m\log m/n_t\}^{-1/10}T^{-2/5}\big)$, where $n_t$ is the number of observations at time $t$ and $m=m_1\vee m_2$ ("$\vee$" indicates the greater of two quantities). When the observations are sparse in the sense that $n_t\ll m\log m$, the ratio becomes $o_p\big(T^{-2/5}\big)$. %In other words, the proposed method imposes a much lower requirement on the sample size to achieve the same estimation performance as the static method.
+  Specifically, the dynamic method uses only $n'=\big(m\log m/n\big)^{-1/4}n/T=o(n/T)$ observations to attain the same convergence rate as the static method using $n$ observations.
+  Last but not least, a computationally efficient algorithm is devised for dynamic matrix recovery. This algorithm iterates only a subset of the data to update the estimate at each step. By using the estimate of the last step as the initial of the current optimization procedure, the algorithm converges faster than the single-stage recovery. Specifically, the ratio of computational complexities of our algorithm compared to the single-stage recovery is $O(T^{-3/5}\vee n^{-1/2})$.%, and compare to the tensor method is $O(n^{-1/5}T^{-1/5})$.
+
+  The rest of the paper is organized as follows. In Section \ref{method}, we present the proposed method and algorithm for dynamic matrix recovery, and establish theoretical guarantees in Section \ref{theo} for both independent and dependent observations with algorithmic analysis. 
+  %   The general oracle upper bound for estimation error rate is presented in Theorem \ref{thm_error_bound}, and the exactly error bounds of independent and dependent scenarios are established accordingly in Theorem \ref{thm_total} and \ref{thm_phi_mixing}, respectively. Then we select the tuning parameters based on these results and apply them to tow concrete examples, matrix completion and compressed sensing. Section \ref{algorithm} introduces the optimization algorithm in detail and discuss the accelerating strategy with theoretical guarantees.
+  Finally, we conduct simulation and real data experiments in Section \ref{sec:simu} and \ref{sec:data} to show the favorable performance of the proposed dynamic method/algorithm compared with other existing methods. %Some useful lemmas are collected in the Appendix, and 
+  Additional theoretical results and technical proofs are deferred to an online Supplementary Material due for space economy.
+
+  
+
+
+
+
+% \subsection{Outline of the paper}
+
+% The rest of the paper is organized as follows. In Section \ref{method}, we present the proposed method and algorithm for dynamic matrix recovery, and establish theoretical guarantees in Section \ref{theo} for both independent and dependent observations with algorithmic analysis. Finally, we conduct simulation and real data experiments in Section \ref{sec:simu} and \ref{sec:data} to show the favorable performance of the proposed dynamic method/algorithm compared with other existing methods. Additional theoretical results and technical proofs are deferred to an online Supplementary Material due for space economy.
+
+  
+\section{Methodology and Algorithm}
+\label{method}
+  % In the classical trace regression, the observations $Y_i$ are related to $X_i\in \mathbb{R}^{m_1\times m_2}$ via
+  % \begin{equation}
+  % \label{model:classical TR}
+  % Y_{i}=\Tr(X_{i}^\top M^0)+\xi_i,\quad i=1,\ldots,n,
+  % \end{equation}
+  % where $\Tr(\cdot)$ is the trace operator, $M^0\in\mathbb{R}^{m_1\times m_2}$ is the static low-rank coefficient matrix of interest, $X_i$ and $\xi_i$ are independent random matrices and mean zero noises, respectively. 
+We consider the general framework in the form of dynamic trace regression whose coefficient matrix is changing smoothly along time. Specifically, at time $t=1,\ldots,T$, we observe $(Y_{ti},X_{ti})$ following model (\ref{eq:dynamic model 0}), 
+  \begin{equation*}
+  % \label{model:dynamic TR}
+  Y_{t i} = \Tr(X_{t i}^\top M_t^0) +\xi_{t i},\quad i=1,\ldots,n_t,
+  \end{equation*}
+  where $M_t^0$ is the time-varying coefficient matrix, $X_{ti}$ and $\xi_{ti}$ are design matrices and zero-mean noises, respectively, $\{X_{ti},\xi_{ti}\}_i$ (given $t$) are mutually independent across subject and $\{X_{ti},\xi_{ti}\}_t$ (given $i$) may be correlated across time.
+  %By imposing different assumptions on the design matrix, 
+  %Parallel to the static model \eqref{eq:static model 0}, can include a wide variety of matrix recovery problems. 
+ Parallel to the static model \eqref{eq:static model 0}, the dynamic trace regression includes several problems such as dynamic matrix completion and dynamic compressed sensing that can be applied to dynamic recommendation systems and video signal processing as illustrated in numerical experiments of Section \ref{sec:data}.% and hence play significant roles in dynamic matrix recovery,
+  
+
+  \begin{emp}\label{emp:mc} (Dynamic matrix completion). For each $t$, suppose that the design matrices $X_{ti}$ are i.i.d. uniformly distributed on the set
+  \begin{equation} \label{eq:dmc}
+  \mathcal{E}=\{e_j(m_1)e_k^\top(m_2):1\le j\le m_1, 1\le k\le m_2\},
+  \end{equation}
+  where $e_j(m)$ are the canonical basis vectors in $\mathbb{R}^m$ and then $\mathcal{E}$ forms an orthonormal basis in the space $\mathbb{R}^{m_1\times m_2}$. %Let also $n < m_1m_2$. 
+  Then estimating $M_t^0$ is equivalent to the problem of matrix completion under uniform sampling at random (USR). 
+  \end{emp} 
+
+  \begin{emp}\label{emp:cs} (Dynamic compressed sensing).  For each $t$, suppose that the design matrices $X_{ti}$ are i.i.d. replicates of a random matrix $X_t$ such that $\langle M,X_t\rangle$ is a sub-gaussian random variable for any $M\in\mathbb{R}^{m_1\times m_2}$. 
+  In this work, we focus on the concrete example that each design matrix $X_{ti}$ is a random matrix whose elements are independent mean-zero sub-gaussian random variables with variance $\sigma_{X_t}^2$. Moreover, if the design $X_t$ is homogeneous across $t$, we denote the variance as $\sigma_{X}^2$. 
+  \end{emp} 
+
+  We first briefly review the classical static method in the context of dynamic modeling, i.e., adopting the static method at each time $t$, which is referred to as the single-stage estimates in the sequel. 
+  Define the matrix inner product by $\langle M,X\rangle = \Tr(M^\top X)$. 
+  \cite{koltchinskii_nuclear-norm_2011} proposed to incorporate the knowledge of the distribution of $X_{ti}$ and estimate $M_t^0$ by
+  \begin{equation}\label{eq_classical_estimator}
+  \widehat{M}_t^\lambda=\argmin_{M\in\mathbb{M}}\left[\frac{1}{n_t}\sum_{i=1}^{n_t}\mathbb{E}(\langle M,X_{ti} \rangle)^2-\left\langle\frac{2}{n_t}\sum_{i=1}^{n_t} Y_{ti}X_{ti},M\right\rangle+\lambda\|M\|_1\right],
+  \end{equation}
+  where $\mathbb{M}\subset\mathbb{R}^{m_1\times m_2}$ is a convex set of matrices, $\lambda>0$ is a regularization parameter and $\|M\|_1$ is the nuclear norm of $M$. %If all $X_{ti}$ are nonrandom, the estimation coincides with the matrix LASSO,
+ % \begin{equation*}
+%  \widehat{M}_t^\lambda=\argmin_{M\in\mathbb{M}}\left[\frac{1}{n_t}\sum_{i=1}^{n_t}(Y_{ti}-\langle M,X_{ti} \rangle)^2+\lambda\|M\|_1\right].
+%  \end{equation*}
+  %\cite{koltchinskii_nuclear-norm_2011}
+  They proved that in the setting of matrix completion in Example \ref{emp:mc}, %with $X_{ti}$ i.i.d. uniformly distributed on $\mathcal{X}$, if $\xi_{ti}$ are sub-exponential and 
+  if $\lambda$ is appropriately set, with probability at least $1-3/(m_1+m_2)$,
+  \begin{equation*}%\label{klt bound}
+  %   \frac{1}{m_1m_2}\|\widehat{M}_t^\lambda-M_t^0\|_2^2\le C\log(m_1+m_2)\frac{\max(m_1,m_2)\rank(M_t^0)}{n_t},
+  (m_1m_2)^{-1/2}\|\widehat{M}_t^\lambda-M_t^0\|_2\le C\left\{\frac{\log(m_1+m_2)\max(m_1,m_2)r_t}{n_t}\right\}^{1/2}, 
+  \end{equation*}
+  where $r_t=\rank(M_t^0)$ and $\|M\|_2$ is the Frobenius norm of matrix $M$.
+  Though they have proved that the rate is optimal up to logarithmic factors comparing to the minimax lower bounds in classical trace regression,
+ this approach fails to incorporate temporal information and hence is not efficient in multi-stage case.
+
+  A direct modification is to utilize the {\it two-step} procedure that first obtains the single-stage estimates $\widehat{M}^\lambda_t$ and then applies local smoothing to $\{\widehat{M}_t^\lambda\}_t$ to achieve the final estimate as follows,
+   \begin{equation}
+   \label{eq:twostep}
+      \widehat{M}_{t}^{\text{t-s}} = \sum_{j=1}^T \omega_h(j-t)\widehat{M}_j^\lambda,
+   \end{equation}
+ where the local smoothing weights 
+  $\omega_h(j-t)=K_{Th}\left(j-t\right)/\sum_{k=1}^T K_{Th}\left(k-t\right)$
+  with the kernel function $K(x)$ and bandwidth $h$. 
+  % The two-step estimate is a  weighted average of the estimated low-rank matrices of different time points. It faces a severe issue that when the observations are sparse, the estimated matrix of each time point would be far away from the true value,  which can not be remedied by the smoothing step.
+  The two-step estimation approach computes a weighted average of low-rank matrices that have been estimated at distinct time points. However, this method encounters a significant challenge when dealing with sparse observations. \change{In such scenarios, the estimated matrix for each time point could potentially disrupt the true low-rank structure, displaying significant deviation from the actual value. Unfortunately, this disparity cannot be corrected through smoothing techniques.}
+  % We explain this formally and theoretically in later sections while here we describe the reason roughly. The first step here is unlike those models in which only unstructured scalars or vectors are estimated, and large estimation error in underlying low-rank structure caused by $\widehat{M}_t^\lambda$ is hard to fixed by later smoothing step. 
+  % Besides, \eqref{eq:twostep} contains both smoothing and low-rank regular term where the interaction between the two terms also affects the results.
+  
+   \change{Motivated by the observation that the manifold structure of low-rank matrices can be approximately preserved locally  without matrix factorization, we design the dynamic target function with nuclear norm penalty, i.e.,}
+  \begin{equation}
+  \label{eq_local_estimator}
+  \widetilde{M}_t^{\lambda}=\argmin_{M\in\mathbb{M}}\sum_{j=1}^T\omega_h(j-t)\left[\frac{1}{n_j}\sum_{i=1}^{n_j}\mathbb{E}(\left\langle M,X_{ji}\right\rangle)^2 - 2\left\langle\frac{1}{n_j}\sum_{i=1}^{n_j}Y_{ji}X_{ji}, M \right\rangle\right] +\lambda \|M\|_1,
+  \end{equation}
+  \change{which combines the observations across time and employs local smoothing for incorporating the temporal information.}
+  % For convenience, we apply a simple variable changing and represent the time points $j$ as $j'$ where $j'=1/T,2/T,\dots,1 \in [0,1]$. And
+ It is worth noting that in many applications including our Examples \ref{emp:mc} and \ref{emp:cs},
+the distribution of $X_t$ is known, and yet this information has not been exploited in empirical risk. Thus we may utilize the distribution knowledge by substituting the empirical form with true values $\mathbb{E}\langle M, X_{ji}\rangle$.
+The temporal smoothness of $M_t^0$ guarantees that information in adjacent time points can be utilized to reduce the estimation error.
+  We mention that the classical estimate $\widehat{M}_t^\lambda$ in \eqref{eq_classical_estimator} can be regarded as a special case of the proposed local estimate $\widetilde{M}_t^\lambda$ in \eqref{eq_local_estimator} as %$K(x)$ taking the Dirac function $\delta_{0}(x)$ or
+  the bandwidth $h\rightarrow 0$. 
+  %When applying non-degenerated kernels, 
+   By choosing $h$ appropriately, our estimate pools more observations to reduce the estimation variance while controlling the bias caused by the varying of $M_t^0$, as discussed in  detail in Section \ref{theo}.
+
+  % Formally, we deduce the upper bound for estimation error $\|\widetilde{M}^\lambda_t - M_t^0\|_2$ under both scenarios that across time dependence for $X_t$ and/or $\xi_t$ exists or not. We prove that the rates in above scenarios are the same except the constant terms, as discussed in details in Section \ref{sec:th upper bound}. Taking matrix completion as a specific example, we show that with probability at least $1-3/(m_1+m_2)$,
+  % The challenge is that, in dynamic systems, the errors often have temporal correlation, which can increase the variation of the estimates. In this paper, we start from the simple case that $\xi_{ti}$ are independent across $t$, and investigate the upper bounds of the general dynamic trace regression as well as the two specific cases of dynamic matrix completion and compressed sensing. Then we consider the scenario that $\xi_{ti}$ follow some mixing process across time and derive the bounds again. We prove that though the constants of error bounds under the mixing process noises are larger than those of the independent noises, the rates are the same, as discussed in details in Section \ref{sec:th upper bound}.
+  %These rates are sharper than the classical time-point-wise estimation.
+  %Use the matrix recovery as an instance. While the classical recovery bound is given in \eqref{klt bound}, 
+  % our proposed estimate can be upper-bounded by
+  % \begin{equation*}
+  % (m_1m_2)^{-1/2}\|\widetilde{M}_t^\lambda-M_t^0\|_2\le C'\left\{\frac{\log(m_1+m_2)\max(m_1,m_2)r_t}{n_tT}\right\}^{2/5},
+  % \end{equation*}
+  % where $C'>0$ is some constant, as presented in Corollary  \ref{cor_matrix_completion} and \ref{cor_matrix_completion_mixing} of Section \ref{sec:th upper bound}.
+  % This bound is sharper than \eqref{klt bound} as long as 
+  % $$T>\left\{\frac{n_t}{\log(m_1+m_2)\max(m_1,m_2)r_t}\right\}^{1/4}.$$
+  % Hence the estimation accuracy improves as the temporal observations accumulate.
+
+  For implementation, we adopt the Fast Iterative Shrinkage-Thresholding Algorithm (FISTA) which is an accelerated proximal method proposed by \cite{beck2009fast}. It improves traditional proximal methods and terminates in $\mathcal{O}(\varepsilon^{-1/2})$ iterations with a $\varepsilon$-optimal solution. %Specifically, FISTA solves the vector form variables' optimization problem 
+ % $$\min_{x\in \mathbb{R}^n} F(x) = f(x)+g(x)$$ 
+  %where $f(x)$ is convex and smooth such that its gradient function is Lipschitz continuous and $g(x)$ is only required to be convex and continuous.
+  To handle with the trace norm penalty optimization problem \eqref{eq_local_estimator}, we use the matrix form FISTA established by \cite{ji2009accelerated} and \cite{toh2010accelerated}. %\textcolor{blue}{[Briefly introduce the FISTA algorithm and remark why the extension is feasible. You can also remark on the convergence rate of the extended algorithm compared to the classical FISTA. I can not see why you cite \cite{ji2009accelerated} and \cite{toh2010accelerated}.]}
+  Define the objective function in \eqref{eq_local_estimator} as 
+  $F_t(M) = f_t(M)+g(M)$, where 
+  \begin{align*}
+    f_t(M) = \sum_{j=1}^T \omega_h(j-t) \left[\frac{1}{n_j}\sum_{i=1}^{n_j}\mathbb{E}(\left\langle M,X_{ji}\right\rangle)^2 - 2\left\langle\frac{1}{n_j}\sum_{i=1}^{n_j}Y_{ji}X_{ji}, M \right\rangle\right].
+  \end{align*}
+  We mention that the gradient function of $f_t$ is equipped with Lipschitz constant $L_f$ presented in Section \ref{algorithm}, and that $g(M) = \lambda \|M\|_1$ is a continuous convex function. 
+  Then the matrix form FISTA can be applied to solve the dynamic trace regression problem $$\widetilde{M}^\lambda_t = \arg\min_{M\in \mathbb{M}} f_t(M)+g(M).$$ 
+  
+ Note that $\widetilde{M}^\lambda_t$ need to be calculated for a sequence $t=1,2,\cdots,T$. The algorithm is accelerated at time $t$ by utilizing the estimate from the timestamp $(t-1)$. Specifically, suppose that at time $t$ we apply the matrix form FISTA for $k_{t}$ iteration times to numerically approximate the estimate $\widetilde{M}_{t}^\lambda = \arg\min_{M\in\mathbb{M}} f_{t}(M)+g(M)$ denoted by $M_{t}^{(k_{t})}$. Then input $M_t^{(k_t)}$ as the initial matrix in the procedure of estimating $\widetilde{M}_{t+1}^\lambda = \arg\min_{M\in\mathbb{M}} f_{t+1}(M)+g(M)$ at time $(t+1)$. Such initialization method accelerates the algorithm, as demonstrated in Section \ref{algorithm}. We summarize the implementations of the proposed DFISTA in Algorithm \ref{algo}. \oldchange{In the algorithm, ``svd'' means calculating the single value decomposition components $U,D,V$ for a matrix $G \in \mathbb{R}^{m_1\times m_2}$ % such as}
+ % \begin{align*}
+ %    G = UDV^\top,\quad \text{where}\ U \in \mathbb{R}^{m_1\times m_1},\ D = \operatorname{diag}(\lambda_1,\cdots,\lambda_{m_1}),\ V\in \mathbb{R}^{m_1\times m_2},
+ % \end{align*}
+ and ``$(\cdot)_{+}$'' means the threshold operator such as $
+     (D - \gamma)_{+} = \operatorname{diag}((\lambda_1-\gamma)\vee 0,\cdots,(\lambda_{m_1}-\gamma)\vee 0)$ where $D = \operatorname{diag}(\lambda_1,\cdots,\lambda_{m_1})$. The learning rate $s_k$ is updated according to \cite{nesterov1983method}.}
+
+  \begin{breakablealgorithm}\label{algo}
+  \renewcommand{\algorithmicrequire}{\textbf{Input:}}
+  \renewcommand{\algorithmicensure}{\textbf{Output:}}
+  \caption{Dynamic Low-Rank Matrix Recovery}\label{alg1}
+  \begin{algorithmic}[1]
+  \REQUIRE $\sum_{t=1}^{T} n_t$ matrices $X_{t i}\in \mathbb{R}^{m_1\times m_2}$ and $\sum_{t=1}^{T} n_t$ scalars $Y_{t i}$, $t=1,2,\dots,T$, $i=1,2,\cdots,n_j$, max iteration steps $K$ and torrent {\tt tor}.
+  \ENSURE $T$ matrices $M_t\in\mathbb{R}^{m_1\times m_2},\ t=1,2,\dots,T$.
+  \STATE Choose a initial matrix $M_0 \in \mathbb{R}^{m_1\times m_2}$.
+  \WHILE {$t\le T$}
+  \STATE  $M_t^{(-1)} \leftarrow M_{t-1},\ M_t^{(0)} \leftarrow M_{t-1}$;
+  \STATE  $s_{0}\leftarrow 1,\ s_{-1}\leftarrow 1$;
+  \FOR{ $k=0,1,\ldots,K$}
+  \STATE $N_t^{(k)} \leftarrow M_t^{(k)} + \frac{s_{k-1}-1}{s_{k}}\left(M_t^{(k)}-M_t^{(k-1)}\right)$;
+  \STATE $ G_t^{(k)} \leftarrow N_t^{(k)} - L_f^{-1}\sum_{j=(t-Th/2)\vee 0}^{(t+Th/2)\wedge T} \frac{w_{h}(j-t)}{n_j} \sum_{i=1}^{n_j}X_{ji}\left(\langle X_{ji},N_t^{(k)}\rangle -Y_j\right)$;
+  \STATE $U,D,V \leftarrow$ {\tt svd}($G_t^{(k)}$);
+  \STATE $M_t^{(k+1)} \leftarrow U(D-2\lambda/L_f)_{+}V^T$;
+  \STATE $s_{k+1} \leftarrow \frac{1+\sqrt{1+4s_{k}^2}}{2}$;
+  \IF{$|F_t(M_t^{(k+1)})-F_t(M_t^{(k)})|\le {\tt tor}$} 
+  \STATE {$\operatorname{break}$}
+  \ENDIF
+  \ENDFOR
+  \STATE $M_t = M_t^{(k+1)}$;
+  \ENDWHILE
+  \RETURN $M_t,t=1,2,\cdots,T$ 
+  \end{algorithmic}  
+  \end{breakablealgorithm}
+  
+\change{Unlike most factorization based algorithms that are challenging to analyze for their convergence properties, we are able to analyze the error bounds of the algorithm's results with respect to the true value. This analysis bridges the gap between the statistical estimator and the estimator obtained from the algorithm, as discussed in detail in Section \ref{algorithm}.}
+\section{Theoretical Guarantees}
+\label{theo}
+  In this section, we study both the statistical properties of the estimation error $\|\widetilde{M}_t^\lambda - M_t^0\|_2$ and the algorithmic convergence of the proposed method. We first present the error bound of the estimate $\widetilde{M}_t^\lambda$ for general dynamic trace regressions. Then we derive the explicit expressions of the upper bound of $\|\widetilde{M}_t^\lambda -M_t^0\|_2$ when $\{X_t\}_t$ and $\{\xi_t\}_t$ are independent across $t$ and when $\{X_t\}_t$ and $\{\xi_t\}_t$ are $\phi$-mixing processes, respectively. Noting that $X_t$ and/or $\xi_t$ may be  unbounded, the assumptions for classical concentration inequalities are violated \citep{merlevede2009bernstein, merlevede2011bernstein,hang2017bernstein}. We thus modify the Talagrand's inequalities and adopt  truncation technique appropriately to derive the convergence rate  for the dependent setting.  In both scenarios, we shall explain how the number of time points $T$, the smoothness of $M_t^0$ and the dependence of $X_t$ and $\xi_t$ across time influence the estimation error explicitly. 
+
+
+  %The superior performances of the proposed method are verified by comparing our results with those in classical trace regression.
+
+  %Then we study the selection of $\lambda$ at both conditions that $\xi_{ti}$ are independent across time and follow some temporal mixing process, respectively. In both cases, we investigate not only the results of trace regression but also more specific bounds for matrix completion and compressed sensing. 
+
+  In the sequel, we denote $\|M\|_0$, $\|M\|_1$, $\|M\|_2$, $\|M\|_{\infty}$ and $\langle M,N\rangle$ as the rank, nuclear norm, Frobenius norm, maximum singular value of $M$ and the trace of $M^\top N$, respectively.
+  %and the Schatten-$p$ norm such that
+  % \begin{equation*}
+  % \|M\|_p = \left(\sum_{j=1}^{\|M\|_0} \sigma_j(M)^p\right)^{1/p},\ 0<p<\infty
+  % \end{equation*}
+  % where $\sigma_1(M),\sigma_2(M),\dots,\sigma_{\|M\|_0}(M)$ are single values of $M$, respectively. Particularly,  is .
+
+  % Here we define some notations using throughout this paper. 
+  % \begin{enumerate}
+  % \item $\|M\|_0$ is defined as the rank of $M$ and $\|M\|_{\infty}$ is the maximum single value of $M$.
+  % \item $\|M\|_p$ denotes the Schatten-p norm such that
+  % \begin{equation*}
+  % \|M\|_p = \left(\sum_{j=1}^{\|M\|_0} \sigma_j(M)^p\right)^{1/p},\ 0<p<\infty
+  % \end{equation*}
+  % where $\sigma_1(M),\sigma_2(M),\dots,\sigma_{\|M\|_0}(M)$ are single values of $M$. Specifically, $\|M\|_1$ is the nuclear norm and $\|M\|_2$ is the Frobenious norm.
+  % \item $\langle M,X\rangle = \Tr(M^TX)$ is the matrix inner product.
+  % \item 
+  % \end{enumerate}
+ \subsection{General error bounds}
+
+  %As discussed in the extensive literature, the estimation accuracy depends on the design $X_{ji}$. Denote the distribution of $X_{j i}$ as $\Pi_{{X}_{j i}}$.
+
+  %For the convenience of presenting the loss function, 
+
+  % Moreover, define $\Sigma_j$ as the mean of $\Sigma_{ji}$
+  % \begin{equation*}
+  % \Sigma_j = \frac{1}{n_j}\sum_{i=1}^{n_j} \Sigma_{j i}.
+  % \end{equation*}
+
+  Let $\myvec(X)\in \mathbb{R}^{m_1m_2}$ be the vectorization of $X \in \mathbb{R}^{m_1\times m_2}$ and define the second moment matrix of $X_{t}$ by $\Sigma_{t}\in \mathbb{S}^{m_1m_2\times m_1m_2}$ such that
+  \begin{equation*}
+  \Sigma_{t} = \frac{1}{n_t}\sum_{i=1}^{n_t}\mathbb{E} [\myvec({X}_{ti})\myvec({X}_{ti})^\top].
+  \end{equation*}
+  % Recall that in classical linear regression $Y = X^\top\beta +\varepsilon$ with random design and known distribution of $X$, the model is identifiable, i.e., the least square estimator $\hat{\beta}$ exists, if and only if the second moment matrix $\mathbb{E} [XX^\top]$ is full rank. 
+  It is necesary to guarantee the identifiability of matrix recovery that the positive semi-definite matrix $\Sigma_{t}$ is invertible.
+  To simplify, we consider the homogeneous scenario such that at each time point $t$, the design $\{X_t\}_t$ have the same second moment matrix as stated below.
+  \begin{assump}
+  \label{assump_Sigma}
+  There exists a positive definite matrix $\Sigma \in \mathbb{S}_{+}^{m_1m_2\times m_1m_2}$ such that $\Sigma_j=\Sigma,\ j=1,2,\dots,T$ with smallest eigenvalue $\mu>0$ and bounded condition number $\kappa_{\Sigma}$.
+  \end{assump}
+
+  We remark that in the heterogeneous situation, the convergence rate can be derived similarly, which is at the same order as the homogeneous setting with a more tedious presentation. 
+  % The following assumption is imposed on the structure of $\Sigma_t$.
+  An important indication of Assumption \ref{assump_Sigma} is that, for all $M\in \mathbb{R}^{m_1\times m_2}$ and $j=1,2,\cdots,T$, %the first term in \eqref{eq_local_estimator} satisfies that
+  \begin{equation*}
+  \frac{1}{n_j}\sum_{i=1}^{n_j} \mathbb{E}(\langle M,X_{j i}\rangle )^2 = \myvec({M})^\top \Sigma \myvec({M}) \ge \mu\|M\|_2^2,
+  \end{equation*}
+  which is a standard assumption in matrix recovery.
+The interpretation is that the smallest eigenvalue $\mu>0$ determines the information contained in the design matrix $X_t$. Intuitively, the larger $\mu$ is, the more information is revealed by data, thus the more precise the estimator $\widetilde{M}_t^\lambda$ is.
+  %means that one can obtain certain useful information of $M$ through the inner product with  $\{X_{j i},\ i=1,2,\dots,n_j\}$. 
+  In most cases, $\mu$ can be calculated directly. For instances,
+  in matrix completion of Example \ref{emp:mc}, the smallest eigenvalue of $\Sigma$ is $\mu = 1/m_1m_2$, and in compressed sensing of Example \ref{emp:cs}, $\mu$ is the smallest variance of elements in $X_{j i}$, which is equal to $\sigma_X^2$ under Assumption \ref{assump_Sigma}. % of order $\sigma^2_X$ independent of $m_1, m_2$.
+
+  For brevity, we further denote $\Delta_j =1/n_j \sum_{i=1}^{n_j}\left(Y_{j i}X_{j i} - \mathbb{E}(Y_{j i}X_{j i})\right)$ and 
+  \begin{equation*}
+    \delta_h M_{t} = \left\|M_t^0-\sum_{j=1}^T \omega_h(j-t) M_j^0\right\|_2,\quad \mathcal{W}_h\Delta_{t} =\left\| \sum_{j=1}^T \omega_h(j-t)\Delta_j\right\|_{\infty}.
+  \end{equation*}
+  %   The first term is the bias of smoothing and the second is a smoother on the error term $\Delta_j$ which corresponds to the variance.
+  The following theorem gives the general upper bound of estimation error $\|\widetilde{M}_t^\lambda - M^0_t\|_2$. %The proof can be found in \ref{pf:thm_error_bound}.
+
+  \begin{thm}
+  \label{thm_error_bound}
+  Let $m_1,m_2,T,n_1,\ldots,n_T$ be positive integers and fix
+  $t\in\{1,\ldots,T\}$. Under Assumption \ref{assump_Sigma}, write
+  $\kappa_\Sigma=\lambda_{\max}(\Sigma)/\mu\ge1$.
+  Assume that the deterministic weights $\omega_h(j-t)$ are nonnegative
+  and sum to one (in the kernel definition their denominator is positive).
+  Assume that $\mathbb M$ is a nonempty closed convex subset of
+  $\mathbb R^{m_1\times m_2}$ containing $M_t^0$, that the coefficient
+  matrices $M_j^0$ are deterministic, and that the model
+  $Y_{ji}=\langle M_j^0,X_{ji}\rangle+\xi_{ji}$ holds.
+  For every $j,i$, assume
+  $\mathbb E\|X_{ji}\|_2^2<\infty$,
+  $\mathbb E[|\xi_{ji}|\|X_{ji}\|_2]<\infty$, and
+  $\mathbb E[\xi_{ji}X_{ji}]=0$.
+  The last condition is implied by conditionally mean-zero noise given
+  $X_{ji}$, or by independent, centered noise with the stated moments;
+  no temporal independence is required for this theorem.
+  The estimator \eqref{eq_local_estimator} is well-defined also for
+  $\lambda=0$. For each realization, if
+  $\lambda\ge2\mathcal W_h\Delta_t$, then, with $r_t=\rank(M_t^0)$,
+  \begin{equation}
+   \label{eq_thm_error_bound}
+  \left\|\widetilde M_t^\lambda-M_t^0\right\|_2
+  \le \kappa_\Sigma\delta_hM_t+
+  \min\left\{
+    \left((\kappa_\Sigma\delta_hM_t)^2+
+      \frac{2\lambda}{\mu}\|M_t^0\|_1\right)^{1/2},\quad
+    \frac{1+\sqrt2}{2}\frac{\lambda}{\mu}\sqrt{r_t}
+  \right\}.
+  \end{equation}
+  When selecting $\lambda=2\mathcal W_h\Delta_t$, we have
+  \begin{equation}
+  \label{proposed_bound}
+  \left\|\widetilde M_t^\lambda-M_t^0\right\|_2
+  \le \kappa_\Sigma\delta_hM_t+
+  \min\left\{
+    \left((\kappa_\Sigma\delta_hM_t)^2+
+      \frac{2\mathcal W_h\Delta_t}{\mu}\|M_t^0\|_1\right)^{1/2},\quad
+    (1+\sqrt2)\frac{\mathcal W_h\Delta_t}{\mu}\sqrt{r_t}
+  \right\}.
+  \end{equation}
+  \end{thm}
+
+  Thus the bias contribution is multiplied by the condition number in
+  the general positive-definite design setting. No isotropy condition
+  $\Sigma=\mu I$ is imposed. The special-case square-root constant follows
+  from the stronger inequality proved in the supplement, rather than
+  from direct substitution into the weaker general display.
+
+
+  The term $\delta_h M_t$ corresponds to the bias caused by kernel smoothing which is affected by kernel $K(x)$ and the bandwidth $h$, and $\mathcal{W}_h\Delta_{t}$ corresponds to the variance term caused by the effective samples in the local window and the measurement error $\xi$. 
+  %To see the validation of Theorem \ref{thm_error_bound}, consider the degenerated case where $h = 0$ or $K(x)=\delta_{0}(x)$. Then the bias term $\delta_h M_t$ is reduced to 0 and $\mathcal{W}_h \Delta_t = \|\Delta_t\|_\infty$. 
+  For the unsmoothed weights $\omega_h(j-t)=\mathbf{1}_{\{j=t\}}$, the result in Theorem \ref{thm_error_bound} coincides with the classical result of Corollary 1 in \cite{koltchinskii_nuclear-norm_2011} such that when $\lambda = 2\|\Delta_t\|_{\infty}$,
+  \begin{equation}\label{baseline_bound}
+  \left\|\widehat{M}_t^\lambda - M_t^0 \right\|_2 \le \min\left\{\left(2\mu^{-1}\left\|\Delta_t\right\|_{\infty}\left\|M_t^0\right\|_1\right)^{1/2},{(1+\sqrt{2})}{\mu^{-1}}{\|\Delta_t\|_{\infty}}\sqrt{r_t}\right\}.
+  \end{equation} 
+  Compared to \eqref{baseline_bound}, the  bound \eqref{proposed_bound} replaces the error term $\Delta_t$ by the smoothed version $\mathcal{W}_h\Delta_t$ at the cost of the bias contribution $\kappa_\Sigma\delta_hM_t$. 
+  %   We prove in Proposition \ref{prop:bias} that the bias term is in proportional to $h^2$, and prove in Lemma \ref{lem_lambda_indpdt} and \ref{lem_lambda_dependent} that the variance term is in proportional to $(Th)^{-1/2}$ under some regular assumptions. This is the classical nonparametric bias-variance trade-off and is the key that temporal information improves estimation efficiency. 
+
+  To obtain an explicit expression of the error bound that may be used for bandwidth selection, we further investigate the properties of $\delta_hM_t$ and $\mathcal{W}_h\Delta_t$. %We impose the following assumptions. 
+  Assumption \ref{assump_M} and \ref{assum_kernel} are standard conditions for temporal smoothness and the kernel function.
+
+  \begin{assump}
+  \label{assump_M}
+  There exists a matrix function $M(t)$ supported on $[0,1]$, satisfying that
+  \begin{itemize}
+  \item[1.] for any $j=1,2,\dots,T$, $M_j^0 = M(j/T)$ and $\|M_j^0\|_1\le C_*,\ \max_{j,s,l}|[M_j^0]_{s,l}|\le C_M$, for some constants $C_*$ and $C_M$;
+  \item[2.] the first and second derivatives $\nabla M(t),\nabla^2 M(t)$ are continuous and bounded by some constants $D_1$ and $D_2$, respectively.
+  \end{itemize}
+  \end{assump}
+
+  \begin{assump}
+  \label{assum_kernel} 
+  The kernel function $K(x)$ is a symmetric probability density function on [-1, 1] and satisfies that
+  \begin{eqnarray}\label{eq:kernel quantity}
+  \alpha(K)=\int x^2K(x) \ dx<\infty,\quad R(K)=\int K(x)^2 \ dx<\infty.
+  \end{eqnarray}
+  \end{assump}
+
+    
+   %Under these assumptions, we can derive the following conclusion. 
+
+  % \begin{prop}\label{prop:bias}
+  % Under Assumption \ref{assump_M} and \ref{assum_kernel}, if $h\rightarrow0$ and $(m_1m_2)^{1/2}Th^2\rightarrow\infty$ as $m_1,m_2,T\rightarrow\infty$, then
+  % \begin{equation*}
+  % \delta_h M_t\le\frac{1}{2} \alpha(K)(m_1m_2)^{1/2}D_2 h^2+o\left((m_1m_2)^{1/2}h^2\right).
+  % \end{equation*}
+  % \end{prop}
+
+  % % The proof is given in Section \ref{pf:prop1} of the supplement. 
+  % While the bias term is similar to the classical local smoothing, the derivation of the upper bound of $\mathcal{W}_h\Delta_{t}$ is rather challenging. To see this, $\mathcal{W}_h\Delta_{t}$ can be bounded by 
+  % \begin{align}\label{ineq:variance}
+  % \mathcal{W}_h\Delta_{t} &  \le \underbrace{\left\|\sum_{j=1}^T \frac{\omega_h(j-t)}{n_j}\sum_{i=1}^{n_j}\xi_{ji}(X_{ji}-\mathbb{E} X_{ji})\right\|_\infty}_{(a)}
+  % +\underbrace{\left\|\sum_{j=1}^T \frac{\omega_h(j-t)}{n_j}\sum_{i=1}^{n_j}\xi_{ji}\mathbb{E}X_{ji}\right\|_\infty}_{(b)}\nonumber\\&
+  % +\underbrace{\left\|\sum_{j=1}^T \frac{\omega_h(j-t)}{n_j}\sum_{i=1}^{n_j}\left[\left\langle M^0_j,X_{ji}\right\rangle X_{ji}-E\left(\left\langle M^0_j,X_{ji}\right\rangle X_{ji}\right)\right]\right\|_\infty}_{(c)}.
+  % \end{align}
+  % The terms (a), (b) and (c) in \eqref{ineq:variance} are all norms $\|\cdot\|_{\infty}$ of weighted sums of several mean-zero distributions. If $\{\xi_{ji}\}_{ji}$, $\{\xi_{ji}X_{ji}\}_{ji}$ and $\{\langle M^0_j,X_{ji}\rangle X_{ji}\}_{ji}$ are independent sub-exponential distributions, respectively, one can apply concentration inequalities to derive the bound. 
+  % For instance, in the static settings, \cite{koltchinskii_nuclear-norm_2011} focused on the matrix completion which satisfies such condition %that $\{\xi_{ti}\}_{i}$, $\{\xi_{ti}X_{ti}\}_{i}$ and $\{\langle M^0_t,X_{ti}\rangle X_{ti}\}_{i}$ are independent sub-exponential distributions, respectively, 
+  % and investigated the upper bound of $\Delta_t$ using classical concentration inequalities. However, they did not discuss the bound of $\Delta_t$ in general matrix recovery problems. Moreover, 
+  % $\mathcal{W}_h\Delta_{t}$ involve summations across time. As aforementioned, data often show some temporal correlations in dynamic problems, i.e. data of different blocks may have certain degree of dependence, which further complicates the analysis of \eqref{ineq:variance}.
+
+  % To handle these problems, we extend the matrix Bernstein inequalities in \cite{koltchinskii2011neumann} and \cite{tropp2011user} to the general scenario that $\xi_{ji},X_{ji}$ follow more general distributions and may have strong temporal correlations. 
+  Define the $\psi-$norm $\|Z\|_{\psi(\eta)}$ for random variable $Z$ with $0< \eta < \infty$ as 
+  \begin{equation*}
+  \|Z\|_{\psi(\eta)} =\inf\left\{t>0,\mathbb{E}\left[\exp\left(\frac{\|Z\|_\infty^\eta}{t^\eta}\right)\right]\le 2
+  \right\}
+  \end{equation*}
+  and 
+$
+    \|Z\|_{\psi(\infty)}=\inf\left\{t > 0,\mathbb{E} \mathbf{1}_{\left\{\|Z\|_{\infty} > t\right\}}=0\right\}.
+ $
+  Then we impose the following assumption on the distributions of $\xi_{j i}$ and $X_{j i}$.
+  % A general family of distributions for $X_{j i}$ and $\xi_{j i}$ that contains both Example \ref{emp:mc} and \ref{emp:cs} as special cases is proposed here.
+  %   Assumptions on the tail distributions of $\xi_{j i}$ and $X_{j i}$ are needed.
+  % Then the sub-exponential and sub-gaussian distributions corresponds to $\|Z\|_{\psi(1)}< \infty$ and $\|Z\|_{\psi(2)}<\infty$, respectively.
+
+  \begin{assump} 
+  \label{assump_distri}
+  The designs and noises at the same time point $\{X_{ji}, \xi_{ji}\},\ i=1,2,\dots,n_j$ are mutually independent for each fixed $j$ and there exists constants $K_1,K_2>0,\ \alpha\ge 1,\ \beta\ge 2$ that for any $j=1,2\dots,T,\ i=1,2,\dots,n_j$
+  \begin{itemize}
+  \item[1.] $\xi_{ji}$ is sub-exponential distribution with $\|\xi_{ji}\|_{\psi(\alpha)} \le K_1$;
+  \item[2.] $X_{ji}$ is sub-gaussian distribution with $\|X_{ji}\|_{\psi(\beta)} \le K_2$,
+  \item[3.] There exists $\gamma \ge 1$ such that $1/\alpha+ 1/\beta= 1/\gamma$.
+  \end{itemize}
+  \end{assump}
+
+  The tail distributions of $\xi_{j i}X_{j i}$ and $\langle M, X_{j i}\rangle X_{j i}$ are both sub-exponential when $X_{ji},\xi_{ji}$ satisfy Assumption \ref{assump_distri}. Denote $\mathcal{D}_{\alpha,\beta,K_1,K_2}$ as the distribution set of $\{X_{ji},\xi_{ji}\}_{ji}$ satisfying Assumption \ref{assump_distri}. We remark that $\mathcal{D}_{\alpha,\beta,K_1,K_2}$ is indeed general enough for applications. In the matrix completion problem of Example \ref{emp:mc}, $X_{ji}$ are bounded with $\|X_{ji}\|_{\psi(\infty)} = 1$. Then the distributions of $X_{ji},\xi_{ji}$ lie in $ \mathcal{D}_{1,\infty,K_1,1}$ as long as the noises $\xi_{ji}$ follow sub-exponential distributions with $\alpha\ge 1$. In the compressed sensing problem of Example \ref{emp:cs}, from Theorem 4.4.5 in \cite{vershynin2018high}, we can set $X_{ji}$ to be sub-guassian distributed with $\beta=2$ and $K_2 \asymp (m_1\vee m_2)^{1/2}\sigma_X$. Then the distributions of $X_{ji},\xi_{ji}$ lie in $\mathcal{D}_{2,2,K_1,\sigma_X}$ if noises $\xi_{ji}$ follow a sub-guassian distributions with $\alpha=2$.
+  
+Next we consider the temporal dependence between $\{X_{ji},\xi_{ji}\},i=1,2,\dots,n_j$ and $\{X_{si},\xi_{si}\},i=1,2,\dots,n_s$ that decays when the distance between time points $j$ and $s$ increases. %As example, still in dynamic recommendation systems, users may browse similar products in a short term while they search irrelevant kinds of products in a long term, which means only weak long term dependence may hold. And in video process, the frame is continuously changing in a short period of time, but the frames that are far apart are almost irrelevant.
+  To characterize the structure of such dependence, we impose the strongly dependent assumption that $X_{j i}$ and $\xi_{j i}$ are $\phi$-mixing processes across $j$.
+  % , which provides the properties that no additional restrictions are added to short term dependency while long term dependency trends to zero.
+  Our definition of $\phi$-mixing is the same as in \cite{doukhan2012mixing}, and the detail definition is given in Supplementary Material S.4. In the following subsections, we first derive the estimation error bound in the ideal case that $\xi_{ji}$ and $X_{ji}$ are independent across time $j$, and then extend to the dependent case. These two settings are described in the following assumptions, respectively.
+
+  \begin{assump}\label{assump_indpdt}
+  (Independent case) The designs and noises $\{X_{ji},\xi_{ji}\}$ are mutually independent across $j$ for each $i$, $ j=1,2,\dots,T,\ i=1,2,\dots,N_j$.
+  \end{assump}
+
+  \begin{assump}
+  \label{assump_phi_mixing}
+  ($\phi$-mixing processes)
+  There exist two independent sequences of $\sigma$-fields $\mathcal{X}_j$ and $\mathcal{Y}_j,j\in \mathbb{N}^*$ such that $$\sigma((X_{j1},X_{j2},\dots,X_{jn_j})^\top) \subseteq \mathcal{X}_j,\quad  \sigma((\xi_{j1},\xi_{j2},\dots,\xi_{jn_j})^\top)\subseteq\mathcal{Y}_j.$$
+  The $\sigma$-fields  $\mathcal{X}_j$ and $\mathcal{Y}_j$, $j\in \mathbb{N}^*$ are both $\phi$-mixing with coefficients $\phi_{\mathcal{X}}(k)$ and $\phi_{\mathcal{Y}}(k)$, $k\in \mathbb{N}$ satisfying that  $$\Phi_\mathcal{X}  \overset{\triangle}{=} \sum_{k=0}^\infty \sqrt{\phi_\mathcal{X}(k)}< \infty,\quad \Phi_\mathcal{Y}\overset{\triangle}{=} \sum_{k=0}^\infty \sqrt{\phi_\mathcal{Y}(k)}< \infty.$$
+  \end{assump}
+
+  % In the next two subsections, we establish the upper bounds of $\mathcal{W}_h\Delta_t$ under Assumption \ref{assump_indpdt} and \ref{assump_phi_mixing}, respectively. 
+  % We close this subsection by introducing the following notations,
+  % % conclusions, which are immediate consequences of Assumption \ref{assump_distri},
+  % \begin{equation*}
+  %    \sigma_* \overset{\triangle}{=}\max \left\{\sigma ,\mu_X\sigma_\xi,\varsigma \right\},\ 
+  % K_*\overset{\triangle}{=}\max\left\{\mathcal{K}\left(\log \frac{\mathcal{K}}{\varsigma}\right)^{2/\beta},\mu_X K_1 \left(\log \frac{K_1}{\sigma_\xi}\right)^{1/\alpha}, K\left(\log \frac{K}{\sigma}\right)^{1/\gamma}\right\},
+  % \end{equation*}
+  % where $\mu_X  \overset{\triangle}{=} \max_{i,j} \|\mathbb{E} X_{ji}\|_{\infty},\ \sigma_\xi \overset{\triangle}{=} \max_{i,j}\|\xi_{ji}\|_{L^2}$ and
+  % \begin{equation*}
+  %   \begin{aligned}
+  %    & K\overset{\triangle}{=}  \max_{i,j} \left \| \xi_{ji} (X_{ji} - \mathbb{E}X_{ji})\right\|_{\psi(\gamma)},\quad \mathcal{K}\overset{\triangle}{=}\max_{i,j} \| \langle M_j^0, X_{ji}\rangle X_{ji} - \mathbb{E}(\langle M^0_j, X_{ji}\rangle X_{ji})\|_{\psi(\beta/2)},\\
+  % & \sigma\overset{\triangle}{=} \max_{i,j} \| \xi_{ji} (X_{ji} - \mathbb{E}X_{ji})\|_{L^{2}}, \quad \varsigma \overset{\triangle}{=} \max_{i,j}\|\langle M_j^0, X_{ji}\rangle X_{ji} - \mathbb{E}(\langle M^0_j, X_{ji}\rangle X_{ji})\|_{L^2},
+  %   \end{aligned}
+  % \end{equation*}
+  % with $\|X\|_{L^2} \overset{\triangle}{=}\|\mathbb{E}XX^T\|_{\infty}^{1/2}\vee\|\mathbb{E}X^TX\|_{\infty}^{1/2}$. In the following, we use $\sigma_*$ and $K_*$ to describe the bounds and we mention that the orders of $\sigma_*$ and $K_*$ are distinct in different problems. 
+
+\subsection{Independent case}
+\label{sec:3.2}
+  The theorem below states the upper bound of $\|\widetilde{M}_t^\lambda - M_t^0\|_2$ under the independent case when the distributions of $X_{ji},\xi_{ji}$ belong to $\mathcal{D}_{\alpha,\beta,K_1,K_2}$. For conciseness, we assume that the numbers of observations $n_j,j=1,2,\cdots,T$ have the same order denoted by $n$, i.e., $n_j\asymp n$ for $j=1,2,\cdots,T$. The conclusions for $n_j$ of different orders can be derived similarly. In the following, the notations $a_n\ll b_n$, $a_n\gg b_n$ and $a_n\asymp b_n$ mean that the ratio $a_n/b_n$ approaches to 0, infinity and  a constant, respectively,  and ``$\lceil \cdot \rceil$'' denotes the ceiling function.
+
+ 
+
+  \begin{thm}\label{thm_total}
+  Under Assumption \ref{assump_Sigma}--\ref{assump_indpdt}, let $n \lceil T h\rceil  \gg(K_*/\sigma_*)^2 \log(m_1+m_2)$, $h\rightarrow0$ and \\$(m_1m_2)^{1/2}\lceil T^2h^2\rceil T^{-1} \rightarrow\infty$ as $n,m_1,m_2,T\rightarrow\infty$, when
+  $$\lambda = 2C_1\sigma_*\sqrt{\frac{\log(m_1+m_2)}{n \lceil Th\rceil}}, $$
+  where $C_1$ and $\sigma_*$ are defined in Lemma S.4 of Supplementary Material, then 
+  with probability at least $1-3/(m_1+m_2)$,
+  \begin{equation} \label{err_bound_indpdt}   
+  \begin{aligned}
+  (m_1m_2)^{-1/2}\left\|\widetilde{M}_t^\lambda - M_t^0\right\|_2 \le \frac{1}{2}\alpha(K)D_2h^2 +\left(1+\sqrt{2}\right)C_1\sigma_*\left(\frac{r_t\log(m_1+m_2)}{\mu^2m_1m_2 n \lceil Th \rceil}\right)^{1/2}+o(h^2),
+  \end{aligned}
+  \end{equation}
+  where $\alpha(K)$ is defined in \eqref{eq:kernel quantity} and $D_2$ in Assumption \ref{assump_M}.
+  \end{thm}
+
+  We remark that $n \lceil T h \rceil$ is the number of samples used in a local window and the condition $n \lceil T h\rceil  \gg (K_*/\sigma_*)^2 \log(m_1+m_2)$ is the requirement for the effective sample size to guarantee the upper bound \eqref{err_bound_indpdt} tending to zero.  
+  The error bound \eqref{err_bound_indpdt} is a trade-off between the bias and variance which is controlled by the bandwidth $h$.
+  \oldchange{When $n\mu^2 m_1m_2/(T^4\sigma_{*}^2r_t\log(m_1+m_2)) = o(1)$, we can choose the optimal bandwidth
+  \begin{equation}
+  \label{opt_h}
+  h=C_h\left(\frac{\sigma_*^2r_t\log(m_1+m_2)}{\mu^2m_1m_2 n T}\right)^{1/5},
+  \end{equation}
+  % where $C_h=(2C_2)^{2/5}(\alpha(K)D_2)^{-2/5}$,
+  where $C_h=\left[(2+2\sqrt{2})C_1/(\alpha(K)D_2)\right]^{2/5}$ is a constant. When $n\mu^2 m_1m_2/(T^4\sigma_{*}^2r_t\log(m_1+m_2)) = \mathcal{O}(1)$, we choose $h = 0$ which is degenerate to the classical situation with the convergence rate $n^{-1/2}$.}
+
+  \oldchange{We focus on a large enough value for $T$ in the subsequent discussion, which allows us to omit the ceiling operator $\lceil\cdot \rceil$. For situations where $T$ is small, we can simply choose $h=0$, which yields the same results as static methods.}
+  With an appropriately selected $h$, we have the following corollary.
+  \begin{cor}
+  \label{cor_general_result}
+  Under assumptions of Theorem \ref{thm_total}, when 
+  $$ nT\gg\max\{K_*^{5/2}\sigma_*^{-3}(\mu^{2}m_1m_2)^{1/4}\log(m_1+m_2),\ \sigma_*^2(\mu^{2}m_1m_2)^{-1}\log(m_1+m_2)\},$$
+  with probability at least $1-3/(m_1+m_2)$,
+  \begin{equation}\label{eq_general_bound}
+  (m_1m_2)^{-1/2}\left\|\widetilde{M}_t^\lambda - M_t^0\right\|_2 \le C_2\left(\frac{\sigma_*^2r_t\log(m_1+m_2)}{\mu^2m_1m_2 n T}\right)^{2/5},
+  \end{equation}
+  where $C_2 =1/2\left[(2+2\sqrt{2})C_1\right]^{4/5}\left[\alpha(K)D_2\right]^{1/5}$.
+  \end{cor}
+
+  The bound requirement for $nT$ is composed of two terms: the first is to make $n T h \gg (K_*/\sigma_*)^2 $ $\log(m_1+m_2)$ hold when $h$ takes the form \eqref{opt_h}, and the second is to guarantee the optimal bandwidth \eqref{opt_h} tends to 0 as $n,T\rightarrow\infty$.
+  In \eqref{eq_general_bound}, the upper bound is proportional to $(nT)^{-2/5}$ where $n T$ is the total sample size. This indicates that our dynamic method makes efficient use of information from adjacent time points to improve the estimation quality. 
+  The number of observations in a single time point $n$ and the number of time points $T$ complement each other to reduce the upper bound \eqref{eq_general_bound}. 
+  When the samples are extremely sparse at each time point, it is infleasible for the classical static method to reconstruct the eigenvalues and eigenvectors of $M_t^0$. However, the proposed method can still control the estimation error $\|\widetilde{M}^\lambda_t-M^0_t\|_2$ to a desirable level, as long as there are sufficient time points. We also mention that the two-step smoothing method performs poorly, because the first-step estimate $\widehat{M}_t^\lambda$ and the reconstruction of eigen-subspace at each time point are far from satisfaction, which cannot be fixed by the second smoothing step regardless how dense the time points are. We emphasize that Theorem \ref{thm_total} and Corollary \ref{cor_general_result} can be applied directly to any dynamic trace regression problems as long as $X_{ji}$ and $\xi_{ji}$ lie in $\mathcal{D}_{\alpha,\beta,K_1,K_2}$. Taking dynamic matrix completion for example, we have the following corollary. The corresponding result for dynamic compressed sensing can be derived similarly, which is presented in Corollary S.3 of the Supplement.
+
+
+  \begin{cor}
+  \label{cor_matrix_completion}
+  Under Assumption \ref{assump_Sigma}--\ref{assump_indpdt}, when $X_{ji}$ are i.i.d. uniformly distributed on $\mathcal{E}$, $\xi_{ji}$ are independently follow sub-exponential mean-zero distributions, $n T h \gg (m_1\wedge m_2)\log^{1+2/\alpha} (m_1+m_2)$, and $(m_1m_2)^{1/2}Th^2\rightarrow\infty$ as $h\rightarrow 0,n,m_1,m_2,T\rightarrow\infty$,
+  then with probability at least $1-3/(m_1+m_2)$,
+  \begin{align*}
+  &(m_1m_2)^{-1/2}\left\|\widetilde{M}_t^\lambda - M_t^0\right\|_2 \\&\le
+  \frac{1}{2}\alpha(K)D_2h^2+
+  (1+\sqrt{2})C_1 (C_M\vee \sigma_\xi)\left(\frac{r_t(m_1\vee m_2)\log (m_1+m_2)}{n Th}\right)^{1/2}+o(h^2).
+  \end{align*}
+  When $nT\gg(m_1\vee m_2)\log^{1+5/(2\alpha)}(m_1+m_2)$, let
+  \begin{equation}
+  \label{eq_select_h}
+  h=C_{h}\left(\frac{(C_M\vee \sigma_\xi)^2r_t(m_1\vee m_2)\log(m_1+m_2)}{n T}\right)^{1/5},
+  \end{equation}
+  then
+  \begin{equation}\label{eq_upper_bound_mc}
+  (m_1m_2)^{-1/2}\left\|\widetilde{M}_t^\lambda - M_t^0\right\|_2 \le C_2(C_M\vee \sigma_\xi)^{4/5}\left(\frac{r_t(m_1\vee m_2)\log(m_1+m_2)}{n T}\right)^{2/5},
+  \end{equation}
+  where $C_1,C_h,C_2$ are the same constants as above.
+  \end{cor}
+  
+  Recall that the classical static result for the error bound of matrix completion in \cite{koltchinskii_nuclear-norm_2011} is
+  $$(m_1m_2)^{-1/2}\left\|\widehat{M}_t^\lambda-M_t^0\right\|_2\le (1+\sqrt{2})C_1(C_M\vee \sigma_\xi)\left(\frac{r_t(m_1\vee m_2)\log(m_1+m_2)}{n}\right)^{1/2}.$$
+  The dynamic method provides a sharper upper bound than the classic one. In other words, when the sample size in each single time point is sparse, our method can borrow information from adjacent time points to improve the estimation, as long as the number of time points $T$ is sufficiently large.
+  
+
+  %   Meanwhile, when $\sigma_X(m_1m_2)^{1/2}\gg 1$, the condition $\eta \le M(m_1m_2)^{1/2}$ is slacker than $\sigma \le M$, which means that compressed sensing problem is more robust than matrix compress problem. A more general result is that the larger total variance of $X_{ji}$, the robuster the estimator $\widetilde{M}_t^\lambda$ is, which is intuitive and similar in regression problems that the variance of the design matrix can attenuate the effect of noises to some extent.
+
+\subsection{Dependent case}
+\label{sec:dependent}
+  In parallel to the independent case, we derive the bounds of  $\|\widetilde{M}_t^\lambda - M_t^0\|_2$ when $\xi_{ji},X_{ji}$ are $\phi$-mixing processes, as stated in Theorem \ref{thm_phi_mixing} below.
+
+  \begin{thm}
+  \label{thm_phi_mixing}
+  With Assumption \ref{assump_Sigma}--\ref{assump_distri} and \ref{assump_phi_mixing}, when $Th\gg\log(m_1+m_2)$, $nTh \gg \left(K_*/\sigma_*\right)^2\log^3 (m_1+m_2)$, $h\rightarrow0$ and $(m_1m_2)^{1/2}Th^2\rightarrow\infty$ as $n,m_1,m_2,T\rightarrow\infty$,
+  with probability at least $1-3/(m_1+m_2)$,
+  \begin{equation}\label{eq_phi_mixing}
+  \begin{aligned}
+  (m_1m_2)^{-1/2}\left\|\widetilde{M}_t^\lambda - M_t^0\right\|_2 \le \frac{1}{2}\alpha(K) D_2 h^2 + (1+\sqrt{2})\mathcal{C}_1(\Phi_{\mathcal{X}}\vee \Phi_{\mathcal{Y}}) \sigma_*\left(\frac{r_t\log(m_1+m_2)}{\mu^2m_1m_2nTh}\right)^{1/2}+o(h^2)
+  \end{aligned}
+  \end{equation}
+  where $\mathcal{C}_1>0$ is a constant defined in Lemma S.5 of Supplementary Material.
+  \end{thm}
+
+  We use $\Phi_\mathcal{X}$ and $\Phi_\mathcal{Y}$ to measure the temporal dependence of design matrices $X_{ji}$ and noises $\xi_{ji}$, respectively, where larger $\Phi_\mathcal{X}$ and $\Phi_{\mathcal{Y}}$ mean stronger dependence. When $\Phi_{\mathcal{X}}=\Phi_{\mathcal{Y}}=1$, it indicates that $X_{ji},\xi_{ji}$ are independent across $j$ and the bound \eqref{eq_phi_mixing} is the same as \eqref{err_bound_indpdt} in Theorem \ref{thm_total} in the independent case.
+  %When  $X_{ji},\xi_{ji}$ are dependent across $j$, the result in Theorem \ref{thm_phi_mixing} has an additional $\Phi_{\mathcal{X}}\vee \Phi_{\mathcal{Y}}$ in the last term of \eqref{eq_phi_mixing} compared to Theorem \ref{thm_total}. 
+  % When the dependency across $j$ decays fast enough then $\Phi_\mathcal{X}\vee \Phi_\mathcal{Y}$ is small. Two popular examples are the exponential decay dependence case such that $\phi(k)=e^{-ck}$ and $\Phi = 1/(1-e^{-c/2})$ is small when $c$ is large enough, and the $m$-dependence case such that $\phi(k) = 0$ when $k>m$ and $\Phi \le m$ is still small if $m$ is a small constant. In those cases, the influence of across time dependency is slight and the performance of $\widetilde{M}_t^\lambda$ is still satisfactory. 
+  When $nT\gg (\mu^2m_1m_2)^{-1}\sigma_*^2\log(m_1+m_2)$,
+  if we choose
+  \begin{equation}
+  \label{eq_bandwidth}
+  h=\mathcal{C}_h\left(\frac{\sigma_*^2(\Phi_{\mathcal{X}}\vee \Phi_{\mathcal{Y}})^2r_t\log(m_1+m_2)}{\mu^2m_1m_2nT}\right)^{1/5},
+  \end{equation}
+  where $\mathcal{C}_h = \left[(2+\sqrt{2})\mathcal{C}_1/(\alpha(K)D_2)\right]^{2/5}$, then we have the following corollary.
+  \begin{cor}
+  \label{cor_phi_mixing}
+  Under assumptions of Theorem \ref{thm_phi_mixing}, when 
+  $$n^{-1}T^4\gg\sigma_*^{-2}\mu^2m_1m_2\log^4(m_1+m_2) $$%\ll\sigma_*^{-2}\mu^2m_1m_2(m_1+m_2)^5\log^{-1}(m_1+m_2)$$ 
+  and
+  $$ nT\gg\max\{K_*^{5/2}\sigma_*^{-3}(\mu^{2}m_1m_2)^{1/4}\log(m_1+m_2),\ \sigma_*^2(\mu^{2}m_1m_2)^{-1}\log(m_1+m_2)\},$$
+  with probability at least $1-3/(m_1+m_2)$,
+  \begin{equation}\label{eq_phi_mixing_general_bound}
+  (m_1m_2)^{-1/2}\left\|\widetilde{M}_t^\lambda - M_t^0\right\|_2 \le \mathcal{C}_2\left(\frac{\sigma_*^2(\Phi_\mathcal{X}\vee \Phi_\mathcal{Y})^2r_t\log(m_1+m_2)}{\mu^2m_1m_2 n T}\right)^{2/5},
+  \end{equation}
+  where $\mathcal{C}_2 =1/2\left[(2+\sqrt{2})\mathcal{C}_1\right]^{4/5}\left[\alpha(K)D_2\right]^{1/5}$.
+  \end{cor}
+
+  When $X_{ji}$ and/or $\xi_{ji}$ have strong long-term dependence across $j$, $\Phi_\mathcal{X}\vee \Phi_{\mathcal{Y}}$ becomes large and inflates the bound \eqref{eq_phi_mixing_general_bound}, which means that the convergence rate of $\widetilde{M}_t^\lambda$ is usually slower than that in independent case. 
+  %It indicates that strong dependency across time indeed affects the performance of our local smoothing method. 
+  Note that the bound for the single-stage estimates at each $t$ using static method can also be derived from Theorem \ref{thm_total} by using a degenerated kernel $\delta_0(x)$, given by
+  \begin{equation*}
+  (m_1m_2)^{-1/2}\left\|\widehat{M}_t^\lambda - M_t^0\right\|_2 \le (1+\sqrt{2})C_1\sigma_*\left(\frac{r_t\log(m_1+m_2)}{\mu^2m_1m_2n}\right)^{1/2}.
+  \end{equation*}
+  Then when %$Th\gg \Phi^2_\mathcal{X}\vee \Phi^2_\mathcal{Y}$
+  \begin{equation}
+  \label{eq_condition_sharper}
+  \Phi_{\mathcal{X}}\vee \Phi_{\mathcal{Y}} \ll T^{1/2}\left(\frac{\sigma^{*2}r_t\log(m_1+m_2)}{\mu^2 m_1 m_2 n}\right)^{1/8},
+  \end{equation} 
+  our dynamic method yields a sharper bound than the static one though strong dependence across time exists. With the expression of $h$ in \eqref{eq_bandwidth}, the condition \eqref{eq_condition_sharper} is equal to
+  $T h \gg (\Phi_{\mathcal{X}}\vee \Phi_{\mathcal{Y}})^2$. 
+  Note that $Th$ corresponds to the effective time points used in estimation at each $t$. This implies that as the number of effective time points increases, the negative effect caused by temporal correlation would be offset to some extent. % Because the dependence decays when distance of two time points increases, enough time points can still provide sufficient effective sample size and improve the performance of our dynamic method.
+For space economy, the applications of Theorem \ref{thm_phi_mixing} and Corollary \ref{cor_phi_mixing} to dynamic matrix completion and dynamic compressed sensing are presented as Corollary S.2 and Corollary S.4 in Supplementary Material.
+  
+\subsection{Empirical error and complexity analysis}
+\label{algorithm}
+
+Recall that the sequence generated by the iteration of Algorithm \ref{alg1} at time $t$ are denoted by $\{M^{(k)}_t\}_k,k\in \mathbb{N}^*$, where $M^{(k)}_t$ is the output matrix after $k$-th iteration and $M_t^{(0)}$ is the initial input matrix. % which is our interest. 
+%   While in the dynamic trace regression with $\widetilde{M}^\lambda_t$ estimated by the specific formula \eqref{eq_local_estimator}, we can apply \eqref{eq_algorithm} to derive the convergence property of $M_t^{(k)}$. In parallel to Theorem \ref{thm_error_bound} while more useful in practice, 
+% In practical, only $M^{(k)}_t$ can be obtained as the approximate recovery of $M_t^0$ instead of $\widetilde{M}_t^\lambda$. 
+In practice, we use the output $M^{(k)}_t$ to approximate $M_t^0$ for a certain $k$. 
+Thus, we derive the upper bound of the empirical error $\big\|M_t^{(k)} - M_t^0\big\|_2$ in the following theorem, which takes both the algorithmic error between $M^{(k)}_t$ and $\widetilde{M}_t^\lambda$ and the estimation error between $\widetilde{M}_t^\lambda$ and $M_t^0$ into account.
+
+\begin{thm}
+	\label{thm_algorithm} Under assumptions of Theorem \ref{thm_error_bound},
+	for any $k>1$ and $\lambda \ge 2\|\mathcal{W}_h\Delta_{t}\|_\infty$, we have
+	% \begin{equation*}
+	% 	%\label{theo2_eq1}
+	% 	\begin{aligned}
+	% 		\left\|M_t^{(k)} - M_t^0\right\|_2\le  \delta_h M_t +\left((\delta_h M_t)^2 +\frac{2\lambda}{\mu}\|M_t^0\|_1 + \frac{2L_f\gamma_t^2}{\mu(k+1)^2}\right)^{1/2}
+	% 	\end{aligned}
+	% \end{equation*}
+	% and
+	% \begin{equation*}
+	% 	%\label{optimal_error}
+	% 	\left\|M_t^{(k)}-M_t^0\right\|_2 \le  \delta_h M_t+ \frac{1+\sqrt{2}}{2} \frac{\lambda}{\mu}\sqrt{r_t}+\left(\frac{2L_f \gamma_t^2}{\mu(k+1)^2}\right)^{1/2},
+	% \end{equation*}
+	\begin{equation*}
+		%\label{theo2_eq1}
+		\begin{aligned}
+			\left\|M_t^{(k)} - M_t^0\right\|_2\le  \delta_h M_t +\min\left\{\left((\delta_h M_t)^2 +\frac{2\lambda}{\mu}\|M_t^0\|_1 + \frac{2L_f\gamma_t^2}{\mu(k+1)^2}\right)^{1/2},\right.&\\
+  \left.\frac{1+\sqrt{2}}{2} \frac{\lambda}{\mu}\sqrt{r_t}+\left(\frac{2L_f \gamma_t^2}{\mu(k+1)^2}\right)^{1/2}\right\}& 
+		\end{aligned}
+	\end{equation*}
+	where  $\gamma_t = \big\|M_t^{(0)}-\widetilde{M}^\lambda_t\big\|_2 $ and $L_f =2 \big\|\sum_{j=1}^T \omega_h(j-t)\cdot\frac{1}{n_j}\sum_{i=1}^{n_t} \left(\|X_{ji}\|_2X_{ji}\right)\big\|_2$
+	% \begin{equation}\label{eq_Lf}
+	% 	L_f =2 \left\|\sum_{j=1}^T \omega_h(j-t)\cdot\frac{1}{n_j}\sum_{i=1}^{n_t} \left(\|X_{ji}\|_2X_{ji}\right)\right\|_2
+	% \end{equation}
+	 is the Lipschitz constant of gradient function $\nabla f_t(M)$ that is finite under Assumption \ref{assump_distri}.
+\end{thm}
+
+
+% \textcolor{red}{The empirical error bound in Theorem \ref{thm_algorithm} has an additional term $2L_f\gamma_t^2/\mu(k+1)^2$, which is the so-called algorithmic error, compared to the estimation error bound \eqref{eq_thm_error_bound} in Theorem \ref{thm_error_bound}. The optimal choice is to stop iteration when algorithmic error attains the same order as estimation error.  
+% To control this term, selecting an proper initial matrix $M_t^{(0)}$ with small $\gamma_t$ and increasing the iteration step $k$ are two feasible methods. %for computational complexity considerations. 
+% From another perspective, finding an $M_t^{(0)}$ with smaller $\gamma_t$ can reduce the needed iteration step $k$ to maintain the same size of this term. The naive strategy that initializing $M_t^{(0)}$ stochastically at each time $t$ makes $\gamma_t$ too large. 
+% Because $\widetilde{M}_t^\lambda$ is closed to $\widetilde{M}_{t-1}^\lambda$, it is reasonable to avoid useless computation by borrowing information from the numerical approximation $M_{t-1}^{(k_{t-1})}$ of $\|\widetilde{M}_{t-1}^\lambda\|$. Thus, we proposed the initial strategy that choosing the output matrix $M_{t-1}^{(k_{t-1})}$ at time $(t-1)$ as initial value $M_{t}^{(0)}$ for optimal procedure at time $t$. 
+% %It indicates that the iteration step $k$ can be reduced by selecting an initial matrix $M_t^{(0)}$ closed to $\widetilde{M}_t^\lambda$ to achieve the same accuracy. Noting that the true coefficient matrix $M_t^0$ shall not vary much during a small time interval, we can choose the result $M_{t-1}^{(k_{t-1})}$ at time $(t-1)$ as initial value $M_{t}^{(0)}$ at time $t$ to accelerate the algorithm.
+% To quantify the improvement of our initial strategy, we take the dependent case mentioned in section \ref{sec:dependent} as an instance. Recall that in Corollary %\ref{cor_general_result} and 
+% 	\ref{cor_phi_mixing}, the upper bound for $\|\widetilde{M}^\lambda_t - M_t^0\|_2$ is derived when the bandwidth $h$ takes the optimal order. The desired empirical error bound in Theorem \ref{thm_algorithm} that take the algorithmic error into consideration shall be of the same order as Corollary %\ref{cor_general_result} and 
+% 	\ref{cor_phi_mixing}. Specifically, we investigate the minimal iterate step $k_t$ needed to attain}
+% \begin{equation}\label{eq_bound_mixing_alg}
+% 	(m_1m_2)^{-1/2}\left\|M_t^{(k_t)} - M_t^0\right\|_2 \le 2\mathcal{C}_2\left(\frac{\sigma_*^2(\Phi_\mathcal{X}\vee \Phi_\mathcal{Y})^2r_t\log(m_1+m_2)}{\mu^2m_1m_2 n T}\right)^{2/5}
+% \end{equation}
+% %when $X_{j i}$ and/or $\xi_{j i}$ are dependent across time. Formally, we have the following theorems.
+% \red{The iteration step of our initial strategy is compared with that of the random initial to attain the above error bound \eqref{eq_bound_mixing_alg}. %when $X_{j i}$ and/or $\xi_{j i}$ are dependent across time. 
+% The result for independent case can be derived similarly, which is presented in Corollary \ref{cor_iteration_step_indpt} supplementary for space economy.} 
+
+The empirical error bound in Theorem \ref{thm_algorithm} has an additional term $2L_f\gamma_t^2/\mu(k+1)^2$ compared to the estimation error bound \eqref{eq_thm_error_bound} in Theorem \ref{thm_error_bound}, which is the so-called algorithmic error. The optimal choice is to stop iterating when the algorithmic error attains the same order as the estimation error. Let $k_t$ be the minimal number of iteration steps needed to attain the desired order. From the expression of the algorithmic error, $k_t$ depends on the distance between the initial value $M_t^{(0)}$ and the target $\widetilde{M}^\lambda_t$, denoted by $\gamma_t$. Since less iterations are required for a smaller initial distance, the naive strategy to initialize $M_t^{(0)}$ randomly at each time $t$ would lead a large $\gamma_t$. Noting that $\widetilde{M}_t^\lambda$ is close to $\widetilde{M}_{t-1}^\lambda$, we thus make use of the neighboring information in the initialization to reduce computation cost.
+Hence we propose to use the output matrix at time $(t-1)$ as the initial value for estimating $\widetilde{M}_t^\lambda$ at time $t$, i.e. $M_t^{(0)}=M_{t-1}^{(k_{t-1})}$. 
+Take the dependent case in Section \ref{sec:dependent} for instance. Recall that the optimal estimation error bound is derived in Corollary \ref{cor_phi_mixing} with appropriate choice of the bandwidth $h$. 
+Then desired empirical error bound for Theorem \ref{thm_algorithm} can be derived by
+\begin{equation}\label{eq_bound_mixing_alg}
+	(m_1m_2)^{-1/2}\left\|M_t^{(k_t)} - M_t^0\right\|_2 \le 2\mathcal{C}_2\left(\frac{\sigma_*^2(\Phi_\mathcal{X}\vee \Phi_\mathcal{Y})^2r_t\log(m_1+m_2)}{\mu^2m_1m_2 n T}\right)^{2/5}.
+\end{equation}
+To quantify the improvement of our initialization strategy, in Corollary \ref{cor_iteration_step_mixing}, we compute the total number of iteration steps to attain the bound \eqref{eq_bound_mixing_alg} at each $t$, and compare with that of the random initialization.
+The result for independent case can be derived similarly, which is presented in Corollary S.5 of Supplementary Material for space economy.
+
+ \begin{cor}
+ \label{cor_iteration_step_mixing}
+	Under the assumptions of Theorem \ref{thm_phi_mixing},
+	when the total number of iterations of random initialization $K_0$ satisfies
+	\begin{equation*}
+		K_0 \ge \mathcal{C}_2^{-1}\left(\frac{\sigma_*^2(\Phi_\mathcal{X}\vee \Phi_\mathcal{Y})^2r_t\log(m_1+m_2)}{\mu^2m_1m_2}\right)^{-2/5} \left(\frac{2L_f}{\mu m_1m_2}\right)^{1/2}\gamma_1 n^{2/5}T^{7/5},
+	\end{equation*}
+	 or total number of iterations of the proposed initial strategy $K_1$ satisfies
+	\begin{align*}
+		K_1 \ge  &\mathcal{C}_2^{-1}\left(\frac{\sigma_*^2(\Phi_\mathcal{X}\vee \Phi_\mathcal{Y})^2r_t\log(m_1+m_2)}{\mu^2m_1m_2}\right)^{-2/5}\left(\frac{2L_f}{\mu m_1m_2}\right)^{1/2} (\gamma_1 +D_1) (nT)^{2/5}
+         \\&+ 3\sqrt{2}\left(\frac{L_f}{\mu}\right)^{1/2}T.
+	\end{align*}
+      the empirical error is lower than the optimal upper bound \eqref{eq_bound_mixing_alg} for each $t=1,\ldots,T$.
+   \end{cor}
+
+%   Theorem \ref{cor_iteration_step_indpt} and \ref{cor_iteration_step_mixing} present the total iterate steps needed to attain the same precision about random initial choice and the proposed initial strategy. 
+From Corollary \ref{cor_iteration_step_mixing}, once the total number of iterations of random initialization attains the level $\mathcal{O}(n^{2/5}T^{7/5})$ and that of Algorithm \ref{alg1} attains $\mathcal{O}(n^{2/5}T^{2/5}+T)$, the error is bounded by \eqref{eq_bound_mixing_alg}. %From the optimization point of view, the object functions $F_t(M)$ and $F_{t-1}(M)$ are nearly the same because $f_t(M)$ and $f_{t-1}(M)$ are both weighted mean for nearly the same weights and samples. 
+Then the ratio of computational cost of our proposed algorithm compared to the random initialization method is $\mathcal{O}(T^{-1}\vee n^{-2/5}T^{-2/5})$.
+We finally mention that the classical static method need $\mathcal{O}(n^{1/2})$ iterations to attain the optimal  rate $\mathcal{O}(n^{-1/2})$ for each $t$, and hence the single-stage method (at all $T$ times) need $\mathcal{O}(n^{1/2}T)$ iterations in total. % For tensor method, it uses full data with sample size $nT$ for each iteration while our methods only need to use subset of data with size $n^{4/5}T^{4/5}$. 
+Therefore the ratio of computational cost of Algorithm \ref{alg1} compared to the single-stage method is $\mathcal{O}(T^{-3/5}\vee n^{-1/2})$, which leads to the conclusion that our algorithm is computationally more efficient than the random initial method and the classical static methods. %and is $\mathcal{O}(n^{-1/5}T^{-1/5})$ compared to the tensor method.
+%   It is intuitive because in our dynamic algorithm, the smoothness of underlying true coefficients $M_t^0$ is used to reduce the computational complexity from one time point to the next. 
+% \textcolor{blue}{need more\dots}
+%\textcolor{blue}{[Then you can remark on the advantage of the proposed initial. You can also emphasize that this is the benefit of solving problems from the dynamic estimation perspective.]}
+%   Theorem \ref{cor_iteration_step_mixing} shows that $K = \mathcal{O}(n^{2/5}T^{2/5}+T)$, while the iteration step $\widetilde{K}$ of using random initial input in each time point needs that $\widetilde{K} = \mathcal{O}(n^{2/5}T^{7/5})$ to obtain the same precision. Meanwhile, the classical static method (\ref{eq_classical_estimator}) needs $\mathcal{O}(n^{1/2})$ steps to obtain its optimal rate in each time point and thus $\mathcal{O}(n^{1/2}T)$ steps totally. Comparing those iteration step order, we show that our methods' algorithm complexity also performs well.\
+
+%\section{Numerical Experiments}
+
+\section{Simulation Studies}
+\label{sec:simu}
+  We take the dynamic matrix completion as the instance to verify the usefulness of our method.
+  To demonstrate the advantages,  we compare the proposed estimates with three benchmark methods: (i) the classical static estimator $\widehat{M}_t^\lambda$ defined as in (\ref{eq_classical_estimator}), abbreviated as Static; (ii) the two-step smoothing estimator $\widehat{M}_t^{\text{t-s}}$ given in \eqref{eq:twostep}, abbreviated as TwoStep; (iii) the low-rank tensor completion estimator, abbreviated as Tensor,
+  \begin{equation*}
+  \widehat{N}^\lambda =  \argmin_{N\in \mathbb{R}^{T\times m_1\times m_2}} \|\mathcal{P}_\Omega(N)-Y\|_2^2 + \lambda \sum_{i=1}^3 \|N_{(i)}\|_1,
+  \end{equation*}
+  where $\mathcal{P}_\Omega$ is the projection to the observation subspace $\Omega$, Y is the observed data tensor with element 
+  \begin{align*}[Y]_{j,s,l}=\left\{
+		\begin{aligned}
+			&\frac{1}{|\mathcal{A}_{j,s,l}|}\sum_{i\in \mathcal{A}_{j,s,l}}Y_{ji},\ \text{ if }  \mathcal{A}_{j,s,l}\neq \emptyset \\
+			 &0,\ \text{ otherwise}
+		\end{aligned}
+		\right.
+  \end{align*}
+  for $\mathcal{A}_{j,s,l} = \left\{i\mid X_{ji} = e_s(m_1)e^\top_l(m_2),1\le i\le n_j\right\}$, and $N_{(i)}$ is the mode-$i$ unfolding of tensor $N$ which is a matrix that arranges the mode-$i$ fibers to be columns. We use matrix form FISTA algorithm in \cite{toh2010accelerated} to approximate $\widehat{M}_t^\lambda$, and $\widehat{M}^{\text{t-s}}_{t}$ has a closed form solution. In Tensor, we use AMD-TR(E) algorithm in \cite{gandy2011tensor} to numerically approximate $\widehat{N}^\lambda$.
+
+
+  We set $m_1=500,m_2=300,r_t=10$ and the matrix function $M(t)$ in Assumption \ref{assump_M} is constructed by $M(t)=U(t)D(t)V^T(t)$ with
+  \begin{align*}
+  U(t) &= \cos\left(\frac{t\pi}{2}\right)U_0 + \sin\left(\frac{t\pi}{2}\right)U_1,\\
+  D(t) &= 10 \left(\operatorname{diag}\left\{10^2,9^2,\dots,1\right\}+ t\operatorname{diag}\left\{10,9,\dots,1\right\}\right),\\
+  V(t) &= \cos\left(\frac{t\pi}{2}\right)V_0+\sin\left(\frac{t\pi}{2}\right)V_1,
+  \end{align*}
+  where $U_0,U_1\in \mathbb{R}^{m_1\times r_t}$, $V_0,V_1\in \mathbb{R}^{m_2\times r_t}$ are composed of standard orthogonal basis. Here we consider the situation that each $n_t$ is the same, i.e., $n_t=n,t=1,2,\cdots,T$. Denote the rate of observation samples as $\rho= n/(m_1m_2)$ and the density of time points as $\tau=1/T$. We use a 5-fold cross validation to select $\lambda$ in the numerical experiments. \oldchange{Please refer to  Section S.9.4 of the Supplement for more details.}
+
+  For the independent case, we sample $X_{ji},\ i=1,2,\dots,n$ from $\mathcal{E}$ defined in (\ref{eq:dmc}) independently with uniform probabilities, and let $\xi_{ji},j=1,2,\dots,T,\ i=1,2,\dots,n$ i.i.d follow the normal distribution $N(0,\sigma_\xi^2)$, where $T=100$ and $\sigma_\xi=1$. We use the Epanechnikov kernel and set the bandwidth $h$ by the optimal selection form \eqref{eq_select_h} in which we approximate $C_M\vee \sigma_\xi$ by mean of the top 10\% largest $Y_{j i}$ and $D_2$ by $ \sum_{j=2}^T |1/n_j\sum_{i=1}^{n_j} Y_{j i} - 1/n_{j-1}\sum_{i=1}^{n_{j-1}} Y_{j-1 i}|$. We set $\rho=0.2$ for our proposed dynamic low-rank (DLR) and Tensor methods. In Static and TwoStep, $\widehat{M}_t^\lambda$ and $\widehat{M}_{t}^{\text{t-s}}$ fail to recover the matrix structure under the same setting $\rho = 0.2$, so we set $\rho = 0.8$ for feasibility. Figure \ref{fig_0} illustrates the mean square errors 
+  \begin{equation}\label{eq_mse_1}
+  \mbox{MSE}_t= (m_1m_2)^{-1}\left\|\widehat{M}_t - M^0_t\right\|_2^2, 
+  \end{equation}
+  for $t=1,2,\cdots,T$. 
+  For the proposed DLR and TwoStep methods, the MSE$_t$ floats up at the boundaries due to slight edge effect.  The average MSE, i.e., $T^{-1}\sum_{t=1}^T \mbox{MSE}_t$ for the DLR estimate is $0.085$ and for Tensor is $0.44$ when $\rho=0.2$. This implies that the tensor recovery is not effective at least when the temporal structure is smooth. For Static and TwoStep, when $\rho=0.8$, the average MSE is $0.16$ and $0.13$ respectively. That is, these two methods with four times data still perform worse than the proposed DLR method.  
+  This verifies the theoretical finding that when the sample size $n$ at a single time point is small, the classical trace regression fails to estimate $M^0_t$, while our dynamic method can borrow adjacent information to improve the estimation quality. %And the tensor $N_0$ is not exactly low-rank because for the time axis, smoothness is domination instead of low-rank. The result also shows that our method is better than the tensor approach benchmark three.
+  %still performs better though three times larger $\rho$ is used. It can also be seen that mean square error of DLRTR is three times less than benchmark three, the tensor completion method. 
+  \begin{figure}[!ht]
+  \centering 
+  \subfigbottomskip=2pt 
+  \subfigcapskip=-5pt 
+  \subfigure{
+  \includegraphics[width=0.5\linewidth]{baseline.pdf}}
+  \caption{The comparisons of MSE$_t$ for different methods. In DLR and Tensor, $\rho=0.2$, and in Static and TwoStep, $\rho=0.8$.}
+  \label{fig_0}
+  \end{figure}
+%  Computational time for DLR method with our proposed initialization strategy (Algorithm \ref{alg1}) and random initialization in Section \ref{algorithm} and three benchmarks Static, TwoStep and Tensor are also recorded in Table \ref{table:time1} using a Dell PowerEdge R940xa server equipped with $\text{Intel}^{\text{\scriptsize{\textcircled{\tiny{R}}}}}$ $\text{Xeon}^{\text{\scriptsize{\textcircled{\tiny{R}}}}}$ Platinum 8280 CPU @ 2.70GHz.
+%  \begin{table}[!ht]
+%  \label{table:time1}
+%      \centering
+%      \begin{tabular}{|c|c|c|c|c|c|}
+%      \hline
+%          Methods &  DLR(Algorithm \ref{alg1})&DLR(random initilization)& Static & TwoStep & Tensor\\
+%          \hline
+%          Time (min)&9.37 & 91.46 & 11.55& 11.57& 10.28\\
+%          \hline
+%      \end{tabular}
+%      \caption{Computational Time for each time t}
+%  \end{table}
+
+  Now we study the empirical influence of $\rho$ and $\tau$ on the estimation results. One can see from \eqref{eq_upper_bound_mc} that given the underlying matrix, the bound of MSE is in proportion to $(\rho/\tau)^{-4/5}$.
+  We set eight different values for $(\rho,\tau)$ which can be divided into three groups, i.e. $\rho/\tau=5,10,20$. The $MSE_t$ across $t$ under these settings are shown in the left panel of Figure \ref{fig_1}, which indicates that given the matrix dimension, the empirical MSE depends on $\rho/\tau$.
+  We further plot the logarithm of average MSE across time versus the logarithm of $\rho/\tau$ in the right panel of Figure \ref{fig_1}, which reveals the linear relationship of the slope -4/5 between them. This further validates the conclusion \eqref{eq_upper_bound_mc}.% that one can utilize the temporal information to reduce sampling requirement at each time point.
+  %   In other words, we need fewer observations $n$ in each time points for a larger $T$ to obtain the same estimate precision and the more time points $T$ we have, the less observations $n$ are need. 
+
+
+  \begin{figure}[!ht]
+  \centering 
+  \subfigure{
+  \includegraphics[width=0.48\linewidth]{phase_transition.pdf}}
+  \subfigure{
+  \includegraphics[width=0.48\linewidth]{precise_nt.pdf}}
+  \caption{The left panel corresponds to MSE$_t$ of DLR estimates under different settings of $\rho$ and $\tau$. The curves are clustered into three classes corresponding to $\rho/\tau=5,10,20$. The right panel shows the logarithm of average MSE versus the logarithm of $\rho/\tau$ showing a linear trend with the slope -4/5.}
+  \label{fig_1}
+  \end{figure}
+\newpage
+  We also investigate the influence of the dependent noise on the proposed estimator.
+The noises $\xi_{ji}$ are generated by
+  \begin{align}\label{xi_phimixing_simu}
+  E_0 &= U_0,\quad U_0 \sim \operatorname{WN}(0,\sigma_\xi^2\mathbf{1}_{m_1}\mathbf{1}^T_{m_2}),\nonumber\\
+  E_{t}& = \beta E_{t-1} + \sqrt{1-\beta^2}U_{t},\quad U_{t}\sim \operatorname{WN}(0,\sigma_\xi^2\mathbf{1}_{m_1}\mathbf{1}^T_{m_2}),\\
+  \xi_{ji} &= \langle E_j,X_{ji}\rangle,\quad j=1,2,\dots,T,\ i=1,2,\dots,n_t,\nonumber
+  \end{align}
+  where $\operatorname{WN}(0,\sigma_\xi^2\mathbf{1}_{m_1}\mathbf{1}^T_{m_2})$ generates the $m_1\times m_2$ random matrix whose elements are i.i.d. normal with mean zero and variance $\sigma_\xi^2$. The larger $\beta$ is, the stronger dependence exists among $\{\xi_{ji}\}_j$. The other parameters are set are the same as those in the independent case. Then $\Phi_{\mathcal{X}}=1$ and $\Phi_{\mathcal{Y}}$ can be calculated from \eqref{xi_phimixing_simu} which is larger than 1 when $\beta>0$.
+  We apply the proposed method to recover $M_t^0$ for $1\le t\le T$ under the combinations of $\sigma_\xi=1,2$ and $\beta=0,0.3,0.6,0.9$.
+  As illustrated in the left panel of Figure \ref{fig_2_1}, the MSE increases as $\sigma_\xi^2$ and/or $\beta$ enlarge(s). Note that according to (S.26) in Supplement, the MSE is proportional to $\Phi_{\mathcal{Y}}^{8/5}$ given $M_t,n,T$. We plot the average MSE versus $\Phi_{\mathcal{Y}}^{8/5}$ under different $\sigma_\xi^2$ in the right panel of Figure \ref{fig_2_1} which verifies the conclusion.
+  
+  \begin{figure}[!ht]
+  \centering 
+  \subfigbottomskip=2pt 
+  \subfigcapskip=-5pt 
+  \subfigure{
+  \includegraphics[width=0.48\linewidth]{dependent_xi.pdf}}
+  \subfigure{
+  \includegraphics[width=0.48\linewidth]{dependent_with_phiy.pdf}}
+  \caption{The left panel illustrates the MSE$_t$ across time with different $\sigma_\xi$ and $\beta$ and the right panel shows that the average MSE versus $\Phi_{\mathcal{Y}}^{8/5}$ under different settings when $\Phi_{\mathcal{X}}=1$.  }
+  \label{fig_2_1}
+  \end{figure}
+
+  
+
+  \begin{figure}[!ht]
+  \centering 
+  \subfigbottomskip=2pt 
+  \subfigcapskip=-5pt 
+  \subfigure{
+  \includegraphics[width=0.48\linewidth]{dependent_X.pdf}}
+  \subfigure{
+  \includegraphics[width=0.48\linewidth]{dependent_with_phix.pdf}}
+  \caption{The left panel illustrates the MSE$_t$ across time with different $\sigma_\xi$ and $\alpha$ and the right panel shows that the average MSE versus $\Phi_{\mathcal{X}}^{8/5}$ under different settings when $\Phi_{\mathcal{Y}}=1$.
+  }
+  \label{fig_2_2}
+  \end{figure}
+  
+  Finally we study the influence of the dependence of design matrices on the estimation. We sample $X_{1i},i=1,\dots,n$ from $\mathcal{E}$ with uniform probabilities independently and generate $X_{ji},j\ge 2,i=1,2,\dots,n$ by preserving $\alpha n$ elements randomly in $X_{j-1, i},i=1,2,\dots,n$ and choosing $(1-\alpha)n$ new elements i.i.d. from $\mathcal{E}$. Then the dependence of design matrices across time becomes stronger as $\alpha$ increases. We set the remaining parameters the same as those in the independent case and have $\Phi_{\mathcal{Y}}=1$, $\Phi_{\mathcal{X}}\ge1$, where the equality holds if and only if $\alpha=0$. We plot the $\operatorname{MSE}_t$ across time under different $\sigma_\xi=1,2$ and $\alpha=0,0.3,0.6,0.9$ and verify the linear relationship between the average MSE and $\Phi_{\mathcal{X}}^{8/5}$ in Figure \ref{fig_2_2}. 
+  We remark that the slopes of linear relationships in the right panels of Figure \ref{fig_2_1} and \ref{fig_2_2} are different. This is because the bound (S.26) in Supplement is obtained by the technique that $C_M\Phi_\mathcal{X}+\sigma_\xi\Phi_\mathcal{Y}\le(C_M\vee \sigma_\xi)(\Phi_\mathcal{X}\vee\Phi_\mathcal{Y})$. Hence the curves of the average MSE versus $\Phi_{\mathcal{Y}}^{8/5}$ become sharper as $\sigma_\xi$ increases, as shown in the right panel of Figure \ref{fig_2_1}, while the slopes of the average MSE versus $\Phi_{\mathcal{X}}^{8/5}$ under different $\sigma_\xi$ in the right panel of Figure \ref{fig_2_2} are similar.
+  
+  
+
+\section{Real Data Examples}
+\label{sec:data}
+  In this section, we apply the proposed method to two real data examples for the dynamic matrix completion and compressed sensing problems, respectively. 
+  
+  The first example is the Netflix Prize Dataset \citep{netflix_dataset}, in which users ratings for movies received by Netflix were collected from
+  October 1998 to December 2005 and can be downloaded at \href{https://www.kaggle.com/datasets/netflix-inc/netflix-prize-data}{https://www.kaggle.com/datasets/netflix-inc/netflix-prize-data}. The ratings are integer-valued from 1 to 5. We preprocess the dataset to remove those movies which are watched less than 25000 times. 
+  
+  \oldchange{For user selection, we consider two different filters. Filter 1 is to choose users whose rating times are more than 700 because users who watch a larger number of movies tend to offer more reliable ratings  and make better comparisons across different movies due to their broader exposure.} There remain $3036$ users and $1034$ movies with total 2337997 ratings. We utilize a highly efficient data merging approach that requires minimal computational resources. Specifically, we divide the observations into $T=100$ chronological time intervals. Within each interval, observations are aggregated as they occur at distinct time points. Then we randomly choose $4/5$ of them in each interval as training data and set the rest as test data. 
+  % The rows and columns of a matrix corresponds to the users and movies, respectively. Then each rating is regarded as an observation. 
+  \oldchange{At each time point $t$, there exists an underlying matrix $M_t\in \mathbb{R}^{m_1\times m_2}$ to be recovered, where the rows represent users and the columns represent movies. The observed  sparse matrix $Y_t\in \mathbb{R}^{m_1\times m_2}$ has elements at position $(j,k)$, representing the rating given by user $j$ to movie $k$ at time point $t$, or zero if no rating is available. Thus we can convert it to the trace regression model.}
+  The average sample size at each time point is about $17803$ and thus the rate of observation samples in each time point is $\rho \approx 0.0057$. We use again the Epanechnikov kernel $K(x)$ and select the bandwidth $h$ in the same way as in the simulations. \oldchange{Filter 2 is to select users whose rating times are more than 30 because those users can represent the target groups of users who often using Netflix to watch movies. Then we conduct a random selection of 3000 individuals from the pool of eligible users for ease of computation.}
+  
+  We use 5-fold cross validation to choose tuning parameter $\lambda$ and evaluate the performance of $\widetilde{M}^\lambda_t$ by calculating 
+ \begin{equation} \label{eq:mse2}
+  \mbox{MSE}^*_t=\frac{1}{n_{t}^\text{test}}\sum_{i=1}^{n_{t}^\text{test}} \left(\langle X_{t,i}^\text{test},\widetilde{M}^\lambda_t\rangle -Y_{t,i}^\text{test} \right)^2,
+  \end{equation}
+  using the test data and compare the proposed method with those three benchmarks mentioned in Section \ref{sec:simu}. Figure \ref{fig_3} shows that our dynamic method is more accurate than those benchmarks across the time domain. And the average MSE$^*$, i.e. $T^{-1}\sum_{t=1}^T \mbox{MSE}^*_t$, of our dynamic method and benchmarks Static, TwoStep and Tensor methods are compared in Table \ref{table:netflix}.
+  % is $0.827$ while the average MSE of benchmarks Static, TwoStep and Tensor methods are $1.19,1.18,1.06$ respectively. %Computational time are also shown under the same conditions in \ref{sec:simu}.
+  
+  \begin{figure}[!ht]
+  \centering 
+  \subfigbottomskip=2pt 
+  \subfigcapskip=-5pt 
+  \subfigure{
+  \includegraphics[width=0.48\linewidth]{netflix_mse.pdf}}
+  \subfigure{
+  \includegraphics[width=0.48\linewidth]{netflix_mse_sample.pdf}}
+ \caption{The MSE$^*_t$ (\ref{eq:mse2}) at different time points for the proposed method and three benchmarks for the Netflix dataset. The left plot is the result for Filter 1 and the right plot is the result for Filter 2.}
+  \label{fig_3}
+  \end{figure}
+
+\begin{table}[!ht]
+     \centering
+      \caption{The average MSE$^*$ for Netflix dataset.}
+      \label{table:netflix}
+     \begin{tabular}{c|c|c|c|c}
+     \hline
+         Setting & DLR & Static & TwoStep & Tensor\\
+         \hline
+         Filter 1 MSE$^*$& 0.781& 1.431&  1.397&1.082\\
+         \hline
+          Filter 2 MSE$^*$&0.796&  1.601&1.565 & 1.360\\
+         \hline
+     \end{tabular}
+ \end{table}
+  Another example is the compression and recovery of videos. We use the lion video from Davis 2017 dataset \citep{Pont-Tuset_arXiv_2017} and treat each frame as a matrix at each time point. The dataset at \href{https://davischallenge.org/davis2017/code.html\#unsupervised}{https://davischallenge.org/davis2017/code.html\#unsupervised} is publicly available. For compression, we first separate the matrices $M^0_t$ into the sparse part $S_t$ and the low-rank part $L_t$ using robust principal component analysis \citep{candes2011robust}. The design matrices $X_{ti}$ are the convolution kernel matrices with random centers $(a_{ti},b_{ti})$, i.e., $[X_{ti}]_{a_{ti},b_{ti}} = 4,[X_{ti}]_{a_{ti}\pm1,b_{ti}}=[X_{ti}]_{a_{ti},b_{ti}\pm1}=2,[X_{ti}]_{a_{ti}\pm1,b_{ti}\pm1}=1$. It is straightforward to verify that the distributions of $\{X_{ti}\}_{t,i}$ satisfy Assumption \ref{assump_distri}. Then we compress the low-rank part to obtain corresponding output $Y_{ti} = \langle X_{ti},L_t\rangle$. For recovery, we use the dynamic trace regression  to reconstruct the low-rank part, denoted as $\widetilde{L}_t^\lambda$. Then we recover each frame by $\widetilde{M}_t^\lambda = S_t +\widetilde{L}^\lambda_t$, while the sparse part $S_t$ is retained. We emphasize that we only need store the centers $(a_{ti},b_{ti})$, the output $Y_{ti}$ and the nonzero part of $S_t$ to recover the matrices $M_t^0$, which is considerably space-saving compared to storing the whole video. 
+  In the lion video, each frame has $480\times 854$ pixels. We generate $Y_{ti}$ with the rate of observation samples $\rho=0.146$ and the file volume is reduced by 70\% after compression.   
+  Here we use Static and TwoStep mentioned in Section \ref{sec:simu} to reconstruct $\widehat{L}_t^\lambda, \widehat{L}_t^{\text{t-s}}$ and recover $\widehat{M}^\lambda_t = S_t +\widehat{L}_t^\lambda$, $\widehat{M}^{\text{t-s}} = S_t +\widehat{L}_t^{\text{t-s}}$ as benchmarks.
+  Figure \ref{fig_4} shows the original frames $M_t^0$ and the estimates $\widetilde{M}^\lambda_t, \widehat{M}_t^\lambda, \widehat{M}^{\text{t-s}}$ at different time points. The background and the smooth motions of all three lions are recovered well by the proposed DLR method, which can be seen visually better than two benchmark methods.  Recall the definition (\ref{eq:mse2}), the average MSE$^*=T^{-1}\sum_{t=1}^T \mbox{MSE}^*_t$ is $2.9\times 10^{-3}$ for our dynamic method while is $7.6\times 10^{-2}$ and $4.7\times 10^{-2}$ for the two benchmarks Static and TwoStep repsectively.
+
+  \begin{figure}[!ht]
+  \centering 
+  \subfigbottomskip=2pt 
+  \subfigcapskip=-5pt 
+
+  \subfigure{ 
+  \includegraphics[width=0.18\linewidth]{real_lions_5.pdf}}
+  \subfigure{
+  \includegraphics[width=0.18\linewidth]{real_lions_25.pdf}}
+  \subfigure{
+  \includegraphics[width=0.18\linewidth]{real_lions_45.pdf}}
+  \subfigure{
+  \includegraphics[width=0.18\linewidth]{real_lions_65.pdf}}
+  \subfigure{
+  \includegraphics[width=0.18\linewidth]{real_lions_85.pdf}}
+
+  \subfigure{
+  \includegraphics[width=0.18\linewidth]{lions_5.pdf}}
+  \subfigure{
+  \includegraphics[width=0.18\linewidth]{lions_25.pdf}}
+  \subfigure{
+  \includegraphics[width=0.18\linewidth]{lions_45.pdf}}
+  \subfigure{
+  \includegraphics[width=0.18\linewidth]{lions_65.pdf}}
+  \subfigure{
+  \includegraphics[width=0.18\linewidth]{lions_85.pdf}}
+
+  \subfigure{ 
+  \includegraphics[width=0.18\linewidth]{baseline_lions_5.pdf}}
+  \subfigure{
+  \includegraphics[width=0.18\linewidth]{baseline_lions_25.pdf}}
+  \subfigure{
+  \includegraphics[width=0.18\linewidth]{baseline_lions_45.pdf}}
+  \subfigure{
+  \includegraphics[width=0.18\linewidth]{baseline_lions_65.pdf}}
+  \subfigure{
+  \includegraphics[width=0.18\linewidth]{baseline_lions_85.pdf}}
+
+  \subfigure{
+  \includegraphics[width=0.18\linewidth]{twostep_5.pdf}}
+  \subfigure{
+  \includegraphics[width=0.18\linewidth]{twostep_25.pdf}}
+  \subfigure{
+  \includegraphics[width=0.18\linewidth]{twostep_45.pdf}}
+  \subfigure{
+  \includegraphics[width=0.18\linewidth]{twostep_65.pdf}}
+  \subfigure{
+  \includegraphics[width=0.18\linewidth]{twostep_85.pdf}}
+  \caption{The top five pictures are the $5$th, $25$th, $45$th, $65$th and $85$th original frames in the lions video, the second rows are the corresponding estimates of the proposed DLR method and the third and fourth rows are the benchmarks Static and TwoStep, respectively.}
+  \label{fig_4}
+  \end{figure}
+% \newpage
+
+% \newpage
+% \begin{center}
+% {\large\bf SUPPLEMENTARY MATERIAL}
+% \end{center}
+
+% \begin{description}
+
+% \item[Dynamic\_Matrix\_Recovery\_supp]  Detail proofs for all theorems and corollaries in ``Dynamic Matrix Recovery'', theoretical results for dynamic compressed sensing and additional numerical results. (.pdf file)
+
+% \item[Code and Data for Dynamic Matrix Recovery] R-code to implement and reproduce the simulation and real data results, corresponding output and raw datasets. 
+
+
+% \end{description}
+
+% \section{BibTeX}
+
+% We hope you've chosen to use BibTeX!\ If you have, please feel free to use the package natbib with any bibliography style you're comfortable with. The .bst file agsm has been included here for your convenience. 
+
+\bibliographystyle{agsm}
+\bibliography{DMC}
+
+
+
+
+\end{document}

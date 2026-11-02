@@ -1,0 +1,358 @@
+version: v1
+theorem_set: document-goal
+source_tag: document-processing
+theorems:
+  - id: entry:selected:4c8e03e5-8802-44ec-a205-2d26c02c5f43
+    title: Theorem 1 (thm_error_bound; corrected general positive-definite design error bound with explicit kappa_Sigma smoothing-bias factors; no isotropy assumption)
+    kind: theorem
+    latex_statement: |-
+      At time \(t=1,\ldots,T\), we observe \((Y_{ti},X_{ti})\) following the model
+      \[
+      Y_{t i} = \Tr(X_{t i}^\top M_t^0) +\xi_{t i},\quad i=1,\ldots,n_t,
+      \]
+      where \(M_t^0\) is the time-varying coefficient matrix, \(X_{ti}\) and \(\xi_{ti}\) are design matrices and zero-mean noises, respectively, \(\{X_{ti},\xi_{ti}\}_i\) (given \(t\)) are mutually independent across subject and \(\{X_{ti},\xi_{ti}\}_t\) (given \(i\)) may be correlated across time.
+
+      Define the matrix inner product by \(\langle M,X\rangle = \Tr(M^\top X)\). In the sequel, we denote \(\|M\|_0\), \(\|M\|_1\), \(\|M\|_2\), \(\|M\|_{\infty}\) and \(\langle M,N\rangle\) as the rank, nuclear norm, Frobenius norm, maximum singular value of \(M\) and the trace of \(M^\top N\), respectively. We use the manuscript's norm convention: \(\|\cdot\|_1\) is the nuclear norm, \(\|\cdot\|_2\) the Frobenius norm, and \(\|\cdot\|_\infty\) the operator norm. All inner products below are Frobenius inner products.
+
+      Let \(\myvec(X)\in \mathbb{R}^{m_1m_2}\) be the vectorization of \(X \in \mathbb{R}^{m_1\times m_2}\) and define the second moment matrix of \(X_{t}\) by \(\Sigma_{t}\in \mathbb{S}^{m_1m_2\times m_1m_2}\) such that
+      \begin{equation*}
+      \Sigma_{t} = \frac{1}{n_t}\sum_{i=1}^{n_t}\mathbb{E} [\myvec({X}_{ti})\myvec({X}_{ti})^\top].
+      \end{equation*}
+      It is necessary to guarantee the identifiability of matrix recovery that the positive semi-definite matrix \(\Sigma_{t}\) is invertible. To simplify, we consider the homogeneous scenario such that at each time point \(t\), the design \(\{X_t\}_t\) have the same second moment matrix as stated below.
+
+      The local smoothing weights are
+      \[
+      \omega_h(j-t)=K_{Th}\left(j-t\right)/\sum_{k=1}^T K_{Th}\left(k-t\right)
+      \]
+      with the kernel function \(K(x)\) and bandwidth \(h\).
+
+      The dynamic target function with nuclear norm penalty is
+      \begin{equation}
+      \label{eq_local_estimator}
+      \widetilde{M}_t^{\lambda}=\argmin_{M\in\mathbb{M}}\sum_{j=1}^T\omega_h(j-t)\left[\frac{1}{n_j}\sum_{i=1}^{n_j}\mathbb{E}(\left\langle M,X_{ji}\right\rangle)^2 - 2\left\langle\frac{1}{n_j}\sum_{i=1}^{n_j}Y_{ji}X_{ji}, M \right\rangle\right] +\lambda \|M\|_1,
+      \end{equation}
+      where \(\mathbb{M}\subset\mathbb{R}^{m_1\times m_2}\) is a convex set of matrices, \(\lambda>0\) is a regularization parameter and \(\|M\|_1\) is the nuclear norm of \(M\).
+
+      For brevity, we further denote
+      \[
+      \Delta_j =\frac{1}{n_j} \sum_{i=1}^{n_j}\left(Y_{j i}X_{j i} - \mathbb{E}(Y_{j i}X_{j i})\right)
+      \]
+      and
+      \begin{equation*}
+      \delta_h M_{t} = \left\|M_t^0-\sum_{j=1}^T \omega_h(j-t) M_j^0\right\|_2,\quad \mathcal{W}_h\Delta_{t} =\left\| \sum_{j=1}^T \omega_h(j-t)\Delta_j\right\|_{\infty}.
+      \end{equation*}
+
+      <!-- formalization-clarifications:v1:a05987a19911bbaa09f16bac54fb8b74bc66c5211402935a74924a093b0e203d -->
+      Formalization clarifications from source and proof:
+      1. Constants and quantifier order (owner: Theorem 1 (thm_error_bound) and Assumption \ref{assump_Sigma}; Lemma 1/R1 for the cited curvature lemma). The intended order in Theorem 1 is: first fix positive integers \(m_1,m_2,T,n_1,\ldots,n_T\), then fix \(t\in\{1,\ldots,T\}\), then impose Assumption \ref{assump_Sigma}, which supplies a fixed positive definite \(\Sigma\) with smallest eigenvalue \(\mu>0\) and \(\kappa_\Sigma=\lambda_{\max}(\Sigma)/\mu\ge1\). The deterministic matrices \(M_j^0\), weights \(\omega_h(j-t)\), convex set \(\mathbb M\), and moment conditions are also fixed before the conclusion. The theorem then says, “For each realization, if \(\lambda\ge2\mathcal W_h\Delta_t\),” the displayed inequality holds. Thus \(\mathcal W_h\Delta_t\) is data-dependent/random, and if one selects \(\lambda=2\mathcal W_h\Delta_t\), then \(\lambda\) is data-dependent. The constants \(\mu,\kappa_\Sigma\) are parameter-dependent on \(\Sigma\) (hence on the design distribution and dimension, and possibly on the \(n_j\) because \(\Sigma_t\) is defined by an average over \(i\) unless a further i.i.d. assumption is made); Theorem 1 does not assert uniformity of \(\mu,\kappa_\Sigma\) over dimensions, distributions, sample sizes, or sets \(\mathbb M\). The numerical constants in the bound are explicit, and no unspecified absolute constant appears in Theorem 1. Lemma 1/R1 has the separate universal quantifier order: for every symmetric positive definite \(\Sigma\), with \(\mu\) and \(\kappa_\Sigma=\lambda_{\max}(\Sigma)/\mu\), for all real vectors \(\alpha,\beta\) of the appropriate dimension, \(\alpha^\top\Sigma(\alpha+\beta)\ge\mu(\|\alpha\|_2^2-\kappa_\Sigma\|\alpha\|_2\|\beta\|_2)\). Its \(\kappa_\Sigma\) may depend on \(\Sigma\), but the inequality is universal over \(\alpha,\beta\) for fixed \(\Sigma\). The use of Lemma 1 with \(\alpha=\mathrm{vec}(H)\), \(\beta=\mathrm{vec}(D)\) is an application inside the proof of Theorem 1, not an extra restriction on Lemma 1. The source basis for R1 says the proof of the lemma is not included in the supplied organization.
+
+      2. Norms and mathematical objects (owner: main notation preceding Theorem 1; Theorem 1 statement; Proof of Theorem 1; Lemma 1/R1). The source explicitly fixes the matrix norm convention: \(\|M\|_0\) is rank, \(\|M\|_1\) is the nuclear norm, \(\|M\|_2\) is the Frobenius norm, and \(\|M\|_\infty\) is the maximum singular value/operator norm. The inner product is the Frobenius trace inner product \(\langle M,N\rangle=\Tr(M^\top N)\). The error norm in Theorem 1 is therefore the Frobenius norm, while \(\mathcal W_h\Delta_t\) uses the operator norm. The first branch of the bound uses \(\|M_t^0\|_1\) (nuclear norm) and the second uses \(\sqrt{r_t}\) with \(r_t=\rank(M_t^0)\). In Lemma 1/R1, \(\|\alpha\|_2\) and \(\|\beta\|_2\) are ordinary Euclidean vector norms; after vectorization they correspond to Frobenius norms of matrices, not operator norms. The source also specifies the self-adjoint map \(\mathcal S\) by \(\mathrm{vec}(\mathcal S A)=\Sigma\,\mathrm{vec}(A)\) and \(q(A)=\langle\mathcal S A,A\rangle\); this is the object induced by the design second moment, not an arbitrary linear map and not the empirical second moment. The estimator’s first term is the expected squared inner product, \(\mathbb E(\langle M,X_{ji}\rangle)^2\), interpreted in the proof/Assumption as \(\mathrm{vec}(M)^\top\Sigma\,\mathrm{vec}(M)\), i.e. the second moment, not the square of the mean. The theorem’s estimator is not the usual empirical squared-error objective and should not be replaced by \(\sum_i(Y_{ji}-\langle M,X_{ji}\rangle)^2\). In the proof only, \(M_0\) denotes \(M_t^0\), not the algorithmic initial matrix \(M_0\) from Algorithm 1. The set \(\mathbb M\) is assumed nonempty, closed, convex, and to contain \(M_t^0\); Theorem 1 does not require boundedness or a restricted-isometry condition.
+
+      3. Asymptotics (owner: Theorem 1 has none; the asymptotic notation belongs to later Theorem \ref{thm_total}, Corollaries, and dependent-case results, not to the selected theorem). Theorem 1 is a pathwise, realized inequality under the condition \(\lambda\ge2\mathcal W_h\Delta_t\). It contains no \(O,o,O_p,o_p\), no limiting variable, and no probability statement. Consequently, in the selected theorem, “for each realization” must not be silently translated into “with high probability” or into an asymptotic rate. The condition \(\lambda\ge2\mathcal W_h\Delta_t\) defines an event depending on the data; the source does not supply its probability in Theorem 1. The later paper uses “with probability at least \(1-3/(m_1+m_2)\)” and limits as \(n,m_1,m_2,T\to\infty\), \(h\to0\), with additional conditions and constants \(C_1,C_2,\mathcal C_1,\mathcal C_2\) depending on supplementary lemmas; those are outside Theorem 1 and should not be imported into its formalization. The source uses \(a_n\ll b_n\), \(a_n\gg b_n\), and \(a_n\asymp b_n\) in later asymptotic statements, but Theorem 1 leaves any uniform range over dimension, sample size, distributions, vectors, and sets unspecified. The bandwidth \(h\) is a fixed parameter in Theorem 1; no \(h\to0\) or kernel-smoothness assumption is part of the theorem.
+
+      4. Potentially omitted definitions and side conditions (owner: Definitions and notation, Theorem 1, Proof of Theorem 1, and Lemma 1/R1). The indices are \(j=1,\ldots,T\) and \(i=1,\ldots,n_j\), with \(Y_{ji}\) scalar and \(X_{ji}\in\mathbb R^{m_1\times m_2}\). The theorem assumes deterministic \(M_j^0\), fixed \(t\), and moment conditions \(\mathbb E\|X_{ji}\|_2^2<\infty\), \(\mathbb E[|\xi_{ji}|\|X_{ji}\|_2]<\infty\), and the matrix identity \(\mathbb E[\xi_{ji}X_{ji}]=0\). The last identity is stronger than scalar zero mean and is the condition used to make the proof identity \(\frac1{n_j}\sum_i\mathbb E[Y_{ji}X_{ji}]=\mathcal S M_j^0\) true; conditional mean-zero given \(X_{ji}\) implies it, but the theorem states it directly. The source explicitly says no temporal independence is required for Theorem 1. The opening model paragraph states mutual independence across subjects for fixed \(t\), but the proof of Theorem 1 uses only the displayed moment/mean-zero conditions; the selected statement itself does not list cross-subject independence among its displayed hypotheses. The weights \(\omega_h(j-t)\) are assumed deterministic, nonnegative, sum to one, with positive denominator in the kernel definition; Theorem 1 uses only these deterministic weights. The selected theorem leaves the precise scaling/formula of \(K_{Th}\) unspecified; kernel smoothness, symmetry, compact support, and bias rates appear only in later Assumption \ref{assum_kernel}/asymptotic results. The proof sets \(w_j=\omega_h(j-t)\), \(E=\sum_jw_j\Delta_j\), \(W=\|E\|_\infty=\mathcal W_h\Delta_t\), and imposes \(2W\le\lambda\); these are proof-level abbreviations for the theorem’s condition. The proof also uses the convention that for \(r_t=0\) one takes empty \(U,V\) and \(P_U=P_V=0\). The estimator definition writes \(\lambda>0\), but the theorem/proof explicitly extend well-definedness to \(\lambda=0\); the theorem’s condition \(\lambda\ge2\mathcal W_h\Delta_t\) then forces \(W=0\) when \(\lambda=0\). The source leaves unspecified in Theorem 1 any probability space/measurability details for \(\Delta_j\) and \(\mathcal W_h\Delta_t\), any uniformity of \(\mu,\kappa_\Sigma\) or of the \(n_j\), and any relation such as \(n_j\asymp n\); those latter conditions belong to later asymptotic sections, not to Theorem 1. Lemma 1/R1 is stated for real vectors of appropriate dimension and does not require isotropy of \(\Sigma\); the constant \(\kappa_\Sigma\) accounts for anisotropy.
+      <!-- /formalization-clarifications -->
+
+      Let \(m_1,m_2,T,n_1,\ldots,n_T\) be positive integers and fix
+      \(t\in\{1,\ldots,T\}\). Under Assumption \ref{assump_Sigma}, write
+      \(\kappa_\Sigma=\lambda_{\max}(\Sigma)/\mu\ge1\).
+      Assume that the deterministic weights \(\omega_h(j-t)\) are nonnegative
+      and sum to one (in the kernel definition their denominator is positive).
+      Assume that \(\mathbb M\) is a nonempty closed convex subset of
+      \(\mathbb R^{m_1\times m_2}\) containing \(M_t^0\), that the coefficient
+      matrices \(M_j^0\) are deterministic, and that the model
+      \(Y_{ji}=\langle M_j^0,X_{ji}\rangle+\xi_{ji}\) holds.
+      For every \(j,i\), assume
+      \(\mathbb E\|X_{ji}\|_2^2<\infty\),
+      \(\mathbb E[|\xi_{ji}|\|X_{ji}\|_2]<\infty\), and
+      \(\mathbb E[\xi_{ji}X_{ji}]=0\).
+      The last condition is implied by conditionally mean-zero noise given
+      \(X_{ji}\), or by independent, centered noise with the stated moments;
+      no temporal independence is required for this theorem.
+      The estimator \(\widetilde M_t^\lambda\) defined by (eq_local_estimator) above is well-defined also for
+      \(\lambda=0\). For each realization, if
+      \(\lambda\ge2\mathcal W_h\Delta_t\), then, with \(r_t=\rank(M_t^0)\),
+      \begin{equation}
+       \label{eq_thm_error_bound}
+      \left\|\widetilde M_t^\lambda-M_t^0\right\|_2
+      \le \kappa_\Sigma\delta_hM_t+
+      \min\left\{
+        \left((\kappa_\Sigma\delta_hM_t)^2+
+          \frac{2\lambda}{\mu}\|M_t^0\|_1\right)^{1/2},\quad
+        \frac{1+\sqrt2}{2}\frac{\lambda}{\mu}\sqrt{r_t}
+      \right\}.
+      \end{equation}
+      When selecting \(\lambda=2\mathcal W_h\Delta_t\), we have
+      \begin{equation}
+      \label{proposed_bound}
+      \left\|\widetilde M_t^\lambda-M_t^0\right\|_2
+      \le \kappa_\Sigma\delta_hM_t+
+      \min\left\{
+        \left((\kappa_\Sigma\delta_hM_t)^2+
+          \frac{2\mathcal W_h\Delta_t}{\mu}\|M_t^0\|_1\right)^{1/2},\quad
+        (1+\sqrt2)\frac{\mathcal W_h\Delta_t}{\mu}\sqrt{r_t}
+      \right\}.
+      \end{equation}
+    assumptions:
+      - Assumption \ref{assump_Sigma}. There exists a positive definite matrix \(\Sigma \in \mathbb{S}_{+}^{m_1m_2\times m_1m_2}\) such that \(\Sigma_j=\Sigma,\ j=1,2,\dots,T\) with smallest eigenvalue \(\mu>0\) and bounded condition number \(\kappa_\Sigma\). In the theorem and proof we write \(\kappa_\Sigma=\lambda_{\max}(\Sigma)/\mu\ge1\).
+    proof_body: |-
+      ### Definitions and notation used in Proof
+      In the proof, fix the time index and a realization of all observations. Write
+      \[
+       w_j=\omega_h(j-t),\quad M_0=M_t^0,\quad
+       \bar M=\sum_jw_jM_j^0,\quad
+       E=\sum_jw_j\Delta_j,\quad W=\|E\|_\infty,
+      \]
+      \[
+       \widehat M=\widetilde M_t^\lambda,\quad
+       H=\widehat M-M_0,\quad D=M_0-\bar M,
+      \]
+      \[
+       e=\|H\|_2,\quad\delta=\|D\|_2=\delta_hM_t,\quad
+       b=\kappa_\Sigma\delta,\quad N_0=\|M_0\|_1.
+      \]
+      Let \(\mathcal S\) be the self-adjoint linear map on matrices defined by
+      \(\myvec(\mathcal S A)=\Sigma\myvec(A)\), and let
+      \(q(A)=\langle\mathcal S A,A\rangle\). The proof uses the condition
+      \(\lambda\ge2\mathcal W_h\Delta_t\); in the proof notation this is \(2W\le\lambda\).
+
+      ### Proof
+      The moment assumptions and
+      \(\mathbb E[\xi_{ji}X_{ji}]=0\) imply
+      \[
+       \frac1{n_j}\sum_i \mathbb E[Y_{ji}X_{ji}]=\mathcal S M_j^0,
+       \qquad
+       \sum_j w_j\frac1{n_j}\sum_iY_{ji}X_{ji}=\mathcal S\bar M+E.
+      \]
+      These expectations exist: Cauchy--Schwarz bounds
+      \(\mathbb E[|\langle M_j^0,X_{ji}\rangle|\|X_{ji}\|_2]\)
+      by \(\|M_j^0\|_2\mathbb E\|X_{ji}\|_2^2\), and the noise-product
+      moment is explicitly assumed. As \(\sum_jw_j=1\), the objective is exactly
+      \[
+       F(A)=q(A)-2\langle\mathcal S\bar M+E,A\rangle+\lambda\|A\|_1.
+      \]
+      It is continuous, strongly convex and coercive because
+      \(q(A)\ge\mu\|A\|_2^2\) and \(\lambda\ge0\).
+      It therefore attains a unique minimum on the nonempty closed convex
+      set \(\mathbb M\). [ref:R1] yields
+      \begin{equation}\label{dmr:curvature}
+       \langle\mathcal S(H+D),H\rangle
+       \ge\mu(e^2-be).
+      \end{equation}
+
+      Slow bound. For \(0<\varepsilon<1\), convexity and \(M_0\in\mathbb M\) imply
+      \(\widehat M-\varepsilon H\in\mathbb M\) and
+      \[
+       \|\widehat M-\varepsilon H\|_1
+       \le(1-\varepsilon)\|\widehat M\|_1+\varepsilon N_0.
+      \]
+      Minimality and exact expansion of the quadratic part give
+      \[
+       0\le F(\widehat M-\varepsilon H)-F(\widehat M)
+       \le-2\varepsilon\langle\mathcal S(H+D)-E,H\rangle
+             +\varepsilon^2q(H)
+             +\varepsilon\lambda(N_0-\|\widehat M\|_1).
+      \]
+      Divide by \(\varepsilon\) and let \(\varepsilon\downarrow0\). By
+      operator/nuclear norm duality and \(2W\le\lambda\),
+      \begin{align*}
+       2\langle\mathcal S(H+D),H\rangle
+       &\le2\langle E,H\rangle+\lambda(N_0-\|\widehat M\|_1)\\
+       &\le2W\|H\|_1+\lambda(N_0-\|\widehat M\|_1)\\
+       &\le\lambda(\|\widehat M\|_1+N_0)
+             +\lambda(N_0-\|\widehat M\|_1)=2\lambda N_0.
+      \end{align*}
+      Combining with the inequality
+      \[
+       \langle\mathcal S(H+D),H\rangle
+       \ge\mu(e^2-be)
+      \]
+      from \eqref{dmr:curvature} and solving the quadratic gives
+      \begin{equation}\label{dmr:strong-slow}
+       e^2-be\le\frac{\lambda N_0}{\mu},\qquad
+       e\le\frac b2+\sqrt{\frac{b^2}{4}+\frac{\lambda N_0}{\mu}}.
+      \end{equation}
+      In particular
+      \(e\le b+\sqrt{b^2+2\lambda N_0/\mu}\), the first branch of the
+      stated general bound. When \(\lambda=2W\), the stronger display
+      \[
+       e^2-be\le\frac{\lambda N_0}{\mu},\qquad
+       e\le\frac b2+\sqrt{\frac{b^2}{4}+\frac{\lambda N_0}{\mu}}
+      \]
+      from \eqref{dmr:strong-slow} also gives
+      \(e\le b+\sqrt{b^2+2WN_0/\mu}\), the stated special slow branch.
+      This uses \eqref{dmr:strong-slow} directly; merely substituting
+      \(\lambda=2W\) in the weaker general branch would lose this constant.
+
+      Nuclear norm geometry. Let \(r=\rank(M_0)\) and take a thin singular value decomposition
+      \(M_0=USV^\top\). Put \(P_U=UU^\top\) and \(P_V=VV^\top\) and define
+      \[
+       P_{T^\perp}A=(I-P_U)A(I-P_V),\quad
+       P_TA=P_UA+(I-P_U)AP_V=A-P_{T^\perp}A.
+      \]
+      These are orthogonal projections for the Frobenius inner product.
+      For \(r=0\) take \(U,V\) empty and \(P_U=P_V=0\); all the following
+      identities remain valid. Write \(H_\perp=P_{T^\perp}H\).
+      The two blocks \(P_UE\) and \((I-P_U)EP_V\) are Frobenius-orthogonal,
+      have rank at most \(r\), and each has operator norm at most \(W\).
+      Consequently
+      \begin{equation}\label{dmr:tangent-noise}
+       \|P_TE\|_2^2=\|P_UE\|_2^2+\|(I-P_U)EP_V\|_2^2\le2rW^2,
+      \end{equation}
+      where we used \(\|A\|_2\le\sqrt{\rank(A)}\|A\|_\infty\).
+      Also \(\|P_{T^\perp}E\|_\infty\le W\), and hence
+      \begin{equation}\label{dmr:noise}
+       \langle E,H\rangle
+       \le\sqrt{2r}We+W\|H_\perp\|_1.
+      \end{equation}
+      No operator-norm contraction property for \(P_T\) is being assumed.
+
+      Choose the polar factor \(Z_\perp\) of \(H_\perp\) from its thin SVD,
+      with \(Z_\perp=0\) if \(H_\perp=0\). Its left and right singular
+      vectors lie in the orthogonal complements of the columns of \(U,V\),
+      respectively. Thus
+      \[
+       \|Z_\perp\|_\infty\le1,\quad P_UZ_\perp=0,\quad
+       Z_\perp P_V=0,\quad
+       \langle Z_\perp,H\rangle=\|H_\perp\|_1.
+      \]
+      The matrix \(V_0=UV^\top+Z_\perp\) has operator norm at most one
+      by its orthogonal row/column blocks, and
+      \(\langle V_0,M_0\rangle=\|M_0\|_1\).
+      Duality therefore shows \(V_0\in\partial\|M_0\|_1\):
+      for every \(A\),
+      \(\|A\|_1\ge\langle V_0,A\rangle
+      =\|M_0\|_1+\langle V_0,A-M_0\rangle\).
+      Moreover \(\|UV^\top\|_2=\sqrt r\).
+
+      Rank bound. If \(\lambda>0\), finite-dimensional convex optimality gives
+      \(\widehat V\in\partial\|\widehat M\|_1\) such that
+      \begin{equation}\label{dmr:vi}
+       2\langle\mathcal S(H+D)-E,\widehat M-A\rangle
+       +\lambda\langle\widehat V,\widehat M-A\rangle\le0
+       \qquad(A\in\mathbb M).
+      \end{equation}
+      Indeed \(0\in2(\mathcal S\widehat M-\mathcal S\bar M-E)
+      +\lambda\partial\|\widehat M\|_1+N_{\mathbb M}(\widehat M)\),
+      where \(N_C(x)=\{z:\langle z,A-x\rangle\le0\text{ for all }A\in C\}\).
+      The subgradient sum rule applies even at the boundary of \(\mathbb M\)
+      because the smooth term and the nuclear norm are finite and continuous
+      on the entire finite-dimensional matrix space.
+      The two subgradient inequalities at \(M_0,\widehat M\) imply
+      \(\langle\widehat V,H\rangle\ge\langle V_0,H\rangle\).
+      Use \(A=M_0\) in
+      \[
+       2\langle\mathcal S(H+D)-E,\widehat M-A\rangle
+       +\lambda\langle\widehat V,\widehat M-A\rangle\le0
+       \qquad(A\in\mathbb M)
+      \]
+      from \eqref{dmr:vi} and then the inequality
+      \[
+       \langle E,H\rangle
+       \le\sqrt{2r}We+W\|H_\perp\|_1
+      \]
+      from \eqref{dmr:noise} to obtain
+      \begin{align*}
+       2\langle\mathcal S(H+D),H\rangle
+       &\le2\langle E,H\rangle-\lambda\langle V_0,H\rangle\\
+       &\le(\lambda\sqrt r+2\sqrt{2r}W)e
+             -(\lambda-2W)\|H_\perp\|_1\\
+       &\le(1+\sqrt2)\lambda\sqrt r\,e.
+      \end{align*}
+      The last step uses \(2W\le\lambda\) and drops a nonpositive term.
+      If \(e=0\) the rank bound is immediate. Otherwise apply the inequality
+      \[
+       \langle\mathcal S(H+D),H\rangle
+       \ge\mu(e^2-be)
+      \]
+      from \eqref{dmr:curvature} and divide by \(2\mu e\) to conclude
+      \begin{equation}\label{dmr:rank}
+       e\le b+\frac{1+\sqrt2}{2}\frac\lambda\mu\sqrt r.
+      \end{equation}
+      If \(\lambda=0\), then \(W=0\) and the first inequality
+      \[
+       e^2-be\le\frac{\lambda N_0}{\mu}
+      \]
+      of \eqref{dmr:strong-slow} gives \(e^2-be\le0\), hence \(e\le b\);
+      this is exactly the inequality
+      \[
+       e\le b+\frac{1+\sqrt2}{2}\frac\lambda\mu\sqrt r
+      \]
+      from \eqref{dmr:rank} for \(\lambda=0\). Combining the two branches and substituting \(b=\kappa_\Sigma\delta_hM_t\) proves
+      \begin{equation}
+       \label{eq_thm_error_bound}
+      \left\|\widetilde M_t^\lambda-M_t^0\right\|_2
+      \le \kappa_\Sigma\delta_hM_t+
+      \min\left\{
+        \left((\kappa_\Sigma\delta_hM_t)^2+
+          \frac{2\lambda}{\mu}\|M_t^0\|_1\right)^{1/2},\quad
+        \frac{1+\sqrt2}{2}\frac{\lambda}{\mu}\sqrt{r_t}
+      \right\}.
+      \end{equation}
+      The stronger slow bound and
+      \[
+       e\le b+\frac{1+\sqrt2}{2}\frac\lambda\mu\sqrt r
+      \]
+      from \eqref{dmr:rank} with \(\lambda=2W\) prove
+      \begin{equation}
+      \label{proposed_bound}
+      \left\|\widetilde M_t^\lambda-M_t^0\right\|_2
+      \le \kappa_\Sigma\delta_hM_t+
+      \min\left\{
+        \left((\kappa_\Sigma\delta_hM_t)^2+
+          \frac{2\mathcal W_h\Delta_t}{\mu}\|M_t^0\|_1\right)^{1/2},\quad
+        (1+\sqrt2)\frac{\mathcal W_h\Delta_t}{\mu}\sqrt{r_t}
+      \right\}.
+      \end{equation}
+
+      ### References
+      #### Reference R1
+      Target: Lemma 1 (labels `lem1`, `lemm_convex`)
+      Citation: Lemma 1. Let \(\Sigma\) be symmetric positive definite, with smallest eigenvalue \(\mu>0\) and \(\kappa_\Sigma=\lambda_{\max}(\Sigma)/\mu\). For all real vectors \(\alpha,\beta\) of the appropriate dimension,
+      \[
+       \alpha^\top\Sigma(\alpha+\beta)
+       \ge \mu\bigl(\|\alpha\|_2^2-
+             \kappa_\Sigma\|\alpha\|_2\|\beta\|_2\bigr).
+       \label{eq_lemm_convex}
+      \]
+      Lemma 1 yields
+      \[
+       \langle\mathcal S(H+D),H\rangle
+       \ge\mu(e^2-be).
+       \label{dmr:curvature}
+      \]
+      Bibliography: supp
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction. The result is stated in the supplied supplement D1 (`supp.tex`), in the section “Proof of Theorem 1,” as the environment `\begin{lemma}\label{lem1}\label{lemm_convex}`. It is the supplementary material for *Dynamic Matrix Recovery* (main.tex; authors: Ziyuan Chen, Ying Yang, Fang Yao), file `supp.tex`. In the current proof it supports the curvature inequality \(\langle\mathcal S(H+D),H\rangle\ge\mu(e^2-be)\); that displayed consequence is an application made in the read-only current proof context and is not restated here as part of the source lemma. The source lemma statement and its stated hypotheses are present in the supplied material; no statement content is missing. The source proof of the lemma is not included in this organization.
+
+      ##### Lemma 1 (lem1, lemm_convex)
+      ###### Definitions and notation
+      In the lemma, \(\Sigma\) is a symmetric positive definite matrix, \(\mu>0\) is its smallest eigenvalue, and
+      \[
+      \kappa_\Sigma=\frac{\lambda_{\max}(\Sigma)}{\mu},
+      \]
+      where \(\lambda_{\max}(\Sigma)\) denotes the largest eigenvalue of \(\Sigma\). The vectors \(\alpha,\beta\) are real vectors of the appropriate dimension, and \(\|\cdot\|_2\) denotes the Euclidean norm. The expression \(\alpha^\top\Sigma(\alpha+\beta)\) is defined for these vectors.
+
+      ###### Assumptions
+      \(\Sigma\) is symmetric positive definite. Its smallest eigenvalue is \(\mu>0\), and \(\kappa_\Sigma=\lambda_{\max}(\Sigma)/\mu\). The vectors \(\alpha\) and \(\beta\) are real vectors of the appropriate dimension.
+
+      ###### Statement
+      Let \(\Sigma\) be symmetric positive definite, with smallest eigenvalue \(\mu>0\) and \(\kappa_\Sigma=\lambda_{\max}(\Sigma)/\mu\). For all real vectors \(\alpha,\beta\) of the appropriate dimension,
+      \begin{equation}\label{eq_lemm_convex}
+       \alpha^\top\Sigma(\alpha+\beta)
+       \ge \mu\bigl(\|\alpha\|_2^2-
+             \kappa_\Sigma\|\alpha\|_2\|\beta\|_2\bigr).
+      \end{equation}
+    lean_name: Theorem_1_thm_error_bound_corrected_general_positive_definite_design_error_bound_with_explicit_kappa_Sigma_smoothing_bia
+    lean_namespace: Statlib.Imported
+    layer: formalization
+    priority: 3
+    dependencies: []
+    notes: generated from a persisted ordinary goal; no attack-DAG dependency semantics

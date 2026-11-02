@@ -1,0 +1,159 @@
+version: v1
+theorem_set: paper-proof-group
+source_tag: document-processing
+theorems:
+  - id: entry:selected:0febd923-37f0-42c8-bec3-7e8ef73cd187
+    title: paper_c8b26067279b40ecab829c145c82445e
+    kind: lemma
+    latex_statement: |-
+      Here \(\Sigma\) is symmetric positive definite, \(\mu>0\) denotes its smallest eigenvalue, and \(\lambda_{\max}(\Sigma)\) denotes its largest eigenvalue, so
+      \[
+      \kappa_\Sigma=\frac{\lambda_{\max}(\Sigma)}{\mu}\ge 1.
+      \]
+      The vectors \(\alpha,\beta\) are real vectors in the same Euclidean space, with \(\|\cdot\|_2\) the ordinary Euclidean vector norm. No isotropy assumption on \(\Sigma\) is required; the factor \(\kappa_\Sigma\) accounts for anisotropy. The lemma is stated for arbitrary dimension where the expression is defined.
+
+      <!-- formalization-clarifications:v1:2f6a95efa2529c786a7b8ed79b0ac8a5bcc5fb74a2b40840103b24792956070f -->
+      Formalization clarifications from source and proof:
+      1. The only constants in the selected Lemma 1 (`lem1`/`lemm_convex` in `supp.tex`) are the parameter-dependent quantities \(\mu=\lambda_{\min}(\Sigma)\) and \(\kappa_\Sigma=\lambda_{\max}(\Sigma)/\mu\). They are fixed only after the dimension \(d\) and the symmetric positive definite matrix \(\Sigma\in\mathbb R^{d\times d}\) are fixed, and they may depend on both. The source does not assert any dimension-free or matrix-free constant, nor any uniform bound on \(\kappa_\Sigma\) beyond \(\kappa_\Sigma\ge1\). The intended order is: for each finite dimension \(d\ge1\), for each real symmetric positive definite \(\Sigma\), define \(\mu\) and \(\kappa_\Sigma\), and then for all real vectors \(\alpha,\beta\in\mathbb R^d\) in the same Euclidean space the displayed inequality holds. There are no distributions, sample sizes, random vectors, or sets \(\mathbb M\) in the target lemma. If \(d\) or \(\Sigma\) is an implicit Lean parameter, that does not make \(\mu\) or \(\kappa_\Sigma\) independent of it. The selected statement’s phrase “appropriate dimension” is not an asymptotic uniformity claim; the finite-dimensional meaning is confirmed by the Definitions and notation and by the R1 restatement’s “Let \(d\ge1\).”
+
+      2. In the selected lemma, \(\|\alpha\|_2\) and \(\|\beta\|_2\) are the ordinary Euclidean vector \(\ell^2\) norms, \(\|\alpha\|_2=(\sum_i\alpha_i^2)^{1/2}\), with the standard real inner product and transpose notation. The matrix \(\Sigma\) acts on the same \(\mathbb R^d\). The proof defines \(\|\Sigma\|_{\mathrm{op}}\) as the induced Euclidean operator norm \(\sup_{x\ne0}\|\Sigma x\|_2/\|x\|_2\); for symmetric positive definite \(\Sigma\), this equals \(\lambda_{\max}(\Sigma)=\mu\kappa_\Sigma\). Do not replace it by a Frobenius, nuclear, sup-entry, or normalized norm. The surrounding `supp.tex` convention “\(\|\cdot\|_1\) is the nuclear norm, \(\|\cdot\|_2\) the Frobenius norm, and \(\|\cdot\|_\infty\) the operator norm” is the matrix convention for the later matrix theorem; the present lemma explicitly concerns real vectors, so its \(\|\cdot\|_2\) is the vector Euclidean norm, not the matrix Frobenius norm. The source-defined objects must be kept: \(\mu\) is the smallest eigenvalue, \(\lambda_{\max}(\Sigma)\) the largest eigenvalue, and \(\kappa_\Sigma\) their ratio. It is not asserted that \(\Sigma=\mu I\), that \(\kappa_\Sigma\) is bounded, or that \(\mu\) may be replaced by a convenient diagonal entry or lower bound.
+
+      3. The selected lemma and its proof are deterministic and non-asymptotic: there is no \(O\), \(o\), \(O_p\), \(o_p\), probability mode, limiting variable, or filter in Lemma 1. The only equality involving the operator norm is the exact finite-dimensional identity \(\|\Sigma\|_{\mathrm{op}}=\lambda_{\max}(\Sigma)=\mu\kappa_\Sigma\). Asymptotic notation and probability statements appear elsewhere in the larger source, but they are not part of, and should not be imported into, Lemma 1. In particular, conditions such as \(h\to0\) or \(n,m_1,m_2,T\to\infty\) belong to other results and are not hypotheses of the target lemma. The phrase “arbitrary dimension where the expression is defined” should be read per dimension; the source does not claim a constant uniform over all dimensions.
+
+      4. The target statement leaves the dimension only implicit as “appropriate dimension.” Its proof and the R1 restatement make explicit the finite \(d\ge1\) interpretation: \(\Sigma\in\mathbb R^{d\times d}\) and \(\alpha,\beta\in\mathbb R^d\). The source assumes symmetry and positive definiteness of \(\Sigma\), hence real positive eigenvalues, and uses the spectral theorem sentence “The spectral theorem gives \(\alpha^\top\Sigma\alpha\ge\mu\|\alpha\|_2^2\) and \(|\alpha^\top\Sigma\beta|\le\|\Sigma\|_{\mathrm{op}}\|\alpha\|_2\|\beta\|_2=\mu\kappa_\Sigma\|\alpha\|_2\|\beta\|_2\).” That sentence is the reference R1 content in `supp.tex`; the fuller labelled R1 expansion is marked model-supplemented/source-unconfirmed, with no page, theorem number, equation number, or bibliography entry. The original `supp.tex` lemma itself is present, and its proof uses the two displayed spectral/operator-norm bounds and then adds them; the absolute-value cross-term bound is a derived estimate, not an additional hypothesis. No probability space, event, index set, measure, sample-size parameter, or set \(\mathbb M\) is required for the selected lemma. To formalize it, fix \(d\ge1\) and a real symmetric positive definite \(\Sigma\) first, compute \(\mu>0\) and \(\kappa_\Sigma\), then quantify over all \(\alpha,\beta\in\mathbb R^d\); do not assume nonzero \(\alpha\) or \(\beta\), since the source does not require it and the zero cases are harmless.
+      <!-- /formalization-clarifications -->
+
+      Let \(\Sigma\) be symmetric positive definite, with smallest eigenvalue \(\mu>0\) and
+      \[
+      \kappa_\Sigma=\frac{\lambda_{\max}(\Sigma)}{\mu}.
+      \]
+      For all real vectors \(\alpha,\beta\) of the appropriate dimension,
+      \[
+      \alpha^\top\Sigma(\alpha+\beta)
+      \ge
+      \mu\Bigl(\|\alpha\|_2^2-\kappa_\Sigma\|\alpha\|_2\|\beta\|_2\Bigr).
+      \]
+    assumptions: []
+    proof_body: |-
+      ### Definitions and notation used in Proof
+      In the proof, \(\|\Sigma\|_{\rm op}\) denotes the operator norm
+      \[
+      \|\Sigma\|_{\rm op}
+      =
+      \sup_{x\in\mathbb R^d,\ x\neq0}\frac{\|\Sigma x\|_2}{\|x\|_2},
+      \]
+      where \(d\ge1\) is the dimension of the same Euclidean space; for symmetric positive definite \(\Sigma\),
+      \[
+      \|\Sigma\|_{\rm op}
+      =
+      \lambda_{\max}(\Sigma)
+      =
+      \mu\kappa_\Sigma.
+      \]
+
+      ### Proof
+      By [ref:R1],
+      \[
+      \alpha^\top\Sigma\alpha\ge\mu\|\alpha\|_2^2
+      \]
+      and
+      \[
+      |\alpha^\top\Sigma\beta|
+      \le \|\Sigma\|_{\rm op}\|\alpha\|_2\|\beta\|_2
+      = \mu\kappa_\Sigma\|\alpha\|_2\|\beta\|_2.
+      \]
+      Since
+      \[
+      \alpha^\top\Sigma(\alpha+\beta)
+      =\alpha^\top\Sigma\alpha+\alpha^\top\Sigma\beta,
+      \]
+      adding the two bounds gives
+      \[
+      \alpha^\top\Sigma(\alpha+\beta)
+      \ge
+      \mu\Bigl(\|\alpha\|_2^2-\kappa_\Sigma\|\alpha\|_2\|\beta\|_2\Bigr).
+      \]
+      This proves the claim.
+
+      ### References
+      #### Reference R1
+      Target: spectral theorem
+      Citation: The spectral theorem gives $\alpha^\top\Sigma\alpha\ge\mu\|\alpha\|_2^2$ and $|\alpha^\top\Sigma\beta|\le\|\Sigma\|_{\rm op}\|\alpha\|_2\|\beta\|_2=\mu\kappa_\Sigma\|\alpha\|_2\|\beta\|_2$. Adding these bounds proves the claim.
+      Bibliography:
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      model-supplemented
+
+      ##### Spectral theorem — quadratic-form lower bound as used
+
+      ###### Content basis
+      Reference R1, citation sentence “The spectral theorem gives \(\alpha^\top\Sigma\alpha\ge\mu\|\alpha\|_2^2\).” No page, theorem number, equation number, or bibliography entry was supplied, and no complete matching original source was available. The statement below is a source-unconfirmed restatement of the cited mathematical content; the general spectral-theorem proof is not supplied. It supports the lower-bound term in the current target.
+
+      ###### Definitions and notation
+      Let \(d\ge 1\). Let \(\Sigma\in\mathbb R^{d\times d}\) be a real matrix with real eigenvalues, and write
+      \[
+      \mu=\lambda_{\min}(\Sigma)
+      \]
+      for its smallest eigenvalue. For \(\alpha\in\mathbb R^d\),
+      \[
+      \|\alpha\|_2=\left(\sum_{i=1}^d \alpha_i^2\right)^{1/2}
+      \]
+      is the ordinary Euclidean norm, and \(\alpha^\top\) denotes transpose.
+
+      ###### Assumptions
+      \(\Sigma\) is real symmetric positive definite, so all its eigenvalues are positive and its smallest eigenvalue satisfies \(\mu>0\). The dimension \(d\ge1\) is arbitrary, and no isotropy assumption on \(\Sigma\) is required.
+
+      ###### Statement
+      For every real vector \(\alpha\in\mathbb R^d\),
+      \[
+      \alpha^\top\Sigma\alpha\ge \mu\|\alpha\|_2^2.
+      \]
+
+      ##### Additional displayed result — operator-norm bilinear-form bound
+
+      ###### Content basis
+      Reference R1, same citation sentence, explicitly displays
+      \[
+      |\alpha^\top\Sigma\beta|\le\|\Sigma\|_{\rm op}\|\alpha\|_2\|\beta\|_2
+      =\mu\kappa_\Sigma\|\alpha\|_2\|\beta\|_2.
+      \]
+      This inequality is not separately named in the citation or in the fixed target. No original page or equation location was available; the statement is a source-unconfirmed restatement of the displayed bound. It supports the cross-term estimate in the current target.
+
+      ###### Definitions and notation
+      Let \(d\ge1\), and let \(\Sigma\in\mathbb R^{d\times d}\) have smallest eigenvalue \(\mu>0\) and largest eigenvalue \(\lambda_{\max}(\Sigma)\). Set
+      \[
+      \kappa_\Sigma=\frac{\lambda_{\max}(\Sigma)}{\mu}.
+      \]
+      The operator norm is
+      \[
+      \|\Sigma\|_{\rm op}
+      =\sup_{x\in\mathbb R^d,\ x\neq0}\frac{\|\Sigma x\|_2}{\|x\|_2}.
+      \]
+      For symmetric positive definite \(\Sigma\),
+      \[
+      \|\Sigma\|_{\rm op}=\lambda_{\max}(\Sigma)=\mu\kappa_\Sigma.
+      \]
+      For \(\alpha,\beta\in\mathbb R^d\), \(\|\alpha\|_2,\|\beta\|_2\) are the ordinary Euclidean vector norms.
+
+      ###### Assumptions
+      \(\Sigma\) is real symmetric positive definite, with smallest eigenvalue \(\mu>0\), largest eigenvalue \(\lambda_{\max}(\Sigma)\), and \(\kappa_\Sigma=\lambda_{\max}(\Sigma)/\mu\). The vectors \(\alpha,\beta\) are arbitrary real vectors in the same finite-dimensional Euclidean space \(\mathbb R^d\). No isotropy assumption on \(\Sigma\) is required.
+
+      ###### Statement
+      For every \(\alpha,\beta\in\mathbb R^d\),
+      \[
+      |\alpha^\top\Sigma\beta|
+      \le
+      \|\Sigma\|_{\rm op}\|\alpha\|_2\|\beta\|_2
+      =
+      \mu\kappa_\Sigma\|\alpha\|_2\|\beta\|_2.
+      \]
+    lean_name: paper_c8b26067279b40ecab829c145c82445e
+    lean_namespace: Statlib.Imported
+    layer: formalization
+    priority: 3
+    dependencies: []
+    notes: generated from a persisted ordinary goal; no attack-DAG dependency semantics
+source_document: supp.tex
