@@ -37,7 +37,7 @@ theorem corC_prior_sum_tendsto_zero (t : ℕ) (ht : 1 ≤ t)
   have htR : (1:ℝ) ≤ (t:ℝ) := by exact_mod_cast ht
   have hrhop : 0 < rho := (show 0 < 4*K by positivity).trans_le hrho
   obtain ⟨er, ⟨her, her1, herle⟩, hcor⟩ :=
-    OfflineCorC.Statlib.Imported.paper_33963587efec4920b10d414c6b312566
+    _root_.Statlib.Imported.paper_33963587efec4920b10d414c6b312566
       (t:ℝ) htR pi hpimeas hpi0 hpinorm (withDensity_absolutelyContinuous _ _)
       ⟨eps,delta,beta,heps,hdelta,hbeta,hA2⟩ eps delta beta heps hdelta hbeta hA2
   let P := max 0 (OfflineCorC.Statlib.Imported.Gconst (t:ℝ) er delta beta * Real.Gamma ((t:ℝ)+beta+1))

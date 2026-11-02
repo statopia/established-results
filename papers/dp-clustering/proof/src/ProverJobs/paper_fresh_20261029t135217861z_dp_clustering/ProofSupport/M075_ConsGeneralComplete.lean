@@ -49,7 +49,7 @@ theorem consGeneral_probability (C : LocationConfig) (prior : ConcentrationPrior
   · exact consGeneral_complete C prior p hp hpsum D rho nu hD hnu hrho hA3_int hA3
 
 /-- Density-form A3 version, directly compatible with the source ENNReal moment bound. -/
-theorem consGeneral_complete_density (C : LocationConfig) (prior : ConcentrationPrior)
+theorem _root_.Statlib.Imported.paper_dc88427b52844263b5321fc99eb582d8 (C : LocationConfig) (prior : ConcentrationPrior)
     (p : Fin C.t → ℝ) (hp : ∀ j, 0 ≤ p j) (hpsum : ∑ j, p j = 1)
     (D rho nu : ℝ) (hD : 0 < D) (hnu : 0 < nu)
     (hrho : 4 * dpK5 C.U C.m C.c C.theta ≤ rho)

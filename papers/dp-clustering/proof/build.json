@@ -119,17 +119,17 @@
         },
         {
           "module": "ProverJobs.paper_fresh_20261029t135217861z_dp_clustering.ProofSupport.M063_Main",
-          "declaration": "DPCompletedProof.Statlib.Imported.paper_3208f098a8f94aafb53ad0b136d14110",
+          "declaration": "Statlib.Imported.paper_3208f098a8f94aafb53ad0b136d14110",
           "allowedAxioms": []
         },
         {
           "module": "ProverJobs.paper_fresh_20261029t135217861z_dp_clustering.ProofSupport.M064_Main",
-          "declaration": "DPCompletedProof.OfflineCorC.Statlib.Imported.paper_33963587efec4920b10d414c6b312566",
+          "declaration": "Statlib.Imported.paper_33963587efec4920b10d414c6b312566",
           "allowedAxioms": []
         },
         {
           "module": "ProverJobs.paper_fresh_20261029t135217861z_dp_clustering.ProofSupport.M075_ConsGeneralComplete",
-          "declaration": "DPCompletedProof.OfflineDPConsGeneral.consGeneral_complete_density",
+          "declaration": "Statlib.Imported.paper_dc88427b52844263b5321fc99eb582d8",
           "allowedAxioms": []
         }
       ]

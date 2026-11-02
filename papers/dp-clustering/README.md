@@ -28,9 +28,9 @@ The two denom1 entries below are different contract instances of one source lemm
 
 | Task | Lean declaration | Source |
 | --- | --- | --- |
-| Proposition 3: prior-factor bounds | `DPCompletedProof.Statlib.Imported.paper_3208f098a8f94aafb53ad0b136d14110` | [M063_Main.lean:15](proof/src/ProverJobs/paper_fresh_20261029t135217861z_dp_clustering/ProofSupport/M063_Main.lean#L15) |
-| Corollary C: prior-ratio moment bound | `DPCompletedProof.OfflineCorC.Statlib.Imported.paper_33963587efec4920b10d414c6b312566` | [M064_Main.lean:1580](proof/src/ProverJobs/paper_fresh_20261029t135217861z_dp_clustering/ProofSupport/M064_Main.lean#L1580) |
-| consGeneral: expected overfitting tail tends to zero | `DPCompletedProof.OfflineDPConsGeneral.consGeneral_complete_density` | [M075_ConsGeneralComplete.lean:52](proof/src/ProverJobs/paper_fresh_20261029t135217861z_dp_clustering/ProofSupport/M075_ConsGeneralComplete.lean#L52) |
+| Proposition 3: prior-factor bounds | `Statlib.Imported.paper_3208f098a8f94aafb53ad0b136d14110` | [M063_Main.lean:15](proof/src/ProverJobs/paper_fresh_20261029t135217861z_dp_clustering/ProofSupport/M063_Main.lean#L15) |
+| Corollary C: prior-ratio moment bound | `Statlib.Imported.paper_33963587efec4920b10d414c6b312566` | [M064_Main.lean:1580](proof/src/ProverJobs/paper_fresh_20261029t135217861z_dp_clustering/ProofSupport/M064_Main.lean#L1580) |
+| consGeneral: expected overfitting tail tends to zero | `Statlib.Imported.paper_dc88427b52844263b5321fc99eb582d8` | [M075_ConsGeneralComplete.lean:52](proof/src/ProverJobs/paper_fresh_20261029t135217861z_dp_clustering/ProofSupport/M075_ConsGeneralComplete.lean#L52) |
 | lemma:ConvProbBound | `Statlib.Imported.paper_d6348dc732d4474c900772ddadac1ef8` | [Main.lean:9](proof/src/ProverJobs/job_paper_d6348dc732d4474c900772ddadac1ef8/Main.lean#L9) |
 | lemma:denom | `Statlib.Imported.paper_c93669ef201447419b92d6591d8bc1aa` | [Main.lean:9](proof/src/ProverJobs/job_paper_c93669ef201447419b92d6591d8bc1aa/Main.lean#L9) |
 | Equation \eqref{upper_bound_ratios} | `Statlib.Imported.paper_f4f73a8b20b648f5b0c28430901a09f4` | [Main.lean:11](proof/src/ProverJobs/job_paper_f4f73a8b20b648f5b0c28430901a09f4/Main.lean#L11) |

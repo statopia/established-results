@@ -1577,7 +1577,7 @@ run_cmd do
   if (← _root_.Lean.MonadEnv.getEnv).isNamespace `Statlib.Imported then
     _root_.Lean.Elab.Command.elabCommand (← `(command| open _root_.DPCompletedProof.Statlib.Imported))
 
-theorem paper_33963587efec4920b10d414c6b312566
+theorem _root_.Statlib.Imported.paper_33963587efec4920b10d414c6b312566
     (t : ℝ) (ht : 1 ≤ t)
     (π : ℝ → ℝ)
     (hπ_meas : Measurable π)
@@ -1604,7 +1604,7 @@ theorem paper_33963587efec4920b10d414c6b312566
 := by
   /- @proof-region region.root.0c2c1469fa58 begin -/
   obtain ⟨er, her_pos, her_half, her_le, _hB1, _hB2, _hB3, _F, _hF, hbound⟩ :=
-    _root_.DPCompletedProof.Statlib.Imported.paper_3208f098a8f94aafb53ad0b136d14110
+    _root_.Statlib.Imported.paper_3208f098a8f94aafb53ad0b136d14110
       t ht π hπ_meas hπ_nonneg hπ_prob eps delta beta h_eps_pos h_delta h_beta hA2
   have her_lt_one : er < 1 := by linarith
   have hA2er : ∀ a ∈ Set.Ioo (0:ℝ) er, delta⁻¹ * a ^ beta ≤ π a ∧ π a ≤ delta * a ^ beta :=

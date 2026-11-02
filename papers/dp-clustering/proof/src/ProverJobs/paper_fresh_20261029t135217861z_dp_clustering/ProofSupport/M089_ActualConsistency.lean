@@ -64,7 +64,7 @@ theorem actual_posterior_consistency (C : LocationConfig) (prior : Concentration
     · intro n
       exact Measurable.ite (hΩmeas n)
         (Finset.measurable_sum _ (fun s hs => ratio C.g C.q0 prior.dens C.hg C.hq prior.measurable_dens C.t n s)) measurable_const
-    · exact OfflineDPConsGeneral.consGeneral_complete_density C prior p (fun j => (hp j).le) hp1 D rho nu hD hnu hrho hA3_density
+    · exact _root_.Statlib.Imported.paper_dc88427b52844263b5321fc99eb582d8 C prior p (fun j => (hp j).le) hp1 D rho nu hD hnu hrho hA3_density
   have hhigh := OfflineDPConsGeneral.remove_good_event μ Ω hΩmeas hΩprob high hhighlocal
   have hlow : ∀ ε : ℝ, 0<ε → Tendsto (fun n => μ {ω | ε < low n ω}) atTop (𝓝 0) :=
     low_tail_probability C prior p hp hp1

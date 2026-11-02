@@ -12,7 +12,7 @@ noncomputable section
 open MeasureTheory
 namespace Statlib.Imported
 
-theorem paper_3208f098a8f94aafb53ad0b136d14110
+theorem _root_.Statlib.Imported.paper_3208f098a8f94aafb53ad0b136d14110
     (t : ℝ) (ht : 1 ≤ t)
     (π : ℝ → ℝ) (hπ_meas : Measurable π)
     (hπ_nonneg : ∀ α ∈ Set.Ioi (0 : ℝ), 0 ≤ π α)
@@ -588,7 +588,7 @@ theorem paper_3208f098a8f94aafb53ad0b136d14110_nat
                   (lowerGamma ((k : ℝ) + (s : ℝ) + β) (ε * Real.log (n : ℝ)) /
                     (Real.log ((n : ℝ) / (1 + ε))) ^ s) := by
   obtain ⟨ε, hεpos, hεhalf, hεle, hB1, hB2, hB3, F, hF, hbound⟩ :=
-    paper_3208f098a8f94aafb53ad0b136d14110 (k : ℝ) (by exact_mod_cast hk) π hπ_meas
+    _root_.Statlib.Imported.paper_3208f098a8f94aafb53ad0b136d14110 (k : ℝ) (by exact_mod_cast hk) π hπ_meas
       hπ_nonneg hπ_prob ε₀ δ β hε₀ hδ hβ hA2
   refine ⟨ε, hεpos, hεhalf, hεle, hB1, hB2, hB3, F, hF, ?_⟩
   intro n s hn hs hrange
