@@ -1,0 +1,42 @@
+version: v1
+theorem_set: paper-proof-group
+source_tag: document-processing
+theorems:
+- id: entry:selected:515fcebb-92cc-4400-b8f5-efb24c6fb95a
+  title: Lemma S.8 — pointwise-separable bounded-process concentration
+  kind: lemma
+  latex_statement: "Let n>0, b_2,b_3>=0 and let W_{i,f} be measurable, centered real random variables\
+    \ on a probability space, independent across i as random vectors indexed by f in F. Assume |W_{i,f}|<=b_2\
+    \ and E[W_{i,f}^2]<=b_3 for every i,f. Set\n  V_f(omega)=|(1/n) sum_{i=1}^n W_{i,f}(omega)|.\nAssume\
+    \ there is a countable subset F_0 of F such that for every omega,\n  sup_{f in F} V_f(omega) <= sup_{f\
+    \ in F_0} V_f(omega).\nThe expected supremum is defined as the supremum of the expected maxima over\
+    \ nonempty finite subfamilies (and is zero for an empty class).\nThen for every real t, with probability\
+    \ at least 1-exp(-t),\n  sup_{f in F} V_f <= 2 E sup_{f in F} V_f + sqrt(8 b_3 t/n) + 35 b_2 t/n.\n\
+    The square root is the nonnegative real square root; the confidence statement is trivial for t<=0.\
+    \ This selected formalization of Lemma S.8 includes the displayed countable supremum-reduction assumption."
+  assumptions:
+  - n is a positive integer; b_2 and b_3 are nonnegative real numbers.
+  - Each W_{i,f} is measurable and integrable, E W_{i,f}=0, |W_{i,f}(omega)|<=b_2 for every omega, and
+    W_{i,f}^2 is integrable with expectation at most b_3.
+  - The random vectors (W_{i,f})_{f in F} are independent across i; identical distribution is not required.
+  - There is a countable F_0 subset of F controlling the pointwise supremum of the absolute normalized
+    averages for every outcome, as displayed in the statement.
+  proof_body: 'Restrict the process to the countable subset F_0. Apply the countable-index consequence
+    of Massart (2000), Theorem 4, with the strict upper-tail event, coefficient 35, normalization by n
+    and variance bound n*b_3. The expected supremum of the restricted class is at most that of the full
+    class by the finite-subfamily definition. The pointwise supremum reduction therefore bounds the full-class
+    bad event by the countable-class bad event. The complementary non-strict good event has probability
+    at least 1-exp(-t). For t<=0 use nonnegativity of probability.
+
+
+    Reference: Massart, P. (2000), About the constants in Talagrand''s concentration inequalities for
+    empirical processes, Annals of Probability 28(2), 863-884, Theorem 4. Its coefficient 2.5+32/epsilon
+    at epsilon=1 is 34.5, weakened here to 35; countable classes follow by finite restrictions. The retained
+    Lean citation uses a strict upper-tail event, including the zero-envelope case.'
+  lean_name: paper_383d12cb48d74c8f98648c6beef78bb3
+  lean_namespace: Statlib.Imported
+  layer: formalization
+  priority: 3
+  dependencies: []
+  notes: Selected pointwise-separable formalization; the PDF source is retained in supp.pdf.
+source_document: supp.pdf

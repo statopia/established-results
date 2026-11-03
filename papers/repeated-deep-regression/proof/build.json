@@ -1,0 +1,346 @@
+{
+  "cases": [
+    {
+      "key": "papers/repeated-deep-regression/main",
+      "source": "src",
+      "modules": [
+        "ProverJobs.job_paper_1574fdcfec814d558ee3dee791a61f4b.Base",
+        "ProverJobs.job_paper_1574fdcfec814d558ee3dee791a61f4b.ProvedNodes",
+        "ProverJobs.job_paper_1574fdcfec814d558ee3dee791a61f4b.ProvedNodes.Node_3858600833_70f35759_66c6f24d",
+        "ProverJobs.job_paper_1574fdcfec814d558ee3dee791a61f4b.Vocabulary",
+        "ProverJobs.job_paper_383d12cb48d74c8f98648c6beef78bb3.Base",
+        "ProverJobs.job_paper_383d12cb48d74c8f98648c6beef78bb3.ExternalNodes.Node_94432b52633046d7cf21",
+        "ProverJobs.job_paper_383d12cb48d74c8f98648c6beef78bb3.Vocabulary",
+        "ProverJobs.job_paper_8d614b8e54384bdaa316eb81207fecf6.Base",
+        "ProverJobs.job_paper_8d614b8e54384bdaa316eb81207fecf6.ExternalNodes.Node_6515c10a3b2a6920f75d",
+        "ProverJobs.job_paper_8d614b8e54384bdaa316eb81207fecf6.ExternalNodes.Node_c0ecbd1554064cc7a262",
+        "ProverJobs.job_paper_8d614b8e54384bdaa316eb81207fecf6.ProvedNodes",
+        "ProverJobs.job_paper_8d614b8e54384bdaa316eb81207fecf6.ProvedNodes.Node_1156518618_e13ca37b_de059a44",
+        "ProverJobs.job_paper_8d614b8e54384bdaa316eb81207fecf6.ProvedNodes.Node_1212119070_62aa6ec1_e6a3cc8a",
+        "ProverJobs.job_paper_8d614b8e54384bdaa316eb81207fecf6.ProvedNodes.Node_1390765457_210d1e15_5d8f5653",
+        "ProverJobs.job_paper_8d614b8e54384bdaa316eb81207fecf6.ProvedNodes.Node_1903948443_c79ced3a_9da0958a",
+        "ProverJobs.job_paper_8d614b8e54384bdaa316eb81207fecf6.ProvedNodes.Node_2130039367_ac22ae17_25b6ec44",
+        "ProverJobs.job_paper_8d614b8e54384bdaa316eb81207fecf6.ProvedNodes.Node_2210185272_b87383a3_4849efda",
+        "ProverJobs.job_paper_8d614b8e54384bdaa316eb81207fecf6.ProvedNodes.Node_2785853616_1d52636d_2cae0d02",
+        "ProverJobs.job_paper_8d614b8e54384bdaa316eb81207fecf6.ProvedNodes.Node_2829917225_53cae5d1_9b597699",
+        "ProverJobs.job_paper_8d614b8e54384bdaa316eb81207fecf6.ProvedNodes.Node_2912637286_53196a25_075e65c7",
+        "ProverJobs.job_paper_8d614b8e54384bdaa316eb81207fecf6.ProvedNodes.Node_3098222659_8397580a_5211a45a",
+        "ProverJobs.job_paper_8d614b8e54384bdaa316eb81207fecf6.Vocabulary",
+        "ProverJobs.paper_fresh_20261030t103504286z_deep_regression.Base",
+        "ProverJobs.paper_fresh_20261030t103504286z_deep_regression.ExternalNodes.Node_31d1bfda1f2c4bccb0b1",
+        "ProverJobs.paper_fresh_20261030t103504286z_deep_regression.PaperProofInterfaces.Result_r1_8e140b0ad7e34b6cbff6d58f43cd4e1d",
+        "ProverJobs.paper_fresh_20261030t103504286z_deep_regression.PaperProofInterfaces.Result_r4_ca83ae08893c497f9e70940ee4dba991",
+        "ProverJobs.paper_fresh_20261030t103504286z_deep_regression.PaperProofInterfaces.Result_r7_27863536a81849878cf4d6dc79d21dbe",
+        "ProverJobs.paper_fresh_20261030t103504286z_deep_regression.PaperProofInterfaces.Result_r8_e343c8253c2e4ab7a3769d098ab27284",
+        "ProverJobs.paper_fresh_20261030t103504286z_deep_regression.ProofSupport.ExpectedSupRestriction",
+        "ProverJobs.paper_fresh_20261030t103504286z_deep_regression.ProofSupport.PointwiseSeparability",
+        "ProverJobs.paper_fresh_20261030t103504286z_deep_regression.ProvedNodes",
+        "ProverJobs.paper_fresh_20261030t103504286z_deep_regression.ProvedNodes.Node_1164508671_4013cd2b_07488e9f",
+        "ProverJobs.paper_fresh_20261030t103504286z_deep_regression.ProvedNodes.Node_1194647586_08143ca6_5fc8e5eb",
+        "ProverJobs.paper_fresh_20261030t103504286z_deep_regression.ProvedNodes.Node_1928020627_7c479ed8_83bfa194",
+        "ProverJobs.paper_fresh_20261030t103504286z_deep_regression.ProvedNodes.Node_1985255396_d777e722_08557e48",
+        "ProverJobs.paper_fresh_20261030t103504286z_deep_regression.ProvedNodes.Node_2933192278_9a0e3317_3c979d9d",
+        "ProverJobs.paper_fresh_20261030t103504286z_deep_regression.ProvedNodes.Node_294699487_224d6cfa_622fabe3",
+        "ProverJobs.paper_fresh_20261030t103504286z_deep_regression.ProvedNodes.Node_3070932353_56484c4e_bbffe77f",
+        "ProverJobs.paper_fresh_20261030t103504286z_deep_regression.ProvedNodes.Node_346034670_5d73780e_9324d444",
+        "ProverJobs.paper_fresh_20261030t103504286z_deep_regression.ProvedNodes.Node_3805701343_fc432acd_09cfcc2b",
+        "ProverJobs.paper_fresh_20261030t103504286z_deep_regression.ProvedNodes.Node_388877899_e269fd78_7b6b480c",
+        "ProverJobs.paper_fresh_20261030t103504286z_deep_regression.ProvedNodes.Node_4168644478_42c29445_54dc375b",
+        "ProverJobs.paper_fresh_20261030t103504286z_deep_regression.ProvedNodes.Node_705087346_cfee792d_2f3f98bd",
+        "ProverJobs.paper_fresh_20261030t103504286z_deep_regression.Vocabulary"
+      ],
+      "targets": [
+        {
+          "module": "ProverJobs.paper_fresh_20261030t103504286z_deep_regression.PaperProofInterfaces.Result_r7_27863536a81849878cf4d6dc79d21dbe",
+          "declaration": "PaperProofTasks.paper_fresh_20261030t103504286z_deep_regression.Statlib.Imported.Theorem_2_1_first_main_theorem_thm_thm1_non_asymptotic_prediction_error_bound_for_repeated_measurements_regression",
+          "allowedAxioms": [
+            "PaperProofTasks.job_paper_383d12cb48d74c8f98648c6beef78bb3.massart_countable_average_tail",
+            "PaperProofTasks.job_paper_8d614b8e54384bdaa316eb81207fecf6.ext_model_1"
+          ]
+        },
+        {
+          "module": "ProverJobs.paper_fresh_20261030t103504286z_deep_regression.PaperProofInterfaces.Result_r8_e343c8253c2e4ab7a3769d098ab27284",
+          "declaration": "PaperProofTasks.job_paper_8d614b8e54384bdaa316eb81207fecf6.Statlib.Imported.paper_8d614b8e54384bdaa316eb81207fecf6",
+          "allowedAxioms": [
+            "PaperProofTasks.job_paper_383d12cb48d74c8f98648c6beef78bb3.massart_countable_average_tail",
+            "PaperProofTasks.job_paper_8d614b8e54384bdaa316eb81207fecf6.ext_model_1"
+          ]
+        },
+        {
+          "module": "ProverJobs.paper_fresh_20261030t103504286z_deep_regression.PaperProofInterfaces.Result_r1_8e140b0ad7e34b6cbff6d58f43cd4e1d",
+          "declaration": "PaperProofTasks.job_paper_1574fdcfec814d558ee3dee791a61f4b.Statlib.Imported.paper_1574fdcfec814d558ee3dee791a61f4b",
+          "allowedAxioms": []
+        },
+        {
+          "module": "ProverJobs.paper_fresh_20261030t103504286z_deep_regression.PaperProofInterfaces.Result_r4_ca83ae08893c497f9e70940ee4dba991",
+          "declaration": "PaperProofTasks.job_paper_383d12cb48d74c8f98648c6beef78bb3.Statlib.Imported.paper_383d12cb48d74c8f98648c6beef78bb3",
+          "allowedAxioms": [
+            "PaperProofTasks.job_paper_383d12cb48d74c8f98648c6beef78bb3.massart_countable_average_tail"
+          ]
+        }
+      ]
+    }
+  ],
+  "cache": {
+    "modules": [
+      {
+        "module": "Statlib.StatFoundation.BasicAnalysis.ENNRealBridge",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/BasicAnalysis/ENNRealBridge.olean",
+            "sha256": "2bf229c669c32801e59cc74b64ed63634e80dd69601e1f3bfcb4be9dae49405b",
+            "bytes": 145880
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.EmpiricalProcess.Symmetrization",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.Vocabulary"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/EmpiricalProcess/Symmetrization.olean",
+            "sha256": "decae6d6752bc9b32223b2cc036b929009492835d7337a3330007aaa000ecc2a",
+            "bytes": 1926464
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary",
+        "imports": [
+          "Init",
+          "Statlib.StatFoundation.Vocabulary.RandomVariable",
+          "Statlib.StatFoundation.Vocabulary.Independence",
+          "Statlib.StatFoundation.Vocabulary.ParametricFamily",
+          "Statlib.StatFoundation.Vocabulary.OrliczNorm",
+          "Statlib.StatFoundation.Vocabulary.EmpiricalProcess",
+          "Statlib.StatFoundation.Vocabulary.CoveringNumbers",
+          "Statlib.StatFoundation.Vocabulary.VCDimension",
+          "Statlib.StatFoundation.Vocabulary.StochasticOrder",
+          "Statlib.StatFoundation.Vocabulary.UniformIntegrability",
+          "Statlib.StatFoundation.Vocabulary.FiniteCoordinate",
+          "Statlib.StatFoundation.Vocabulary.Conformal",
+          "Statlib.StatFoundation.Vocabulary.GaussianCriticalValue",
+          "Statlib.StatFoundation.Vocabulary.MaxType",
+          "Statlib.StatFoundation.Vocabulary.Resampling"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary.olean",
+            "sha256": "0d75c2c1c664dda054e755c72b74b611f2af82d4d8c94829320ee63a263b8b6f",
+            "bytes": 44664
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.Conformal",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.Vocabulary.Independence"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/Conformal.olean",
+            "sha256": "28cc6440166ecd1c88908055f0ef53e67247b448c20f16a3cac2b941e14d57c0",
+            "bytes": 77104
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.CoveringNumbers",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.Vocabulary.EmpiricalProcess"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/CoveringNumbers.olean",
+            "sha256": "db620ec2aef8f590a21e65267299b0d97f63fc62be9bb18cc6df9d95472d2485",
+            "bytes": 245792
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.EmpiricalProcess",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/EmpiricalProcess.olean",
+            "sha256": "2c1847034cf0dd490f678cb7ca51fb8998e766c0c203333e23942c14e9336dbd",
+            "bytes": 108128
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.FiniteCoordinate",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.Vocabulary.StochasticOrder"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/FiniteCoordinate.olean",
+            "sha256": "949f65ab8d9922f3e9c505f54f34e997b5f27003a40163988f7dc72e4306814d",
+            "bytes": 90336
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.GaussianCriticalValue",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/GaussianCriticalValue.olean",
+            "sha256": "73fa1af6617c3c9c3dd50928447b0d942f8f81102e5416fc33af4cd7200a7531",
+            "bytes": 50576
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.Independence",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/Independence.olean",
+            "sha256": "1a77d0dd36c329f15895d1b66c52cc7d743d5c477e0939251b77f22493d6253c",
+            "bytes": 55216
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.MaxType",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/MaxType.olean",
+            "sha256": "99beb3f8b7bdd6492e6fc7f02888b524938e6031199d82a59963ba8265fb4756",
+            "bytes": 66920
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.OrliczNorm",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/OrliczNorm.olean",
+            "sha256": "e5c119153481c4786902366aea7c5bbab50f87ce2b3f644b0ca02651f4dcee62",
+            "bytes": 65328
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.ParametricFamily",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/ParametricFamily.olean",
+            "sha256": "370fcb132fa142cc0a193d8f83768d8ca7f42c9bbe863ee2c42b31754b302bc6",
+            "bytes": 88200
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.RandomVariable",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/RandomVariable.olean",
+            "sha256": "2ab20c5afa14d5b6c2d7b2305789c9ef26fbcda7166f77fbd55aaf4d424c943a",
+            "bytes": 124368
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.Resampling",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.Vocabulary.MaxType"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/Resampling.olean",
+            "sha256": "aef93a1291262e6084aeff2cf2d8b3b8bc00cf5bb97a9e9200b9d8a32a51670b",
+            "bytes": 99960
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.StochasticOrder",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/StochasticOrder.olean",
+            "sha256": "649da2c9101df8151746a78910fcb4b9f2e2d5624dd49effed56080170b32c13",
+            "bytes": 120816
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.UniformIntegrability",
+        "imports": [
+          "Init",
+          "Mathlib.MeasureTheory.Function.UniformIntegrable"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/UniformIntegrability.olean",
+            "sha256": "cfb6b0958f503d1e2d2cff4ec326b5c5fc5b9da8adee9791183fa02b64b64f35",
+            "bytes": 79504
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.VCDimension",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/VCDimension.olean",
+            "sha256": "30959e4a6f6a32d83ea76ec6cfe74153755351eb53b535f29eea12c1388fdd50",
+            "bytes": 420920
+          }
+        ]
+      }
+    ]
+  },
+  "leanVersion": "Lean (version 4.28.0-rc1, x86_64-unknown-linux-gnu, commit 3b0f2862196c6a8af9eb0025ee650252694013dd, Release)",
+  "mathlibRevision": "5352afccd6866369be9de43f5b7ec47203555f44"
+}

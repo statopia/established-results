@@ -1,0 +1,1128 @@
+version: v1
+theorem_set: paper-proof-group
+source_tag: document-processing
+theorems:
+  - id: entry:selected:dfd3162e-50fe-43aa-b4e2-4c46a1fd6f85
+    title: paper_1574fdcfec814d558ee3dee791a61f4b
+    kind: lemma
+    latex_statement: |-
+      The repeated-measures model is
+      \[
+      Y_{ij}=Z_i(X_{ij})+\epsilon_{ij}=f^\circ(X_{ij})+U_i(X_{ij})+\epsilon_{ij},
+      \qquad 1\le i\le n,\quad 1\le j\le m,
+      \]
+      where \(Z_1,\dots,Z_n\) are i.i.d. realizations of a random function \(Z(x)\) on \([0,1]^d\), \(U_i(x)=Z_i(x)-f^\circ(x)\), and
+      \[
+      f^\circ(x)=\mathbb E[Z(X)\mid X=x].
+      \]
+      The covariates \(X_{ij}\) are i.i.d. from a distribution \(\mathcal P_X\) supported on some \(\Omega\subseteq[0,1]^d\), independent of \(Z_i\), and \(\mathcal P_X\) is absolutely continuous with respect to the volume measure on \(\Omega\). The \(\epsilon_{ij}\) are independent noise variables. The equal-measurement convention is \(m_1=\cdots=m_n=m\). The indices satisfy \(1\le i\le n\), \(1\le j\le m\), with \(n,m\) positive integers.
+
+      The nonparametric least-squares estimator over a function class \(\mathcal F_{nm}\) is
+      \[
+      \hat f=\hat f_{nm}\in\arg\min_{f\in\mathcal F_{nm}}
+      \frac1{nm}\sum_{i=1}^n\sum_{j=1}^m (Y_{ij}-f(X_{ij}))^2.
+      \]
+      The prediction error is
+      \[
+      \mathcal E_{f^\circ}(\hat f)
+      :=\mathbb E\left[\int_\Omega(\hat f-f^\circ)^2\,d\mathcal P_X\right],
+      \]
+      and \(\|f\|_\infty=\sup_{x\in\Omega}|f(x)|\). We write \(\int_\Omega(f-f^\circ)^2d\mathcal P_X\) for \(\int_\Omega(f(x)-f^\circ(x))^2d\mathcal P_X\).
+
+      For \(r>0\),
+      \[
+      \mathcal F_{nm}(r)
+      =
+      \left\{
+      f\in\mathcal F_{nm}:
+      \int_\Omega(f-f^\circ)^2\,d\mathcal P_X\le r
+      \right\}.
+      \]
+      A function \(\phi_{nm}(r)\) is sub-root if \(\phi_{nm}(r)/\sqrt r\) is nonnegative and nonincreasing. Let \(\{\sigma_{ij}:1\le i\le n,1\le j\le m\}\) be i.i.d. Rademacher variables uniform on \(\{-1,+1\}\). A positive number \(r^*_{nm}\) is a Rademacher fixed point of \(\mathcal F_{nm}\) if \(\phi_{nm}(r)\) is sub-root for \(r\ge r^*_{nm}\), \(\phi_{nm}(r^*_{nm})\le r^*_{nm}\), and
+      \[
+      \phi_{nm}(r)\ge
+      \mathbb E\left[
+      \sup_{f\in\mathcal F_{nm}(r)}
+      \left|
+      \frac1{nm}\sum_{i=1}^n\sum_{j=1}^m
+      \sigma_{ij}\bigl(f(X_{ij})-f^\circ(X_{ij})\bigr)
+      \right|
+      \right]
+      \]
+      for all \(r\ge r^*_{nm}\). Write \(r^*=r^*_{nm}\), \(\phi=\phi_{nm}\), and \(\mathcal F=\mathcal F_{nm}\) where convenient. The source does not assert uniqueness or minimality of \(r^*_{nm}\).
+
+      The signed truncation operator is
+      \[
+      \mathcal T_\beta g(x)
+      =
+      g(x)I(|g(x)|\le\beta)
+      +
+      \operatorname{sign}(g(x))\beta I(|g(x)|>\beta).
+      \]
+      For uncountable index sets, the source uses the convention
+      \[
+      \mathbb E\sup_{f\in\mathcal F}V(f)
+      =
+      \sup\left\{
+      \mathbb E\sup_{f\in\mathcal F^*}V(f):
+      \mathcal F^*\subset\mathcal F,\ \mathcal F^*\text{ finite}
+      \right\}.
+      \]
+      The source notes that a later specialization \(\beta_\epsilon=2B_3\log nm\) is not part of this statement.
+
+      <!-- formalization-clarifications:v1:8a1ecdd449d3e6b57fd79d889af6b4348997d45036b2c2a3b360c14a8f3c29a4 -->
+      Formalization clarifications from source and proof:
+      1. Constants and quantifier order. In the target result, Lemma S.3 states “where \(c_{40}\) and \(c_{41}\) are universal constants”; the original statement gives only existence of universal constants, while the selected repaired proof supplies witnesses \(2^{20},2^{16}\). Treat the witnesses as proof-based, not as required definitions. The intended order is: first fix universal \(c_{40},c_{41}\), then consider arbitrary admissible \(n,m,d,\Omega,\mathcal P_X,Z_i,\epsilon_{ij},\mathcal F_{nm},r_{nm}^*,\phi_{nm},B_1,B_2,B_3,\beta_\epsilon,t\) satisfying the assumptions; the constants must not depend on any of these, nor on the Rademacher variables, the random data, or the estimator. A Lean section variable for \(d,n,m,\beta_\epsilon,t\), etc. would make \(c_{40},c_{41}\) dependent unless the constants are quantified absolutely outside those variables. Assumption 1’s \(B_1\) is explicitly “some positive number” and is not declared universal; the main paper also says it “can be relaxed as a sequence” growing with \(nm\). Assumption 2’s \(B_2,B_3\) are nonnegative parameters; the source does not assert uniformity in \(n,m\) for them. \(B_2\) does not appear in the Lemma S.3 bound, while \(B_3\) does. \(\beta_\epsilon\) is a positive truncation level in Lemma S.3; the later specialization \(\beta_\epsilon=2B_3\log nm\) in the main proof is not part of Lemma S.3. The source does not state a separate range for \(t\) in Lemma S.3; the external Talagrand lemma S.8 is stated with confidence parameter \(t\) and is normally used for \(t>0\). The fixed point \(r_{nm}^*\) is positive and is given together with a sub-root \(\phi_{nm}\); the source does not assert uniqueness or minimality of \(r_{nm}^*\). The degenerate cases \(B_2=0\) or \(B_3=0\) are not discussed in the original assumption; because the displayed exponential condition contains \(U_i(X_{ij})/B_2\) and \(\epsilon_{ij}/B_3\), Lean needs a convention or a positive-scale hypothesis, but the source leaves this unresolved.
+
+      2. Norms and mathematical objects. The only explicit norm in the target is \(\|f\|_\infty=\sup_{x\in\Omega}|f(x)|\) in Assumption 1; it is a supremum over \(\Omega\), not an essential supremum and not a supremum over all of \([0,1]^d\). The quantity \(\int_\Omega(f-f^\circ)^2\,d\mathcal P_X\) is the squared \(L^2(\mathcal P_X)\) distance over \(\Omega\), with \(X_{ij}\sim\mathcal P_X\) and \(\Omega\subseteq[0,1]^d\); \(\mathcal P_X\) is supported on \(\Omega\) and absolutely continuous with respect to the volume measure. In the target inequality this integral appears without an outer expectation; it is not the prediction error \(\mathcal E_{f^\circ}\), which carries an extra expectation. The localized class is \(\mathcal F_{nm}(r)=\{f:\int_\Omega(f-f^\circ)^2d\mathcal P_X\le r\}\), so \(r\), \(r^*\), and \(\beta_\epsilon^2r^*\) are in squared-error units, not \(L^2\)-radius units. The truncation is the signed clip \(\mathcal T_\beta g=gI(|g|\le\beta)+\operatorname{sign}(g)\beta I(|g|>\beta)\), applied to \(\epsilon_{ij}\) in Lemma S.3; do not replace it by \(|\epsilon_{ij}|\), by an unsigned positive part, or by the untruncated noise. The left side uses \(\mathcal T_{\beta_\epsilon}\epsilon_{ij}-\mathbb E[\mathcal T_{\beta_\epsilon}\epsilon_{ij}]\) multiplied by \(\hat f(X_{ij})-f^\circ(X_{ij})\). The source says the \(\epsilon_{ij}\) are independent noise variables, not explicitly identically distributed, so the expectation \(\mathbb E[\mathcal T_{\beta_\epsilon}\epsilon_{ij}]\) should not be collapsed to one common expectation without adding an i.i.d. noise assumption. The estimator is \(\hat f_{nm}\in\arg\min_{f\in\mathcal F_{nm}}\) of the empirical least-squares criterion; the source does not discuss nonemptiness of the argmin, uniqueness, or measurable selection. The Rademacher variables are i.i.d. uniform on \(\{-1,+1\}\); the fixed-point condition uses \(\sup_{f\in\mathcal F_{nm}(r)}|\frac1{nm}\sum\sigma_{ij}(f(X_{ij})-f^\circ(X_{ij}))|\), with the finite-subclass convention for expectation of suprema over uncountable classes. The original Lemma S.3 proof does not spell out how probability statements for suprema over uncountable classes are converted to the random \(\hat f\); the selected repaired proof adds a separability condition (R), but this is not part of the original Lemma S.3 statement and should not be promoted to a source hypothesis for the target theorem. For the cited external lemmas, Lemma S.7 is the comparison theorem with \(\Omega'\subset\mathbb R^n\) bounded and Lipschitz \(\Phi_i\) satisfying \(\Phi_i(0)=0\); the source does not name a norm on \(\mathbb R^n\), and the target application is only a specialization. Lemma S.8 is Talagrand’s inequality for random variables \(W_{i,f}\) independent across \(i\), with mean zero, bounds \(|W_{i,f}|\le b_2\), and variances \(\mathbb E W_{i,f}^2\le b_3\); the original statement does not require identical distributions in \(i\). The selected proof’s finite-class handling and the verification of \(b_2,b_3\) for truncated noise are proof-based adaptations, not hypotheses of the universal external lemmas.
+
+      3. Asymptotics and probability variants. Lemma S.3 is non-asymptotic: it fixes \(n,m,\beta_\epsilon,t\), the class, the distribution, and the fixed point, and gives a probability statement with ordinary probability at least \(1-\exp\{-t\}\). No \(O\), \(o\), or limiting filter is present in the lemma. The main paper’s \(a_n\lesssim b_n\) notation means \(a_n\le Cb_n\) for a positive constant \(C\), and \(a_n\asymp b_n\) means both inequalities; the rate expressions such as \(O(n^{-1}+(nm)^{-\alpha})\) and the phase-transition order \(m\asymp n^{d/2s}\) are asymptotic narrative outside Lemma S.3 and should not be inserted into the finite-sample target statement. The source does not state a range of \(t\) in Lemma S.3; in the external Lemmas S.7–S.8, \(t\) is the confidence parameter, and the versions used in the proof are invoked for \(t>0\). If \(t\le0\), “probability at least \(1-\exp\{-t\}\)” is vacuous under the usual convention; the source does not address this explicitly for Lemma S.3. The uniformity in the target is across the displayed parameters subject to the assumptions: \(c_{40},c_{41}\) are uniform, but \(B_1,B_3,\beta_\epsilon,t,r_{nm}^*\) and the model objects may vary unless additional assumptions state otherwise.
+
+      4. Omitted definitions, events, and side conditions. The model uses \(Y_{ij}=Z_i(X_{ij})+\epsilon_{ij}=f^\circ(X_{ij})+U_i(X_{ij})+\epsilon_{ij}\), \(1\le i\le n\), \(1\le j\le m\), with equal-measurement convention \(m_1=\cdots=m_n=m\); \(Z_i\) are i.i.d. realizations, \(U_i=Z_i-f^\circ\), \(f^\circ(x)=\mathbb E[Z(X)\mid X=x]\), \(X_{ij}\) are i.i.d. from \(\mathcal P_X\), independent of the \(Z_i\), and the \(\epsilon_{ij}\) are independent noise variables. The source does not specify full measurability, outer-probability conventions, or existence of a measurable argmin; the probability event in Lemma S.3 is therefore implicitly over the model and estimator randomness, with \(r_{nm}^*,\phi_{nm},\mathcal F_{nm},\mathcal P_X\) and the laws treated as fixed inputs. The fixed-point condition only concerns behavior for \(r\ge r_{nm}^*\): \(\phi_{nm}(r)/\sqrt r\) is nonnegative and nonincreasing on that range, \(\phi_{nm}(r_{nm}^*)\le r_{nm}^*\), and \(\phi_{nm}(r)\) dominates the Rademacher average for all \(r\ge r_{nm}^*\). The source does not assert that the fixed point is minimal or unique, nor does it assert a condition below \(r_{nm}^*\). The selected repaired proof’s Hypothesis (H), the condition \(r_3(t)\ge r^*\), and the separability condition (R) are proof-based additions, not part of the original Lemma S.3 statement; the original S.6 proof of Lemma S.3 says only “similar method with Lemma S.2” and does not display this detailed verification. The original source does not discuss \(B_2=0\) or \(B_3=0\); if \(B_3>0\), the printed condition \(\mathbb E\exp\{|\epsilon_{ij}|/B_3\}\le1\) mathematically forces \(\epsilon_{ij}=0\) almost surely, and similarly for \(U_i(X_{ij})/B_2\), but this observation appears as a proof-based inference in the selected material and is not recorded in the original assumption statement. It should not be added as an extra hypothesis. The target-specific truncated-noise result is Lemma S.3; Lemma S.2 is a different empirical-versus-population \(L^2\) comparison. Lemma S.7 is attributed by the source to Ledoux–Talagrand (1991, Theorem 4.12), and Lemma S.8 to Massart (2000, Theorem 4); their statements remain universal, and the special choices of functions, classes, and constants made in the proof of the target do not restrict the cited universal theorems.
+      <!-- /formalization-clarifications -->
+
+      Under the repeated-measures model and Assumptions 1–2 above, with \(\hat f=\hat f_{nm}\), \(r^*=r^*_{nm}\), and a positive truncation level \(\beta_\epsilon\), there exist universal constants \(c_{40},c_{41}\) such that, for a confidence parameter \(t\), with probability at least \(1-\exp\{-t\}\),
+      \[
+      \left|
+      \frac1{nm}\sum_{i=1}^n\sum_{j=1}^m
+      \left(
+      \mathcal T_{\beta_\epsilon}\epsilon_{ij}
+      -
+      \mathbb E[\mathcal T_{\beta_\epsilon}\epsilon_{ij}]
+      \right)
+      \left(\hat f(X_{ij})-f^\circ(X_{ij})\right)
+      \right|
+      \le
+      \frac1{16}\int_\Omega(\hat f-f^\circ)^2\,d\mathcal P_X
+      +
+      c_{40}\beta_\epsilon^2r^*
+      +
+      \frac{c_{41}(B_1\beta_\epsilon+B_3^2)t}{nm}.
+      \]
+      Here \(\mathcal T_{\beta_\epsilon}\) is the truncation operator, \(B_1\) is from Assumption 1, \(B_3\) is from Assumption 2, and \(c_{40},c_{41}\) are universal constants.
+    assumptions:
+      - |-
+        **Assumption 1.** There is a positive number \(B_1\) such that \(\|f^\circ\|_\infty\le B_1\) and \(\|f\|_\infty\le B_1\) for every \(f\in\mathcal F_{nm}\). The number \(B_1\) is not declared universal.
+
+        **Assumption 2.** The processes \(U_i(x)\) are continuous, and there exist nonnegative numbers \(B_2,B_3\) such that, for all \(1\le i\le n\), \(1\le j\le m\),
+        \[
+        \mathbb E\left[\exp\left\{\left|\frac{U_i(X_{ij})}{B_2}\right|\right\}\right]\le 1,
+        \qquad
+        \mathbb E\left[\exp\left\{\left|\frac{\epsilon_{ij}}{B_3}\right|\right\}\right]\le 1.
+        \]
+        The source does not discuss the degenerate cases \(B_2=0\) or \(B_3=0\), and it does not assert uniformity in \(n,m\) for these constants.
+
+        Also \(r^*=r^*_{nm}\) is a positive Rademacher fixed point with sub-root function \(\phi=\phi_{nm}\) as defined above. The parameter \(t\) is the confidence parameter in the probability statement, and the source does not state a separate range for \(t\).
+    proof_body: |-
+      #### Proof of the theorem
+      #### Structure of the argument
+
+      The theorem is stated under the normalization of Assumption 2, namely
+      $\mathbb E[\exp\{|\epsilon_{ij}|/B_3\}]\le 1$. Lemma 1.2(2) shows that this
+      normalization forces $\epsilon_{ij}=0$ almost surely for every $(i,j)$; hence the
+      left-hand side of the asserted inequality vanishes identically, while its right-hand
+      side is a sum of nonnegative terms. This yields the theorem *exactly as printed*,
+      with the universal constants $c_{40}=2^{20}$ and $c_{41}=2^{16}$; the details are in
+      Section 7-A, and that section by itself completes the proof of the target statement.
+
+      Because that conclusion is degenerate, the main body of the document proves the
+      non-vacuous version of the same inequality, with the same constants, for noise that is
+      not assumed to vanish: Section 1 collects the elementary properties of the centered
+      truncated noise and extracts from Assumption 2 the second moment bound (N);
+      Sections 2--6 carry out the symmetrization, comparison, peeling and Talagrand
+      argument and produce the bound (6.4); Section 7-B records the range in which (6.4) is
+      unconditional; Section 7-C shows that the one extra input used — the majorization of
+      the localized Rademacher average at radii below $r^*$ — is not a consequence of the
+      definition of the fixed point; and Section 7-D records how replacing the constant $1$ in
+      Assumption 2 by a general constant $C\ge1$ affects only the numerical values of the
+      universal constants.
+
+
+
+      #### 0. Setup, notation, and suprema over uncountable classes
+
+      Fix $n,m\ge 1$ and abbreviate
+      \[
+      N:=nm,\qquad \mathcal F:=\mathcal F_{nm},\qquad \phi:=\phi_{nm},\qquad
+      r^*:=r^*_{nm},\qquad \beta:=\beta_\epsilon>0 .
+      \]
+      All expectations $\mathbb E$ are taken with respect to all random objects present; for a
+      finite class the expectation of a supremum is an ordinary expectation.
+      For $f\in\mathcal F$ put
+      \[
+      h_f:=f-f^\circ,\qquad
+      Q(f):=\int_\Omega (f-f^\circ)^2\,d\mathcal P_X=\mathbb E\bigl[h_f(X_{ij})^2\bigr],
+      \tag{0.1}
+      \]
+      the identity holding because $X_{ij}\sim\mathcal P_X$, and for $r>0$
+      \[
+      \mathcal F(r):=\{f\in\mathcal F:\ Q(f)\le r\}.
+      \tag{0.2}
+      \]
+      By Assumption 1, $\|f^\circ\|_\infty\le B_1$ and $\|f\|_\infty\le B_1$ for every $f\in\mathcal F$; hence
+      \[
+      |h_f(x)|\le 2B_1\quad (x\in\Omega),\qquad 0\le Q(f)\le 4B_1^2<\infty
+      \qquad (f\in\mathcal F).
+      \tag{0.3}
+      \]
+      By definition $\hat f\in\mathcal F$. We write $\int_\Omega h^2\,dP_X$ for
+      $\int_\Omega h^2\,d\mathcal P_X$.
+
+      **Convention 0.1 (suprema over uncountable classes).** As in the definitions, for a
+      class $\mathcal G$ and a family $V(g)$,
+      \[
+      \mathbb E\sup_{g\in\mathcal G}V(g):=\sup\Bigl\{
+      \mathbb E\sup_{g\in\mathcal G^*}V(g):\
+      \mathcal G^*\subset\mathcal G,\ \mathcal G^*\ \text{finite}\Bigr\},
+      \tag{0.4}
+      \]
+      and $\sup_{g\in\mathcal G}|V(g)|$ is read in the same way (with $V$ replaced by $|V|$).
+      Two consequences are used below.
+
+      1. *First-moment bounds.* If $\mathbb E\sup_{g\in\mathcal G^*}|V(g)|\le B$ is proved for
+         **every** finite $\mathcal G^*\subset\mathcal G$ with a right-hand side $B$ not
+         depending on $\mathcal G^*$, then the same inequality holds with $\mathcal G$ in place
+         of $\mathcal G^*$, by (0.4). All first-moment estimates of Section 4 are of this type;
+         they are carried out for finite classes, where Fubini, Jensen and the symmetrization
+         identities are literal.
+
+      2. *Deviation bounds must be uniform over the class.* A bound valid separately for each fixed
+         $g\in\mathcal G$ cannot be transferred to a $\mathcal G$-valued random variable $\hat g$
+         that is correlated with $V$: conditioning on $\sigma(\hat g)$ changes the law of $V$. Since
+         $\hat f$ is a function of the whole data set (noise included), every deviation bound below is
+         therefore proved for suprema over classes, not for single points. (Elementary illustration: on
+         a fair coin let $V(0)=0,\ V(1)=2$ on heads and $V(0)=2,\ V(1)=0$ on tails. Then
+         $\mathbb P(|V(g)|>1)=1/2$ both for $g=0$ and for $g=1$, yet the selector $\hat g=0$ on heads and
+         $\hat g=1$ on tails satisfies $|V(\hat g)|=2>1$ surely.)
+
+      3. *Determining countable subclasses (separability; condition (R)).* Suppose that there is a
+         countable set $\mathcal G_c\subset\mathcal G$ such that, for every realization of the
+         underlying randomness,
+         \[
+         \sup_{g\in\mathcal G}|V(g)|=\sup_{g\in\mathcal G_c}|V(g)| .
+         \tag{0.5}
+         \]
+         Enumerate $\mathcal G_c=\{g_1,g_2,\dots\}$ and put $\mathcal G_j:=\{g_1,\dots,g_j\}$, so that
+         the events $A_j:=\{\sup_{g\in\mathcal G_j}|V(g)|\le b\}$ decrease to
+         $\{\sup_{g\in\mathcal G_c}|V(g)|\le b\}$. If $\mathbb P(A_j)\ge 1-e^{-t}$ for **every** $j$,
+         then by (0.5) and continuity from above
+         \[
+         \mathbb P\Bigl(\sup_{g\in\mathcal G}|V(g)|\le b\Bigr)
+         =\lim_{j\to\infty}\mathbb P(A_j)\ge 1-e^{-t};
+         \tag{0.6}
+         \]
+         consequently $\mathbb P(|V(\hat g)|>b)\le e^{-t}$ for **every** $\mathcal G$-valued random
+         variable $\hat g$, with no independence requirement. Condition (0.5) holds whenever the class
+         is parametrized by a compact metric space on which
+         $g\mapsto\bigl(g(X_1),\dots,g(X_N),Q(g)\bigr)$ is continuous (a countable dense set of
+         parameters then determines every value occurring in (2.1) and (3.1)), in particular for the
+         norm-bounded network classes $\mathcal F_{nm}=\mathcal FNN(d,L,W,\beta)$, whose coefficient
+         vectors range over a compact set and whose evaluations and $L^2(\mathcal P_X)$ norms are
+         continuous functions of those coefficients. We record (0.5) as the standing regularity
+         condition **(R)**; it affects neither the constants nor the quantifiers of the conclusions
+         below, and the proof of the theorem as printed (Section 7-A) does not use it.
+
+      #### 1. The centered truncated noise
+
+      Set
+      \[
+      T_{ij}:=\mathcal T_{\beta}\epsilon_{ij},\qquad
+      \xi_{ij}:=T_{ij}-\mathbb E[T_{ij}],
+      \qquad 1\le i\le n,\quad 1\le j\le m .
+      \tag{1.1}
+      \]
+
+      **Lemma 1.1 (elementary properties).** For all $i,j$:
+
+      1. $\mathbb E[\xi_{ij}]=0$;
+      2. $|T_{ij}|\le\min\{|\epsilon_{ij}|,\beta\}$ and $|\xi_{ij}|\le 2\beta$;
+      3. $\mathbb E[\xi_{ij}^2]=\operatorname{Var}(T_{ij})
+         \le\min\{\mathbb E[\epsilon_{ij}^2],\beta^2\}$; consequently, if
+         \[
+         \text{(N)}\qquad \mathbb E[\epsilon_{ij}^2]\le B_3^2
+         \quad\text{for all } i,j,
+         \]
+         then $\mathbb E[\xi_{ij}^2]\le B_3^2$;
+      4. $\xi_{ij}$ is a function of $\epsilon_{ij}$ alone. Consequently the family
+         $\{\xi_{ij}\}$ is independent, it is independent of $(X_{ij})$ and of the processes
+         $Z_i$, and $\xi_{ij}$ is independent of $X_{ij}$.
+
+      *Proof.* (1) is immediate. (2) The signed truncation satisfies
+      $|T_{ij}|\le\min\{|\epsilon_{ij}|,\beta\}$, so $|\mathbb E[T_{ij}]|\le\beta$ and hence
+      $|\xi_{ij}|\le|T_{ij}|+\beta\le2\beta$.
+
+      (3) Since $\mathbb E[\xi_{ij}^2]=\operatorname{Var}(T_{ij})\le\mathbb E[T_{ij}^2]
+      \le\min\{\mathbb E[\epsilon_{ij}^2],\beta^2\}$, assertion (3) follows from (N).
+
+      (4) $T_{ij}$, and hence $\xi_{ij}$, is a measurable function of $\epsilon_{ij}$. The noise
+      variables are independent by the model and are independent of the covariates and of the
+      processes $Z_i$. $\square$
+
+      **Lemma 1.2 (what the exponential moment condition gives).** Fix $i,j$.
+
+      1. If $B_3>0$ and $\mathbb E\bigl[\exp\{|\epsilon_{ij}|/B_3\}\bigr]\le C$ for some
+         $C\ge1$, then $\mathbb E[\epsilon_{ij}^2]\le C\,B_3^2$. In particular (N) holds when
+         $C=1$.
+      2. *Printed normalization.* If $B_3>0$ and
+         $\mathbb E\bigl[\exp\{|\epsilon_{ij}|/B_3\}\bigr]\le1$, then $\epsilon_{ij}=0$ almost
+         surely. If $B_3=0$, the condition can likewise hold only when $\epsilon_{ij}=0$ almost
+         surely. Hence under Assumption 2 as stated, $\epsilon_{ij}=0$ a.s. for all $i,j$, and
+         the same argument applied to $U_i(X_{ij})/B_2$ gives $U_i(X_{ij})=0$ a.s.
+
+      *Proof.* 1. For $u\ge0$ one has $e^u\ge u^2$; hence
+      \[
+      \frac{\mathbb E[\epsilon_{ij}^2]}{B_3^2}
+      =\mathbb E\Bigl[\Bigl(\frac{|\epsilon_{ij}|}{B_3}\Bigr)^{2}\Bigr]
+      \le\mathbb E\bigl[e^{|\epsilon_{ij}|/B_3}\bigr]\le C .
+      \]
+      2. For every $\omega$, $\exp\{|\epsilon_{ij}|/B_3\}\ge1$ with equality if and only if
+      $\epsilon_{ij}=0$. Hence $\mathbb E\exp\{|\epsilon_{ij}|/B_3\}\ge1$ with equality if and
+      only if $\epsilon_{ij}=0$ a.s.; the bound $\le1$ therefore forces $\epsilon_{ij}=0$ a.s.
+      (For $B_3=0$ the exponential equals $+\infty$ on $\{\epsilon_{ij}\ne0\}$, so the condition
+      can only hold if that event is null.) $\square$
+
+      **Remark 1.3 (the hypotheses actually used).** The argument of Sections 3--6 uses the noise
+      only through Lemma 1.1, i.e. through $|T_{ij}|\le\beta$ and the variance bound (N); it uses
+      the fixed point only through the peeled majorization (5.0) of Section 5, which is Hypothesis
+      (H) in general and which by Lemma 2.1 follows from the definition whenever the selected radius
+      satisfies $r_3(t)\ge r^*$. By Lemma 1.2(1), the second-moment bound (N) holds with
+      $B_3^2$ replaced by $C\,B_3^2$ whenever Assumption 2 is satisfied as printed (then $C=1$) or,
+      more generally, whenever $\mathbb E\exp\{ |\epsilon_{ij}|/B_3\}\le C$ for a fixed constant
+      $C\ge1$. In that case $\mathbb E[\xi_{ij}^2]\le C\,B_3^2$ by Lemma 1.1(3), and keeping
+      $c_{114}=2^{24}$ while replacing $c_{115}=2^{20}$ by $2^{20}C$ leaves the three numerical
+      estimates inside the proof of Proposition 6.1 valid; the resulting bound has $c_{40}=2^{20}$
+      and $c_{41}=2^{16}C^2$, so the constant on the right-hand side of the exponential moment
+      condition affects only the numerical value of the universal constant $c_{41}$ and not the form
+      of the bound. The computation, together with the resulting constants, is recorded in Section
+      7-D. The individual processes
+      $U_i$ are never used: the estimates below hold
+      simultaneously for all $f\in\mathcal F$, hence for $\hat f$, and the minimizing property of
+      $\hat f$ is not needed. The proof of the theorem exactly as printed is completed in Section
+      7-A on the basis of Lemma 1.2(2); Sections 3--6 prove the substantive non-degenerate
+      statement, and Section 7-B records the precise range in which it is unconditional.
+
+      #### 2. The localized Rademacher average and the fixed point
+
+      For $r>0$ let
+      \[
+      C(r):=\mathbb E\Bigl[\sup_{f\in\mathcal F(r)}
+      \Bigl|\frac1N\sum_{i=1}^n\sum_{j=1}^m
+      \sigma_{ij}\bigl(f(X_{ij})-f^\circ(X_{ij})\bigr)\Bigr|\Bigr]
+      \tag{2.1}
+      \]
+      be the *localized Rademacher average* of $\mathcal F$ at radius $r$; the expectation is
+      over $(X_{ij})$ and over the independent Rademacher family $(\sigma_{ij})$, and the
+      supremum is understood in the sense of Convention 0.1.
+
+      **Lemma 2.1.** Let $r^*$ be a Rademacher fixed point with sub-root function $\phi$ in the
+      sense of the definitions. Then
+      \[
+      C(r)\le\sqrt{r\,r^*}\qquad\text{for every } r\ge r^*.
+      \tag{2.2}
+      \]
+      In particular, for every $r>0$ and $k\ge0$ with $4^kr\ge r^*$,
+      \[
+      C(4^kr)\le 2^k\sqrt{r\,r^*}.
+      \tag{2.3}
+      \]
+
+      *Proof.* Let $r\ge r^*$. The defining majorization gives $C(r)\le\phi(r)$. Since
+      $\phi(s)/\sqrt s$ is nonnegative and nonincreasing on $[r^*,\infty)$ and
+      $\phi(r^*)\le r^*$,
+      \[
+      \frac{\phi(r)}{\sqrt r}\le\frac{\phi(r^*)}{\sqrt{r^*}}
+      \le\frac{r^*}{\sqrt{r^*}}=\sqrt{r^*},
+      \]
+      that is, $\phi(r)\le\sqrt{r\,r^*}$; this proves (2.2). Applying (2.2) at $4^kr\ge r^*$
+      gives $C(4^kr)\le\sqrt{4^kr\cdot r^*}=2^k\sqrt{r\,r^*}$. $\square$
+
+      The source's displayed bound $\beta\phi(r)/r$ is recovered from (2.2) because
+      $\phi(r)\le\sqrt{rr^*}$ for $r\ge r^*$.
+
+      The argument of Sections 4–6 evaluates the majorant at the peeled radii
+      $r,4r,4^2r,\dots$ for the single radius $r=r_3(t)$ chosen in Section 6. If
+      $r_3(t)\ge r^*$ all these radii lie in $[r^*,\infty)$ and Lemma 2.1 suffices; this
+      unconditional case is isolated in Section 7-B. For radii below $r^*$ the definition imposes
+      no condition on $\phi$, so we record the additional input used there.
+
+      **Hypothesis (H).** $\displaystyle C(r)\le\sqrt{r\,r^*}$ for every $r>0$.
+
+      Hypothesis (H) holds whenever the localized Rademacher average is majorized below the
+      fixed point as well, which is the situation for which the peeling argument of the source is
+      designed; by Lemma 2.1 it is automatic for $r\ge r^*$. The proof below uses (H) only in the
+      form (2.3) at radii $4^kr$. Section 7-C shows that (H) is *not* a consequence of the
+      fixed-point definition: there are admissible data and an admissible fixed point $r^*$ with
+      $C(r)>\sqrt{r\,r^*}$ for some $r<r^*$.
+
+      #### 3. The normalized localized process and the reduction
+
+      For $r>0$ define
+      \[
+      Z_r(f):=\frac1N\sum_{i=1}^n\sum_{j=1}^m
+      \frac{\xi_{ij}\,h_f(X_{ij})}{Q(f)+r},\qquad f\in\mathcal F .
+      \tag{3.1}
+      \]
+      This is well defined because $Q(f)+r\ge r>0$.
+
+      **Lemma 3.1 (reduction).** Let $r>0$. If $|Z_r(\hat f)|\le 1/16$, then
+      \[
+      \Bigl|\frac1N\sum_{i=1}^n\sum_{j=1}^m
+      \xi_{ij}\bigl(\hat f(X_{ij})-f^\circ(X_{ij})\bigr)\Bigr|
+      \le\frac1{16}\int_\Omega(\hat f-f^\circ)^2\,d\mathcal P_X+\frac1{16}\,r .
+      \tag{3.2}
+      \]
+
+      *Proof.* Multiply $|Z_r(\hat f)|\le1/16$ by $Q(\hat f)+r>0$ and use (0.1). $\square$
+
+      Two elementary facts are used repeatedly:
+      \[
+      \mathbb E\bigl[h_f(X_{ij})^2\bigr]=Q(f),\qquad
+      \bigl|h_f(X_{ij})\bigr|\le 2B_1\qquad (f\in\mathcal F),
+      \tag{3.3}
+      \]
+      and by Lemma 1.1(4) the families $(X_{ij})$ and $(\xi_{ij})$ are independent, so every
+      expectation involving a function of the noise and a function of the covariates factorizes.
+
+      #### 4. First moment of the localized process
+
+      **Lemma 4.1.** Assume (H). Then for every $r>0$,
+      \[
+      \mathbb E\Bigl[\sup_{f\in\mathcal F}\bigl|Z_r(f)\bigr|\Bigr]
+      \le 32\,\beta\sqrt{\frac{r^*}{r}} .
+      \tag{4.1}
+      \]
+
+      *Proof.* Fix $r>0$. By Convention 0.1(1) it suffices to prove (4.1) with $\mathcal F$
+      replaced by an arbitrary finite class $\mathcal F_0\subset\mathcal F$.
+
+      **Step 1 (symmetrization).** Relabel the $N=nm$ pairs $(i,j)$ by a single index
+      $\ell=1,\dots,N$, and put
+      \[
+      a_{\ell,f}:=\frac{\xi_\ell\,h_f(X_\ell)}{Q(f)+r},\qquad
+      U_f:=\frac1N\sum_{\ell=1}^N a_{\ell,f},\qquad f\in\mathcal F_0 .
+      \]
+      For each fixed $f$, the random variables $a_{\ell,f}$ are independent over $\ell$, because
+      $a_{\ell,f}$ is a function of the block $(X_\ell,\epsilon_\ell)$ and the blocks are
+      independent (Lemma 1.1(4)); and $\mathbb E[a_{\ell,f}]
+      =\mathbb E[\xi_\ell]\,\mathbb E[h_f(X_\ell)]/(Q(f)+r)=0$ by Lemma 1.1(1),(4).
+
+      Let $(a'_{\ell,f})$ be an independent copy (obtained from an independent copy of the whole
+      data set) and $U'_f:=\frac1N\sum_\ell a'_{\ell,f}$, with $\mathbb E'$ the expectation over
+      the copy. Since $\mathbb E'[U'_f]=0$ and $|\cdot|$ composed with a supremum is convex,
+      \[
+      \mathbb E\sup_{f\in\mathcal F_0}|U_f|
+      =\mathbb E\sup_{f\in\mathcal F_0}\bigl|\mathbb E'(U_f-U'_f)\bigr|
+      \le\mathbb E\sup_{f\in\mathcal F_0}|U_f-U'_f| .
+      \]
+      For each $\ell$ and $f$, $d_{\ell,f}:=a_{\ell,f}-a'_{\ell,f}$ is a difference of two
+      independent identically distributed variables, hence symmetrically distributed, and the
+      family $(d_{\ell,f})_{f\in\mathcal F_0}$ is independent over $\ell$. Therefore, for each
+      realization of the data and of the copy, the finite-dimensional vector
+      $\bigl(\frac1N\sum_\ell\sigma_\ell d_{\ell,f}\bigr)_{f\in\mathcal F_0}$ has the same law as
+      $\bigl(\frac1N\sum_\ell d_{\ell,f}\bigr)_{f\in\mathcal F_0}$ (multiplying independent
+      symmetric vectors by independent signs preserves the law). Consequently
+      \[
+      \mathbb E\sup_{f\in\mathcal F_0}|U_f-U'_f|
+      =\mathbb E\,\mathbb E_\sigma\sup_{f\in\mathcal F_0}
+      \Bigl|\frac1N\sum_{\ell}\sigma_\ell d_{\ell,f}\Bigr|
+      \le 2\,\mathbb E\,\mathbb E_\sigma\sup_{f\in\mathcal F_0}
+      \Bigl|\frac1N\sum_{\ell}\sigma_\ell a_{\ell,f}\Bigr|,
+      \]
+      where the last step uses $\sup|v+w|\le\sup|v|+\sup|w|$ and the fact that the primed sum
+      has the same expectation as the unprimed one. Combining with the previous display,
+      \[
+      \mathbb E\sup_{f\in\mathcal F_0}|U_f|
+      \le 2\,\mathbb E\Bigl[\sup_{f\in\mathcal F_0}
+      \Bigl|\frac1N\sum_{\ell=1}^{N}\sigma_{\ell}
+      \frac{\xi_{\ell}h_f(X_\ell)}{Q(f)+r}\Bigr|\Bigr].
+      \tag{4.2}
+      \]
+
+      **Step 2 (comparison theorem).** We apply the comparison theorem (Lemma S.7 of the
+      references) conditionally on a realization of $(X_\ell,\epsilon_\ell)$, with index set
+      $\{1,\dots,N\}$ and
+      \[
+      \Phi_\ell(s):=\xi_\ell\,s,\qquad
+      \Omega'_{\mathcal F_0}:=\Bigl\{\Bigl(\frac{h_f(X_{\ell})}{Q(f)+r}\Bigr)_{\ell=1}^{N}:
+      f\in\mathcal F_0\Bigr\}\subset\mathbb R^{N}.
+      \]
+      Each $\Phi_\ell$ is linear with $\Phi_\ell(0)=0$ and Lipschitz constant $|\xi_\ell|\le2\beta$
+      (Lemma 1.1(2)), so the hypotheses of Lemma S.7 hold with $b_1=2\beta$, uniformly in
+      $\ell$ and in the realization. The set $\Omega'_{\mathcal F_0}$ is finite, hence bounded:
+      $|h_f(X_\ell)/(Q(f)+r)|\le 2B_1/r$ by (0.3). Finally the Rademacher family
+      $(\sigma_\ell)$ is independent of the data, so Lemma S.7 may be applied conditionally. It
+      gives, for every realization of the data,
+      \[
+      \mathbb E_\sigma\Bigl[\sup_{f\in\mathcal F_0}
+      \Bigl|\frac1N\sum_{\ell=1}^{N}\sigma_\ell\,\xi_\ell
+      \frac{h_f(X_\ell)}{Q(f)+r}\Bigr|\Bigr]
+      \le 4\beta\,
+      \mathbb E_\sigma\Bigl[\sup_{f\in\mathcal F_0}
+      \Bigl|\frac1N\sum_{\ell=1}^{N}\sigma_\ell
+      \frac{h_f(X_\ell)}{Q(f)+r}\Bigr|\Bigr].
+      \tag{4.3}
+      \]
+      Inserting (4.3) into (4.2) and taking the expectation over the data yields
+      \[
+      \mathbb E\sup_{f\in\mathcal F_0}|U_f|
+      \le 8\beta\,\mathbb E\Bigl[\sup_{f\in\mathcal F_0}
+      \Bigl|\frac1N\sum_{\ell=1}^{N}\sigma_{\ell}
+      \frac{h_f(X_\ell)}{Q(f)+r}\Bigr|\Bigr],
+      \tag{4.4}
+      \]
+      an expectation over $(X_\ell)$ and $(\sigma_\ell)$ only.
+
+      **Step 3 (peeling).** By (0.3) every $f\in\mathcal F$ has $Q(f)\le4B_1^2<\infty$, so
+      $\mathcal F=\mathcal F(r)\cup\bigcup_{k\ge1}\bigl(\mathcal F(4^kr)\setminus
+      \mathcal F(4^{k-1}r)\bigr)$. On the annulus
+      $\mathcal F(4^kr)\setminus\mathcal F(4^{k-1}r)$, $k\ge1$, one has $Q(f)>4^{k-1}r$, hence
+      $Q(f)+r>(4^{k-1}+1)r$, while $f\in\mathcal F(4^kr)$; therefore
+      \[
+      \sup_{f\in\mathcal F(4^kr)\setminus\mathcal F(4^{k-1}r)}
+      \Bigl|\frac1N\sum_{\ell}\sigma_{\ell}\frac{h_f(X_\ell)}{Q(f)+r}\Bigr|
+      \le\frac{1}{(4^{k-1}+1)r}
+      \sup_{f\in\mathcal F(4^kr)}
+      \Bigl|\frac1N\sum_{\ell}\sigma_{\ell}h_f(X_\ell)\Bigr|,
+      \]
+      and on $\mathcal F(r)$ we use $Q(f)+r\ge r$. Taking expectations and using (2.1), and
+      noting that $\mathcal F_0\cap\mathcal F(s)\subset\mathcal F(s)$ for every $s$, we obtain
+      \[
+      \mathbb E\Bigl[\sup_{f\in\mathcal F_0}
+      \Bigl|\frac1N\sum_{\ell}\sigma_{\ell}
+      \frac{h_f(X_\ell)}{Q(f)+r}\Bigr|\Bigr]
+      \le\frac{C(r)}{r}+\sum_{k=1}^{\infty}
+      \frac{C(4^kr)}{(4^{k-1}+1)\,r}.
+      \tag{4.5}
+      \]
+      (For the finite class $\mathcal F_0$ only finitely many pieces are nonempty, so the sum is
+      finite and the same bound holds.)
+
+      **Step 4 (summation).** By (H) in the form (2.3), $C(4^kr)\le2^k\sqrt{r\,r^*}$ for every
+      $k\ge0$. Inserting this into (4.5) and then into (4.4),
+      \[
+      \mathbb E\sup_{f\in\mathcal F_0}|U_f|
+      \le 8\beta\sqrt{\frac{r^*}{r}}\Bigl(1+\sum_{k=1}^{\infty}\frac{2^k}{4^{k-1}+1}\Bigr).
+      \]
+      For $k\ge1$,
+      \[
+      \frac{2^k}{4^{k-1}+1}=2^{2-k}\Bigl(1-\frac{1}{4^{k-1}+1}\Bigr),
+      \]
+      as one checks by multiplying both sides by $4^{k-1}+1$; moreover
+      $\sum_{k\ge1}2^{2-k}=4$, and the subtracted series is at least its first term $2/2=1$.
+      Hence
+      \[
+      \sum_{k=1}^{\infty}\frac{2^k}{4^{k-1}+1}\le4-1=3,
+      \qquad
+      1+\sum_{k=1}^{\infty}\frac{2^k}{4^{k-1}+1}\le4,
+      \tag{4.6}
+      \]
+      and consequently $\mathbb E\sup_{f\in\mathcal F_0}|U_f|\le32\beta\sqrt{r^*/r}$. Since
+      $\mathcal F_0\subset\mathcal F$ was an arbitrary finite class, Convention 0.1(1) gives
+      (4.1). $\square$
+
+      #### 5. Deviation bound for the localized process
+
+      **Lemma 5.1 (deviation bound).** Assume (N). Let $r>0$ and $t>0$, and assume that the peeled
+      bound
+      \[
+      C(4^kr)\le 2^{k}\sqrt{r\,r^*}\qquad\text{for all } k\ge 0
+      \tag{5.0}
+      \]
+      holds. (This is implied by (H); by Lemma 2.1 it also holds whenever $r\ge r^*$.) Then, for
+      every finite class $\mathcal F_0\subset\mathcal F$, with probability at least $1-e^{-t}$,
+      \[
+      \sup_{f\in\mathcal F_0}\bigl|Z_r(f)\bigr|
+      \le 64\,\beta\sqrt{\frac{r^*}{r}}
+      +\sqrt{\frac{2B_3^2\,t}{Nr}}
+      +\frac{140\,B_1\beta\,t}{Nr}
+      =:b_r(t).
+      \tag{5.1}
+      \]
+
+      *Proof.* Fix $r>0$, relabel the $N=nm$ pairs by $\ell=1,\dots,N$, and for $f\in\mathcal F_0$ put
+      \[
+      W_{\ell,f}:=\frac{\xi_\ell\,h_f(X_\ell)}{Q(f)+r},
+      \qquad\text{so that}\quad
+      Z_r(f)=\frac1N\sum_{\ell=1}^N W_{\ell,f} .
+      \]
+      We verify the hypotheses of Talagrand's inequality (Lemma S.8 of the references) for the finite
+      class $\mathcal F_0$ and the index set $\{1,\dots,N\}$, with parameters $b_2,b_3$ determined
+      below.
+
+      *Independence.* $W_{\ell,f}$ depends only on the block $(X_\ell,\epsilon_\ell)$ (Lemma
+      1.1(4)), and the blocks are independent; hence $(W_{\ell,f})_{\ell=1}^N$ is independent
+      across $\ell$ for each fixed $f$.
+
+      *Mean zero.* By Lemma 1.1(1),(4) and (3.3), for all $\ell$ and $f\in\mathcal F_0$,
+      \[
+      \mathbb E[W_{\ell,f}]=\mathbb E[\xi_\ell]\,\mathbb E[h_f(X_\ell)]/(Q(f)+r)=0 .
+      \]
+
+      *Boundedness.* By Lemma 1.1(2), (3.3) and $Q(f)+r\ge r$, for all $\ell$ and
+      $f\in\mathcal F_0$,
+      \[
+      |W_{\ell,f}|\le\frac{2\beta\cdot 2B_1}{r}=:b_2=\frac{4B_1\beta}{r}.
+      \]
+
+      *Variance.* By the independence of $\xi_\ell$ and $X_\ell$, Lemma 1.1(3) and (3.3), for all
+      $\ell$ and $f\in\mathcal F_0$,
+      \[
+      \mathbb E[W_{\ell,f}^2]
+      =\frac{\mathbb E[\xi_\ell^2]\,\mathbb E[h_f(X_\ell)^2]}{(Q(f)+r)^2}
+      =\frac{\mathbb E[\xi_\ell^2]\,Q(f)}{(Q(f)+r)^2}
+      \le\frac{B_3^2\,Q(f)}{(Q(f)+r)^2}
+      \le\frac{B_3^2}{4r}=:b_3,
+      \]
+      where the last step uses $(Q(f)+r)^2\ge 4Q(f)r$ (valid for $Q(f)\ge0$, $r>0$; if $Q(f)=0$ the
+      middle term vanishes). This is the point at which the independence of $X_\ell$ and
+      $\epsilon_\ell$ enters: it makes the second moment factorize and leaves the factor $Q(f)$,
+      rather than the constant $(2B_1)^2$, next to $(Q(f)+r)^{-2}$, which is what makes the variance
+      term smaller than its counterpart in the untruncated analysis, where
+      $\sup_\ell|h_f(X_\ell)|\le2B_1$ would have to be used.
+
+      Lemma S.8, applied with $n$ replaced by $N$, with the class $\mathcal F_0$ and with $b_2,b_3$
+      as above, gives with probability at least $1-e^{-t}$
+      \[
+      \sup_{f\in\mathcal F_0}\bigl|Z_r(f)\bigr|
+      \le 2\,\mathbb E\Bigl[\sup_{f\in\mathcal F_0}\bigl|Z_r(f)\bigr|\Bigr]
+      +\sqrt{\frac{8b_3t}{N}}+\frac{35b_2t}{N}.
+      \]
+      The proof of Lemma 4.1 at the fixed radius $r$ uses the majorization only at the radii $4^kr$,
+      $k\ge0$; hence, under (5.0), its first-moment bound is available, and since that proof is
+      carried out for an arbitrary finite class $\mathcal F_0\subset\mathcal F$ (its first line) it
+      gives
+      \[
+      \mathbb E\Bigl[\sup_{f\in\mathcal F_0}\bigl|Z_r(f)\bigr|\Bigr]\le32\,\beta\sqrt{\frac{r^*}{r}}.
+      \]
+      Substituting $b_2$ and $b_3$,
+      \[
+      2\cdot32\beta\sqrt{\frac{r^*}{r}}=64\beta\sqrt{\frac{r^*}{r}},\qquad
+      \sqrt{\frac{8b_3t}{N}}=\sqrt{\frac{8B_3^2t}{4rN}}
+      =\sqrt{\frac{2B_3^2t}{Nr}},\qquad
+      \frac{35b_2t}{N}=\frac{140B_1\beta\,t}{Nr},
+      \]
+      which is (5.1). $\square$
+
+      **Remark 5.2 (from finite classes to $\mathcal F$, and to the random selector $\hat f$).** Assume
+      the regularity condition (R) of Convention 0.1(3) with $\mathcal G=\mathcal F$ and $V(f)=Z_r(f)$.
+      Since (5.1) holds for **every** finite $\mathcal F_0\subset\mathcal F$ with the same right-hand
+      side $b_r(t)$, which depends neither on $\mathcal F_0$ nor on $f$, (0.5) and (0.6) give
+      \[
+      \mathbb P\Bigl(\sup_{f\in\mathcal F}\bigl|Z_r(f)\bigr|\le b_r(t)\Bigr)\ge1-e^{-t}.
+      \tag{5.2}
+      \]
+      Consequently, for every $\mathcal F$-valued random variable $\hat g$, in particular for
+      $\hat g=\hat f$,
+      \[
+      \mathbb P\bigl(\bigl|Z_r(\hat g)\bigr|\le b_r(t)\bigr)\ge1-e^{-t},
+      \tag{5.3}
+      \]
+      because $|Z_r(\hat g)|\le\sup_{f\in\mathcal F}|Z_r(f)|$ pointwise. No independence between
+      $\hat g$ and the data is used, and $\hat g$ may be the estimator itself, which is a function of
+      the whole data set including the noise. By Convention 0.1(2), (5.3) would be **false in general**
+      if the supremum in (5.2) were replaced by separate bounds for each fixed $f$; this is why Lemma
+      S.8 is applied to a class rather than to a point.
+
+      #### 6. Choice of the radius
+
+      Let
+      \[
+      c_{114}:=2^{24},\qquad c_{115}:=2^{20},
+      \qquad
+      r_3(t):=c_{114}\,\beta^{2}r^*
+      +\frac{c_{115}\bigl(B_1\beta+B_3^2\bigr)t}{N}.
+      \tag{6.1}
+      \]
+      Since $\beta>0$, $r^*>0$, $B_1>0$, $B_3\ge0$ and $t>0$, we have $r_3(t)>0$ together with
+      \[
+      r_3(t)\ge c_{114}\beta^2r^*,\qquad
+      r_3(t)\ge c_{115}B_3^2\frac tN,\qquad
+      r_3(t)\ge c_{115}B_1\beta\frac tN .
+      \tag{6.2}
+      \]
+
+      **Proposition 6.1.** Assume (N) and (R), and let $t>0$. Assume in addition that either (H) holds,
+      or that $r_3(t)$ satisfies the single condition
+      \[
+      r_3(t)\ge r^* .
+      \tag{6.3}
+      \]
+      Then, with probability at least $1-e^{-t}$,
+      \[
+      \left|
+      \frac1{nm}\sum_{i=1}^n\sum_{j=1}^m
+      \Bigl(
+      \mathcal T_{\beta}\epsilon_{ij}
+      -\mathbb E[\mathcal T_{\beta}\epsilon_{ij}]
+      \Bigr)
+      \Bigl(\hat f(X_{ij})-f^\circ(X_{ij})\Bigr)
+      \right|
+      \le
+      \frac1{16}\int_\Omega(\hat f-f^\circ)^2\,d\mathcal P_X
+      +2^{20}\beta^{2}r^*
+      +\frac{2^{16}\bigl(B_1\beta+B_3^2\bigr)t}{nm}.
+      \tag{6.4}
+      \]
+
+      *Proof.* In the first case the peeled bound (5.0) at $r=r_3(t)$ is exactly (H); in the second
+      case Lemma 2.1 gives $C(4^kr_3(t))\le2^k\sqrt{r_3(t)\,r^*}$ for every $k\ge0$, which is (5.0).
+      In either case, therefore, the majorization used in Step 4 of the proof of Lemma 4.1 is
+      available at the radii $4^kr_3(t)$, $k\ge0$. That proof begins by reducing to an arbitrary
+      finite subclass and uses no other property of the data, so it yields, at the fixed radius
+      $r=r_3(t)$ and for every finite $\mathcal F_0\subset\mathcal F$,
+      \[
+      \mathbb E\Bigl[\sup_{f\in\mathcal F_0}\bigl|Z_{r_3(t)}(f)\bigr|\Bigr]
+      \le32\,\beta\sqrt{\frac{r^*}{r_3(t)}},
+      \]
+      and hence, by Convention 0.1(1), also with $\mathcal F$ in place of $\mathcal F_0$;
+      consequently the finite-class deviation bound (5.1) at $r=r_3(t)$ is available. By Remark
+      5.2, (5.3)
+      with $\hat g=\hat f\in\mathcal F$ gives, with probability at least $1-e^{-t}$,
+      \[
+      \bigl|Z_{r_3(t)}(\hat f)\bigr|\le
+      64\beta\sqrt{\frac{r^*}{r_3(t)}}
+      +\sqrt{\frac{2B_3^2\,t}{N\,r_3(t)}}
+      +\frac{140\,B_1\beta\,t}{N\,r_3(t)} .
+      \tag{6.5}
+      \]
+      We bound the three terms using (6.2):
+
+      1. By (6.2) and $\beta>0$,
+      \[
+      64\beta\sqrt{\frac{r^*}{r_3(t)}}
+      \le64\beta\sqrt{\frac{r^*}{c_{114}\beta^2r^*}}
+      =\frac{64}{\sqrt{c_{114}}}=\frac{64}{2^{12}}=\frac1{64}.
+      \]
+      2. By (6.2) and $B_3^2\ge0$ (the term vanishes if $B_3=0$; otherwise divide by
+      $B_3^2$),
+      \[
+      \sqrt{\frac{2B_3^2t}{N\,r_3(t)}}
+      \le\sqrt{\frac{2B_3^2t}{N\,c_{115}B_3^2t/N}}
+      =\sqrt{\frac{2}{c_{115}}}=\frac{\sqrt2}{2^{10}}\le\frac1{64}.
+      \]
+      3. By (6.2) and $B_1\beta>0$,
+      \[
+      \frac{140B_1\beta t}{N\,r_3(t)}
+      \le\frac{140B_1\beta t}{N\,c_{115}B_1\beta t/N}
+      =\frac{140}{c_{115}}=\frac{140}{2^{20}}\le\frac1{64}.
+      \]
+
+      Adding,
+      \[
+      \bigl|Z_{r_3(t)}(\hat f)\bigr|\le\frac3{64}<\frac1{16}
+      \qquad\text{with probability at least } 1-e^{-t}.
+      \tag{6.6}
+      \]
+      On this event, Lemma 3.1 with $r=r_3(t)$ gives
+      \[
+      \Bigl|\frac1N\sum_{i=1}^n\sum_{j=1}^m
+      \xi_{ij}\bigl(\hat f(X_{ij})-f^\circ(X_{ij})\bigr)\Bigr|
+      \le\frac1{16}\int_\Omega(\hat f-f^\circ)^2\,dP_X+\frac1{16}\,r_3(t),
+      \]
+      and by (6.1)
+      \[
+      \frac1{16}r_3(t)
+      =\frac{2^{24}}{16}\,\beta^2r^*
+      +\frac{2^{20}}{16}\cdot\frac{(B_1\beta+B_3^2)t}{N}
+      =2^{20}\beta^2r^*+\frac{2^{16}(B_1\beta+B_3^2)t}{N}.
+      \]
+      Recalling (1.1) and $N=nm$, this is (6.4). $\square$
+
+      **Remark 6.2 (the constants).** The universal constants produced are $c_{40}=2^{20}$ and
+      $c_{41}=2^{16}$; the numerical choices are not optimized, and only their universality
+      matters: they depend on $n,m,\beta,t,B_1,B_3,\mathcal F_{nm},\mathcal P_X$ and on the laws
+      of $U_i$ and $\epsilon_{ij}$ in no way. The slack $3/64<4/64=1/16$ in (6.6) is what allows
+      the weak variance bound $B_3^2$ instead of $\min\{B_3^2,\beta^2\}$.
+
+      #### 7. Completion of the proof, unconditional ranges, and sharpness
+
+      #### 7-A. The theorem as printed
+
+      Under Assumption 2 as stated, Lemma 1.2(2) gives $\epsilon_{ij}=0$ almost surely for all
+      $i,j$; hence $T_{ij}=\mathcal T_\beta\epsilon_{ij}=0$ and $\xi_{ij}=0$ almost surely. The
+      left-hand side of the asserted inequality therefore vanishes identically. For $t>0$ the
+      right-hand side is a sum of nonnegative terms ($Q(\hat f)\ge0$, $2^{20}\beta^2r^*>0$,
+      $2^{16}(B_1\beta+B_3^2)t/(nm)\ge0$ because $B_1>0$, $\beta>0$, $B_3\ge0$), so the
+      inequality holds on an event of probability $1\ge1-e^{-t}$. For $t\le0$ the probability
+      $1-e^{-t}$ is nonpositive and the statement is vacuous. Consequently the theorem holds, with
+      the universal constants $c_{40}=2^{20}$ and $c_{41}=2^{16}$.
+
+      This completes the proof of the theorem exactly as stated. The remainder of this section
+      records what the argument yields for nonzero noise, and delimits sharply the role of the
+      two extra inputs (N) and (H).
+
+      #### 7-B. The unconditional range for nonzero noise
+
+      Proposition 6.1 shows: *if* (N) and (R) hold, $t>0$, and $r_3(t)\ge r^*$, *then* (6.4) holds
+      with probability at least $1-e^{-t}$; the only property of the fixed point used there is Lemma
+      2.1, i.e. the majorization at the peeled radii $4^kr_3(t)$, all of which lie in $[r^*,\infty)$.
+      Condition (6.3) holds in particular in either of the following cases:
+      \[
+      \beta\ge2^{-12}\quad\bigl(\text{then } c_{114}\beta^2=2^{24}\beta^2\ge1\bigr),
+      \qquad\text{or}\qquad
+      2^{20}\bigl(B_1\beta+B_3^2\bigr)\frac tN\ge r^* .
+      \]
+      So, for nonzero noise satisfying (N) and (R), the asserted inequality is proved whenever either
+      the truncation level is not small or the quantity $(B_1\beta+B_3^2)t/N$ is not small relative
+      to $r^*$. The only regime left uncovered by the definition of the fixed point alone is therefore
+      $r_3(t)<r^*$, i.e. a very small truncation level $\beta$ together with a very small value of
+      $(B_1\beta+B_3^2)t/N$; Example 7.1 below shows that in this regime the majorization used in the
+      peeling step is a genuinely additional hypothesis, not a consequence of the definition of a
+      fixed point.
+
+      #### 7-C. Example 7.1: the fixed-point definition does not imply (H)
+
+      Take $n=m=1$, $\Omega=[0,1]$, $\mathcal P_X$ the uniform distribution, $f^\circ\equiv0$,
+      $Z_1\equiv0$ and $\epsilon_{11}\equiv0$ (which is compatible with Assumption 2 by Lemma
+      1.2(2)), so $B_2=B_3=1$ are admissible and $B_1=1$. Let $\mathcal F=\{f^\circ,\,
+      f^\circ+c\}$ with $0<c<1$, so $h_{f^\circ}=0$, $h_{f^\circ+c}=c$, $Q(f^\circ)=0$,
+      $Q(f^\circ+c)=c^2$.
+
+      Then $\mathcal F(r)=\{f^\circ\}$ for $r<c^2$ and $\mathcal F(r)=\mathcal F$ for
+      $r\ge c^2$, and therefore
+      \[
+      C(r)=0\quad (r<c^2),\qquad C(r)=\mathbb E|\sigma_{11}c|=c\quad(r\ge c^2).
+      \]
+      The constant function $\phi\equiv c$ is sub-root ($\phi(r)/\sqrt r=c/\sqrt r$ is
+      nonincreasing in $r$), it satisfies $\phi(r^*)=c=r^*$ for $r^*:=c$, and it majorizes $C$ on
+      $[r^*,\infty)$. Hence $r^*=c$ is a Rademacher fixed point with sub-root function $\phi$, in
+      the sense of the definitions. On the other hand, for every $r\in[c^2,c)$,
+      \[
+      C(r)=c>\sqrt{r\,c}=\sqrt{r\,r^*} .
+      \]
+      Thus (H) fails below $r^*$ for admissible fixed-point data: the majorization at radii below
+      the fixed point is a genuinely additional property of the localized Rademacher average.
+      (Note that in this example $r^*=1$ is also a fixed point, with $\phi\equiv1$, for which (H)
+      does hold and the theorem's right-hand side is larger; the definition of $r^*$ asserts
+      neither uniqueness nor minimality, and the assertion must hold for each admissible $r^*$.)
+
+      #### 7-D. The role of the constant $1$ in Assumption 2
+
+      The constant $1$ on the right-hand side of the exponential moment condition of Assumption 2
+      enters the argument exactly once, in Lemma 1.2(1). Suppose that, for a constant $C\ge1$ not
+      depending on $n,m$,
+      \[
+      \mathbb E\bigl[\exp\{|\epsilon_{ij}|/B_3\}\bigr]\le C\qquad\text{for all } i,j,
+      \tag{7.1}
+      \]
+      which is the form of the condition usually intended; the printed inequality is the case
+      $C=1$. Then Lemma 1.2(1) gives $\mathbb E[\epsilon_{ij}^2]\le C B_3^2$, so (N) holds with
+      $B_3^2$ replaced by $CB_3^2$; by Lemma 1.1(3) also $\mathbb E[\xi_{ij}^2]\le CB_3^2$, and the
+      proof of Lemma 5.1 produces $b_3=CB_3^2/(4r)$ in place of $B_3^2/(4r)$, i.e. the deviation
+      term $\sqrt{2B_3^2t/(Nr)}$ becomes $\sqrt{2CB_3^2t/(Nr)}$. Keep $c_{114}=2^{24}$ and replace
+      $c_{115}$ in (6.1) by $c_{115}\max\{1,C\}=2^{20}C$. The three estimates inside the proof of
+      Proposition 6.1 then read
+      \[
+      \frac{64}{\sqrt{c_{114}}}=\frac1{64},\qquad
+      \sqrt{\frac{2C}{2^{20}C}}=\frac{\sqrt2}{2^{10}}\le\frac1{64},\qquad
+      \frac{140}{2^{20}C}\le\frac1{64},
+      \]
+      so (6.6), Lemma 3.1 and hence (6.4) remain valid, with the last two summands of (6.4)
+      replaced by
+      \[
+      2^{20}\beta^2r^*+\frac{2^{16}C\bigl(B_1\beta+CB_3^2\bigr)t}{nm}
+      \le 2^{20}\beta^2r^*+\frac{2^{16}C^2\bigl(B_1\beta+B_3^2\bigr)t}{nm},
+      \]
+      where the inequality uses $B_1\beta\ge0$ and $C\ge1$. Consequently, under (7.1), the bound of
+      the theorem holds on exactly the range of radii of Proposition 6.1 (that is, under (H) or
+      when $r_3(t)\ge r^*$) with $c_{40}=2^{20}$ and $c_{41}=2^{16}\max\{1,C\}^2$: a general
+      normalization constant changes only the numerical value of the universal constant $c_{41}$,
+      which stays universal once $C$ is fixed. What the printed value $C=1$ adds is Lemma 1.2(2):
+      it forces $\epsilon_{ij}=0$ almost surely and thereby makes the assertion true for every
+      $t>0$, every $\beta>0$ and every admissible $r^*$, with no hypothesis on the radius
+      (Section 7-A).
+
+
+
+      #### 7-E. Summary of what is proved
+
+      1. *The theorem as printed is established* in 7-A with the universal constants $c_{40}=2^{20}$
+         and $c_{41}=2^{16}$. Its hypothesis Assumption 2 is the normalization
+         $\mathbb E\exp\{|\epsilon_{ij}|/B_3\}\le1$, which by Lemma 1.2(2) forces
+         $\epsilon_{ij}=0$ almost surely for all $i,j$; hence the left-hand side of the asserted
+         inequality vanishes identically and the inequality holds with probability $1$ when $t>0$
+         (and the statement is vacuous when $t\le0$).
+
+      2. *The substantive inequality* --- the one that is not vacuous --- is established in Sections
+         3--6 with the same universal constants for every noise satisfying only the second-moment
+         bound (N) $\mathbb E[\epsilon_{ij}^2]\le B_3^2$, at any radius at which the localized
+         Rademacher average is majorized at the peeled radii, i.e. under (H) or, in particular,
+         whenever $r_3(t)\ge r^*$ (Proposition 6.1 and 7-B). Its ingredients are symmetrization
+         (Step 1 of Lemma 4.1), the comparison theorem Lemma S.7 (Step 2), peeling at the fixed point
+         using Lemma 2.1 (Steps 3--4), and Talagrand's inequality Lemma S.8 applied first to a finite
+         sub-class and then, via (R), to the class $\mathcal F$ and to the estimator $\hat f$ (Lemma
+         5.1, Remark 5.2). The minimizing property of $\hat f$ is not used; only $\hat f\in\mathcal F$.
+
+      3. *The remaining restriction cannot be removed from the fixed-point definition alone.*
+         Example 7.1 in 7-C exhibits admissible data and an admissible fixed point $r^*$ for which
+         (H) fails, so the majorization below $r^*$ is a genuine extra input: at radii below the
+         fixed point the definition of $\phi$ imposes no condition at all on the localized
+         Rademacher average, and Lemma 2.1 cannot be extended there without an additional
+         assumption. The role of the constant $1$ in Assumption 2 is isolated in 7-D: it forces the
+         noise to vanish, and with a general constant $C\ge1$ the same argument yields the bound with
+         $c_{41}$ replaced by $2^{16}\max\{1,C\}^2$, i.e. the normalization constant affects only the
+         numerical value of the universal constant.
+      #### A. The two classical results used as external dependencies
+
+      The argument uses exactly two results that are not proved here; both are quoted from
+      Reference R1, where they appear as Lemma S.7 and Lemma S.8 and are themselves attributed to
+      the literature. We restate them in the form used, with the names of all objects of the present
+      paper, and record where each hypothesis is verified.
+
+      **Lemma S.7 (comparison theorem; Reference R1, after Ledoux--Talagrand, Theorem 4.12).**
+      Let $b_1\ge0$, let $\sigma_1,\dots,\sigma_N$ be independent Rademacher variables, let
+      $\Omega'\subset\mathbb R^N$ be bounded, and let $\Phi_1,\dots,\Phi_N:\mathbb R\to\mathbb R$
+      satisfy $\Phi_\ell(0)=0$ and $|\Phi_\ell(s)-\Phi_\ell(t)|\le b_1|s-t|$ for all $s,t\in\mathbb R$.
+      Then
+      \[
+      \mathbb E_\sigma\Bigl[\sup_{t\in\Omega'}\Bigl|\frac1N\sum_{\ell=1}^N\sigma_\ell\Phi_\ell(t_\ell)\Bigr|\Bigr]
+      \le 2b_1\,\mathbb E_\sigma\Bigl[\sup_{t\in\Omega'}\Bigl|\frac1N\sum_{\ell=1}^N\sigma_\ell t_\ell\Bigr|\Bigr].
+      \]
+      The hypotheses are verified in Step 2 of the proof of Lemma 4.1, conditionally on the data:
+      with $\xi_\ell$ the centered truncated noise, $\Phi_\ell(s)=\xi_\ell s$ satisfies
+      $\Phi_\ell(0)=0$ and is $b_1$-Lipschitz with $b_1=\sup_\ell|\xi_\ell|\le2\beta$ by Lemma
+      1.1(2) (a bound uniform in $\ell$ and in the data), and
+      $\Omega'=\Omega'_{\mathcal F_0}$, the image of a finite set, is bounded by $2B_1/r$ thanks to
+      (0.3) and $Q(f)+r\ge r$. The Rademacher family is independent of the data, so the conditional
+      inequality is valid for every realization; integrating it gives (4.4).
+
+      **Lemma S.8 (Talagrand's inequality; Reference R1, after Massart 2000, Theorem 4).**
+      Let $\mathcal F_0$ be a finite index set, let $\{W_{\ell,f}:1\le\ell\le N,\ f\in\mathcal F_0\}$
+      be random variables that, for each fixed $f$, are independent over $\ell$, and let
+      $b_2,b_3\ge0$ satisfy $\mathbb E[W_{\ell,f}]=0$, $|W_{\ell,f}|\le b_2$ and
+      $\mathbb E[W_{\ell,f}^2]\le b_3$ for all $\ell,f$. Then for every $t>0$, with probability at
+      least $1-e^{-t}$,
+      \[
+      \sup_{f\in\mathcal F_0}\Bigl|\frac1N\sum_{\ell=1}^N W_{\ell,f}\Bigr|
+      \le 2\,\mathbb E\Bigl[\sup_{f\in\mathcal F_0}\Bigl|\frac1N\sum_{\ell=1}^N W_{\ell,f}\Bigr|\Bigr]
+      +\sqrt{\frac{8b_3t}{N}}+\frac{35b_2t}{N}.
+      \]
+      Two features of this version are used below: the variables need not be identically distributed
+      in $\ell$ (only common bounds $b_2,b_3$ are required), and the class is finite, so that the
+      supremum is a maximum of finitely many random variables and the left-hand side is measurable.
+      The hypotheses are verified in the proof of Lemma 5.1 for
+      $W_{\ell,f}=\xi_\ell h_f(X_\ell)/(Q(f)+r)$: independence over $\ell$ from Lemma 1.1(4),
+      $\mathbb E[W_{\ell,f}]=0$ from Lemma 1.1(1),(4) together with the independence of $\xi_\ell$
+      and $X_\ell$, $b_2=4B_1\beta/r$ from Lemma 1.1(2) and (0.3), and $b_3=B_3^2/(4r)$ from Lemma
+      1.1(3), (3.3) and $(Q(f)+r)^2\ge4Q(f)r$. The passage from a finite $\mathcal F_0$ to
+      $\mathcal F$ uses only the convention (0.4) for first moments and the separability condition
+      (R) for probabilities, as explained in Remark 5.2.
+
+      ### References
+      #### Reference R1
+      Target: Lemma S.2 (Section S.4; proof in Section S.6)
+
+      Citation: “We use a similar method with Lemma S.2 to consider
+      \[
+      \left|\frac{(\mathcal T_{\beta_\epsilon}\epsilon_{ij}-\mathbb E[\mathcal T_{\beta_\epsilon}\epsilon_{ij}])(\hat f(X_{ij})-f^\circ(X_{ij}))}{\int_\Omega(\hat f-f^\circ)^2dP_X+r}\right|,
+      \]
+      which is bounded by
+      \[
+      \sup_{f\in\mathcal F}\left|\frac{(\mathcal T_{\beta_\epsilon}\epsilon_{ij}-\mathbb E[\mathcal T_{\beta_\epsilon}\epsilon_{ij}])(f(X_{ij})-f^\circ(X_{ij}))}{\int_\Omega(f-f^\circ)^2dP_X+r}\right|.
+      \]
+      After some discussion similar to the proof of Lemma S.2, we obtain, with probability at least \(1-\exp\{-t\}\),
+      \[
+      \left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m\frac{(\mathcal T_{\beta_\epsilon}\epsilon_{ij}-\mathbb E[\mathcal T_{\beta_\epsilon}\epsilon_{ij}])(\hat f(X_{ij})-f^\circ(X_{ij}))}{\int_\Omega(\hat f-f^\circ)^2dP_X+r}\right|
+      \]
+      \[
+      \le\sup_{f\in\mathcal F}\left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m\frac{(\mathcal T_{\beta_\epsilon}\epsilon_{ij}-\mathbb E[\mathcal T_{\beta_\epsilon}\epsilon_{ij}])(f(X_{ij})-f^\circ(X_{ij}))}{\int_\Omega(f-f^\circ)^2dP_X+r}\right|
+      \]
+      \[
+      \le\frac{32\beta_\epsilon\phi(r)}{r}+\sqrt{\frac{2B_3^2t}{nmr}}+\frac{140B_1\beta_\epsilon t}{nmr}.
+      \]
+      The second term on the right side is different from its counterpart in step 3 of the proof of Theorem 2.1 because the variance estimation is smaller due to the independent of \(X_{ij}\) and \(\epsilon_{ij}\). Choosing constants \(c_{114}\) and \(c_{115}\) such that \(r_3(t)=c_{114}\beta_\epsilon^2r^*+\frac{c_{115}(B_1\beta_\epsilon+B_3^2)t}{nm}\) satisfy
+      \[
+      \frac{32\beta_\epsilon\phi(r)}{r}+\sqrt{\frac{2B_3^2t}{nmr}}+\frac{140B_1\beta_\epsilon t}{nmr}\le\frac1{16}.
+      \]
+      Therefore, with probability at least \(1-\exp\{-t\}\),
+      \[
+      \left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m(\mathcal T_{\beta_\epsilon}\epsilon_{ij}-\mathbb E[\mathcal T_{\beta_\epsilon}\epsilon_{ij}])(\hat f(X_{ij})-f^\circ(X_{ij}))\right|
+      \]
+      \[
+      \le\frac1{16}\int_\Omega(\hat f-f^\circ)^2dP_X+\frac{c_{114}\beta_\epsilon^2r^*}{16}+\frac{c_{115}(B_1\beta_\epsilon+B_3^2)t}{16nm}.
+      \]
+      This completes the proof.”
+
+      Bibliography: supp
+
+      ##### Use
+      Proof or method citation — original source material
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction from D1, supplement to “Deep Regression for repeated measurements”: the named result is **Lemma S.2**, stated in Section S.4 and proved in Section S.6. It is stated “under the same model and assumptions as Theorem 2.1” and gives an empirical-versus-population \(L^2(P_X)\) comparison for \(\hat f-f^\circ\), with universal constants \(c_{38},c_{39}\). It does not itself state the truncated-noise probability bound of the fixed target.
+
+      The target’s proof cites Lemma S.2 only for its “similar method.” The relevant source-provided argument in the S.2 proof is: symmetrize the empirical process by Rademacher variables, peel \(\mathcal F\) into \(\mathcal F(r)\) and the annuli \(\mathcal F(4^kr)\setminus\mathcal F(4^{k-1}r)\), use the comparison theorem Lemma S.7 to bound the Rademacher complexity of \((f-f^\circ)^2\) by \(4B_1\phi(r')\), sum the peeled terms to \(16B_1\phi(r)/r\), and after symmetrization obtain
+      \[
+      \mathbb E\left[\sup_{f\in\mathcal F}\left|\frac1{nm}\sum_{i=1}^n\sum_{j=1}^m
+      \frac{\int_\Omega(f-f^\circ)^2dP_X-(f(X_{ij})-f^\circ(X_{ij}))^2}
+      {\int_\Omega(f-f^\circ)^2dP_X+r}\right|\right]\le \frac{32B_1\phi(r)}{r}.
+      \]
+      The proof then verifies the mean-zero, boundedness, and variance conditions for Lemma S.8, obtaining with probability at least \(1-\exp\{-t\}\)
+      \[
+      \frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m
+      \frac{\int_\Omega(\hat f-f^\circ)^2dP_X-(\hat f(X_{ij})-f^\circ(X_{ij}))^2}
+      {\int_\Omega(\hat f-f^\circ)^2dP_X+r}
+      \le
+      \frac{64B_1\phi(r)}{r}
+      +\sqrt{\frac{8B_1^2t}{nmr}}
+      +\frac{140B_1^2t}{nmr},
+      \]
+      and chooses \(r_1(t)=2c_{38}B_1^2r^*+\frac{2c_{39}B_1^2t}{nm}\).
+
+      The source’s S.2 proof explicitly invokes **Lemma S.7 (Comparison Theorem)**, attributed there to Theorem 4.12 in Ledoux & Talagrand (1991), and **Lemma S.8 (Talagrand’s inequality)**, stated to be derivable from Theorem 4 of Massart (2000). These are source-stated ingredients of the borrowed argument and are organized separately below. Their role is to support, respectively, the Rademacher-complexity term and the concentration/deviation terms in the template.
+
+      The fixed target’s \(\beta_\epsilon\)-dependent conclusion, the \(1/16\) term, and the constants \(c_{40},c_{41}\) are stated in the source’s Lemma S.3, which is the fixed target itself and is not reorganized here as an external premise. The source’s S.3 proof says only “After some discussion similar to the proof of Lemma S.2” and then asserts the \(\beta_\epsilon\)-bound; it does not display the detailed verification of the analogous peeling, comparison, boundedness and variance conditions for the centered truncated noise process. The statement that the variance term is smaller “due to the independent of \(X_{ij}\) and \(\epsilon_{ij}\)” is an adaptation claimed in the citing text, not a conclusion of Lemma S.2. No bridge or specialization is derived here.
+
+      ##### Lemma S.2
+      ###### Definitions and notation
+      The source uses the repeated-measures model
+      \[
+      Y_{ij}=Z_i(X_{ij})+\epsilon_{ij}=f^\circ(X_{ij})+U_i(X_{ij})+\epsilon_{ij},
+      \qquad 1\le i\le n,\quad 1\le j\le m,
+      \]
+      where \(Z_1,\dots,Z_n\) are i.i.d. realizations of a random function \(Z(x)\) on \([0,1]^d\), \(U_i(x)=Z_i(x)-f^\circ(x)\), and
+      \[
+      f^\circ(x)=\mathbb E[Z(X)\mid X=x].
+      \]
+      The covariates \(X_{ij}\) are i.i.d. from \(\mathcal P_X\) on \(\Omega\subseteq[0,1]^d\), independent of \(Z_i\); \(\mathcal P_X\) is absolutely continuous with respect to the volume measure on \(\Omega\). The \(\epsilon_{ij}\) are independent noise variables, and the equal-measurement convention is \(m_1=\cdots=m_n=m\).
+
+      The nonparametric least-squares estimator is
+      \[
+      \hat f=\hat f_{nm}\in\arg\min_{f\in\mathcal F_{nm}}
+      \frac1{nm}\sum_{i=1}^n\sum_{j=1}^m (Y_{ij}-f(X_{ij}))^2.
+      \]
+      For \(r>0\),
+      \[
+      \mathcal F_{nm}(r)
+      =
+      \left\{
+      f\in\mathcal F_{nm}:
+      \int_\Omega(f-f^\circ)^2\,dP_X\le r
+      \right\}.
+      \]
+      A function \(\phi=\phi_{nm}\) is sub-root if \(\phi(r)/\sqrt r\) is nonnegative and nonincreasing. Let \(\{\sigma_{ij}:1\le i\le n,1\le j\le m\}\) be i.i.d. Rademacher variables uniform on \(\{-1,+1\}\). A positive number \(r^*=r^*_{nm}\) is a Rademacher fixed point of \(\mathcal F_{nm}\) if \(\phi_{nm}(r)\) is sub-root for \(r\ge r^*_{nm}\), \(\phi_{nm}(r^*_{nm})\le r^*_{nm}\), and
+      \[
+      \phi_{nm}(r)\ge
+      \mathbb E\left[
+      \sup_{f\in\mathcal F_{nm}(r)}
+      \left|
+      \frac1{nm}\sum_{i=1}^n\sum_{j=1}^m
+      \sigma_{ij}\bigl(f(X_{ij})-f^\circ(X_{ij})\bigr)
+      \right|
+      \right]
+      \]
+      for all \(r\ge r^*_{nm}\). Also \(\|f\|_\infty=\sup_{x\in\Omega}|f(x)|\). For uncountable \(\mathcal F\), the source uses
+      \[
+      \mathbb E\sup_{f\in\mathcal F}V(f)
+      =
+      \sup\left\{
+      \mathbb E\sup_{f\in\mathcal F^*}V(f):
+      \mathcal F^*\subset\mathcal F,\ \mathcal F^*\text{ finite}
+      \right\}.
+      \]
+      The source writes \(\int_\Omega(f-f^\circ)^2dP_X\) for \(\int_\Omega(f(x)-f^\circ(x))^2dP_X\), and abbreviates \(\mathcal F=\mathcal F_{nm}\), \(\phi=\phi_{nm}\), \(r^*=r^*_{nm}\).
+
+      ###### Assumptions
+      The lemma is stated under the same model and assumptions as Theorem 2.1. In particular:
+
+      **Assumption 1.** There is a positive number \(B_1\) such that \(\|f^\circ\|_\infty\le B_1\) and \(\|f\|_\infty\le B_1\) for every \(f\in\mathcal F_{nm}\).
+
+      **Assumption 2.** The processes \(U_i(x)\) are continuous, and there exist nonnegative numbers \(B_2,B_3\) such that, for all \(1\le i\le n\), \(1\le j\le m\),
+      \[
+      \mathbb E\left[\exp\left\{\left|\frac{U_i(X_{ij})}{B_2}\right|\right\}\right]\le 1,
+      \qquad
+      \mathbb E\left[\exp\left\{\left|\frac{\epsilon_{ij}}{B_3}\right|\right\}\right]\le 1.
+      \]
+      The source does not discuss the degenerate cases \(B_2=0\) or \(B_3=0\).
+
+      Also \(r^*=r^*_{nm}\) is a positive Rademacher fixed point with sub-root function \(\phi=\phi_{nm}\) as above, and \(t\) is the confidence parameter in the probability statement. The source does not state a separate range for \(t\).
+
+      ###### Statement
+      Under the same model and assumptions as Theorem 2.1,
+      \[
+      \left|
+      \int_\Omega(\hat f-f^\circ)^2dP_X
+      -
+      \frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m
+      (\hat f(X_{ij})-f^\circ(X_{ij}))^2
+      \right|
+      \le
+      \frac12\int_\Omega(\hat f-f^\circ)^2dP_X
+      +
+      c_{38}B_1^2r^*
+      +
+      \frac{c_{39}B_1^2t}{nm},
+      \]
+      with probability at least \(1-\exp\{-t\}\), where \(c_{38}\) and \(c_{39}\) are universal constants.
+
+      ##### Lemma S.7 (Comparison Theorem)
+      ###### Definitions and notation
+      Let \(\{\Phi_i\}_{1\le i\le n}\) be functions, let \(b_1\) be a Lipschitz constant, let \(\{\sigma_i\}_{1\le i\le n}\) be Rademacher random variables, and let \(\Omega'\) be a bounded subset of \(\mathbb R^n\). The expectation in the statement is taken with respect to the \(\sigma_i\).
+
+      ###### Assumptions
+      The functions \(\Phi_i\) are \(b_1\)-Lipschitz and satisfy \(\Phi_i(0)=0\). The Rademacher variables \(\sigma_i\) do not depend on other random objects. \(\Omega'\) is a bounded subset of \(\mathbb R^n\).
+
+      ###### Statement
+      For any bounded subset \(\Omega'\) in \(\mathbb R^n\),
+      \[
+      \mathbb E\left[
+      \sup_{(t_1,\ldots,t_n)\in\Omega'}
+      \left|
+      \frac1n\sum_{i=1}^n\sigma_i\Phi_i(t_i)
+      \right|
+      \right]
+      \le
+      2b_1\,
+      \mathbb E\left[
+      \sup_{(t_1,\ldots,t_n)\in\Omega'}
+      \left|
+      \frac1n\sum_{i=1}^n\sigma_i t_i
+      \right|
+      \right],
+      \]
+      where the expectation is taken with respect to the \(\sigma_i\). The source attributes this comparison theorem to Theorem 4.12 in Ledoux & Talagrand (1991).
+
+      ##### Lemma S.8 (Talagrand’s inequality)
+      ###### Definitions and notation
+      Let \(\{W_{i,f}:1\le i\le n,\ f\in\mathcal F\}\) be random variables, and let \(b_2,b_3\) be nonnegative parameters. The source uses \(t\) as the confidence parameter.
+
+      ###### Assumptions
+      The variables \(W_{i,f}\) are independent across \(i\) (the source writes “independent cross \(i\)”). For any \(1\le i\le n\) and \(f\in\mathcal F\),
+      \[
+      |W_{i,f}|\le b_2,
+      \qquad
+      \mathbb E[W_{i,f}]=0,
+      \qquad
+      \mathbb E[W_{i,f}^2]\le b_3.
+      \]
+
+      ###### Statement
+      With probability at least \(1-\exp\{-t\}\),
+      \[
+      \sup_{f\in\mathcal F}
+      \left|
+      \frac1n\sum_{i=1}^n W_{i,f}
+      \right|
+      \le
+      2\mathbb E\left[
+      \sup_{f\in\mathcal F}
+      \left|
+      \frac1n\sum_{i=1}^n W_{i,f}
+      \right|
+      \right]
+      +
+      \sqrt{\frac{8b_3t}{n}}
+      +
+      \frac{35b_2t}{n}.
+      \]
+      The source states that this lemma can be derived from Theorem 4 of Massart (2000) and that, unlike usual versions of Talagrand’s inequality with better constants, it does not require the \(W_{i,f}\) to be identically distributed in \(i\).
+    lean_name: paper_1574fdcfec814d558ee3dee791a61f4b
+    lean_namespace: Statlib.Imported
+    layer: formalization
+    priority: 3
+    dependencies: []
+    notes: generated from a persisted ordinary goal; no attack-DAG dependency semantics
+source_document: supp.pdf

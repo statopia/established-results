@@ -1,0 +1,666 @@
+version: v1
+theorem_set: document-goal
+source_tag: document-processing
+theorems:
+  - id: entry:selected:83be1999-2c2e-4759-ad1c-b6aced9eeb22
+    title: Theorem 2.1 (first main theorem; thm:thm1; non-asymptotic prediction error bound for repeated-measurements regression)
+    kind: theorem
+    latex_statement: |-
+      Given a random function \(Z(x)\) defined on \([0,1]^d\). Let \(Z_1(x),Z_2(x),...,Z_n(x)\) be independent and identically distributed (i.i.d.) realizations. In practice, these realizations cannot be fully observed and are measured for the \(i\)th subject at \(m_i\) points as \(X_{i1},X_{i2},...,X_{im_i}\), inevitably contaminated with additive noise. Under random design assumption, we assume that \(X_{ij},1\le i\le n,1\le j\le m_i\) are i.i.d. from a distribution \(\mathcal P_X\) which is supported on some \(\Omega\subseteq[0,1]^d\) and independent of \(Z_i,1\le i\le n\). Here, \(\Omega\) is assumed to have a well-defined volume measure and \(\mathcal P_X\) is absolutely continuous with respect to the volume measure. Let \(f^\circ(x)=\mathbb E[Z(X)|X=x]\) be the regression function (i.e., the mean structure) of interest. Then the repeated measurement responses follow
+
+      \[
+      Y_{ij}=Z_i(X_{ij})+\epsilon_{ij}=f^\circ(X_{ij})+U_i(X_{ij})+\epsilon_{ij},\quad 1\le i\le n,1\le j\le m_i, \tag{1}
+      \]
+
+      where \(U_i(x)=Z_i(x)-f^\circ(x)\) are individual stochastic parts and the \(\epsilon_{ij}\) are independent noise variables. In the sequel, to simplify exposition, we assume that each subject is measured \(m\) times, i.e., \(m_1=\cdots=m_n=m\) (also referred to as sampling frequency).
+
+      With the available data \(\{(Y_{ij},X_{ij}):1\le i\le n,1\le j\le m\}\), our target is to estimate the mean function \(f^\circ(x)\). We pool observations from all subjects for estimation, and define the nonparametric least square estimator within a suitably chosen function class \(\mathcal F_{nm}\), minimizing the empirical risk as follows,
+
+      \[
+      \hat f_{nm}\in\arg\min_{f\in\mathcal F_{nm}}\frac{1}{nm}\sum_{i=1}^{n}\sum_{j=1}^{m}(Y_{ij}-f(X_{ij}))^2. \tag{2}
+      \]
+
+      To evaluate the accuracy for an estimator \(\hat f_{nm}\) quantitatively, we introduce the mean squared prediction error
+
+      \[
+      \mathcal E_{f^\circ}(\hat f_{nm}):=\mathbb E\left[\int_\Omega(\hat f_{nm}(x)-f^\circ(x))^2d\mathcal P_X\right],
+      \]
+
+      which is also equal to the excess risk \(\mathbb E[|Y-\hat f_{nm}(X)|^2]-\mathbb E[|Y-f^\circ(X)|^2]\).
+
+      Denote the infinity norm \(||f||_\infty=\sup_{x\in\Omega}|f(x)|\) for a function \(f\) defined on \(\Omega\).
+
+      Now we specify a condition to characterize the complexity of \(\mathcal F_{nm}\). Define \(\mathcal F_{nm}(r)=\{f\in\mathcal F_{nm}:\int_\Omega(f(x)-f^\circ(x))^2d\mathcal P_X\le r\}\). We say a function \(\phi_{nm}(r)\) is sub-root if and only if \(\phi_{nm}(r)/\sqrt r\) is nonnegative and nonincreasing. Let the i.i.d. Rademacher variables \(\{\sigma_{ij},1\le i\le n,1\le j\le m\}\) be uniformly chosen from \(\{-1,+1\}\). For mathematical rigor, we introduce the definition \(\mathbb E\sup_{f\in\mathcal F}V(f)=\sup\{\mathbb E\sup_{f\in\mathcal F^*}V(f):\mathcal F^*\subset\mathcal F,\mathcal F^*\text{ is finite}\}\) for a random process \(V\) when the index set \(\mathcal F\) is uncountable.
+
+      **Definition 2.1** (Rademacher fixed point). Let \(r_{nm}^*\) be a positive number and \(\phi_{nm}(r)\) be a sub-root function for \(r\ge r_{nm}^*\). Assume that \(\phi_{nm}(r_{nm}^*)\le r_{nm}^*\) and
+
+      \[
+      \phi_{nm}(r)\ge\mathbb E\left[\sup_{f\in\mathcal F_{nm}(r)}\left|\frac{1}{nm}\sum_{i=1}^{n}\sum_{j=1}^{m}\sigma_{ij}(f(X_{ij})-f^\circ(X_{ij}))\right|\right]
+      \]
+
+      for \(r\ge r_{nm}^*\). Then \(r_{nm}^*\) is called the Rademacher fixed point of \(\mathcal F_{nm}\).
+
+      <!-- formalization-clarifications:v1:e284baa9ccf9dcf7097aa566c53f1adc396c56c448e0b14665eb6a4d05b3d98a -->
+      Formalization clarifications from source and proof:
+      1. Constants and quantifier order. Theorem 2.1 states, “there is a universal constant \(c_1\),” and the proof concludes that “all constants \(c_k\) used in this proof are universal.” Thus \(c_1\) is intended to be absolute, not depending on \(n,m,d\), \(\mathcal P_X\), \(\mathcal F_{nm}\), \(f^\circ\), \(B_1,B_2,B_3\), \(r^*_{nm}\), \(U_i\), or \(\epsilon_{ij}\); the source does not enumerate every dependency, but it does not indicate any parameter dependence. The cited Lemma S.2 (R1) explicitly supplies “universal constants \(c_{38}\) and \(c_{39}\),” and Lemma S.3 (R2) explicitly supplies “universal constants \(c_{40}\) and \(c_{41}\).” Lemma S.7 (R3) is the external Ledoux–Talagrand comparison theorem and has its own constant \(2b_1\), where \(b_1\) is the Lipschitz constant; Lemma S.8 (R4) has the absolute numerical constants \(2,\sqrt 8,35\) and lemma parameters \(b_2,b_3\), which are not universal constants. The proof constants such as \(c_{46}\)–\(c_{55}\) are said to be universal and are not to be confused with \(B_1,B_2,B_3\).
+
+      In Assumption 1, \(B_1\) is a “positive number” bounding \(\|f^\circ\|_\infty\) and \(\|f\|_\infty\) for all \(f\in\mathcal F_{nm}\); it is not declared universal. The text explicitly says the result is “non-asymptotic with respect to \(B_1\)” and that \(B_1\) “can be relaxed as an increasing sequence with respect to \(mn\),” so \(B_1\) may depend on the sample sizes/function class within the stated assumptions. In Assumption 2, \(B_2,B_3\) are “nonnegative numbers” satisfying exponential-moment bounds for each fixed \(1\le i\le n\), \(1\le j\le m\); the displayed quantifiers allow them to depend on the fixed \(n,m\) and on the law of \(U_i,\epsilon_{ij}\), but the source does not assert uniformity in \(n,m\). The text writes “nonnegative,” although the displayed inequalities divide by \(B_2\) and \(B_3\) and the proof sets \(\beta_U=2B_2\log n\), \(\beta_\epsilon=2B_3\log nm\); the degenerate \(B_2=0\) or \(B_3=0\) case is not discussed. Also \(r^*_{nm}\) is a positive Rademacher fixed point of \(\mathcal F_{nm}\) with sub-root function \(\phi_{nm}\), so it may depend on \(n,m,\mathcal F_{nm},\mathcal P_X,\phi_{nm}\); Definition 2.1 requires positivity, \(\phi(r^*)\le r^*\), and the Rademacher domination for all \(r\ge r^*\), but the source does not assert uniqueness or minimality.
+
+      The intended order is: fix the ambient dimension and model; for each fixed positive integer pair \(n,m\), function class \(\mathcal F_{nm}\), covariate law \(\mathcal P_X\), random processes/noise, target \(f^\circ\), and constants \(B_1,B_2,B_3\) and \(r^*_{nm}\) satisfying Assumptions 1–2 and Definition 2.1, the universal \(c_1\) gives (5). No uniformity across \(n,m\), distributions, or function classes is claimed beyond the assumptions. The source’s “universal” wording places \(c_1\) before the varying problem data in intended dependence.
+
+      2. Norms and mathematical objects. The only norm named in the theorem’s assumptions is the infinity norm: “\(\|f\|_\infty=\sup_{x\in\Omega}|f(x)|\)” (Assumptions 1). It is not Euclidean, Frobenius, operator, or \(L^2(P_X)\). The error is the \(L^2(\mathcal P_X)\) prediction error
+      \[
+      \mathcal E_{f^\circ}(\hat f_{nm})=\mathbb E\!\left[\int_\Omega(\hat f_{nm}(x)-f^\circ(x))^2\,d\mathcal P_X\right],
+      \]
+      with integral over \(\Omega\) against the probability measure \(\mathcal P_X\); \(\mathcal P_X\) is supported on \(\Omega\subseteq[0,1]^d\) and absolutely continuous with respect to the volume measure, but the theorem itself does not specialize to uniform \(\mathcal P_X\) or Lebesgue measure. The source defines \(f^\circ(x)=\mathbb E[Z(X)\mid X=x]\), \(U_i(x)=Z_i(x)-f^\circ(x)\), and the estimator by membership in the argmin of the pooled empirical risk (2); \(\mathcal F_{nm}\) need not contain \(f^\circ\), so the infimum approximation term is generally nonzero. The truncation operator is the signed clip
+      \[
+      \mathcal T_\beta f(x)=f(x)I(|f(x)|\le\beta)+\operatorname{sign}(f(x))\beta I(|f(x)|>\beta),
+      \]
+      and \(\mathcal T_{\beta_U}U_i\), \(\mathcal T_{\beta_\epsilon}\epsilon_{ij}\) are proof devices, not additional theorem hypotheses. The Rademacher fixed point is defined using the \(L^2(\mathcal P_X)\) ball \(\mathcal F_{nm}(r)\) and the Rademacher average \((nm)^{-1}\sum_{i,j}\sigma_{ij}(f(X_{ij})-f^\circ(X_{ij}))\); the sub-root condition is on \(\phi_{nm}(r)/\sqrt r\). For uncountable \(\mathcal F\), the source defines \(\mathbb E\sup_{f\in\mathcal F}V(f)\) by the supremum over finite subsets; that convention is part of Definition 2.1 and R4, not a license to replace the supremum by a countable dense-subset requirement. R1 Lemma S.2 compares the population \(L^2(\mathcal P_X)\) norm with the empirical average at the observed \(X_{ij}\); R2 Lemma S.3 is a probability bound for centered truncated noise against \(\hat f-f^\circ\); R3 is a conditional Rademacher comparison principle for bounded subsets of \(\mathbb R^N\), not an \(L^2\)-norm statement; R4 is a concentration bound for a supremum process. In applications of R3/R4, the lemma’s generic index \(n\) is instantiated by the pooled index size \(nm\) or by the relevant index set; the universal external theorem is not restricted to the theorem’s particular substitutions.
+
+      3. Asymptotics and probability notation. Theorem 2.1 itself is non-asymptotic: it contains no \(O,o,\lesssim,\asymp\) and no limiting filter; inequality (5) is a finite-sample bound for each \(n,m\) with the stated universal \(c_1\). The logarithmic factors \((\log n)^2\), \((\log nm)^2\) are exact finite-sample quantities; their base is not specified, and neither is any uniformity in \(n,m\) beyond the displayed assumptions. If \(m\) is later allowed to vary with \(n\), the inequality remains pointwise, but the source does not claim the right-hand side is a minimax rate or that \(B_1,B_2,B_3,r^*_{nm},\mathcal F_{nm}\) are uniform in that variation. The broader paper’s phase-transition statements and the notation \(a_n\lesssim b_n\), \(a_n\asymp b_n\) (defined with an unspecified positive constant \(C\)) are outside the selected theorem and should not be imported as part of (5). The proof uses probability statements “with probability at least \(1-\exp\{-t\}\)” in R1 Lemma S.2, R2 Lemma S.3, and R4 Lemma S.8; \(t\) is a confidence parameter, not a theorem parameter, and the final theorem is in expectation. The source does not spell out the range of \(t\) or the integration-over-\(t\) step used to pass from such probability bounds to expectations. R3 is an expectation inequality with expectation with respect to the Rademacher variables. R4 requires variables independent across \(i\), bounded by \(b_2\), mean zero, variance at most \(b_3\), does not require identical distributions, and is stated to be derivable from Massart (2000), Theorem 4; the supplied excerpt does not reproduce Massart’s theorem or fully verify every instantiated condition in Step 3.1.
+
+      4. Omitted or implicit definitions and side conditions. The source assumes equal repeated measurements \(m_1=\cdots=m_n=m\) after first describing general \(m_i\); in the selected theorem the indices are \(1\le i\le n\), \(1\le j\le m\), with \(n,m\) implicitly positive integers. \(\Omega\subseteq[0,1]^d\) is the support of \(\mathcal P_X\), has a “well-defined volume measure,” and \(\mathcal P_X\) is absolutely continuous with respect to that volume measure; no further regularity of \(\Omega\) or volume measure is specified in Theorem 2.1. The argmin in (2) is written as a membership symbol; existence, uniqueness, and selection among multiple minimizers are not discussed. The Rademacher variables are described as i.i.d. uniform on \(\{-1,+1\}\), but Definition 2.1 does not explicitly state that they are independent of \((X,U,\epsilon)\); the proof conditions on \(U,X\) before applying Rademacher comparison and concentration, so that independence is a proof-based intended reading, not an explicitly listed hypothesis. The proof also invokes zero-mean conditions not displayed in Assumption 2: Step 2 says \(\mathbb E[U_i(X_{ij})f^\circ(X_{ij})]=\mathbb E[\epsilon_{ij}f^\circ(X_{ij})]=0\), and Step 4.2 says “Note that \(\mathbb E[\epsilon_{ij}]=0\).” Thus zero-mean noise and the relevant independence/centering are implicitly used; the displayed Assumption 2 gives only exponential-tail bounds, so a formalization should flag this as an omitted or implicit assumption rather than derive it from Assumption 2 alone. Similarly, the proof’s abbreviation \(\widehat{\mathcal E}_{f^\circ}(\hat f)\) is internally inconsistent in the supplied block: Step 1 uses an average of \((\hat f-f^\circ)^2\), while Step 2 uses an average of \((Y-\hat f)^2\) under the same symbol. The theorem’s \(\mathcal E_{f^\circ}\) is unambiguous; the proof abbreviation should not be formalized without resolving that discrepancy. Finally, R1 is Lemma S.2 (source supplement, Section S.4; proof in Section S.6), R2 is Lemma S.3 (source supplement Section S.4; no external attribution supplied), R3 is Lemma S.7 attributed to Ledoux–Talagrand (1991), Theorem 4.12, and R4 is Lemma S.8 attributed as derivable from Massart (2000), Theorem 4. The target-specific uses of these lemmas do not add restrictions to the cited universal results; conversely, the cited universal results do not by themselves justify the theorem’s specialized substitutions.
+      <!-- /formalization-clarifications -->
+
+      Consider the repeated measures model and the estimator \(\hat f_{nm}\) obtained by the nonparametric least squares estimator. Under Assumptions 1 and 2, there is a universal constant \(c_1\) such that
+
+      \[
+      \begin{aligned}
+      \mathcal E_{f^\circ}(\hat f_{nm}) \le{}& c_1\Bigg(\inf_{f\in\mathcal F_{nm}}\int_\Omega(f-f^\circ)^2d\mathcal P_X+\frac{B_1^2+B_2^2}{n}\\
+      &+\left(r_{nm}^*+\frac{1}{nm}\right)\left(B_1^2+B_2^2(\log n)^2+B_3^2(\log nm)^2\right)\Bigg). \tag{5}
+      \end{aligned}
+      \]
+    assumptions:
+      - |-
+        **Assumption 1** (Regression function and candidate class). There exist some positive number \(B_1\), such that the target function \(||f^\circ||_\infty\le B_1\) and \(||f||_\infty\le B_1\) for each \(f\in\mathcal F_{nm}\).
+
+        **Assumption 2** (Random process and noise). The random processes \(U_i(x)\) are continuous, and there exist nonnegative numbers \(B_2\) and \(B_3\), such that for \(1\le i\le n,1\le j\le m\),
+
+        \[
+        \mathbb E\left[\exp\left\{\left|\frac{U_i(X_{ij})}{B_2}\right|\right\}\right]\le1,\quad
+        \mathbb E\left[\exp\left\{\left|\frac{\epsilon_{ij}}{B_3}\right|\right\}\right]\le1. \tag{4}
+        \]
+    proof_body: |-
+      ### Definitions and notation used in Proof
+      In the proof, \(\hat f\) abbreviates \(\hat f_{nm}\). The constants \(B_1,B_2,B_3\), the processes \(U_i(x)\), the noise variables \(\epsilon_{ij}\), the covariate distribution \(\mathcal P_X\), and the function class \(\mathcal F_{nm}\) are as in Assumptions 1 and 2.
+
+      Section S.5 uses the abbreviations
+
+      \[
+      \int_\Omega(f-f^\circ)^2d\mathcal P_X:=\int_\Omega(f(x)-f^\circ(x))^2d\mathcal P_X,
+      \]
+
+      \(\mathcal F=\mathcal F_{nm}\), \(\phi=\phi_{nm}\), \(r^*=r^*_{nm}\), etc.
+
+      The proof uses the truncation operator \(\mathcal T_\beta\):
+
+      \[
+      \mathcal T_\beta f(x)=f(x)I(|f(x)|\le\beta)+\operatorname{sign}(f(x))\beta I(|f(x)|>\beta).
+      \]
+
+      The universal constants \(c_{38},c_{39}\) and \(c_{40},c_{41}\) are those supplied in [ref:R1] and [ref:R2], respectively.
+
+      ### Proof
+      *Proof of Theorem 2.1.* The proof is divided into five steps. In the first step, we bound the prediction error \(\mathcal E_{f^\circ}(\hat f)\) by \(\hat{\mathcal E}_{f^\circ}(\hat f):=\mathbb E[\sum_{i=1}^n\sum_{j=1}^m(\hat f(X_{ij})-f^\circ(X_{ij}))^2/nm]\). According to Step 2, we bound \(\hat{\mathcal E}_{f^\circ}(\hat f)\) through several parts, which will be further analyzed in Step 3 and Step 4, respectively. Then the desired result follows from the conclusion in Step 5.
+
+      Step 1. [ref:R1] implies that
+      \[
+      \int_\Omega(\hat f-f^\circ)^2d\mathcal P_X\le\frac{2}{nm}\sum_{i=1}^n\sum_{j=1}^m(\hat f(X_{ij})-f^\circ(X_{ij}))^2+2c_{38}B_1^2r^*+\frac{2c_{39}B_1^2t}{nm},
+      \]
+      holds with probability at least \(1-\exp\{-t\}\). By taking the expectation of the above result, we can further obtain
+      \[
+      \mathcal E_{f^\circ}(\hat f)\le\frac{2}{nm}\mathbb E\left[\sum_{i=1}^n\sum_{j=1}^m(\hat f(X_{ij})-f^\circ(X_{ij}))^2\right]+2c_{38}B_1^2r^*+\frac{2c_{39}B_1^2}{nm}.\tag{S.4}
+      \]
+      Step 2. We now focus on the first term on the right side of (S.4). Recalling that \(\hat f\) minimize the empirical loss, we have
+      \[
+      \hat{\mathcal E}_{f^\circ}(\hat f):=\frac{1}{nm}\mathbb E\left[\sum_{i=1}^n\sum_{j=1}^m(Y_{ij}-\hat f(X_{ij}))^2\right]\le\frac{1}{nm}\mathbb E\left[\sum_{i=1}^n\sum_{j=1}^m(Y_{ij}-f(X_{ij}))^2\right]\tag{S.5}
+      \]
+      holds for any \(f\in\mathcal F\). Substituting \(Y_{ij}=f^\circ(X_{ij})+U_i(X_{ij})+\epsilon_{ij}\) into the above inequality, a bit of algebra shows
+      \[
+      \hat{\mathcal E}_{f^\circ}(\hat f)\le\int_\Omega(f-f^\circ)^2d\mathcal P_X+\frac{2}{nm}\mathbb E\left[\sum_{i=1}^n\sum_{j=1}^mU_i(X_{ij})\hat f(X_{ij})\right]+\frac{2}{nm}\mathbb E\left[\sum_{i=1}^n\sum_{j=1}^m\epsilon_{ij}\hat f(X_{ij})\right].
+      \]
+      Because \(f\) is arbitrary and \(\mathbb E[U_i(X_{ij})f^\circ(X_{ij})]=\mathbb E[\epsilon_{ij}f^\circ(X_{ij})]=0\), we have
+      \[
+      \hat{\mathcal E}_{f^\circ}(\hat f)\le\inf_{f\in\mathcal F}\int_\Omega(f-f^\circ)^2d\mathcal P_X+\frac{2}{nm}\mathbb E\left[\sum_{i=1}^n\sum_{j=1}^mU_i(X_{ij})(\hat f(X_{ij})-f^\circ(X_{ij}))\right]
+      \]
+      \[
+      +\frac{2}{nm}\mathbb E\left[\sum_{i=1}^n\sum_{j=1}^m\epsilon_{ij}(\hat f(X_{ij})-f^\circ(X_{ij}))\right].\tag{S.6}
+      \]
+      Step 3. In this step, we mainly bound \(\frac{1}{nm}\mathbb E[\sum_{i=1}^n\sum_{j=1}^mU_i(X_{ij})(\hat f(X_{ij})-f^\circ(X_{ij}))]\) in (S.6). Recalling the truncation operator \(\mathcal T_\beta:\mathcal T_\beta f(x)=f(x)I(|f(x)|\le\beta)+\operatorname{sign}(f(x))\beta I(|f(x)|>\beta)\), the triangle inequality implies
+      \[
+      \frac{1}{nm}\mathbb E\left[\sum_{i=1}^n\sum_{j=1}^mU_i(X_{ij})(\hat f(X_{ij})-f^\circ(X_{ij}))\right]
+      \]
+      \[
+      \le\mathbb E\left[\left|\frac1n\sum_{i=1}^n\left(\frac1m\sum_{j=1}^m(\mathcal T_{\beta_U}U_i)(X_{ij})(\hat f(X_{ij})-f^\circ(X_{ij}))-\int_\Omega(\mathcal T_{\beta_U}U_i)(\hat f-f^\circ)d\mathcal P_X\right)\right|\right]
+      \]
+      \[
+      +\mathbb E\left[\left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m(U_i-\mathcal T_{\beta_U}U_i)(X_{ij})(\hat f(X_{ij})-f^\circ(X_{ij}))-\int_\Omega(U_i-\mathcal T_{\beta_U}U_i)(\hat f-f^\circ)d\mathcal P_X\right|\right]
+      \]
+      \[
+      +\mathbb E\left[\left|\frac1n\sum_{i=1}^n\int_\Omega U_i(\hat f-f^\circ)d\mathcal P_X\right|\right]
+      \]
+      \[
+      :=(I)+(II)+(III).\tag{S.7}
+      \]
+      Step 3.1. To control \((I)\), we first study
+      \[
+      \sup_{f\in\mathcal F}\left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m\frac{(\mathcal T_{\beta_U}U_i)(X_{ij})(f(X_{ij})-f^\circ(X_{ij}))-\int_\Omega(\mathcal T_{\beta_U}U_i)(f-f^\circ)d\mathcal P_X}{\int_\Omega(f-f^\circ)^2d\mathcal P_X+r}\right|.
+      \]
+      By the symmetrization result of the Rademacher process, we have
+      \[
+      \mathbb E\left[\sup_{f\in\mathcal F}\left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m\frac{(\mathcal T_{\beta_U}U_i)(X_{ij})(f(X_{ij})-f^\circ(X_{ij}))-\int_\Omega(\mathcal T_{\beta_U}U_i)(f-f^\circ)d\mathcal P_X}{\int_\Omega(f-f^\circ)^2d\mathcal P_X+r}\right|\right]
+      \]
+      \[
+      \le2\mathbb E\left[\sup_{f\in\mathcal F}\left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m\frac{\sigma_{ij}(\mathcal T_{\beta_U}U_i)(X_{ij})(f(X_{ij})-f^\circ(X_{ij}))}{\int_\Omega(f-f^\circ)^2d\mathcal P_X+r}\right|\right],
+      \]
+      where \(\sigma_{ij}\)'s are i.i.d. Rademacher random variables. Then a peeling of the function class implies that it is less than
+      \[
+      \le2\mathbb E\left[\sup_{f\in\mathcal F(r)}\left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m\frac{\sigma_{ij}(\mathcal T_{\beta_U}U_i)(X_{ij})(f(X_{ij})-f^\circ(X_{ij}))}{\int_\Omega(f-f^\circ)^2d\mathcal P_X+r}\right|\right]
+      \]
+      \[
+      +\sum_{k=1}^\infty2\mathbb E\left[\sup_{f\in\mathcal F(4^kr)\setminus\mathcal F(4^{k-1}r)}\left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m\frac{\sigma_{ij}(\mathcal T_{\beta_U}U_i)(X_{ij})(f(X_{ij})-f^\circ(X_{ij}))}{\int_\Omega(f-f^\circ)^2d\mathcal P_X+r}\right|\right],
+      \]
+      which could be further bounded by
+      \[
+      \frac2r\mathbb E\left[\sup_{f\in\mathcal F(r)}\left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m\sigma_{ij}(\mathcal T_{\beta_U}U_i)(X_{ij})(f(X_{ij})-f^\circ(X_{ij}))\right|\right]
+      \]
+      \[
+      +\sum_{k=1}^\infty\frac{2}{(4^{k-1}+1)r}\mathbb E\left[\sup_{f\in\mathcal F(4^kr)}\left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m\sigma_{ij}(\mathcal T_{\beta_U}U_i)(X_{ij})(f(X_{ij})-f^\circ(X_{ij}))\right|\right].\tag{S.8}
+      \]
+      Taking the expectation conditional on \(U_i,X_{ij},1\le i\le n,1\le j\le m\) and utilizing [ref:R3], we conclude that
+      \[
+      \mathbb E\left[\sup_{f\in\mathcal F(r')}\left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m\sigma_{ij}(\mathcal T_{\beta_U}U_i)(X_{ij})(f(X_{ij})-f^\circ(X_{ij}))\right|\right]
+      \]
+      \[
+      =\mathbb E\left[\mathbb E\left[\sup_{f\in\mathcal F(r')}\left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m\sigma_{ij}(\mathcal T_{\beta_U}U_i)(X_{ij})(f(X_{ij})-f^\circ(X_{ij}))\right|\Big|U,X\right]\right]
+      \]
+      \[
+      \le2\beta_U\mathbb E\left[\sup_{f\in\mathcal F(r')}\left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m\sigma_{ij}(f(X_{ij})-f^\circ(X_{ij}))\right|\right]
+      \]
+      \[
+      \le2\beta_U\phi(r'),
+      \]
+      for any \(r'\ge r^*\). Combining the previous several inequalities, we thus obtain
+      \[
+      \mathbb E\left[\sup_{f\in\mathcal F}\left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m\frac{(\mathcal T_{\beta_U}U_i)(X_{ij})(f(X_{ij})-f^\circ(X_{ij}))-\int_\Omega(\mathcal T_{\beta_U}U_i)(f-f^\circ)d\mathcal P_X}{\int_\Omega(f-f^\circ)^2d\mathcal P_X+r}\right|\right]
+      \]
+      \[
+      \le\frac{4\beta_U\phi(r)}{r}+\sum_{k=1}^\infty\frac{4\beta_U\phi(4^kr)}{(4^{k-1}+1)r}\le\frac{4\beta_U\phi(r)}{r}+\sum_{k=1}^\infty\frac{2^{k+2}\beta_U\phi(r)}{(4^{k-1}+1)r}\le\frac{16\beta_U\phi(r)}{r}.\tag{S.9}
+      \]
+      Furthermore, one can verify that
+      \[
+      \mathbb E\left[\frac{(\mathcal T_{\beta_U}U_i)(X)(f(X)-f^\circ(X))-\int_\Omega(\mathcal T_{\beta_U}U_i)(f-f^\circ)d\mathcal P_X}{\int_\Omega(f-f^\circ)^2d\mathcal P_X+r}\right]=0,\tag{S.10}
+      \]
+      \[
+      \left|\frac{(\mathcal T_{\beta_U}U_i)(X)(f(X)-f^\circ(X))-\int_\Omega(\mathcal T_{\beta_U}U_i)(f-f^\circ)d\mathcal P_X}{\int_\Omega(f-f^\circ)^2d\mathcal P_X+r}\right|\le\frac{4B_1\beta_U}{r},\tag{S.11}
+      \]
+      and
+      \[
+      \mathbb E\left[\left|\frac{(\mathcal T_{\beta_U}U_i)(X)(f(X)-f^\circ(X))-\int_\Omega(\mathcal T_{\beta_U}U_i)(f-f^\circ)d\mathcal P_X}{\int_\Omega(f-f^\circ)^2d\mathcal P_X+r}\right|^2\right]\le\frac{\beta_U^2}{4r}.\tag{S.12}
+      \]
+      By combining with (S.9), (S.10), (S.11) and (S.12) and checking the conditions required by [ref:R4], we can conclude that, with probability at least \(1-\exp\{-t\}\),
+      \[
+      \left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m\frac{(\mathcal T_{\beta_U}U_i)(X_{ij})(\hat f(X_{ij})-f^\circ(X_{ij}))-\int_\Omega(\mathcal T_{\beta_U}U_i)(\hat f-f^\circ)d\mathcal P_X}{\int_\Omega(\hat f-f^\circ)^2d\mathcal P_X+r}\right|
+      \]
+      \[
+      \le\sup_{f\in\mathcal F}\left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m\frac{(\mathcal T_{\beta_U}U_i)(X_{ij})(f(X_{ij})-f^\circ(X_{ij}))-\int_\Omega(\mathcal T_{\beta_U}U_i)(f-f^\circ)d\mathcal P_X}{\int_\Omega(f-f^\circ)^2d\mathcal P_X+r}\right|
+      \]
+      \[
+      \le\frac{32\beta_U\phi(r)}{r}+\sqrt{\frac{2\beta_U^2t}{nmr}}+\frac{140B_1\beta_Ut}{nmr}.
+      \]
+      We determine universal constants \(c_{46}\) and \(c_{47}\) such that \(r_U(t)=c_{46}\beta_U^2r^*+\frac{c_{47}(B_1+\beta_U)\beta_Ut}{nm}\) satisfies
+      \[
+      \frac{32\beta_U\phi(r_U)}{r_U}+\sqrt{\frac{2\beta_U^2t}{nmr_U}}+\frac{140B_1\beta_Ut}{nmr_U}\le\frac{1}{32}.
+      \]
+      Therefore, with probability at least \(1-\exp\{-t\}\),
+      \[
+      \left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m(\mathcal T_{\beta_U}U_i)(X_{ij})(\hat f(X_{ij})-f^\circ(X_{ij}))-\int_\Omega(\mathcal T_{\beta_U}U_i)(\hat f-f^\circ)d\mathcal P_X\right|
+      \]
+      \[
+      \le\frac{1}{32}\int_\Omega(\hat f-f^\circ)^2d\mathcal P_X+\frac{c_{46}\beta_U^2r^*}{32}+\frac{c_{47}(B_1+\beta_U)\beta_Ut}{32nm}.
+      \]
+      Furthermore, we can bound the expectation
+      \[
+      (I)\le\frac{1}{32}\mathcal E_{f^\circ}(\hat f)+c_{48}\beta_U^2r^*+\frac{c_{49}(B_1+\beta_U)\beta_U}{nm},\tag{S.13}
+      \]
+      where \(c_{48}\) and \(c_{49}\) are universal constants.
+
+      Step 3.2. In this substep, we focus on \((II)\). Applying the absolute value inequality, we obtain
+      \[
+      (II)\le2\mathbb E\left[\left|(U_1-\mathcal T_{\beta_U}U_1)(X_{11})(\hat f(X_{ij})-f^\circ(X_{ij}))\right|\right]
+      \]
+      \[
+      \le4B_1\mathbb E[|U_{11}|I(|U_{11}|>\beta_U)].
+      \]
+      Applying the facts
+      \[
+      |U_{11}|\le2B_2\exp\left\{\frac{|U_{11}|}{2B_2}\right\}\quad\text{and}\quad I(|U_{11}|>\beta_U)\le\exp\left\{\frac{|U_{11}|-\beta_U}{2B_2}\right\},\tag{S.14}
+      \]
+      we have
+      \[
+      (II)\le8B_1B_2\mathbb E\left[\exp\left\{\frac{|U_{11}|}{B_2}-\frac{\beta_U}{2B_2}\right\}\right]=8B_1B_2\exp\left\{-\frac{\beta_U}{2B_2}\right\}.\tag{S.15}
+      \]
+      Step 3.3. Now we consider \((III)\). Using the GM-QM inequality,
+      \[
+      (III)=\mathbb E\left[\left|\int_\Omega\left(\frac1n\sum_{i=1}^nU_i\right)(\hat f-f^\circ)d\mathcal P_X\right|\right]
+      \]
+      \[
+      \le8\mathbb E\left[\int_\Omega\left(\frac1n\sum_{i=1}^nU_i\right)^2d\mathcal P_X\right]+\frac{1}{32}\mathbb E\left[\int_\Omega(\hat f-f^\circ)^2d\mathcal P_X\right].
+      \]
+      Because \(\mathbb E[U(X)^2]\le\mathbb E[B_2^2\exp\{U(X)/B_2\}]\le B_2^2\), we have \(\mathbb E[\int_\Omega(\sum_{i=1}^nU_i/n)^2d\mathcal P_X]\le B_2^2/n\). Substituting this into the earlier inequality yields
+      \[
+      (III)\le\frac{8B_2^2}{n}+\frac{1}{32}\mathcal E_{f^\circ}(\hat f).\tag{S.16}
+      \]
+      Substituting (S.13), (S.15) and (S.16) into (S.7) and setting \(\beta_U=2B_2\log n\), we have
+      \[
+      \frac{1}{nm}\mathbb E\left[\sum_{i=1}^n\sum_{j=1}^mU_i(X_{ij})(\hat f(X_{ij})-f^\circ(X_{ij}))\right]
+      \]
+      \[
+      \le\frac{1}{16}\mathcal E_{f^\circ}(\hat f)+\frac{c_{50}(B_1^2+B_2^2)}{n}+\frac{5c_{49}(B_1^2+B_2^2\log^2n)}{nm}+4c_{48}B_2^2r^*\log^2n.\tag{S.17}
+      \]
+      Step 4. In this step, we aim to control \(\frac{1}{nm}\mathbb E[\sum_{i=1}^n\sum_{j=1}^m\epsilon_{ij}(\hat f(X_{ij})-f^\circ(X_{ij}))]\). The proof in this step is similar to Step 3. The main gap is that \(\epsilon_{ix}\) is not integrable with respect to \(x\). Thus it cannot be given by a direct extension of Step 3. Using the triangle inequality, we have
+      \[
+      \frac{1}{nm}\mathbb E\left[\sum_{i=1}^n\sum_{j=1}^m\epsilon_{ij}(\hat f(X_{ij})-f^\circ(X_{ij}))\right]
+      \]
+      \[
+      \le\mathbb E\left[\left|\frac1n\sum_{i=1}^n\left(\frac1m\sum_{j=1}^m(\mathcal T_{\beta_\epsilon}\epsilon_{ij}-\mathbb E[\mathcal T_{\beta_\epsilon}\epsilon_{ij}])(\hat f(X_{ij})-f^\circ(X_{ij}))\right)\right|\right]\tag{S.18}
+      \]
+      \[
+      +\mathbb E\left[\left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m(\epsilon_{ij}-\mathcal T_{\beta_\epsilon}\epsilon_{ij}+\mathbb E[\mathcal T_{\beta_\epsilon}\epsilon_{ij}])(\hat f(X_{ij})-f^\circ(X_{ij}))\right|\right]
+      \]
+      \[
+      :=(IV)+(V).
+      \]
+      Step 4.1. [ref:R2] implies that, with probability at least \(1-\exp\{-t\}\),
+      \[
+      \left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m(\mathcal T_{\beta_\epsilon}\epsilon_{ij}-\mathbb E[\mathcal T_{\beta_\epsilon}\epsilon_{ij}])(\hat f(X_{ij})-f^\circ(X_{ij}))\right|
+      \]
+      \[
+      \le\frac{1}{16}\int_\Omega(\hat f-f^\circ)^2d\mathcal P_X+c_{40}\beta_\epsilon^2r^*+\frac{c_{41}(B_1\beta_\epsilon+B_3^2)t}{nm}.
+      \]
+      Further, by taking the expectation of the previous result, we have
+      \[
+      (IV)\le\frac{1}{16}\mathcal E_{f^\circ}(\hat f)+c_{40}\beta_\epsilon^2r^*+\frac{c_{41}(B_1\beta_\epsilon+B_3^2)}{nm}.\tag{S.19}
+      \]
+      Step 4.2. Next we bound \((V)\). Note that \(\mathbb E[\epsilon_{ij}]=0\) yields \(|\mathbb E[\mathcal T_{\beta_\epsilon}\epsilon_{ij}]|=|\mathbb E[\epsilon_{ij}I(|\epsilon_{ij}|>\beta_\epsilon)]|\). Then
+      \[
+      (V)\le2B_1\mathbb E[|\epsilon_{ij}-\mathcal T_{\beta_\epsilon}\epsilon_{ij}+\mathbb E[\mathcal T_{\beta_\epsilon}\epsilon_{ij}]|]\le4B_1\mathbb E[|\epsilon_{11}|I(|\epsilon_{11}|>\beta_\epsilon)]
+      \]
+      \[
+      \le4B_1\mathbb E\left[2B_3\exp\left\{\frac{|\epsilon_{11}|}{2B_3}\right\}\exp\left\{\frac{|\epsilon_{11}|-\beta_\epsilon}{2B_3}\right\}\right]\le8B_1B_3\exp\left\{-\frac{\beta_\epsilon}{2B_3}\right\}.\tag{S.20}
+      \]
+      Substituting (S.19) and (S.20) into (S.18) and setting \(\beta_\epsilon=2B_3\log nm\), we have
+      \[
+      \frac{1}{nm}\mathbb E\left[\sum_{i=1}^n\sum_{j=1}^m\epsilon_{ij}(\hat f(X_{ij})-f^\circ(X_{ij}))\right]
+      \]
+      \[
+      \le\frac{1}{16}\mathcal E_{f^\circ}(\hat f)+\frac{c_{51}(B_1^2+B_3^2\log^2nm)}{nm}+c_{52}B_3^2r^*\log^2nm,\tag{S.21}
+      \]
+      where \(c_{51}\) and \(c_{52}\) are universal constants.
+
+      Step 5. Plugging (S.17)(S.21) into (S.6) yields
+      \[
+      \hat{\mathcal E}_{f^\circ}(\hat f)\le\inf_{f\in\mathcal F}\int_\Omega(f-f^\circ)^2d\mathcal P_X+\frac14\mathcal E_{f^\circ}(\hat f)+\frac{c_{53}(B_1^2+B_2^2)}{n}
+      \]
+      \[
+      +\frac{c_{54}(B_1^2+B_2^2\log n+B_3^2\log nm)}{nm}+c_{55}r^*(B_2^2\log n+B_3^2\log nm)).\tag{S.22}
+      \]
+      Substituting (S.22) into (S.4) and noting that all constants \(c_k\) used in this proof are universal, the desired result follows. Thus we complete the proof. \(\Box\)
+
+      ### References
+      #### Reference R1
+      Target:
+      Lemma S.2
+
+      Citation:
+      “**Lemma S.2.** *Under the same model and assumptions as Theorem 2.1, we have*
+      \[
+      \left|\int_\Omega(\hat f-f^\circ)^2dP_X-\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m(\hat f(X_{ij})-f^\circ(X_{ij}))^2\right|
+      \]
+      \[
+      \le\frac12\int_\Omega(\hat f-f^\circ)^2dP_X+c_{38}B_1^2r^*+\frac{c_{39}B_1^2t}{nm},
+      \]
+      *with probability at least \(1-\exp\{-t\}\), where \(c_{38}\) and \(c_{39}\) are universal constants.*” In the proof of Theorem 2.1, this is used in Step 1: “Lemma S.2 implies that
+      \[
+      \int_\Omega(\hat f-f^\circ)^2dP_X\le\frac{2}{nm}\sum_{i=1}^n\sum_{j=1}^m(\hat f(X_{ij})-f^\circ(X_{ij}))^2+2c_{38}B_1^2r^*+\frac{2c_{39}B_1^2t}{nm},
+      \]
+      holds with probability at least \(1-\exp\{-t\}\). By taking the expectation of the above result, we can further obtain
+      \[
+      \mathcal E_{f^\circ}(\hat f)\le\frac{2}{nm}\mathbb E\left[\sum_{i=1}^n\sum_{j=1}^m(\hat f(X_{ij})-f^\circ(X_{ij}))^2\right]+2c_{38}B_1^2r^*+\frac{2c_{39}B_1^2}{nm}.\tag{S.4}
+      \]”
+
+      Bibliography:
+      supp
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction. Lemma S.2 is displayed in D1, Section S.4 (“Technical Lemmas”), and its proof is given in D1, Section S.6 (“Proof of Lemma S.2”). The source states the lemma under the same model and assumptions as Theorem 2.1; the relevant model, estimator, Rademacher fixed point definition, and Assumptions 1–2 are supplied by the paired main document D2 and are reproduced here from the current theorem context. The lemma supports the Step 1 comparison of the population \(L^2(P_X)\) error with its empirical counterpart appearing in the read-only Citation and its consequence (S.4). That application is part of the current proof context and is not organized here as a separate external result.
+
+      ##### Definitions and notation
+      The repeated-measures model is
+      \[
+      Y_{ij}=Z_i(X_{ij})+\epsilon_{ij}=f^\circ(X_{ij})+U_i(X_{ij})+\epsilon_{ij},\qquad 1\le i\le n,\quad 1\le j\le m, \tag{1}
+      \]
+      where \(Z_i(x)\) are independent and identically distributed realizations of a random function \(Z(x)\) on \([0,1]^d\), \(U_i(x)=Z_i(x)-f^\circ(x)\), and the \(\epsilon_{ij}\) are independent noise variables. The regression function is
+      \[
+      f^\circ(x)=\mathbb E[Z(X)\mid X=x].
+      \]
+      The covariates \(X_{ij}\), \(1\le i\le n\), \(1\le j\le m\), are i.i.d. from a distribution \(\mathcal P_X\) supported on \(\Omega\subseteq[0,1]^d\) and independent of \(Z_i\), \(1\le i\le n\). The set \(\Omega\) has a well-defined volume measure, and \(\mathcal P_X\) is absolutely continuous with respect to that volume measure. In the repeated-measurements setting considered here, \(m_1=\cdots=m_n=m\).
+
+      The data are \(\{(Y_{ij},X_{ij}):1\le i\le n,1\le j\le m\}\). The nonparametric least-squares estimator is
+      \[
+      \hat f_{nm}\in\arg\min_{f\in\mathcal F_{nm}}\frac1{nm}\sum_{i=1}^n\sum_{j=1}^m(Y_{ij}-f(X_{ij}))^2, \tag{2}
+      \]
+      where \(\mathcal F_{nm}\) is the chosen function class. In Lemma S.2 and its proof, \(\hat f\) abbreviates \(\hat f_{nm}\). Also,
+      \[
+      \int_\Omega(f-f^\circ)^2dP_X:=\int_\Omega(f(x)-f^\circ(x))^2dP_X.
+      \]
+      For \(r>0\), define
+      \[
+      \mathcal F_{nm}(r)=\left\{f\in\mathcal F_{nm}:\int_\Omega(f(x)-f^\circ(x))^2dP_X\le r\right\}.
+      \]
+      A function \(\phi_{nm}(r)\) is sub-root if and only if \(\phi_{nm}(r)/\sqrt r\) is nonnegative and nonincreasing. Let \(\{\sigma_{ij}:1\le i\le n,1\le j\le m\}\) be i.i.d. Rademacher variables uniformly chosen from \(\{-1,+1\}\). For an uncountable index set \(\mathcal F\), the expectation of the supremum is defined by
+      \[
+      \mathbb E\sup_{f\in\mathcal F}V(f)
+      =
+      \sup\left\{\mathbb E\sup_{f\in\mathcal F^*}V(f):\mathcal F^*\subset\mathcal F,\ \mathcal F^*\text{ is finite}\right\}.
+      \]
+      A positive number \(r_{nm}^*=r^*\) is a Rademacher fixed point of \(\mathcal F_{nm}\) if \(\phi_{nm}(r)\) is sub-root for \(r\ge r_{nm}^*\), \(\phi_{nm}(r_{nm}^*)\le r_{nm}^*\), and
+      \[
+      \phi_{nm}(r)\ge
+      \mathbb E\left[
+      \sup_{f\in\mathcal F_{nm}(r)}
+      \left|
+      \frac1{nm}\sum_{i=1}^n\sum_{j=1}^m
+      \sigma_{ij}\bigl(f(X_{ij})-f^\circ(X_{ij})\bigr)
+      \right|
+      \right]
+      \]
+      for all \(r\ge r_{nm}^*\). The constants \(c_{38}\) and \(c_{39}\) in the statement are universal constants.
+
+      #### Reference R2
+      Target:
+      Lemma S.3
+
+      Citation:
+      “**Lemma S.3.** *Under the same model and assumptions as Theorem 2.1, we have*
+      \[
+      \left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m(\mathcal T_{\beta_\epsilon}\epsilon_{ij}-\mathbb E[\mathcal T_{\beta_\epsilon}\epsilon_{ij}])(\hat f(X_{ij})-f^\circ(X_{ij}))\right|
+      \]
+      \[
+      \le\frac{1}{16}\int_\Omega(\hat f-f^\circ)^2dP_X+c_{40}\beta_\epsilon^2r^*+\frac{c_{41}(B_1\beta_\epsilon+B_3^2)t}{nm},
+      \]
+      *with probability at least \(1-\exp\{-t\}\), where \(\mathcal T_{\beta_\epsilon}\) is the truncation operator, \(c_{40}\) and \(c_{41}\) are universal constants.*” In the proof of Theorem 2.1, this is used in Step 4.1: “Lemma S.3 implies that, with probability at least \(1-\exp\{-t\}\),
+      \[
+      \left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m(\mathcal T_{\beta_\epsilon}\epsilon_{ij}-\mathbb E[\mathcal T_{\beta_\epsilon}\epsilon_{ij}])(\hat f(X_{ij})-f^\circ(X_{ij}))\right|
+      \]
+      \[
+      \le\frac{1}{16}\int_\Omega(\hat f-f^\circ)^2dP_X+c_{40}\beta_\epsilon^2r^*+\frac{c_{41}(B_1\beta_\epsilon+B_3^2)t}{nm}.
+      \]
+      Further, by taking the expectation of the previous result, we have
+      \[
+      (IV)\le\frac{1}{16}\mathcal E_{f^\circ}(\hat f)+c_{40}\beta_\epsilon^2r^*+\frac{c_{41}(B_1\beta_\epsilon+B_3^2)}{nm}.\tag{S.19}
+      \]”
+
+      Bibliography:
+      supp
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction. The statement is Lemma S.3 in Section S.4 (“Technical Lemmas”) of D1, the supplement to Yan, Yao, and Zhou, “Deep Regression for repeated measurements”; the proof is located in Section S.6. The supplement describes Lemmas S.2–S.3 as crucial findings in the proof of Theorem 2.1. The lemma supplies the absolute-value probability bound used in Step 4.1 of the proof of Theorem 2.1; the subsequent display (S.19) in that proof records the stated expectation consequence for the term \((IV)\), and is not a separately labelled source lemma. The source statement is complete once the repeated-measures model, Assumptions 1 and 2, and the Rademacher-fixed-point setup are recalled. No external attribution for Lemma S.3 is supplied. The displayed lemma uses universal constants \(c_{40},c_{41}\); the proof writes auxiliary constants as \(c_{114},c_{115}\), and the application later sets \(\beta_\epsilon=2B_3\log nm\), but these are outside the displayed lemma statement.
+
+      ##### Lemma S.3
+
+      ###### Definitions and notation
+      Let \(Z(x)\) be a random function on \([0,1]^d\), with i.i.d. realizations \(Z_1(x),\dots,Z_n(x)\). The \(i\)th subject is measured at \(m_i\) points \(X_{i1},\dots,X_{im_i}\), and the exposition assumes \(m_1=\cdots=m_n=m\). The covariates \(X_{ij}\), \(1\le i\le n\), \(1\le j\le m\), are i.i.d. from a distribution \(\mathcal P_X\) supported on some \(\Omega\subseteq[0,1]^d\) and independent of \(Z_i\), \(1\le i\le n\). The set \(\Omega\) has a well-defined volume measure, and \(\mathcal P_X\) is absolutely continuous with respect to that volume measure. The regression function is
+      \[
+      f^\circ(x)=\mathbb E[Z(X)\mid X=x].
+      \]
+      The repeated-measures model is
+      \[
+      Y_{ij}=Z_i(X_{ij})+\epsilon_{ij}=f^\circ(X_{ij})+U_i(X_{ij})+\epsilon_{ij},
+      \quad 1\le i\le n,\ 1\le j\le m, \tag{1}
+      \]
+      where \(U_i(x)=Z_i(x)-f^\circ(x)\) are the individual stochastic parts and the \(\epsilon_{ij}\) are independent noise variables. The available data are \(\{(Y_{ij},X_{ij}):1\le i\le n,1\le j\le m\}\).
+
+      The nonparametric least-squares estimator over a function class \(\mathcal F_{nm}\) is
+      \[
+      \hat f_{nm}\in\arg\min_{f\in\mathcal F_{nm}}
+      \frac{1}{nm}\sum_{i=1}^{n}\sum_{j=1}^{m}(Y_{ij}-f(X_{ij}))^2. \tag{2}
+      \]
+      In Lemma S.3, \(\hat f\) denotes \(\hat f_{nm}\).
+
+      The infinity norm is \(\|f\|_\infty=\sup_{x\in\Omega}|f(x)|\). For \(r>0\),
+      \[
+      \mathcal F_{nm}(r)=\left\{f\in\mathcal F_{nm}:
+      \int_\Omega(f(x)-f^\circ(x))^2\,dP_X\le r\right\}.
+      \]
+      A function \(\phi_{nm}(r)\) is sub-root if and only if \(\phi_{nm}(r)/\sqrt r\) is nonnegative and nonincreasing. Let \(\{\sigma_{ij},1\le i\le n,1\le j\le m\}\) be i.i.d. Rademacher variables uniformly chosen from \(\{-1,+1\}\). For a random process \(V\) and an uncountable index set \(\mathcal F\),
+      \[
+      \mathbb E\sup_{f\in\mathcal F}V(f)
+      =
+      \sup\left\{\mathbb E\sup_{f\in\mathcal F^*}V(f):
+      \mathcal F^*\subset\mathcal F,\ \mathcal F^*\text{ is finite}\right\}.
+      \]
+      A positive number \(r^*_{nm}\) is a Rademacher fixed point of \(\mathcal F_{nm}\) if \(\phi_{nm}(r)\) is sub-root for \(r\ge r^*_{nm}\), \(\phi_{nm}(r^*_{nm})\le r^*_{nm}\), and
+      \[
+      \phi_{nm}(r)\ge
+      \mathbb E\left[
+      \sup_{f\in\mathcal F_{nm}(r)}
+      \left|
+      \frac{1}{nm}\sum_{i=1}^{n}\sum_{j=1}^{m}
+      \sigma_{ij}(f(X_{ij})-f^\circ(X_{ij}))
+      \right|
+      \right]
+      \]
+      for all \(r\ge r^*_{nm}\). As in Section S.5, write
+      \[
+      \int_\Omega(f-f^\circ)^2\,dP_X
+      :=
+      \int_\Omega(f(x)-f^\circ(x))^2\,dP_X,
+      \]
+      and abbreviate \(\mathcal F=\mathcal F_{nm}\), \(\phi=\phi_{nm}\), and \(r^*=r^*_{nm}\).
+
+      For a truncation level \(\beta\), the truncation operator is
+      \[
+      \mathcal T_\beta f(x)
+      =
+      f(x)I(|f(x)|\le\beta)
+      +
+      \operatorname{sign}(f(x))\beta\, I(|f(x)|>\beta),
+      \]
+      where \(I(\cdot)\) is an indicator. In Lemma S.3, the truncation level is \(\beta_\epsilon\).
+
+      The constants \(B_1,B_2,B_3\) are the constants appearing in Assumptions 1 and 2 below. The constants \(c_{40}\) and \(c_{41}\) are universal constants supplied by Lemma S.3.
+
+      ###### Assumptions
+      The repeated-measures design and model are as follows: \(Z_1,\dots,Z_n\) are i.i.d. realizations of \(Z\); the covariates \(X_{ij}\), \(1\le i\le n\), \(1\le j\le m\), are i.i.d. from \(\mathcal P_X\) supported on \(\Omega\subseteq[0,1]^d\), independent of \(Z_i\); \(\Omega\) has a well-defined volume measure and \(\mathcal P_X\) is absolutely continuous with respect to that volume measure; \(f^\circ(x)=\mathbb E[Z(X)\mid X=x]\); the responses satisfy (1), with \(m_1=\cdots=m_n=m\), \(U_i(x)=Z_i(x)-f^\circ(x)\), and independent noise variables \(\epsilon_{ij}\). The estimator \(\hat f=\hat f_{nm}\) is defined by (2).
+
+      **Assumption 1** (Regression function and candidate class). There exists a positive number \(B_1\) such that
+      \[
+      \|f^\circ\|_\infty\le B_1
+      \]
+      and
+      \[
+      \|f\|_\infty\le B_1
+      \]
+      for each \(f\in\mathcal F_{nm}\).
+
+      **Assumption 2** (Random process and noise). The random processes \(U_i(x)\) are continuous, and there exist nonnegative numbers \(B_2\) and \(B_3\) such that, for \(1\le i\le n\) and \(1\le j\le m\),
+      \[
+      \mathbb E\left[
+      \exp\left\{
+      \left|\frac{U_i(X_{ij})}{B_2}\right|
+      \right\}
+      \right]\le 1,
+      \qquad
+      \mathbb E\left[
+      \exp\left\{
+      \left|\frac{\epsilon_{ij}}{B_3}\right|
+      \right\}
+      \right]\le 1. \tag{4}
+      \]
+      The quantity \(r^*=r^*_{nm}\) is a positive Rademacher fixed point of \(\mathcal F_{nm}\), with sub-root function \(\phi=\phi_{nm}\), in the sense recalled in Definitions and notation. The truncation level \(\beta_\epsilon\) is positive.
+
+      ###### Statement
+      Under the same model and assumptions as Theorem 2.1, we have
+      \[
+      \left|
+      \frac{1}{nm}\sum_{i=1}^{n}\sum_{j=1}^{m}
+      \left(\mathcal T_{\beta_\epsilon}\epsilon_{ij}
+      -\mathbb E[\mathcal T_{\beta_\epsilon}\epsilon_{ij}]\right)
+      \left(\hat f(X_{ij})-f^\circ(X_{ij})\right)
+      \right|
+      \]
+      \[
+      \le
+      \frac{1}{16}\int_\Omega(\hat f-f^\circ)^2\,dP_X
+      +
+      c_{40}\beta_\epsilon^2r^*
+      +
+      \frac{c_{41}(B_1\beta_\epsilon+B_3^2)t}{nm},
+      \]
+      with probability at least \(1-\exp\{-t\}\), where \(\mathcal T_{\beta_\epsilon}\) is the truncation operator, and \(c_{40}\) and \(c_{41}\) are universal constants.
+
+      #### Reference R3
+      Target:
+      Lemma S.7 (Comparison Theorem; see Theorem 4.12 in Ledoux & Talagrand (1991))
+
+      Citation:
+      “**Lemma S.7** (Comparison Theorem; see Theorem 4.12 in Ledoux & Talagrand (1991)). *Let \(\{\Phi_i,1\le i\le n\}\) be functions that are \(b_1\)-Lipschitz and satisfy \(\Phi_i(0)=0\). Assume that \(\{\sigma_i,1\le i\le n\}\) are Rademacher random variables not depending on others. Then for any bounded subset \(\Omega'\) in \(\mathbb R^n\), we have*
+      \[
+      \mathbb E\left[\sup_{(t_1,\ldots,t_n)\in\Omega'}\left|\frac1n\sum_{i=1}^n\sigma_i\Phi_i(t_i)\right|\right]\le2b_1\cdot\mathbb E\left[\sup_{(t_1,\ldots,t_n)\in\Omega'}\left|\frac1n\sum_{i=1}^n\sigma_i t_i\right|\right],
+      \]
+      *where the expectation is taken with respect to \(\sigma_i\).*” In the proof of Theorem 2.1, this is used in Step 3.1: “Taking the expectation conditional on \(U_i,X_{ij},1\le i\le n,1\le j\le m\) and utilizing Lemma S.7, we conclude that
+      \[
+      \mathbb E\left[\sup_{f\in\mathcal F(r')}\left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m\sigma_{ij}(\mathcal T_{\beta_U}U_i)(X_{ij})(f(X_{ij})-f^\circ(X_{ij}))\right|\right]
+      \]
+      \[
+      =\mathbb E\left[\mathbb E\left[\sup_{f\in\mathcal F(r')}\left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m\sigma_{ij}(\mathcal T_{\beta_U}U_i)(X_{ij})(f(X_{ij})-f^\circ(X_{ij}))\right|\Big|U,X\right]\right]
+      \]
+      \[
+      \le2\beta_U\mathbb E\left[\sup_{f\in\mathcal F(r')}\left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m\sigma_{ij}(f(X_{ij})-f^\circ(X_{ij}))\right|\right]
+      \]
+      \[
+      \le2\beta_U\phi(r'),
+      \]
+      for any \(r'\ge r^*\).”
+
+      Bibliography:
+      supp
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction. The displayed comparison theorem is retrieved from D1, Supplement to “Deep Regression for repeated measurements,” Section S.4, Technical Lemmas, as Lemma S.7. The supplement states that the lemmas in that group are classic empirical-process results whose proofs are omitted, and it attributes Lemma S.7 to Theorem 4.12 of Ledoux & Talagrand (1991). The original Ledoux–Talagrand text was not retrieved here, so the attribution is preserved without claiming independent verification of the external theorem or its page/equation location. The source statement supplies the comparison inequality invoked later in Step 3.1 of the proof of Theorem 2.1; the specialized substitutions and verification of applicability conditions belong to the read-only Citation/Proof context and are not rederived here. The supplement does not spell out the standard meanings of “\(b_1\)-Lipschitz” and “Rademacher”; those are expanded below only as standard terminology.
+
+      ##### Lemma S.7 (Comparison Theorem; see Theorem 4.12 in Ledoux & Talagrand (1991))
+      ###### Definitions and notation
+      For a positive integer \(n\), let \(1\le i\le n\). The functions \(\Phi_i\) are real-valued functions of the real arguments \(t_i\).
+
+      A function \(\Phi_i\) is \(b_1\)-Lipschitz, in the standard sense, if
+      \[
+      |\Phi_i(s)-\Phi_i(t)|\le b_1|s-t|
+      \]
+      for all relevant real \(s,t\), with Lipschitz constant \(b_1\).
+
+      The variables \(\{\sigma_i,1\le i\le n\}\) are Rademacher random variables, i.e. each takes values in \(\{-1,+1\}\) with equal probability; the source condition says that they do not depend on others.
+
+      The set \(\Omega'\) is a bounded subset of \(\mathbb R^n\), and its elements are written \((t_1,\ldots,t_n)\). The expectation \(\mathbb E\) in the statement is taken with respect to the Rademacher variables \(\sigma_i\).
+
+      ###### Assumptions
+      Let \(n\) be a positive integer. Let \(\{\Phi_i,1\le i\le n\}\) be functions that are \(b_1\)-Lipschitz and satisfy
+      \[
+      \Phi_i(0)=0,\qquad 1\le i\le n.
+      \]
+      Assume that \(\{\sigma_i,1\le i\le n\}\) are Rademacher random variables not depending on others. Let \(\Omega'\) be a bounded subset of \(\mathbb R^n\).
+
+      ###### Statement
+      Under the above conditions, for any bounded subset \(\Omega'\) in \(\mathbb R^n\),
+      \[
+      \mathbb E\left[\sup_{(t_1,\ldots,t_n)\in\Omega'}\left|\frac1n\sum_{i=1}^n\sigma_i\Phi_i(t_i)\right|\right]
+      \le
+      2b_1\cdot
+      \mathbb E\left[\sup_{(t_1,\ldots,t_n)\in\Omega'}\left|\frac1n\sum_{i=1}^n\sigma_i t_i\right|\right],
+      \]
+      where the expectation is taken with respect to \(\sigma_i\).
+
+      #### Reference R4
+      Target:
+      Lemma S.8 (Talagrand’s inequality)
+
+      Citation:
+      “**Lemma S.8** (Talagrand’s inequality). *Let \(\{W_{i,f},1\le i\le n,f\in\mathcal F\}\) be random variables independent cross \(i\). Assume that for any \(1\le i\le n\) and \(f\in\mathcal F\), we have \(|W_{i,f}|\le b_2\), \(\mathbb E[W_{i,f}]=0\) and \(\mathbb E[W_{i,f}^2]\le b_3\). Then with probability at least \(1-\exp\{-t\}\), the following inequality holds:*
+      \[
+      \sup_{f\in\mathcal F}\left|\frac1n\sum_{i=1}^nW_{i,f}\right|\le2\mathbb E\left[\sup_{f\in\mathcal F}\left|\frac1n\sum_{i=1}^nW_{i,f}\right|\right]+\sqrt{\frac{8b_3t}{n}}+\frac{35b_2t}{n}.
+      \]
+      *Lemma S.8 could be derived from Theorem 4 of Massart (2000).*” In the proof of Theorem 2.1, this is used in Step 3.1: “By combining with (S.9), (S.10), (S.11) and (S.12) and checking the conditions required by Lemma S.8, we can conclude that, with probability at least \(1-\exp\{-t\}\),
+      \[
+      \left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m\frac{(\mathcal T_{\beta_U}U_i)(X_{ij})(\hat f(X_{ij})-f^\circ(X_{ij}))-\int_\Omega(\mathcal T_{\beta_U}U_i)(\hat f-f^\circ)dP_X}{\int_\Omega(\hat f-f^\circ)^2dP_X+r}\right|
+      \]
+      \[
+      \le\sup_{f\in\mathcal F}\left|\frac{1}{nm}\sum_{i=1}^n\sum_{j=1}^m\frac{(\mathcal T_{\beta_U}U_i)(X_{ij})(f(X_{ij})-f^\circ(X_{ij}))-\int_\Omega(\mathcal T_{\beta_U}U_i)(f-f^\circ)dP_X}{\int_\Omega(f-f^\circ)^2dP_X+r}\right|
+      \]
+      \[
+      \le\frac{32\beta_U\phi(r)}{r}+\sqrt{\frac{2\beta_U^2t}{nmr}}+\frac{140B_1\beta_Ut}{nmr}.
+      \]”
+
+      Bibliography:
+      supp
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction from D1, Section S.4 (“Technical Lemmas”), where Lemma S.8 is displayed. The lemma is followed by the source note that “Lemma S.8 could be derived from Theorem 4 of Massart (2000),” and by the remark that, unlike usual versions of Talagrand’s inequality with better constants, it does not require the variables \(W_i\) to be identically distributed. The lemma supplies the concentration inequality invoked in Step 3.1 of the current target; the target separately records (S.9)–(S.12) and states that the conditions required by Lemma S.8 are checked, but this item does not verify that application. The full statement and conditions of Massart (2000), Theorem 4, are not present in the supplied source material and are not reconstructed here; the Massart citation is provenance for Lemma S.8, not a separately organized source result.
+
+      ##### Lemma S.8 (Talagrand’s inequality)
+      ###### Definitions and notation
+      The statement is indexed by \(i=1,\dots,n\) and by \(f\in\mathcal F\), where \(\mathcal F\) is the index set of the random variables \(\{W_{i,f}\}\). The concentration parameter is \(t\), appearing in the probability statement \(1-\exp\{-t\}\). The parameters \(b_2\) and \(b_3\) are those occurring in the hypotheses below.
+
+      For mathematical rigor, as stated immediately before Lemma S.8 in the source, when the index set \(\mathcal F\) is uncountable, for a random process \(V\),
+      \[
+      \mathbb E\sup_{f\in\mathcal F}V(f)=\sup\left\{\mathbb E\sup_{f\in\mathcal F^*}V(f):\mathcal F^*\subset\mathcal F,\ \mathcal F^*\text{ is finite}\right\},
+      \]
+      as in Talagrand (2014). This convention applies to the expectation of the supremum in Lemma S.8.
+
+      ###### Assumptions
+      The variables \(\{W_{i,f}:1\le i\le n,\ f\in\mathcal F\}\) are independent across \(i\) (the source says “independent cross \(i\)”). For every \(1\le i\le n\) and every \(f\in\mathcal F\),
+      \[
+      |W_{i,f}|\le b_2,\qquad \mathbb E[W_{i,f}]=0,\qquad \mathbb E[W_{i,f}^2]\le b_3.
+      \]
+      The source adds that, unlike the usual versions of Talagrand’s inequality with better constants, this version does not impose the requirement that \(W_i\), \(1\le i\le n\), be identically distributed.
+
+      ###### Statement
+      With probability at least \(1-\exp\{-t\}\), the following inequality holds:
+      \[
+      \sup_{f\in\mathcal F}\left|\frac1n\sum_{i=1}^nW_{i,f}\right|
+      \le
+      2\mathbb E\left[\sup_{f\in\mathcal F}\left|\frac1n\sum_{i=1}^nW_{i,f}\right|\right]
+      +\sqrt{\frac{8b_3t}{n}}
+      +\frac{35b_2t}{n}.
+      \]
+    lean_name: Theorem_2_1_first_main_theorem_thm_thm1_non_asymptotic_prediction_error_bound_for_repeated_measurements_regression
+    lean_namespace: Statlib.Imported
+    layer: formalization
+    priority: 3
+    dependencies: []
+    notes: generated from a persisted ordinary goal; no attack-DAG dependency semantics

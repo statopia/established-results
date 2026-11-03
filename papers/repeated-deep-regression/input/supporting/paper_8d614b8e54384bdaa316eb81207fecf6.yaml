@@ -1,0 +1,63 @@
+version: v1
+theorem_set: paper-proof-group
+source_tag: document-processing
+theorems:
+- id: entry:selected:2c2efd64-a7d9-400a-b448-00b474750c18
+  title: Lemma S.2 — pointwise-separable localized squared-error concentration
+  kind: lemma
+  latex_statement: "There are universal constants c38,c39>0 such that, for every repeated-measurement\
+    \ instance satisfying the assumptions below, define\n  A_f = integral (f-f0)^2 dP_X,\n  Ahat_f(omega)\
+    \ = (1/(nm)) sum_{i=1}^n sum_{j=1}^m (f(X_ij(omega))-f0(X_ij(omega)))^2.\nFor every real confidence\
+    \ parameter t satisfying\n  rstar <= 2*c38*B1^2*rstar + 2*c39*B1^2*t/(nm),\nthe bad event has probability\
+    \ at most exp(-t):\n  P{ |A_fhat - Ahat_fhat| > (1/2)*A_fhat + c38*B1^2*rstar + c39*B1^2*(t+1)/(nm)\
+    \ } <= exp(-t).\nHere fhat=fhat(omega), the class F is star-convex about f0, and there is a countable\
+    \ F_0 subset of F such that every f in F is the pointwise limit of a sequence in F_0. The constants\
+    \ are chosen before the dimension, sample sizes, laws, class and all remaining data; the Lean proof\
+    \ uses c38=2^24 and c39=2^12. This is the selected formalized instance of Lemma S.2, with its explicit\
+    \ localization-regime condition and t+1 confidence slack."
+  assumptions:
+  - d,n,m are positive integers; the design domain S is a subset of [0,1]^d. P_X is a probability measure
+    on S, absolutely continuous with respect to the pullback of d-dimensional volume. P is a probability
+    measure on the sampling space.
+  - The measurable subject functions Z_i are identically distributed and independent. The measurable design
+    variables X_ij have law P_X and are jointly independent. The design vector is independent of the vector
+    of subject functions.
+  - For P_X-almost every x, Z_i(x) is integrable and f0(x)=E[Z_i(x)]. The measurement errors eps_ij are
+    measurable and independent across (i,j). Set U_i=Z_i-f0 and Y_ij=Z_i(X_ij)+eps_ij.
+  - B1>0 and B2,B3>0. The function f0 and every f in F are measurable and uniformly bounded in absolute
+    value by B1; their squared differences are P_X-integrable. F is star-convex about f0 and admits a
+    countable pointwise approximating subclass.
+  - For every i, almost every sample has U_i continuous at P_X-almost every x. The variables exp(|U_i(X_ij)/B2|)
+    and exp(|eps_ij/B3|) are integrable with expectations at most 1.
+  - The Rademacher variables sigma_ij are measurable, independent, each uniform on {-1,1}, and their full
+    vector is independent of the design, subject functions and errors. Every finite localized Rademacher
+    supremum is integrable.
+  - The random candidate fhat is jointly almost-everywhere measurable on the product probability/design
+    space, has integrable squared error almost surely, belongs to F almost surely, and almost surely minimizes
+    the empirical least-squares criterion over F.
+  - rstar>0. On [rstar,infinity), phi(r)/sqrt(r) is nonnegative and nonincreasing; phi(rstar)<=rstar;
+    for every r>=rstar, phi(r) dominates the expected localized Rademacher supremum. The localization
+    uses A_f<=r and the Rademacher average (1/(nm)) sum_ij sigma_ij*(f(X_ij)-f0(X_ij)); expectation of
+    an arbitrary-class supremum is the supremum of expected finite-subclass suprema.
+  - The confidence parameter t is real and satisfies the displayed localization-regime inequality involving
+    the universal constants c38 and c39.
+  proof_body: 'For positive localization radius, restrict to the countable pointwise approximating subclass.
+    Uniform boundedness gives convergence of integrated squared loss by dominated convergence. The normalized
+    centered squared-loss averages then converge pointwise, supplying the countable supremum reduction
+    for Lemma S.8. Combine its Massart concentration bound with symmetrization and the Ledoux-Talagrand
+    contraction inequality, the subroot fixed-point estimate and the explicit localization-regime condition.
+    Transfer the uniform bound to the almost-sure empirical minimizer. For t<=0 the probability upper
+    bound is trivial.
+
+
+    References: Lemma S.8 in supp.pdf, with the selected countable supremum-reduction assumption; Ledoux
+    and Talagrand (1991), Theorem 4.12, Rademacher contraction. The precise regularity and independence
+    contracts are stated in the selected Lean theorem and its Base definitions.'
+  lean_name: paper_8d614b8e54384bdaa316eb81207fecf6
+  lean_namespace: Statlib.Imported
+  layer: formalization
+  priority: 3
+  dependencies: []
+  notes: Selected pointwise-separable formalization, with explicit hregime and t+1 event; the PDF source
+    is retained in supp.pdf.
+source_document: supp.pdf
