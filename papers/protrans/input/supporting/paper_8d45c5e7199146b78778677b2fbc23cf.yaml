@@ -1,0 +1,54 @@
+version: v1
+theorem_set: paper-proof-group
+source_tag: document-processing
+theorems:
+  - id: entry:selected:ce2339b3-8dc0-4e8f-a4bb-df4710ace6e8
+    title: paper_8d45c5e7199146b78778677b2fbc23cf
+    kind: lemma
+    latex_statement: |-
+      For \(k=1,\ldots,K\), \(X_s^{(k)}\in\mathbb R^{n_s^{(k)}\times p}\) is the \(k\)-th source design matrix, and \(w_k=n_s^{(k)}/n_s\). In the target application referred to in the Statement, \(\delta_k=\beta_s^{(k)}-\beta_s\) for source coefficient vectors \(\beta_s^{(k)}\), where \(\beta_s=\sum_{k=1}^K w_k\beta_s^{(k)}\).
+
+      For matrices, \(\|\cdot\|_\infty\) denotes the largest absolute entry; for vectors, \(\|\cdot\|_1\) and \(\|\cdot\|_\infty\) denote the usual \(\ell_1\) and maximum norms.
+
+      <!-- formalization-clarifications:v1:fa808eae5d232d796ff17aedea082909051a67d409b32b7203fd68df5d30a359 -->
+      Formalization clarifications from source and proof:
+      These notes supplement the selected Supplementary Lemma error_sample_covariance_sparse under “Lemmas for Theorem 1.” The selected References section is empty, so no external theorem is being imported for this result; the proof uses the scalar Bernstein bound eq:profiled_scalar_bernstein from the supplementary “Uniform concentration argument,” together with Assumption 1.a. The paired main.tex supplies Assumption 1.a and the constant convention.
+
+      1. Constants. The explicit source convention says the constants are “chosen before the sample sizes and dimensions and may depend on fixed distributional bounds, fixed q, and the requested confidence exponent c, but not on random rows, p,n_t,n_s,K, or coefficient vectors except through displayed multipliers” (Selected Definitions, “Source constant convention”). Thus the intended order is: fix c>0 first; then one may choose C_delta,N_delta>0 depending only on c, fixed distributional quantities, and the fixed q, but not on p,K,n_t,n_s,n_s^{(k)}, random rows, or the deterministic delta_k; the l1 spread s_delta enters only through the displayed multiplier s_delta in C_delta s_delta sqrt(log p/n_s). The theorem’s wording “For every c>0 there exist constants C_delta,N_delta>0 such that, if n_s>=N_delta log p” is to be read with this uniformity, even though p,q,K and sample sizes are introduced before c in prose. A Lean parameter for p or K does not authorize C_delta or N_delta to depend on it. The source explicitly adds “No lower bound on each individual n_s^{(k)} is needed,” and the proof says “If s_delta=0 the assertion is deterministic” (Statement and Proof). The selected lemma is under Assumption 1.a only; do not import Theorem 1’s restricted-eigenvalue, initial-estimator, or noise conditions. The exact numerical dependence of C_delta,N_delta on L, q, or other fixed sub-Gaussian bounds is not computed in the source; only the allowed dependence class is stated.
+
+      2. Norms and mathematical objects. The source defines: “For matrices, \|\cdot\|_\infty denotes the largest absolute entry; for vectors, \|\cdot\|_1 and \|\cdot\|_\infty denote the usual \ell_1 and maximum norms” (Selected Definitions). In the displayed probability event, the outer norm is therefore the vector maximum norm on R^p after multiplying the p-by-p matrix X_s^{(k)\top}X_s^{(k)} by delta_k; it is not an operator, spectral, Frobenius, or Euclidean norm. The hypothesis is on delta_k in the l1 norm, \|\delta_k\|_1<=s_delta; s_delta is an l1 radius, not an l0 sparsity. The objects are X_s^{(k)} in R^{n_s^{(k)} times p}, delta_k in R^p, Sigma_X=E[XX^\top] in R^{p times p}, n_s=\sum_k n_s^{(k)}, and a_s=sqrt(log p/n_s). The matrix in the inequality is X_s^{(k)\top}X_s^{(k)} with the same rows as X_s^{(k)}; because X=f(H)+E, this X^\top X object includes the E and cross contributions and must not be replaced by f(H)^\top f(H) or f(H)^\top H. The source elsewhere warns that “the covariance term ... is f(H)^\top f(H), not f(H)^\top H” (Lemma error_sample_covariance1 proof), but the selected lemma’s matrix is X_s^{(k)\top}X_s^{(k)}. The proof defines scalar coordinates U_{ki,j}=X_{ki,j}(X_{ki}^\top\delta_k)-E[X_jX^\top]\delta_k and states, “This proof does not factor a sum of matrix--vector products into two sums” (Proof); preserve the weighted sum evaluated at delta_k rather than replacing it by a pooled matrix times an averaged delta or using any zero-average identity. The weights w_k and beta_s are target-application objects; w_k is not used in the selected lemma’s estimate.
+
+      3. Asymptotics. The selected lemma has no O, o, O_p, or o_p notation. It is a finite-sample high-probability statement: for every c>0, if n_s>=N_delta log p, the displayed event has probability at least 1-p^{-c}/20. The exponent is exactly c and the factor 1/20 is part of the source statement; do not replace the probability bound by 1-p^{-c} unless another source-authorized union step does so. The limiting/quantitative variable is the total source sample size n_s in the displayed rate sqrt(log p/n_s), with the threshold N_delta log p; p may vary but the constant convention states constants are uniform in p. The assumptions n_s>=n_t and n_s=\sum_k n_s^{(k)} are part of the ambient setup, but neither the selected estimate nor proof uses n_s\gg n_t, a lower bound on min_k n_s^{(k)}, or a log K term. The proof’s coordinatewise union over p and the scalar Bernstein step support uniformity over the allocation of the n_s^{(k)}’s given the total n_s, subject to positivity; this is a proof-based clarification consistent with the explicit sentence “No lower bound on each individual n_s^{(k)} is needed.” The source does not specify a logarithm base; any fixed conventional base only changes constants, but that should be recorded rather than silently chosen as a formal fact.
+
+      4. Omitted definitions and side conditions. Assumption 1.a states: all target and source rows are mutually independent; the pairs (E,H) have the same joint distribution in every domain; the same f is used in X=f(H)+E; coordinates of E,H,f(H) are centered with sub-Gaussian norms at most fixed L; and E[EH^\top]=0; independence of E and H is “not required” (Assumption 1.a). The selected lemma uses only these covariate/confounder facts: its scalar variables are centered by E[X_jX^\top]\delta_k, and the proof sums “the independent centered scalar variables” over all n_s source rows. It does not require noise assumptions, beta_s definitions, beta_t, support restrictions on delta_k, or \sum_k w_k\delta_k=0. The target application defines delta_k=beta_s^{(k)}-beta_s with beta_s=\sum_k w_k beta_s^{(k)}, so that \sum_k w_k\delta_k=0 there, but the statement explicitly says “The lemma does not require the zero-average condition ... that condition follows in the target application ... but is not a hypothesis of the lemma.” The probability event is exactly the set where the maximum coordinate of the vector n_s^{-1}\sum_k(X_s^{(k)\top}X_s^{(k)}-n_s^{(k)}\Sigma_X)\delta_k is bounded by C_delta s_delta a_s; no additional event is assumed. The source leaves the precise sub-Gaussian norm convention unspecified beyond “sub-Gaussian norms at most L”; the proof only uses a uniform moment bound of the form r!V^r and the scalar Bernstein inequality. The exact constants, the logarithm base, and any finer dependence of C_delta,N_delta on distributional parameters beyond the stated convention are likewise not specified.
+      <!-- /formalization-clarifications -->
+
+      Let \(p\ge2\), \(q\ge1\) fixed, \(K\ge1\), and \(n_t,n_s^{(1)},\ldots,n_s^{(K)}\) be positive integers with \(n_s=\sum_{k=1}^K n_s^{(k)}\ge n_t\). Put \(a_s=\sqrt{\log p/n_s}\), \(\Sigma_X=\mathbb E[XX^\top]\). Under Assumption 1.a, let deterministic \(\delta_k\in\mathbb R^p\) satisfy \(\|\delta_k\|_1\le s_\delta\), \(s_\delta\ge0\). For every \(c>0\) there exist constants \(C_\delta,N_\delta>0\) such that, if \(n_s\ge N_\delta\log p\), then
+      \[
+      \mathbb P\left(\left\|n_s^{-1}\sum_{k=1}^K(X_s^{(k)\top}X_s^{(k)}-n_s^{(k)}\Sigma_X)\delta_k\right\|_\infty\le C_\delta s_\delta a_s\right)\ge1-p^{-c}/20.
+      \]
+      No lower bound on each individual \(n_s^{(k)}\) is needed. The lemma does not require the zero-average condition \(\sum_k w_k\delta_k=0\); that condition follows in the target application from the definition of \(\beta_s\) but is not a hypothesis of the lemma.
+    assumptions:
+      - |-
+        **Assumption 1.a (assum:distribution_E_H_f).** All target and source rows are mutually independent; pairs \((E,H)\) have the same joint distribution in every domain; the same \(f\) is used in \(X=f(H)+E\); coordinates of \(E,H,f(H)\) are centered with sub-Gaussian norms at most fixed \(L\); \(\mathbb E[EH^\top]=0\); independence of \(E\) and \(H\) is not required.
+
+        **Source constant convention.** All upper-bound multipliers, sample-size thresholds and probability-decay exponents in the cited lemmas are strictly positive unless otherwise stated; they are chosen before the sample sizes and dimensions and may depend on fixed distributional bounds, fixed \(q\), and the requested confidence exponent \(c\), but not on random rows, \(p,n_t,n_s,K\), or coefficient vectors except through displayed multipliers.
+    proof_body: |-
+      Fix \(c>0\). For coordinate \(j\), sum the independent centered scalar variables
+      \[
+      U_{ki,j}=X_{ki,j}(X_{ki}^\top\delta_k)-\mathbb E[X_jX^\top]\delta_k
+      \]
+      over all \(n_s\) source rows. Their \(L^r\) norms are bounded uniformly by a constant times \(s_\delta r\), using \(\|\delta_k\|_1\le s_\delta\). Normalize by \(s_\delta\) when it is positive, apply
+      \(\eqref{eq:profiled_scalar_bernstein}\), and take a union over \(p\) coordinates. If \(s_\delta=0\) the assertion is deterministic. This proof does not factor a sum of matrix--vector products into two sums. It uses no lower bound on each individual \(n_s^{(k)}\) and does not require the zero-average condition \(\sum_k w_k\delta_k=0\). Hence, for suitable \(C_\delta,N_\delta>0\), if \(n_s\ge N_\delta\log p\), then
+      \[
+      \mathbb P\left(\left\|{1\over n_s}\sum_k
+       (X_s^{(k)\top}X_s^{(k)}-n_s^{(k)}\Sigma_X)\delta_k
+       \right\|_\infty\le C_\delta s_\delta a_s\right)\ge1-p^{-c}/20.
+      \]
+    lean_name: paper_8d45c5e7199146b78778677b2fbc23cf
+    lean_namespace: Statlib.Imported
+    layer: formalization
+    priority: 3
+    dependencies: []
+    notes: generated from a persisted ordinary goal; no attack-DAG dependency semantics
+source_document: supp.tex

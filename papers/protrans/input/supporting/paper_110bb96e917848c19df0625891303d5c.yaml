@@ -1,0 +1,214 @@
+version: v1
+theorem_set: paper-proof-group
+source_tag: document-processing
+theorems:
+  - id: entry:selected:709d8be1-2337-4d2c-a88f-ccc9e14231fe
+    title: paper_110bb96e917848c19df0625891303d5c
+    kind: lemma
+    latex_statement: |-
+      Let \(p\ge2\), \(q\ge1\) be fixed, \(K\ge1\), and let \(n_t,n_s^{(1)},\ldots,n_s^{(K)}\) be positive integers with
+      \[
+      n_s=\sum_{k=1}^K n_s^{(k)}\ge n_t.
+      \]
+      For \(k=1,\ldots,K\),
+      \[
+      X_s^{(k)}\in\mathbb R^{n_s^{(k)}\times p},\qquad H_s^{(k)}\in\mathbb R^{n_s^{(k)}\times q}.
+      \]
+      Put
+      \[
+      a_s=\sqrt{\frac{\log p}{n_s}},\qquad M=\mathbb E[XH^\top].
+      \]
+      Under Assumption 1.a, since \(\mathbb E[EH^\top]=0\),
+      \[
+      M=\mathbb E[f(H)H^\top].
+      \]
+      For matrices, \(\|\cdot\|_\infty\) denotes the largest absolute entry; for vectors, \(\|\cdot\|_1,\|\cdot\|_2,\|\cdot\|_\infty\) are the usual \(\ell^1,\ell^2,\ell^\infty\) norms.
+
+      Constant convention: the positive constants \(C_d,N_d\) are chosen before the sample sizes and dimensions and depend only on the fixed distributional bounds and on \(c\); \(q\) is displayed explicitly.
+
+      <!-- formalization-clarifications:v1:e406ea0825986a3abb5ef620de2a5021a7dccac66d0cfbc79d247e5e75111842 -->
+      Formalization clarifications from source and proof:
+      1. Constants and quantifier order. For the selected result, Supplementary Lemma \ref{lem:weighted_confounding_transfer} (“Let \(p\ge2\), \(q\ge1\) be fixed … \(d_k\in\mathbb R^q\) satisfy \(\|d_k\|_2\le B_\phi\)”), the source’s explicit convention says \(C_d,N_d>0\) “are chosen before the sample sizes and dimensions and depend only on the fixed distributional bounds and on \(c\); \(q\) is displayed explicitly.” Thus \(c>0\) is fixed first; then \(C_d,N_d\) are chosen; the condition is on total source size \(n_s\), namely \(n_s\ge N_d\log p\), and the deviation bound is \(C_dB_\phi\sqrt q\,a_s\). The constants are not to absorb \(p,q,K,n_t,n_s,n_s^{(k)},d_k,B_\phi\) or the random vectors; \(B_\phi\) is explicit in the right-hand side, and the proof’s normalization by \(\sqrt qB_\phi\) is a proof-based indication that \(C_d,N_d\) are not intended to depend on \(B_\phi\). The source also says in the proof that “No \(\log K\) or a minimum individual source sample size enters the estimate,” so \(C_d,N_d\) should not depend on \(K\) or on \(\min_k n_s^{(k)}\); only the total \(n_s\) enters. The phrase “\(q\) is displayed explicitly” should be respected: do not let an implicit Lean parameter \(q\) leak into \(C_d,N_d\) while also keeping the displayed \(\sqrt q\). Reference R1’s absolute \(b\) (“for an absolute \(b>0\)”) is universal in the scalar Bernstein inequality, but the \(C,N_0\) in R1’s coordinate-wise consequence are chosen for the fixed confidence exponent \(c\) and moment bound; R1 explicitly allows independent variables with different laws provided the same moment bound holds. Reference R2/“Uniform concentration argument” supplies a fixed \(V>0\) depending only on the uniform sub-Gaussian bounds, and for deterministic \(u\) with \(\|u\|_1\le D\) gives the moment scale \(r!(VD)^r\); in the selected proof this is used after replacing \(D\) by \(\sqrt qB_\phi\) and normalizing. The displayed statement requires \(B_\phi>0\), and the proof divides by \(\sqrt qB_\phi\); the source does not separately formulate the case \(B_\phi=0\) for this lemma, although R2 itself notes that a \(D=0\) normalization gives an identically zero deterministic variable. The intended quantifier order is therefore close to: fix the distributional class, \(f\), \(L\), and \(c>0\); choose \(C_d,N_d\); then for all admissible dimensions and sample sizes satisfying the displayed conditions, and all deterministic \(d_k\) with the stated \(B_\phi\)-bound, the probability inequality holds. The literal prose starts with \(p,q\) fixed, but the separate constant convention says constants are chosen before dimensions and sample sizes.
+
+      2. Norms and mathematical objects. In the selected statement the object
+      \[
+      n_s^{-1}\sum_{k=1}^K\bigl(X_s^{(k)\top}H_s^{(k)}-n_s^{(k)}M\bigr)d_k
+      \]
+      is a \(p\)-vector, because \(X_s^{(k)\top}H_s^{(k)},M\in\mathbb R^{p\times q}\) and \(d_k\in\mathbb R^q\); hence the outer \(\|\cdot\|_\infty\) is the vector \(\ell^\infty\)-norm, the maximum absolute coordinate, not the entrywise matrix norm and not an operator or Frobenius norm. The proof confirms this by fixing “each coordinate \(j\)” and taking “a union over the \(p\) coordinates.” The vector \(d_k\) is measured in Euclidean \(\ell^2\) by \(\|d_k\|_2\le B_\phi\); the proof uses the inference \(\|d_k\|_1\le\sqrt q\,\|d_k\|_2\le\sqrt qB_\phi\). Do not replace this by an \(\ell^\infty\)-bound or by \(\|d_k\|_1\le B_\phi\). Here \(M=\mathbb E[XH^\top]\) is the \(p\times q\) matrix; under Assumption 1.a and \(\mathbb E[EH^\top]=0\), the source states \(M=\mathbb E[f(H)H^\top]\). This equality is for the expectation only: the empirical term still involves \(X_s^{(k)\top}H_s^{(k)}=f(H_s^{(k)})^\top H_s^{(k)}+E_s^{(k)\top}H_s^{(k)}\), and the source does not assume \(E\) independent of \(H\); only \(\mathbb E[EH^\top]=0\) is imposed. The proof centers with \(\mathbb E[X_jH^\top]\), not with zero unless the corresponding row of \(M\) is zero. The sum is a weighted sum of different source matrices times different vectors \(d_k\); the main proof warns, “One cannot replace the weighted centered sum by a pooled matrix multiplied by an averaged coefficient vector.” Thus keep the \(k\)-dependent \(d_k\) and the subtraction of \(n_s^{(k)}M\) inside the \(k\)-sum. The quantity \(a_s\) is \(\sqrt{(\log p)/n_s}\), with total pooled source size \(n_s\), not \(n_s^{(k)}\) and not \(n_t\). The source does not specify the logarithm base; in ordinary mathematical notation it is usually natural log, but the source itself does not state it.
+
+      3. Asymptotics and probability notation. The selected lemma is non-asymptotic: it asserts that for every fixed \(c>0\) there are positive constants such that, if \(n_s\ge N_d\log p\), the event
+      \[
+      \left\|n_s^{-1}\sum_k(X_s^{(k)\top}H_s^{(k)}-n_s^{(k)}M)d_k\right\|_\infty
+      \le C_dB_\phi\sqrt q\,a_s
+      \]
+      has probability at least \(1-p^{-c}/20\). There is no \(O\), \(o\), \(O_p\), convergence-in-probability filter, or limiting variable in this statement. In particular, do not replace the displayed non-asymptotic inequality by a convergence statement as \(p\to\infty\), \(n_s\to\infty\), or \(n_s/n_t\to\infty\). The only sample-size side condition is \(n_s\ge N_d\log p\) together with the standing \(n_s\ge n_t\); no \(n_s\gg n_t\), no lower bound on individual \(n_s^{(k)}\), and no \(\log K\) condition is used. The ordinary probability is unconditional under Assumption 1.a; no conditioning on \(d_k\) is needed because \(d_k\) is deterministic. The proof invokes Reference R1 for scalar Bernstein and states that the same proof applies to independent variables with different laws but the same moment bound, so independence across all source rows and groups is used, while identical laws of the summands are not. The failure probability is exactly \(p^{-c}/20\) in the lemma; the factor \(20\) is displayed. Reference R1’s “Consequently” paragraph is more general, allowing at most \(p^2\) or \(pq\) coordinates and saying that a fixed \(q\) factor can be absorbed there without silently changing \(c\); for the selected lemma itself, the source proof union-bounds over the \(p\) coordinates only, and the selected statement displays \(\sqrt q\) in the threshold.
+
+      4. Omitted or implicit definitions and side conditions. The selected lemma is stated “Under Assumption 1.a,” corresponding in the main paper to Assumption \ref{assum:distribution_E_H_f}.a: all target and source rows are mutually independent; the \((E,H)\) pairs have the same joint distribution in every domain; the same \(f\) is used; coordinates of \(E,H,f(H)\) are centered with sub-Gaussian norms bounded by a fixed \(L\); and \(\mathbb E[EH^\top]=0\). Independence of \(E\) and \(H\) is explicitly not required. The selected lemma does not require Assumption 1.b (noise assumptions), does not involve \(\varepsilon\), restricted-eigenvalue events, Lasso minimizers, initial estimators, source-selection groups, or sparsity parameters; those belong to Theorem 1 or other results and must not be imported as hypotheses of this lemma. The indices are \(k=1,\ldots,K\) and rows \(i=1,\ldots,n_s^{(k)}\); each \(n_s^{(k)}\) is a positive integer, \(n_s=\sum_k n_s^{(k)}\), and the union bound is over \(j=1,\ldots,p\). The dimension \(q\ge1\) is fixed and appears in the vector \(d_k\) and in the proof’s \(\|d_k\|_1\le\sqrt qB_\phi\); \(p\ge2\) and \(p^{-c}\) uses this \(p\). The source leaves unspecified: the logarithm base in \(\log p\); a separate treatment of \(B_\phi=0\) in this lemma’s displayed assumptions/proof (the proof divides by \(\sqrt qB_\phi\), though R2 mentions the deterministic \(D=0\) normalization); and any exact probability-space or measurability convention for this lemma, which is unnecessary here because \(d_k\) is deterministic and the statement is a direct probability bound. Reference R1 is the owner of the scalar Bernstein inequality; Reference R2/“Uniform concentration argument” is the owner of the common moment bound and the \(L^r\)-triangle-inequality step for deterministic linear combinations. The target-specific weighted-transfer application, including the use of \(\|d_k\|_1\le\sqrt qB_\phi\), is the selected lemma’s proof, not an additional hypothesis of those cited universal results.
+      <!-- /formalization-clarifications -->
+
+      Let \(p\ge2\), \(q\ge1\) fixed, \(K\ge1\), and \(n_t,n_s^{(1)},\ldots,n_s^{(K)}\) be positive integers with \(n_s=\sum_{k=1}^K n_s^{(k)}\ge n_t\). Put \(a_s=\sqrt{\log p/n_s}\), \(M=\mathbb E[XH^\top]\). Under Assumption 1.a, let deterministic \(d_k\in\mathbb R^q\) satisfy \(\|d_k\|_2\le B_\phi\), \(B_\phi>0\). For every \(c>0\) there exist constants \(C_d,N_d>0\) such that, if \(n_s\ge N_d\log p\), then
+      \[
+       \mathbb P\left(\left\|n_s^{-1}\sum_{k=1}^K(X_s^{(k)\top}H_s^{(k)}-n_s^{(k)}M)d_k\right\|_\infty\le C_dB_\phi\sqrt q\,a_s\right)\ge1-p^{-c}/20.
+      \]
+      The constants depend only on the fixed distributional bounds and on \(c\); \(q\) is displayed explicitly.
+    assumptions:
+      - "Assumption 1.a: all target and source rows are mutually independent; the pairs \\((E,H)\\) have the same joint distribution in every domain; the same \\(f\\) is used in \\(X=f(H)+E\\); the coordinates of \\(E,H,f(H)\\) are centered with sub-Gaussian norms at most a fixed \\(L\\); \\(\\mathbb E[EH^\\top]=0\\); independence of \\(E\\) and \\(H\\) is not required."
+    proof_body: |-
+      **Definitions and notation used in Proof.** In the proof, \(X_{ki,j}\) denotes the \(j\)-th coordinate of the \(i\)-th row of \(X_s^{(k)}\), and \(H_{ki}\) denotes the \(i\)-th row of \(H_s^{(k)}\) viewed as a column vector.
+
+      For each coordinate \(j\), the summands are
+      \[
+       (X_{ki,j}H_{ki}^\top-\mathbb E[X_jH^\top])d_k .
+      \]
+      They are centered and independent across rows and source groups, even though their deterministic vectors \(d_k\) differ. Since \(\|d_k\|_2\le B_\phi\), we have \(\|d_k\|_1\le\sqrt q B_\phi\); hence, after division by \(\sqrt q B_\phi\), the common moment argument [ref:R2] applies. Applying scalar Bernstein [ref:R1] to all \(n_s\) summands and taking a union over the \(p\) coordinates gives, for every fixed \(c>0\), constants \(C_d,N_d>0\) such that if \(n_s\ge N_d\log p\), then
+      \[
+       \mathbb P\left(\left\|{1\over n_s}\sum_k
+       (X_s^{(k)\top}H_s^{(k)}-n_s^{(k)}M)d_k\right\|_\infty
+       \le C_dB_\phi\sqrt q\,a_s\right)\ge1-p^{-c}/20.
+      \]
+      No \(\log K\) or minimum individual source sample size enters the estimate. The constants depend only on the fixed distributional bounds and \(c\), with \(q\) displayed explicitly in the threshold.
+
+      ### References
+      #### Reference R1
+      Target: Equation \eqref{eq:profiled_scalar_bernstein} (scalar Bernstein inequality)
+
+      Citation: “For \(N\) independent centered variables \(U_l\) with \(\mathbb E|U_l|^r\le r!V^r\), expanding the exponential series gives \(\log\mathbb E e^{\theta U_l}\le2V^2\theta^2\) for \(|\theta|V\le1/2\). Independence, exponential Markov, and optimization with \(\theta=\min(t/(4V^2),1/(2V))\) yield
+      \[
+      \mathbb P\left(\left|{1\over N}\sum_{l=1}^NU_l\right|>t\right)
+       \le2\exp[-bN\min(t^2/V^2,t/V)]
+      \]
+      for an absolute \(b>0\). The same proof applies to independent variables with different laws and the same moment bound. Consequently, for any fixed confidence exponent \(c>0\), constants \(C,N_0>0\) can be chosen so that deviations \(C\sqrt{\log p/N}\) in at most \(p^2\) or \(pq\) coordinates fail with probability at most \(p^{-c}/20\), whenever \(N\ge N_0\log p\).” Used in the proof as: “Apply scalar Bernstein to all \(n_s\) summands and take a union over \(p\) coordinates.”
+
+      Bibliography: supp
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction from D1, *Supplementary Material for “Deconfounding via Profiled Transfer Learning”*, section “Detailed Proofs and Technique Lemmas”, subsection “Lemmas for Theorem 1”, paragraph “Uniform concentration argument”. The paragraph contains the displayed scalar Bernstein inequality labeled \(\eqref{eq:profiled_scalar_bernstein}\), the preceding log-moment-generating-function bound, the extension to independent variables with different laws and the same moment bound, and the subsequent coordinate-wise union-bound consequence. The supplement is a locally numbered source; the main article is attributed in the supplied bibliography to Ziyuan Chen, Yifan Jiang, Jingyuan Liu, and Fang Yao, with supplement authors not supplied. The passage’s final sentence mentions a normalization \(D=0\), but \(D\) is not defined in the supplied passage.
+
+      ##### Scalar Bernstein inequality (eq:profiled_scalar_bernstein)
+      ###### Definitions and notation
+      Let \(N\) be the sample size and let \(U_1,\ldots,U_N\) be real-valued random variables. Let \(V>0\) be a fixed constant, and let \(r\) denote the moment order in
+      \[
+      \mathbb E|U_l|^r\le r!V^r .
+      \]
+      In the preceding “Uniform concentration argument” paragraph, this moment bound is stated for all integers \(r\ge 2\). Let \(\theta\) be a real parameter with \(|\theta|V\le 1/2\), and let \(t>0\) denote the deviation level. The absolute constant \(b>0\) in the displayed probability bound is independent of the parameters.
+
+      ###### Assumptions
+      The variables \(U_1,\ldots,U_N\) are independent and centered:
+      \[
+      \mathbb E U_l=0,\qquad l=1,\ldots,N.
+      \]
+      There is a fixed \(V>0\) such that, for the relevant moment orders,
+      \[
+      \mathbb E|U_l|^r\le r!V^r .
+      \]
+      In the source’s common moment-bound paragraph this is stated for all integers \(r\ge2\). The log-moment-generating-function bound below is stated under the additional restriction
+      \[
+      |\theta|V\le \frac12.
+      \]
+      The same scalar argument is explicitly stated to apply also when the independent variables have different laws, provided they share the same moment bound.
+
+      ###### Statement
+      For \(N\) independent centered variables \(U_l\) satisfying
+      \[
+      \mathbb E|U_l|^r\le r!V^r,
+      \]
+      expanding the exponential series gives
+      \[
+      \log \mathbb E e^{\theta U_l}\le 2V^2\theta^2
+      \qquad\text{for }|\theta|V\le \frac12 .
+      \]
+      Independence, exponential Markov, and optimization with
+      \[
+      \theta=\min\!\left(\frac{t}{4V^2},\frac{1}{2V}\right)
+      \]
+      yield
+      \[
+      \mathbb P\left(\left|\frac1N\sum_{l=1}^N U_l\right|>t\right)
+       \le 2\exp\!\left[-bN\min\!\left(\frac{t^2}{V^2},\frac{t}{V}\right)\right]
+      \]
+      for an absolute \(b>0\). The same proof applies to independent variables with different laws and the same moment bound.
+
+      ##### Coordinate-wise union-bound consequence (unnamed “Consequently” statement)
+      ###### Definitions and notation
+      Let \(p,q\) be the dimension parameters appearing in the union bound, with \(q\) fixed. Let \(c>0\) be the confidence exponent, and let \(C,N_0>0\) be constants. The statement concerns deviations in at most \(p^2\) or \(pq\) coordinates.
+
+      ###### Assumptions
+      The scalar Bernstein inequality above is available for the \(N\) independent centered variables with the same moment bound. The confidence exponent \(c>0\) is fixed. The factor \(q\) is fixed, so that its contribution to the union bound is absorbed by the choice of constants rather than by changing \(c\). The sample size satisfies
+      \[
+      N\ge N_0\log p.
+      \]
+
+      ###### Statement
+      Consequently, for any fixed confidence exponent \(c>0\), constants \(C,N_0>0\) can be chosen so that deviations
+      \[
+      C\sqrt{\frac{\log p}{N}}
+      \]
+      in at most \(p^2\) or \(pq\) coordinates fail with probability at most
+      \[
+      p^{-c}/20,
+      \]
+      whenever
+      \[
+      N\ge N_0\log p.
+      \]
+      Since \(q\) is fixed, its factor in the union bound is absorbed by the choice of \(C,N_0\), not by changing \(c\) silently. For a normalization \(D=0\) the corresponding random variable is identically zero and its deviation bound is deterministic.
+
+      #### Reference R2
+      Target: Uniform concentration argument (common moment bound for centered products)
+
+      Citation: “We give the common scalar argument used in all five concentration bounds below, including the weighted ones. There is a fixed \(V>0\), depending only on the uniform sub-Gaussian bounds, such that any centered product of two coordinates among \(E,H,f(H),X,\varepsilon\) has moments bounded by \(r!V^r\) for all integers \(r\ge2\) (enlarge \(V\) if necessary). Indeed, the sub-Gaussian tail bound gives coordinate moments at most \(B\sqrt r\) in \(L^r\); applying Cauchy--Schwarz to a product and then centering gives a bound \((B' r)^r\le r!V^r\) after changing the constant. For deterministic \(u\) with \(\|u\|_1\le D\), the same bound for a linear combination of such centered products is \(r!(VD)^r\), by the triangle inequality in \(L^r\). This argument requires no independence between the two factors in a single product.” Used in the proof as: “Since \(\|d_k\|_1\le\sqrt q B_\phi\), the common moment argument applies after division by \(\sqrt q B_\phi\).”
+
+      Bibliography: supp
+
+      ##### Use
+      Proof or method citation — original source material
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      The retrieved source is the supplement file `supp.tex` for “Deconfounding via Profiled Transfer Learning” (main article attributed to Ziyuan Chen, Yifan Jiang, Jingyuan Liu, and Fang Yao; supplement authors not supplied), located in section “Detailed Proofs and Technique Lemmas”, subsection “Lemmas for Theorem 1”, paragraph “Uniform concentration argument”. This paragraph is not presented as a separately numbered theorem or lemma; it supplies the common scalar moment bound and scalar Bernstein concentration argument used in the five concentration bounds below, including weighted ones. It argues the moment bound from the sub-Gaussian tail bound by giving coordinate \(L^r\) moments at most \(B\sqrt r\), applying Cauchy--Schwarz to a product, and then centering, after possibly enlarging the constant \(V\). In the current target proof, this paragraph supports the weighted-sum concentration step by allowing the summands, after the normalization using \(\|d_k\|_1\le \sqrt q B_\phi\), to be treated by scalar Bernstein over all source rows and a union over the relevant coordinates. That \(T_\phi\)-specific application is a local use in the current proof, not an additional source-labeled result in this paragraph.
+
+      ##### Definitions and notation
+      For \(r\ge2\), \(L^r\)-moment means \(\mathbb E|\cdot|^r\). The source considers centered products of two coordinates among \(E,H,f(H),X,\varepsilon\), under the uniform sub-Gaussian bounds from the surrounding context. Let \(V>0\) be a fixed constant depending only on those uniform sub-Gaussian bounds. For deterministic \(u\), let \(D\) be a nonnegative bound with \(\|u\|_1\le D\). For the scalar Bernstein step, let \(U_l\) be independent centered scalar variables, \(N\) their number, \(t>0\) a deviation level, and \(\theta\in\mathbb R\). Let \(p\) denote the dimension parameter used in the union bound, \(q\) the fixed parameter entering the \(pq\) coordinate count, \(c>0\) the confidence exponent, and \(C,N_0,b>0\) positive constants.
+
+      ##### Assumptions
+      The source’s quantitative constant convention applies: constants and probability-decay exponents in quantitative bounds are strictly positive unless explicitly assigned another range, and they do not silently depend on sample sizes or dimensions. The coordinate variables among \(E,H,f(H),X,\varepsilon\) satisfy the uniform sub-Gaussian bounds of the surrounding source context. The products used in the moment bound are centered. For the linear-combination moment bound, \(u\) is deterministic with \(\|u\|_1\le D\). For the scalar Bernstein inequality, the \(U_l\) are independent and centered with \(\mathbb E|U_l|^r\le r!V^r\) for all integers \(r\ge2\); the same moment bound is allowed for variables with different laws.
+
+      ##### Statement
+      There is a fixed \(V>0\), depending only on the uniform sub-Gaussian bounds, such that any centered product of two coordinates among \(E,H,f(H),X,\varepsilon\) has moments bounded by
+      \[
+       \mathbb E|\text{centered product}|^r \le r!V^r
+      \]
+      for all integers \(r\ge2\), after enlarging \(V\) if necessary. For deterministic \(u\) with \(\|u\|_1\le D\), the same bound for a linear combination of such centered products is \(r!(VD)^r\), by the triangle inequality in \(L^r\). This moment argument requires no independence between the two factors in a single product.
+
+      For \(N\) independent centered variables \(U_l\) with \(\mathbb E|U_l|^r\le r!V^r\), expanding the exponential series gives
+      \[
+       \log \mathbb E e^{\theta U_l}\le 2V^2\theta^2
+       \qquad\text{for } |\theta|V\le \frac12.
+      \]
+      Independence, exponential Markov, and optimization with
+      \[
+       \theta=\min\left(\frac{t}{4V^2},\frac{1}{2V}\right)
+      \]
+      yield
+      \[
+       \mathbb P\left(\left|\frac1N\sum_{l=1}^N U_l\right|>t\right)
+       \le 2\exp\left[-bN\min\left(\frac{t^2}{V^2},\frac{t}{V}\right)\right]
+      \]
+      for an absolute \(b>0\). The same proof applies to independent variables with different laws and the same moment bound.
+
+      Consequently, for any fixed confidence exponent \(c>0\), constants \(C,N_0>0\) can be chosen so that, over a family of at most \(p^2\) or \(pq\) coordinates, the simultaneous deviation bound \(C\sqrt{\log p/N}\) fails with probability at most \(p^{-c}/20\), whenever \(N\ge N_0\log p\). Since \(q\) is fixed, its factor in the union bound is absorbed by the choice of \(C,N_0\), not by changing \(c\) silently. For a normalization \(D=0\), the corresponding random variable is identically zero and its deviation bound is deterministic.
+    lean_name: paper_110bb96e917848c19df0625891303d5c
+    lean_namespace: Statlib.Imported
+    layer: formalization
+    priority: 3
+    dependencies: []
+    notes: generated from a persisted ordinary goal; no attack-DAG dependency semantics
+source_document: supp.tex

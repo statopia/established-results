@@ -1,0 +1,157 @@
+version: v1
+theorem_set: paper-proof-group
+source_tag: document-processing
+theorems:
+  - id: entry:selected:3ff3b683-8361-4bb9-8237-f799b8f6ef2f
+    title: paper_4a6904a098fa4fcebf3058bbb4e15c0e
+    kind: lemma
+    latex_statement: |-
+      Let \(p\ge2\) and \(q\ge1\) be fixed. For a positive integer \(N\), let \(X\in\mathbb R^{N\times p}\) be an \(N\times p\) sample matrix whose rows are independent and have the common covariate law specified in Assumption 1.a. Write a common row as \(X=(X_1,\dots,X_p)\) and matrix entries as \(X_{li}\). The population matrix is \(\Sigma_X=\mathbb E[XX^\top]\). For a matrix, \(\|\cdot\|_\infty\) denotes the largest absolute entry, not an operator norm, Frobenius norm, or maximum row sum. The covariates satisfy \(X=f(H)+E\), with \(E\in\mathbb R^p\), \(f(H)\in\mathbb R^p\), and \(H\in\mathbb R^q\); for a sample matrix with rows \(H_l\), the matrix \(f(H)\in\mathbb R^{N\times p}\) has \(l\)-th row \(f(H_l)^\top\), and \(H\in\mathbb R^{N\times q}\). All constants are positive, are fixed before the sample size and dimension, do not depend on random rows, \(N\), or \(p\), and may depend on the fixed distributional bound \(L\) and on \(c\). The base of \(\log p\) is unspecified and is absorbed into constants.
+
+      <!-- formalization-clarifications:v1:d3b96c22abb16f6cb9d65d0838122652ebeec00d71937158145a7cbb89a049d0 -->
+      Formalization clarifications from source and proof:
+      1. Constants and quantifier order. The target result is owned by Supplementary Lemma `lem:error_sample_covariance1` under “Lemmas for Theorem 1,” and the displayed statement should be read as: fix the common covariate law and Assumption 1.a data (with fixed \(L\) and fixed \(q\)), fix \(p\ge2\) and \(c>0\), choose \(C_x,N_x>0\), then prove the probability bound for every integer \(N\ge N_x\log p\) and every collection of \(N\) independent rows with that common law. Thus \(C_x,N_x\) are positive existential constants depending on the fixed confidence exponent \(c\) and fixed distributional bound \(L\); the selected Definitions sentence forbids dependence on random rows, \(N\), and \(p\). A Lean parameter \(p\) or row vector appearing implicitly therefore must not be used to choose \(C_x,N_x\); \(N\) is quantified after the constants, so \(C_x,N_x\) cannot depend on \(N\) or on the realized row collection. The same \(C_x,N_x\) are explicitly said to work for the target rows and for pooled source rows (target Statement and original supplement Lemma `lem:error_sample_covariance1`); this does not create separate constants per domain. The selected sentence does not mention \(q\), while the paired main-paper “Convention for quantitative constants” allows dependence on the fixed confounder dimension; since \(q\) is fixed and absent from this target’s RHS, treat \(q\)-dependence as fixed-\(q\) only, not uniformity over growing \(q\). For Reference R1, owner `eq:profiled_scalar_bernstein`, \(b>0\) is called absolute, while \(V>0\) is fixed by the moment bound; the union-bound consequence chooses \(C,N_0>0\) after fixing \(c>0\), and its paragraph says the fixed \(q\) factor is absorbed by the choice of constants, not by changing \(c\). The uniform product-moment paragraph says the fixed \(V\) depends only on the uniform sub-Gaussian bounds; for a deterministic vector with \(\|u\|_1\le D\) the moment bound is \(r!(VD)^r\), so \(D\) must be fixed or explicitly bounded before constants are claimed uniform, and if \(D=0\) the corresponding variable is identically zero (Reference R1, “Uniform product-moment bound” and \(D=0\) sentence). Target-specific use of R1 with i.i.d. rows is only a specialization; R1’s own statement allows independent centered variables with different laws and the same moment bound, and that universal formulation should not be narrowed.
+
+      2. Norms and objects. In the target result, \(\|\cdot\|_\infty\) for a matrix is explicitly the largest absolute entry (target Definitions; original supplement “Notation and constant ranges”), not the operator norm, Frobenius norm, or maximum row sum. Thus the event is the simultaneous bound over all \(i,j\in\{1,\dots,p\}\) on the \(p\times p\) matrix \(X^\top X/N-\Sigma_X\), and the RHS is exactly \(C_x\sqrt{(\log p)/N}\), with \(N\) inside the square-root denominator and no extra \(p\)-factor or normalization by \(\sqrt p\). Here a common row is a \(p\)-vector \((X_1,\dots,X_p)\), \(\Sigma_X=\mathbb E[XX^\top]\) is \(p\times p\), and for the sample matrix \(X\in\mathbb R^{N\times p}\), the empirical object is \(X^\top X/N=(1/N)\sum_{l=1}^N X_lX_l^\top\) in row notation; the proof writes entries as \(X_{li}X_{lj}-\mathbb E[X_iX_j]\). The source-defined sample matrix \(f(H)\in\mathbb R^{N\times p}\) has rows \(f(H_l)^\top\), while \(H\in\mathbb R^{N\times q}\); consequently the covariance contribution for the \(f(H)\) matrix is \(f(H)^\top f(H)\)\(p\times p\), not \(f(H)^\top H\), which is \(p\times q\) (target Proof; original supplement Lemma `lem:error_sample_covariance1` proof). The scalar moment variable is the centered product \(U_{l,i,j}=X_{li}X_{lj}-\mathbb E[X_iX_j]\), not the raw product. The selected block does not define the precise sub-Gaussian norm convention beyond “sub-Gaussian norms at most \(L\)” (Assumption 1.a); for formalization one must import the paper’s standing definition or use only the derived uniform moment bound, and must not silently substitute a different Orlicz/tail convention.
+
+      3. Asymptotics and probability form. The target result and Reference R1 are non-asymptotic: no \(O\), \(o\), \(O_p\), \(o_p\), limit filter, or “as \(N,p\to\infty\)” notation occurs in the displayed target statement or its R1 reference. The exact quantitative statement is the finite threshold \(N\ge N_x\log p\) and the probability bound \(\ge 1-p^{-c}/20\); the proof states the complement failure with strict \(>\) and probability at most \(p^{-c}/20\). The scalar Bernstein bound kept in full is \(2\exp[-bN\min(t^2/V^2,t/V)]\) with an unspecified absolute \(b>0\); its exact min form should not be replaced by only \(t^2/V^2\) or only \(t/V\) without deriving the needed regime. The \(c>0\) is a fixed confidence exponent chosen before the constants; changing \(c\) may change \(C_x,N_x\). For the union-bound consequence over “at most \(p^2\) or \(pq\) coordinates” (owner: Reference R1 “Union-bound consequence”), the statement is still finite: once \(c\) is fixed, \(C,N_0\) can be chosen so failures occur with probability at most \(p^{-c}/20\) whenever \(N\ge N_0\log p\); the fixed \(q\)-factor is absorbed into constants, not into a changed exponent. The source does not assert uniformity over a growing \(q\). Any asymptotic rate interpretation is therefore a corollary for sequences of \(p,N\) satisfying the displayed threshold, not part of the target theorem. The source also leaves the base of \(\log p\) unspecified and says it is absorbed into constants; for Lean a fixed base may be chosen only with compensating constants, not as a definitional source equality. The R1 definitions list \(t\in\mathbb R\), but the target uses positive \(t=C_x\sqrt{\log p/N}\); the source does not spell a separate \(t>0\) range, so do not extend the scalar bound to negative \(t\) without checking.
+
+      4. Omitted or implicit side conditions. Assumption 1.a, which owns the covariate-law hypotheses for the target lemma, states that all target and source rows are mutually independent, the pairs \((E,H)\) have the same joint distribution in every domain, the same \(f\) is used in \(X=f(H)+E\), the coordinates of \(E,H,f(H)\) are centered with sub-Gaussian norms at most fixed \(L\), and \(\mathbb E[EH^\top]=0\); independence of \(E\) and \(H\) is explicitly not required (target Assumptions; main Assumption `assum:distribution_E_H_f`.a). The proof’s statement that four product terms satisfy the moment bound, or that one may use the sub-Gaussian bound for \(X_i\), is a proof-based route to the scalar Bernstein hypothesis; it should not be promoted to an extra theorem hypothesis beyond Assumption 1.a. For each fixed coordinate pair \((i,j)\), the variables \(U_{l,i,j}\) over \(l\) are independent because rows are independent, and the union bound is explicitly over the \(p^2\) entries; the source does not reduce the diagonal/symmetry count to \(p(p+1)/2\). The probability is over the \(N\) rows under the common law; the event is the matrix entrywise-sup event with the stated \(\le\), while the proof uses the complementary \(>\) event. The “same constants work for target and pooled source rows” sentence is part of the target lemma and does not, by itself, assert a simultaneous target-and-source intersection event; simultaneous-use probability statements appear elsewhere via union bounds such as Lemma `lem:high_probability_set`. Do not add restricted-eigenvalue, initial-estimator, source-similarity, Gaussianity, or \(\varepsilon\)-independence hypotheses to this covariance lemma; those belong to other results. The selected block leaves unspecified the exact rounding convention for the real comparison \(N\ge N_x\log p\) when \(N\in\mathbb N\), the exact numerical value of the absolute \(b\) in R1, and the precise sub-Gaussian norm definition; these are genuine source-level ambiguities or absorbable conventions. The cited scalar Bernstein result is owned by Reference R1/equation `eq:profiled_scalar_bernstein`; the supplied source states there is no external article theorem number, page, or separate bibliography entry for it. The target lemma is the owner of the \(p^2\)-coordinate application, while the uniform product-moment and union-bound paragraphs are supplement-source support, not independent external theorems.
+      <!-- /formalization-clarifications -->
+
+      Under Assumption 1.a, for every \(c>0\) there exist constants \(C_x,N_x>0\) such that, for every \(N\ge N_x\log p\) and every collection of \(N\) independent rows with the common covariate law,
+      \[
+      \mathbb P\!\left(
+      \left\|X^\top X/N-\Sigma_X\right\|_\infty
+      \le C_x\sqrt{\frac{\log p}{N}}
+      \right)
+      \ge 1-\frac{p^{-c}}{20}.
+      \]
+      The same constants \(C_x,N_x\) work for the target rows and for all pooled source rows.
+    assumptions:
+      - "Assumption 1.a: all target and source rows are mutually independent; the pairs \\((E,H)\\) have the same joint distribution in every domain; the same \\(f\\) is used in \\(X=f(H)+E\\); the coordinates of \\(E,H,f(H)\\) are centered with sub-Gaussian norms at most a fixed \\(L\\); and \\(\\mathbb E[EH^\\top]=0\\). Independence of \\(E\\) and \\(H\\) is not required."
+    proof_body: |-
+      Let \(X\in\mathbb R^{N\times p}\) have \(N\) independent rows with the common covariate law in Assumption 1.a. For each coordinate pair \((i,j)\), set \(U_{l,i,j}=X_{li}X_{lj}-\mathbb E[X_iX_j]\). The four product terms in \(X_iX_j=(f(H)_i+E_i)(f(H)_j+E_j)\) satisfy the uniform moment bound, or one may use directly the sub-Gaussian bound for \(X_i\); hence the centered products \(U_{l,i,j}\) satisfy the moment condition for the scalar Bernstein inequality [ref:R1]. Applying [ref:R1] to \(\frac1N\sum_{l=1}^N U_{l,i,j}\), and taking a union over the \(p^2\) entries, gives for suitable \(C_x,N_x>0\) and all \(N\ge N_x\log p\) that
+      \[
+      \mathbb P\!\left(\left\|X^\top X/N-\Sigma_X\right\|_\infty
+      > C_x\sqrt{\frac{\log p}{N}}\right)\le \frac{p^{-c}}{20}.
+      \]
+      Equivalently, \(\|X^\top X/N-\Sigma_X\|_\infty\le C_x\sqrt{\log p/N}\) with probability at least \(1-p^{-c}/20\). The same constants work for the target rows and for all pooled source rows, since both are collections of independent rows with the same common covariate law and the argument depends only on \(N\) and the fixed moment bound. In the decomposition \(X_iX_j=(f(H)_i+E_i)(f(H)_j+E_j)\), the covariance term corresponding to the \(N\times p\) matrix \(f(H)\) is \(f(H)^\top f(H)\), not \(f(H)^\top H\).
+
+      ### References
+      #### Reference R1
+      Target: Equation \eqref{eq:profiled_scalar_bernstein}
+      Citation: For \(N\) independent centered variables \(U_l\) with \(\mathbb E|U_l|^r\le r!V^r\), expanding the exponential series gives \(\log\mathbb E e^{\theta U_l}\le2V^2\theta^2\) for \(|\theta|V\le1/2\). Independence, exponential Markov, and optimization with \(\theta=\min(t/(4V^2),1/(2V))\) yield \(\mathbb P\left(\left|{1\over N}\sum_{l=1}^NU_l\right|>t\right)\le2\exp[-bN\min(t^2/V^2,t/V)]\) for an absolute \(b>0\) \eqref{eq:profiled_scalar_bernstein}. The same proof applies to independent variables with different laws and the same moment bound. Consequently, for any fixed confidence exponent \(c>0\), constants \(C,N_0>0\) can be chosen so that deviations \(C\sqrt{\log p/N}\) in at most \(p^2\) or \(pq\) coordinates fail with probability at most \(p^{-c}/20\), whenever \(N\ge N_0\log p\). Since \(q\) is fixed, its factor in the union bound is absorbed by the choice of \(C,N_0\), not by changing \(c\) silently. For a normalization \(D=0\) the corresponding random variable is identically zero and its deviation bound is deterministic. Apply \eqref{eq:profiled_scalar_bernstein} to \(X_{li}X_{lj}-\mathbb E[X_iX_j]\) and take a union over \(p^2\) entries. The four terms in \(X_iX_j=(f(H)_i+E_i)(f(H)_j+E_j)\) satisfy the uniform moment bound, or use directly the sub-Gaussian bound for \(X_i\). In particular the covariance term for the \(N\times p\) sample matrix \(f(H)\) is \(f(H)^\top f(H)\), not \(f(H)^\top H\); the latter uses the \(N\times q\) sample matrix \(H\) and has different dimensions.
+      Bibliography: supp
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+
+      Source extraction from D1, supplement `supp.tex`, subsection “Lemmas for Theorem 1”, paragraph “Uniform concentration argument” (immediately preceding Lemma `lem:error_sample_covariance1`). The supplement is the Supplementary Material for the main article “Deconfounding via Profiled Transfer Learning” by Ziyuan Chen, Yifan Jiang, Jingyuan Liu, and Fang Yao; supplement authors are not supplied.
+
+      The paragraph contains three directly relevant source statements:
+
+      - the uniform product-moment bound for centered coordinate products;
+      - the scalar Bernstein inequality labeled `eq:profiled_scalar_bernstein`;
+      - the union-bound consequence over at most \(p^2\) or \(pq\) coordinates.
+
+      These respectively support the moment verification for centered coordinate products, the scalar concentration step, and the union over \(p^2\) entries with constants \(C_x,N_x\) in the current target. The source gives a derivation sketch for the scalar inequality; that proof is not reproduced here. No external article theorem number, page, or separate bibliography entry for this scalar inequality is supplied.
+
+      ##### Equation eq:profiled_scalar_bernstein (scalar Bernstein inequality)
+
+      ###### Definitions and notation
+      \(N\) is a positive integer. \(U_1,\dots,U_N\) are real-valued random variables, \(\mathbb E\) denotes expectation, and \(V>0\) is the constant appearing in the moment bound. The integer \(r\) ranges over \(r\ge2\). The parameters satisfy \(\theta,t\in\mathbb R\), and \(b>0\) is an absolute constant. The inequality is labeled
+      \[
+      \eqref{eq:profiled_scalar_bernstein}.
+      \]
+
+      ###### Assumptions
+      The variables \(U_1,\dots,U_N\) are independent and centered. There is a fixed \(V>0\) such that
+      \[
+      \mathbb E|U_l|^r\le r!V^r
+      \]
+      for every integer \(r\ge2\) and every \(l=1,\dots,N\). The variables need not have the same law: the source states that the same proof applies to independent variables with different laws and the same moment bound.
+
+      ###### Statement
+      For \(N\) independent centered variables \(U_l\) with
+      \[
+      \mathbb E|U_l|^r\le r!V^r
+      \qquad (r\ge2),
+      \]
+      expanding the exponential series gives
+      \[
+      \log\mathbb E e^{\theta U_l}\le 2V^2\theta^2
+      \qquad\text{for }|\theta|V\le \frac12.
+      \]
+      Independence, exponential Markov, and optimization with
+      \[
+      \theta=\min\left(\frac{t}{4V^2},\frac{1}{2V}\right)
+      \]
+      yield
+      \[
+      \mathbb P\left(\left|\frac1N\sum_{l=1}^N U_l\right|>t\right)
+      \le 2\exp\!\left[-bN\min\left(\frac{t^2}{V^2},\frac{t}{V}\right)\right]
+      \]
+      for an absolute \(b>0\). The same proof applies to independent variables with different laws and the same moment bound.
+
+      ##### Uniform product-moment bound
+
+      ###### Definitions and notation
+      The statement concerns centered products of two coordinates among the random quantities \(E,H,f(H),X,\varepsilon\) appearing in the source’s uniform sub-Gaussian setup. A centered product of coordinates \(A,B\) means
+      \[
+      AB-\mathbb E[AB].
+      \]
+      The symbol \(L^r\) denotes the usual \(L^r\)-norm. The constant \(V>0\) is fixed and depends only on the uniform sub-Gaussian bounds. The integer \(r\) satisfies \(r\ge2\). For a deterministic vector \(u\), \(D\ge0\) is such that \(\|u\|_1\le D\), where \(\|\cdot\|_1\) is the \(\ell_1\)-norm.
+
+      ###### Assumptions
+      The coordinates among \(E,H,f(H),X,\varepsilon\) satisfy the uniform sub-Gaussian bounds from the source’s Assumption 1 setup. No independence between the two factors in a single product is required.
+
+      ###### Statement
+      There is a fixed \(V>0\), depending only on the uniform sub-Gaussian bounds, such that for every integer \(r\ge2\), any centered product of two coordinates among \(E,H,f(H),X,\varepsilon\) has \(r\)-th moment bounded by
+      \[
+      r!V^r
+      \]
+      (enlarging \(V\) if necessary). For deterministic \(u\) with \(\|u\|_1\le D\), the same bound for a linear combination of such centered products is
+      \[
+      r!(VD)^r.
+      \]
+      The argument requires no independence between the two factors in a single product.
+
+      ##### Union-bound consequence over at most \(p^2\) or \(pq\) coordinates
+
+      ###### Definitions and notation
+      \(p,q\) are positive integers, and \(q\) is fixed. \(c>0\) is a fixed confidence exponent. \(N\) is the sample size, and \(C,N_0>0\) are constants. The statement concerns simultaneous deviation bounds in at most \(p^2\) or \(pq\) scalar coordinates. The base of \(\log p\) is not specified in the source and is absorbed into constants.
+
+      ###### Assumptions
+      Each coordinate is a scalar average of the form
+      \[
+      \frac1N\sum_{l=1}^N U_l
+      \]
+      of independent centered variables satisfying the moment bound of the scalar Bernstein result, with the same moment bound allowed for variables having different laws. The exponent \(c>0\) is fixed before choosing \(C,N_0\). The factor \(q\) corresponds to a fixed quantity and is absorbed into the choice of constants.
+
+      ###### Statement
+      For any fixed confidence exponent \(c>0\), constants \(C,N_0>0\) can be chosen so that deviations
+      \[
+      C\sqrt{\frac{\log p}{N}}
+      \]
+      in at most \(p^2\) or \(pq\) coordinates fail with probability at most
+      \[
+      \frac{p^{-c}}{20},
+      \]
+      whenever
+      \[
+      N\ge N_0\log p.
+      \]
+      Since \(q\) is fixed, its factor in the union bound is absorbed by the choice of \(C,N_0\), not by changing \(c\) silently.
+    lean_name: paper_4a6904a098fa4fcebf3058bbb4e15c0e
+    lean_namespace: Statlib.Imported
+    layer: formalization
+    priority: 3
+    dependencies: []
+    notes: generated from a persisted ordinary goal; no attack-DAG dependency semantics
+source_document: supp.tex

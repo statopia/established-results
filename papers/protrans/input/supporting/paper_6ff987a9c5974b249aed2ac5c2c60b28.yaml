@@ -1,0 +1,75 @@
+version: v1
+theorem_set: paper-proof-group
+source_tag: document-processing
+theorems:
+  - id: entry:selected:d326af1b-ccca-4b92-b755-a27852c4925b
+    title: paper_6ff987a9c5974b249aed2ac5c2c60b28
+    kind: lemma
+    latex_statement: |-
+      Let \(f:\mathbb R^q\to\mathbb R^p\). For \(N\) rows, let \(H\in\mathbb R^{N\times q}\), \(E\in\mathbb R^{N\times p}\), and \(X=f(H)+E\) rowwise. The rows \((E_i,H_i)\) are independent with the common joint law specified in Assumption 1.a. Since \(\mathbb E[EH^\top]=0\),
+      \[
+      M_f=M=\mathbb E[XH^\top]=\mathbb E[f(H)H^\top].
+      \]
+      For a matrix \(B\),
+      \[
+      \|B\|_{2,\infty}=\max_j\|B_{j,:}\|_2.
+      \]
+      The constants \(C_H,N_H\) depend on the fixed sub-Gaussian parameter \(L\) and on \(c\).
+
+      The lemma is applied to the target rows with \(N=n_t\) and to the pooled source rows with \(N=n_s\); the pooled source rows are independent and have the common law under Assumption 1.a.
+
+      <!-- formalization-clarifications:v1:c2aa14628a9f0f1c580358556f885b4d04c2a3993c7f1832bc8bd7f01d909964 -->
+      Formalization clarifications from source and proof:
+      1. Constants and quantifier order. The target theorem’s own definitions say “The constants \(C_H,N_H\) depend on the fixed sub-Gaussian parameter \(L\) and on \(c\).” The intended order is: \(p\ge2\) and \(q\ge1\) are fixed; then for every requested \(c>0\) one chooses strictly positive \(C_H,N_H\); then the two bounds hold simultaneously, with probability at least \(1-p^{-c}/20\), for every \(N\ge N_H\log p\) and every sample of \(N\) independent common-law rows satisfying Assumption 1.a. The preliminary phrase “Let \(N\) be a positive integer” in the statement should not be read as allowing \(C_H\) or \(N_H\) to depend on \(N\); the lemma wording and the threshold \(N_H\log p\) indicate that \(N\) is the variable sample size after the constants are fixed. The constants are uniform over the realized rows, the sample matrices, \(N\), and \(M_f\); they may depend on \(c\) and \(L\), and under the paper’s “Convention for quantitative constants” they may also depend on the fixed confounder dimension \(q\) and fixed distributional bounds. The target definition explicitly names only \(L\) and \(c\); the proof says that because \(q\) is fixed, its factor in the union bound is absorbed by \(C_H,N_H\). Thus exact \(q\)-dependence is not fully spelled out, but \(q\) fixed may enter; no dependence on the sample size, realized random vectors, matrices, event sets, or confidence level after \(c\) is licensed. The scalar Bernstein bound has an absolute \(b>0\), while the proof’s moment constant \(V\) depends only on the uniform sub-Gaussian bounds; these are proof ingredients, not new hypotheses in the theorem. The failure probability is exactly \(p^{-c}/20\) in the target lemma, not \(p^{-c}\), unless an additional union argument is explicitly made.
+
+      2. Norms and mathematical objects. The only norm used in the statement is the row-max Euclidean norm: “\(\|B\|_{2,\infty}=\max_j\|B_{j,:}\|_2\).” Thus for \(B\in\mathbb R^{p\times q}\), one takes the ordinary, unscaled Euclidean \(\ell_2\) norm of each row across the \(q\) columns and then the maximum over the \(p\) rows. It is not the sup norm of entries, not the operator \(2\)-norm, not the Frobenius norm, not a normalized row norm, and the \(N\)-normalization appears only in the matrices \(f(H)^\top H/N\) and \(E^\top H/N\). Here \(H\in\mathbb R^{N\times q}\), \(E\in\mathbb R^{N\times p}\), \(f(H)\in\mathbb R^{N\times p}\) rowwise, \(X=f(H)+E\), and \(M_f=\mathbb E[f(H)H^\top]\in\mathbb R^{p\times q}\), with \(\mathbb E[EH^\top]=0\) giving \(M_f=\mathbb E[XH^\top]\). The proof uses the inequality “Euclidean row norm is at most \(\sqrt q\) times its maximum absolute entry”; that is an inequality with an explicit \(\sqrt q\) factor, not an identification with the max-entry norm. Do not replace \(f(H)^\top H\) by \(f(H)^\top f(H)\), nor by \(X^\top H\), as the source explicitly notes the covariance matrix of \(f(H)\) would be \(f(H)^\top f(H)\) and has a different meaning. Do not impose linearity \(f(H)=H\Psi\), isotropy, trim transforms, or independence of \(E\) and \(H\); Assumption 1.a only gives the centered sub-Gaussian bounds and \(\mathbb E[EH^\top]=0\), and says “Independence of \(E\) and \(H\) is not required.”
+
+      3. Asymptotics and probability notation. The selected theorem is finite-sample; it uses no \(O\), \(o\), \(O_p\), \(o_p\), or asymptotic filter. Its exact claim is the threshold \(N\ge N_H\log p\) and the probability bound \(1-p^{-c}/20\), with the quantitative rate \(C_H\sqrt{q\log p/N}\). The power \(c\) is a requested confidence exponent, not a sample-size rate; \(c\) is fixed before choosing \(C_H,N_H\), and the constants are not claimed uniform in \(c\). The selected statement fixes \(p,q\); do not silently convert it into a limit as \(p\to\infty\) or add comparability assumptions such as \(n_s\gg n_t\). When the lemma is applied to target rows with \(N=n_t\) and to pooled source rows with \(N=n_s\), each application requires its own threshold \(N\ge N_H\log p\); the selected theorem’s \(1-p^{-c}/20\) covers its two displayed bounds for one such sample. A simultaneous event for both target and source applications would require the usual union-bound accounting, as in the supplementary high-probability set proof, not an automatic identification of probabilities. The surrounding supplementary material explicitly says, in the proof of Theorem 1, “No asymptotic \(o(a_t)\) term or unspecified relation \(n_s\gg n_t\) is used,” which confirms that such asymptotic relations should not be imported into this concentration lemma. The proof also warns that the maximum event is handled by an event inclusion: “This is an event inclusion over the maximum of the entries, not an identification of the probability of a maximum with the maximum of the individual probabilities.”
+
+      4. Omitted definitions and side conditions. Assumption 1.a supplies all the regularity used: target and source rows are independent; the pairs \((E,H)\) have the same joint distribution in every domain; the same function \(f\) is used; coordinates of \(E,H,f(H)\) are centered and have sub-Gaussian norms at most fixed \(L\); \(\mathbb E[EH^\top]=0\); and independence of \(E\) and \(H\) is not required. The sample matrices are defined rowwise, and \(f(H)\) means applying \(f\) to each row of \(H\). The probability is over the independent rows under the common joint law; the index sets are \(j=1,\dots,p\) for the row coordinate of the \(2,\infty\)-norm and \(l=1,\dots,q\) for the column coordinate. In the proof, the centered scalar entries are \(f(H)_jH_l-\mathbb E[f(H)_jH_l]\) and \(E_jH_l-\mathbb E[E_jH_l]=E_jH_l\); the latter centering uses the matrix identity \(\mathbb E[EH^\top]=0\), not independence. The selected assumption does not mention the pure noise \(\varepsilon\), RE events, initial-estimator events, trim transforms, source selection, or eigenspace conditions; those belong to broader theorems and must not be added to this lemma. The excerpt also does not specify the precise sub-Gaussian norm convention nor the base of \(\log\); the proof only relies on the existence of a fixed \(V\) giving \(r!V^r\) moment bounds from the uniform sub-Gaussian assumption, so those textual conventions are unresolved in the selected source. Finally, this selected theorem/proof cites no named external theorem; its scalar Bernstein bound is the internal supplementary equation \(\eqref{eq:profiled_scalar_bernstein}\), owned by the “Uniform concentration argument” and the lemmas there, and the proof of Lemma “error_sample_covariance2” supplies the same norm-and-union argument.
+      <!-- /formalization-clarifications -->
+
+      Let \(p\ge2\) and \(q\ge1\) be fixed. Let \(N\) be a positive integer. Under Assumption 1.a, put \(M_f=\mathbb E[f(H)H^\top]\). For every \(c>0\) there exist constants \(C_H,N_H>0\) such that for \(N\ge N_H\log p\) independent common-law rows \((E_i,H_i)\), writing \(H\in\mathbb R^{N\times q}\), \(E\in\mathbb R^{N\times p}\), and \(f(H)\in\mathbb R^{N\times p}\) for the corresponding sample matrices, one has simultaneously
+      \[
+      \|f(H)^\top H/N-M_f\|_{2,\infty}\le C_H\sqrt{q\log p/N}
+      \]
+      and
+      \[
+      \|E^\top H/N\|_{2,\infty}\le C_H\sqrt{q\log p/N},
+      \]
+      with probability at least \(1-p^{-c}/20\).
+    assumptions:
+      - "Assumption 1.a: all target and source rows are mutually independent; the pairs \\((E,H)\\) have the same joint distribution in every domain; the same \\(f\\) is used in \\(X=f(H)+E\\); the coordinates of \\(E,H,f(H)\\) are centered with sub-Gaussian norms at most a fixed \\(L\\); \\(\\mathbb E[EH^\\top]=0\\); independence of \\(E\\) and \\(H\\) is not required."
+    proof_body: |-
+      Under Assumption 1.a, the uniform concentration argument preceding the lemmas gives a fixed \(V>0\), depending only on the uniform sub-Gaussian bounds, such that every centered product of two coordinates among \(E,H,f(H),X,\varepsilon\) has \(L^r\)-moments bounded by \(r!V^r\) for all integers \(r\ge2\), uniformly over coordinates and domains. This uses centering and Cauchy–Schwarz and does not require independence between the two factors in a single product. By the scalar Bernstein bound \eqref{eq:profiled_scalar_bernstein}, for \(N\) independent centered variables satisfying this common moment bound, coordinatewise deviations are controlled with probability exponentially small.
+
+      Apply this to the \(2pq\) scalar entries
+      \[
+       f(H)_jH_l-\mathbb E[f(H)_jH_l]
+       \quad\text{and}\quad
+       E_jH_l-\mathbb E[E_jH_l]=E_jH_l,
+      \]
+      where the latter are centered because \(\mathbb E[EH^\top]=0\). For the fixed \(c>0\), choose \(C_H,N_H>0\) sufficiently large and then take \(N\ge N_H\log p\). A union bound over the \(2pq\) entries gives, with probability at least \(1-p^{-c}/20\),
+      \[
+       \max_{j,l}\left|\frac1N (f(H)^\top H)_{j,l}-(M_f)_{j,l}\right|
+       \le C_H\sqrt{\frac{\log p}{N}},
+       \qquad
+       \max_{j,l}\left|\frac1N (E^\top H)_{j,l}\right|
+       \le C_H\sqrt{\frac{\log p}{N}}.
+      \]
+      For any row vector in \(\mathbb R^q\), the Euclidean row norm is at most \(\sqrt q\) times its maximum absolute entry. Hence
+      \[
+       \left\|f(H)^\top H/N-M_f\right\|_{2,\infty}
+       \le C_H\sqrt{\frac{q\log p}{N}},
+       \qquad
+       \left\|E^\top H/N\right\|_{2,\infty}
+       \le C_H\sqrt{\frac{q\log p}{N}}.
+      \]
+      This is an event inclusion over the maximum of the entries, not an identification of the probability of a maximum with the maximum of the individual probabilities. Therefore the desired simultaneous bounds hold with probability at least \(1-p^{-c}/20\).
+    lean_name: paper_6ff987a9c5974b249aed2ac5c2c60b28
+    lean_namespace: Statlib.Imported
+    layer: formalization
+    priority: 3
+    dependencies: []
+    notes: generated from a persisted ordinary goal; no attack-DAG dependency semantics
+source_document: supp.tex

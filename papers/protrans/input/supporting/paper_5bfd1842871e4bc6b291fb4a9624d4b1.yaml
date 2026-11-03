@@ -1,0 +1,70 @@
+version: v1
+theorem_set: paper-proof-group
+source_tag: document-processing
+theorems:
+  - id: entry:selected:32feb22c-7665-4657-80bf-a01e7fd1d7f0
+    title: paper_5bfd1842871e4bc6b291fb4a9624d4b1
+    kind: lemma
+    latex_statement: |-
+      For a matrix, \(\|\cdot\|_\infty\) denotes the largest absolute entry; for a vector it is the usual maximum norm. We write
+      \[
+      X=f(H)+E,
+      \]
+      where \(f(H)\) and \(E\) are the \(N\times p\) matrices built row by row, and \(\varepsilon\) is the \(N\)-vector of centered noise terms. The constants \(C_\varepsilon,N_\varepsilon\) in the theorem depend on \(L,L_\varepsilon\), and \(c\).
+
+      <!-- formalization-clarifications:v1:1204d80d38ff4b994c7f81e5ea03ecdb4d8bc369fa3828a2273728eb6115849a -->
+      Formalization clarifications from source and proof:
+      1. For the Target theorem and its Supplementary restatement Lemma error_noise, the explicit order is: fix \(p\ge2\) and \(q\ge1\) (“Let \(p\ge2\) and \(q\ge1\) be fixed”); impose Assumptions 1.a–b; fix the desired confidence exponent \(c>0\); then choose \(C_\varepsilon,N_\varepsilon>0\); then require \(N\ge N_\varepsilon\log p\) independent rows. Thus \(c\) is chosen before \(C_\varepsilon,N_\varepsilon\), and \(N\) is a later sample-size variable. The Target theorem says explicitly that “The constants \(C_\varepsilon,N_\varepsilon\) … depend on \(L,L_\varepsilon\), and \(c\).” The proof adds that the constants “use \(L\) and \(L_\varepsilon\) and do not divide by \(\sigma\),” so dependence on \(\sigma\), including behaviour as \(\sigma\downarrow0\), must not be introduced. They also must not depend on \(N\), the observed rows, \(X,H,E,\varepsilon\), or the particular target/source application. The paper’s constant convention (main.tex, “Convention for quantitative constants”; supp.tex, “Quantitative constant convention”) allows dependence on explicitly fixed parameters and fixed confounder dimension \(q\), and forbids silent dependence on sample sizes or dimensions. The selected sentence does not list \(q\), so a \(q\)-dependence is compatible with the global convention but not stated in the selected theorem itself. Since \(p\) is fixed before \(c\), a literal Lean parameter \(p\) may make constants depend on \(p\), but the source does not advertise uniformity in \(p\); the safest reading is that no unlisted \(p\)-uniformity is promised, and any \(p\)-dependence beyond the stated fixed setting is not an explicit source fact. The same constants are asserted to “work for both target and pooled source rows,” which is an additional uniformity internal to this result, not a hypothesis imported from an external theorem.
+
+      2. The norm is explicit in the “Definitions and notation”: for a matrix, \(\|\cdot\|_\infty\) is the largest absolute entry; for a vector it is the usual maximum norm. In the selected event \(\|X^\top\varepsilon/N\|_\infty\), the object \(X^\top\varepsilon/N\) is a \(p\)-vector, so the norm is \(\max_{1\le j\le p}|N^{-1}\sum_{\ell=1}^N X_{\ell j}\varepsilon_\ell|\). It is not the Euclidean \(l_2\), \(l_1\), operator, Frobenius, or a normalized-by-\(\sqrt p\) norm; there is no maximum over \(N\), no square on the whole norm, and the normalization is exactly by \(N\), with right-hand side \(C_\varepsilon\sqrt{\log p/N}\). The ambient arrays are \(X\in\mathbb R^{N\times p}\), \(\varepsilon\in\mathbb R^N\), \(H\in\mathbb R^{N\times q}\), and \(E,f(H)\in\mathbb R^{N\times p}\), with \(X=f(H)+E\) row by row. Keep the source-defined object \(X\), not \(f(H)\) alone, \(E\) alone, \(X^\top X/N\), \(f(H)^\top H/N\), or any trimmed matrix; the selected result concerns the full design \(X\) multiplied by the corresponding noise vector. For the pooled-source version, \(X,\varepsilon\) are the stacked pooled source design and noise with total row count \(N\); the source does not replace these by per-source averages.
+
+      3. The selected result is non-asymptotic and contains no \(O\), \(o\), \(O_p\), \(o_p\), or comparable “with high probability” shorthand. Its exact quantitative meaning is the event
+      \[
+      \|X^\top\varepsilon/N\|_\infty\le C_\varepsilon\sqrt{\log p/N}
+      \]
+      with probability at least \(1-p^{-c}/20\), for all \(N\ge N_\varepsilon\log p\). The confidence exponent \(c\) is fixed first, then constants are chosen; \(p,q\) are fixed in the selected statement; \(N\) is the increasing sample-size threshold variable. The failure probability is specifically \(p^{-c}/20\), not merely \(p^{-c}\), in the selected lemma. The proof-level scalar Bernstein step is quantitative: the “Uniform concentration argument” in supp.tex gives a fixed \(V>0\) depending only on the uniform sub-Gaussian bounds and a scalar bound \(2\exp[-bN\min(t^2/V^2,t/V)]\); choosing \(C_\varepsilon,N_\varepsilon\) and a union over \(p\) coordinates yields the stated \(p^{-c}/20\) failure. This Bernstein phrase is proof-based, not an additional hypothesis. The source also says \(q\) is fixed and, in union-bound contexts, its factor is absorbed by the choice of constants rather than changing \(c\) silently; for the selected Lemma error_noise itself the event only shows a \(p\)-coordinate union. The proof’s statement that the constants do not divide by \(\sigma\) is explicit there and rules out interpreting the bound as requiring \(\sigma>0\).
+
+      4. The probability space is over independent rows under Assumptions 1.a–b. Explicit side conditions include: all target and source sample rows mutually independent; the pairs \((E,H)\) have the same joint distribution in every domain and the same \(f\) is used; coordinates of \(E,H,f(H)\) are centered with sub-Gaussian norm at most fixed \(L\); \(\mathbb E[EH^\top]=0\); independence of \(E\) and \(H\) “is not required”; centered noise terms are independent of the corresponding \((E,H)\), have common variance \(\sigma^2\ge0\), and sub-Gaussian norm at most fixed \(L_\varepsilon\); coefficients are deterministic. The proof derives \(\mathbb E[X_j\varepsilon]=0\) from noise independence from \((E,H)\) and zero mean; this is a proof-based consequence, not an extra hypothesis. The selected proof treats the summands as independent centered variables; the original “Uniform concentration argument” says the scalar bound applies to independent variables with different laws and a common moment bound, so no identical noise-law assumption should be added beyond what is explicitly stated. The exact definition of the sub-Gaussian norm is not given in the selected excerpt; only the fixed bounds \(L,L_\varepsilon\) and the resulting common moment bound matter, so the precise equivalent norm convention is left unspecified. For \(\sigma=0\), the Target theorem proof explicitly says the noise vector is zero and the bound is deterministic. Events are indexed by coordinates \(j=1,\ldots,p\); no sparsity, restricted-eigenvalue, trim-transform, source-group \(K\), \(n_s^{(k)}\), or \(w_k\) notation from the broader Theorem 1 and later results belongs to this selected Lemma error_noise. In particular, do not replace the selected noise cross-product by the trimmed-source version appearing in supp.tex Lemma trimed_noise_error; that is a separate result with its own hypotheses. The selected result cites no external theorem; the scalar Bernstein bound is an internal proof tool, and the “same constants work for target and pooled source rows” is part of the stated result rather than a restriction of an external universal theorem.
+      <!-- /formalization-clarifications -->
+
+      Let \(p\ge2\) and \(q\ge1\) be fixed. Under Assumptions 1.a–b, for every \(c>0\) there exist constants \(C_\varepsilon,N_\varepsilon>0\) such that for \(N\ge N_\varepsilon\log p\) independent rows, writing \(X\in\mathbb R^{N\times p}\) for the corresponding design matrix and \(\varepsilon\in\mathbb R^N\) for the corresponding centered noise vector,
+      \[
+      \mathbb P(\|X^\top\varepsilon/N\|_\infty\le C_\varepsilon\sqrt{\log p/N})\ge1-p^{-c}/20.
+      \]
+      These constants work for both target and pooled source rows, including the case of zero noise variance.
+    assumptions:
+      - |-
+        Assumptions 1.a–b give independent rows, sub-Gaussian covariates and noise, and independence of the noise from the corresponding \((E,H)\).
+
+        Assumption 1.a: all target and source rows are mutually independent; pairs \((E,H)\) have the same joint distribution in every domain; the same \(f\) is used in \(X=f(H)+E\); coordinates of \(E,H,f(H)\) are centered with sub-Gaussian norms at most fixed \(L\); \(\mathbb E[EH^\top]=0\); independence of \(E\) and \(H\) is not required.
+
+        Assumption 1.b: centered noise terms are independent of the corresponding \((E,H)\), have common variance \(\sigma^2\ge0\), and sub-Gaussian norm at most fixed \(L_\varepsilon\); coefficients are deterministic.
+    proof_body: |-
+      Under Assumptions 1.a–b, for each coordinate \(j\), independence of \(\varepsilon\) from \((E,H)\) and the zero mean of \(\varepsilon\) imply
+      \[
+      \mathbb E[X_j\varepsilon]=0.
+      \]
+      Products of sub-Gaussian variables satisfy the common moment bound from the uniform concentration argument, so the centered scalar variables \(X_{lj}\varepsilon_l-\mathbb E[X_{lj}\varepsilon_l]=X_{lj}\varepsilon_l\) satisfy the hypotheses of the scalar Bernstein bound
+      \[
+      \mathbb P\left(\left|\frac1N\sum_{l=1}^N U_l\right|>t\right)
+      \le 2\exp\!\left[-bN\min\!\left(\frac{t^2}{V^2},\frac{t}{V}\right)\right],
+      \]
+      with constants depending only on the fixed sub-Gaussian bounds. Applying this bound to
+      \[
+      \left\|\frac1N X^\top \varepsilon\right\|_\infty
+      =\max_{1\le j\le p}\left|\frac1N\sum_{l=1}^N X_{lj}\varepsilon_l\right|
+      \]
+      and taking a union over the \(p\) coordinates gives, after choosing \(C_\varepsilon,N_\varepsilon>0\) sufficiently large,
+      \[
+      \mathbb P\left(\left\|\frac{X^\top\varepsilon}{N}\right\|_\infty
+      \le C_\varepsilon\sqrt{\frac{\log p}{N}}\right)
+      \ge 1-\frac{p^{-c}}{20}
+      \]
+      for all \(N\ge N_\varepsilon\log p\). The constants use \(L\) and \(L_\varepsilon\) and do not divide by \(\sigma\), so the case \(\sigma=0\) causes no singularity; in that case the noise vector is zero and the bound is deterministic. The same argument applies to the target rows and to the pooled source rows because it only uses independent rows and the uniform sub-Gaussian moment bounds.
+    lean_name: paper_5bfd1842871e4bc6b291fb4a9624d4b1
+    lean_namespace: Statlib.Imported
+    layer: formalization
+    priority: 3
+    dependencies: []
+    notes: generated from a persisted ordinary goal; no attack-DAG dependency semantics
+source_document: supp.tex

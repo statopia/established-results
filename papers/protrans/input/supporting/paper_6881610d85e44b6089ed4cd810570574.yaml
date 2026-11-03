@@ -1,0 +1,56 @@
+version: v1
+theorem_set: paper-proof-group
+source_tag: document-processing
+theorems:
+  - id: entry:selected:91e09686-bb65-4994-bd01-3dc2de367cd2
+    title: paper_6881610d85e44b6089ed4cd810570574
+    kind: lemma
+    latex_statement: |-
+      For \(r\ge2\), \(L^r\)-moment means \(\mathbb E|\cdot|^r\). The source considers centered products of two coordinates among \(E,H,f(H),X,\varepsilon\) under the uniform sub-Gaussian bounds from the surrounding context. The constant \(V>0\) depends only on those bounds and may be enlarged. For the linear-combination bound, \(u\) is deterministic and \(D\ge0\) satisfies \(\|u\|_1\le D\). No independence between the two factors in a single product is required.
+
+      <!-- formalization-clarifications:v1:5e1da9524073b60c351e50036ec56f732434943a19e777628374c532e081362e -->
+      Formalization clarifications from source and proof:
+      For the selected moment statement, the owner is the “Uniform concentration argument” in supp.tex, restated as the target theorem; its proof is the only source evidence for the intermediate bounds, while main.tex supplies the surrounding Assumption 1 and constant convention.
+
+      1. Constants and quantifier order. Explicitly, main.tex’s “Convention for quantitative constants” says upper-bound multipliers, sample-size thresholds, and probability-decay exponents are strictly positive unless stated otherwise, are chosen before the sample sizes and dimensions to which the bound is applied, and may depend on fixed distributional bounds, the fixed confounder dimension, and the requested confidence exponent. The selected moment statement is narrower: it says there is a fixed \(V>0\) “depending only on the uniform sub-Gaussian bounds,” after enlarging if necessary. In the surrounding Assumption 1.a–b, this means \(V\) may depend on the fixed coordinate sub-Gaussian bounds \(L\) for \(E,H,f(H)\) and \(L_\varepsilon\) for \(\varepsilon\), together with absolute constants; it must not depend on \(r\), the chosen coordinate pair/product, the particular distribution beyond the uniform bounds, sample sizes, row index, \(K\), \(u\), \(D\), the linear-combination index set, the event \(\mathcal G\), or the desired conclusion. The source does not explicitly list \(q\) as an allowed dependency in this selected lemma; because main.tex fixes \(q\) but the selected lemma says “only” the sub-Gaussian bounds, making \(V\) depend on \(q\) for this lemma would be an extra assumption. Do not choose \(V\) separately for different \(r\): one enlarged \(V\) must work for every \(r\ge2\) and every allowed centered product. For the linear-combination bound, the intended order is: first the same universal \(V\), then a deterministic \(u\) and deterministic \(D\ge0\) with \(\|u\|_1\le D\), and then all integers \(r\ge2\), with bound \(r!(VD)^r\). Thus \(V\) is uniform over \(u,D\), while dependence on the bound \(D\) appears exactly through the multiplier \(D^r\). The source labels \(u\) deterministic and writes “deterministic \(u\) with \(\|u\|_1\le D\)”; it does not provide a random-\(D\) version, so a random \(D\) is unspecified and should not be introduced silently. The proof’s quantities \(B\) and \(B'\) and the step \((B'r)^r\le r!V^r\) are proof-based existence steps, not definitions or exact constants.
+
+      2. Norms and mathematical objects. The selected bound is an ordinary scalar \(L^r\)-moment, \(\mathbb E|\cdot|^r\), for integer \(r\ge2\), with no normalization. “Centered product” means the product of two chosen coordinate random variables minus its expectation; the proof says “applying Cauchy–Schwarz to a product and then centering,” so it is not the product of already-centered factors and not the uncentered product. The only norm in the linear-combination hypothesis is the vector \(\ell_1\)-norm \(\|u\|_1=\sum_i|u_i|\); \(D\) is a deterministic nonnegative upper bound on this norm. The source does not support replacing \(\|u\|_1\) by \(\|u\|_2\), \(\|u\|_\infty\), an operator norm, or a Frobenius norm. The ambient objects from main.tex are \(H\in\mathbb R^q\), \(E,f(H),X\in\mathbb R^p\), and scalar noise \(\varepsilon\in\mathbb R\), with \(p\ge2\), \(q\ge1\) fixed in the stated Assumption 1, though \(p\) may vary in the high-dimensional application. Products are coordinatewise scalar products among those objects; no matrix product, covariance entry, or outer product is implied unless separately defined. The linear combination is a deterministic-coefficient combination of centered coordinate products, controlled by the triangle inequality in \(L^r\); this does not require independence between the two factors in a product or independence among summands. The source explicitly says this argument “requires no independence between the two factors in a single product.” The exact coordinate index set for the phrase “among \(E,H,f(H),X,\varepsilon\)” is not enumerated in the selected text; the surrounding lemmas use products such as \(X_iX_j\), \(X_j\varepsilon\), \(f(H)_jH_l\), and \(E_jH_l\), so repeated coordinates from the same vector are used, while whether \(\varepsilon\) paired with itself is intended is not explicitly specified.
+
+      3. Asymptotics and probability variants. The selected moment inequality is non-asymptotic and deterministic: no \(O\), \(o\), probability statement, or limiting filter appears in it. The later scalar Bernstein step in the same “Uniform concentration argument” is separate: for \(N\) independent centered variables \(U_l\) satisfying \(\mathbb E|U_l|^r\le r!V^r\), it gives
+      \[
+      \mathbb P\bigl(|N^{-1}\sum_l U_l|>t\bigr)\le 2\exp[-bN\min(t^2/V^2,t/V)]
+      \]
+      for an absolute \(b>0\). The source then says that for any fixed confidence exponent \(c>0\), constants \(C,N_0>0\) can be chosen so that deviations \(C\sqrt{\log p/N}\) in at most \(p^2\) or \(pq\) coordinates fail with probability at most \(p^{-c}/20\), whenever \(N\ge N_0\log p\). Here \(c\) is fixed before choosing constants, and \(q\) is fixed; the source says the \(q\)-factor is absorbed by \(C,N_0\) and not by silently changing \(c\). These are finite-sample union-bound statements, not an \(o\)-calculus. The selected moment argument uses no unspecified \(n_s\gg n_t\) or \(o(a_t)\) term; such relations appear elsewhere in supp.tex, especially in minimax sections, and should not be imported into this lemma. The “same proof applies to independent variables with different laws and the same moment bound” remark concerns the scalar Bernstein step, not a weakening of the selected product-moment assumptions. If \(D=0\), the source notes in the concentration context that the corresponding normalized random variable is identically zero and the deviation bound is deterministic; for the purely \(\ell_1\)-linear combination, \(D=0\) forces \(u=0\) under the stated bound.
+
+      4. Omitted definitions and side conditions. Main.tex Assumption 1 supplies the surrounding meaning: target and source rows are independent; the pairs \((E,H)\) share a joint distribution across domains and the same \(f\) is used in \(X=f(H)+E\); coordinates of \(E,H,f(H)\) are centered with sub-Gaussian norm at most fixed \(L>0\) uniformly over coordinates and domains; \(\mathbb E[EH^\top]=0\); noise terms are centered, independent of their corresponding \((E,H)\), have common variance \(\sigma^2\ge0\), and sub-Gaussian norm at most fixed \(L_\varepsilon\); coefficients are deterministic. The selected moment proof itself uses only coordinate sub-Gaussian bounds, centering, Cauchy–Schwarz, and triangle inequality; it does not use row independence, independence between \(E\) and \(H\), \(\mathbb E[EH^\top]=0\), or the restricted-eigenvalue event. Those latter facts are needed elsewhere and should not be promoted into hypotheses of the moment lemma unless the source states them for that lemma. The selected result has no event such as \(\mathcal G\); the event \(\mathcal G\) and its probability \(1-p^{-c}\) occur later in the concentration argument and are not part of the moment statement. The exact numerical value of \(V\), the exact sub-Gaussian moment constant \(B\), and the exact proof constant \(B'\) are unspecified; only the existence and dependency of \(V\) are source facts. The source does not directly state a product-moment formula for heterogeneous row laws in the selected product lemma, although the coordinatewise proof suggests only uniform bounds matter; because the selected statement invokes “uniform sub-Gaussian bounds,” do not assume weaker pointwise bounds. No external cited result is used for this selected moment bound; later citations in supp.tex to Davis–Kahan-type or transfer-learning results belong to other lemmas and do not define, restrict, or replace this moment statement.
+      <!-- /formalization-clarifications -->
+
+      Under the uniform sub-Gaussian bounds on coordinates among \(E,H,f(H),X,\varepsilon\), there is a fixed constant \(V>0\), depending only on those uniform sub-Gaussian bounds, such that any centered product of two coordinates among \(E,H,f(H),X,\varepsilon\) has moments bounded by
+      \[
+      \mathbb E|\text{centered product}|^r\le r!V^r
+      \]
+      for all integers \(r\ge2\), after enlarging \(V\) if necessary. More explicitly, the sub-Gaussian tail bound gives coordinate \(L^r\)-moments at most \(B\sqrt r\); applying Cauchy–Schwarz to a product and then centering gives a bound of the form \((B'r)^r\le r!V^r\) after changing the constant. For deterministic \(u\) with \(\|u\|_1\le D\), the same bound for a linear combination of such centered products is \(r!(VD)^r\), by the triangle inequality in \(L^r\). This moment argument requires no independence between the two factors in a single product.
+    assumptions: []
+    proof_body: |-
+      There is a fixed \(V>0\), depending only on the uniform sub-Gaussian bounds, such that any centered product of two coordinates among \(E,H,f(H),X,\varepsilon\) has moments bounded by
+      \[
+      \mathbb E|\text{centered product}|^r\le r!V^r
+      \]
+      for all integers \(r\ge2\), after enlarging \(V\) if necessary.
+
+      Indeed, the sub-Gaussian tail bound gives coordinate moments at most \(B\sqrt r\) in \(L^r\). Applying Cauchy–Schwarz to a product and then centering gives a bound of the form
+      \[
+      (B'r)^r\le r!V^r
+      \]
+      after changing the constant. For deterministic \(u\) with \(\|u\|_1\le D\), the same bound for a linear combination of such centered products is
+      \[
+      r!(VD)^r,
+      \]
+      by the triangle inequality in \(L^r\). This argument requires no independence between the two factors in a single product.
+    lean_name: paper_6881610d85e44b6089ed4cd810570574
+    lean_namespace: Statlib.Imported
+    layer: formalization
+    priority: 3
+    dependencies: []
+    notes: generated from a persisted ordinary goal; no attack-DAG dependency semantics
+source_document: supp.tex

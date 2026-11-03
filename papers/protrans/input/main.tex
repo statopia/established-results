@@ -1,0 +1,1442 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{enumerate}
+% \usepackage{xurl}
+\usepackage{url} % not crucial - just used below for the URL 
+\usepackage{amsfonts,amsmath,verbatim,amssymb,epsfig,enumitem,amsbsy,enumitem,color,graphicx}
+% \usepackage{geometry}
+\usepackage{algorithm, algorithmic}
+\usepackage{bm,ulem,courier}
+\usepackage{subfigure}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{diagbox}
+%\pdfminorversion=4
+\usepackage[figuresright]{rotating}
+\usepackage{pdflscape}
+\usepackage{booktabs}
+\usepackage{bm}
+\usepackage{makecell}
+\usepackage{array}
+\usepackage{amsthm}
+\usepackage{makecell}
+\usepackage{natbib}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+% \setlength{\bibsep}{1pt}
+% \usepackage{authblk}
+\setcitestyle{maxcitenames=3, mincitenames=1}
+
+
+% NOTE: To produce blinded version, replace "0" with "1" below.
+\newcommand{\blind}{1}
+
+% DON'T change margins - should be 1 inch all around.
+\addtolength{\oddsidemargin}{-.5in}%
+\addtolength{\evensidemargin}{-1in}%
+\addtolength{\textwidth}{1in}%
+\addtolength{\textheight}{1.7in}%
+\addtolength{\topmargin}{-1in}%
+ 
+\def\references{\bibliography{reference}}
+%\bibliographystyle{rss}
+\renewcommand\refname{ \noindent \bf References \vspace{0.0in}}
+  %reduce spacing between bibitems with natbib package
+  \let\oldthebibliography=\thebibliography
+  \let\endoldthebibliography=\endthebibliography
+  \renewenvironment{thebibliography}[1]{
+    \begin{oldthebibliography}{#1}
+      \setlength{\parskip}{0ex}
+      \setlength{\itemsep}{0.ex}}
+  {\end{oldthebibliography}}
+
+\newcommand{\myvec}[1]%
+{\stackrel{\raisebox{-2pt}[0pt][0pt]{\tiny$\rightharpoonup$}}{#1}}
+
+\def\v{{\varepsilon}}
+% \def\red{\textcolor{black}}
+% \def\blue{\textcolor{blue}}
+% \def\gray{\textcolor{gray}}
+% \newcommand{\ziyuan}[1]{\textcolor{cyan}{(#1)}}
+
+\long\def\red#1{{\color{black}#1}}
+\long\def\blue#1{{\color{blue}#1}}
+
+% \def\old{\sout{\textcolor{blue}}}
+\makeatletter
+\newenvironment{breakablealgorithm}
+  {% \begin{breakablealgorithm}
+   \begin{center}
+     \refstepcounter{algorithm}% New algorithm
+     \hrule height.8pt depth0pt \kern2pt% \@fs@pre for \@fs@ruled 画线
+     \renewcommand{\caption}[2][\relax]{% Make a new \caption
+       {\raggedright\textbf{\ALG@name~\thealgorithm} ##2\par}%
+       \ifx\relax##1\relax % #1 is \relax
+         \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##2}%
+       \else % #1 is not \relax
+         \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##1}%
+       \fi
+       \kern2pt\hrule\kern2pt
+     }
+  }{% \end{breakablealgorithm}
+     \kern2pt\hrule\relax% \@fs@post for \@fs@ruled 画线
+   \end{center}
+  }
+\makeatother
+
+\newcommand{\relu}{\sigma}
+\makeatletter
+\newcommand*{\centerfloat}{%
+  \parindent \z@
+  \leftskip \z@ \@plus 1fil \@minus \marginparwidth
+  \rightskip \leftskip
+  \parfillskip \z@skip}
+\makeatother
+
+\newcommand{\oldchange}[1]{\textcolor{black}{#1}}
+
+\newcommand{\change}[1]{\textcolor{blue}{#1}}
+
+%\startlocaldefs
+%\numberwithin{equation}{section}
+%\theoremstyle{plain}
+%\newtheorem{theorem}{Theorem}%[section]
+%\newtheorem{assumption}{Assumption}
+%\renewcommand\proofname{Proof}
+%\renewcommand\contentsname{Contents}
+\renewcommand\refname{References}
+\renewcommand\figurename{Figure}
+\renewcommand\tablename{Table}
+\newtheorem{thm}{Theorem}
+\newtheorem{cor}{Corollary}
+\newtheorem{prop}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{assump}{Assumption}
+\newtheorem{remark}{Remark}
+\newtheorem{emp}{Example}
+
+\newtheorem{assumptionalt}{Assumption}
+\newenvironment{assumptionprime}[1]{
+  \renewcommand\theassumptionalt{#1}
+  \assumptionalt
+}{\endassumptionalt}
+% \def\argmin{\mathop{\rm argmin}}
+% \def\rank{\mathop{\rm rank}}
+% \def\bias{bias}
+% \def\myvec{\mathop{\rm vec}}
+% \def\Tr{\operatorname{Tr}}
+% \def\cost{\mathcal{C}}
+
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\newenvironment{pf}{{\noindent\it Proof}\ }{\hfill $\square$\par}
+%\endlocaldefs
+
+% \def\X{\bm{X}}
+% \def\Y{\bm{Y}}
+% \def\H{\bm{H}}
+% \def\E{\bm{E}}
+% \def\bvarepsilon{\bm{\varepsilon}}
+% \def\bPsi{\bm{\Psi}}
+
+% \usepackage{xr-hyper}
+
+% \makeatletter
+% \newcommand*{\addFileDependency}[1]{
+% \typeout{(#1)}
+% \@addtofilelist{#1}
+% \IfFileExists{#1}{}{\typeout{No file #1.}}
+% }
+% \makeatother
+% \makeatletter
+% \renewcommand\thefootnote{\fnsymbol{footnote}}
+% \makeatother
+% \newcommand*{\myexternaldocument}[1]{%
+% \externaldocument{#1}%
+% \addFileDependency{#1.tex}%
+% \addFileDependency{#1.aux}%
+% }
+% \myexternaldocument{}
+
+
+\begin{document}
+
+%\bibliographystyle{natbib}
+
+\def\spacingset#1{\renewcommand{\baselinestretch}%
+{#1}\small\normalsize} \spacingset{1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\if1\blind
+{
+  \title{\bf  Deconfounding via Profiled Transfer Learning}
+ \author{
+    Ziyuan Chen$^{1}$\footnotemark[2],
+    Yifan Jiang$^{2}$\footnotemark[2],
+    Jingyuan Liu$^{3}$\footnotemark[1],
+    Fang Yao$^{1}$ \\
+    \\
+    $^{1}$School of Mathematical Sciences, Center for Statistical Science,\\ Peking University, Beijing, China \\
+        $^{2}$Department of Statistics, Eberly College of Science,\\The Pennsylvania State University, State College, PA, United States\\
+    $^{3}$MOE Key Laboratory of Econometrics,\\ Department of Statistics and Data Science in School of Economics, \\Laboratory of Digital Finance, 
+Xiamen University, Xiamen, China 
+}
+\date{}
+\maketitle
+\footnotetext[2]{Ziyuan Chen and Yifan Jiang are co-first authors.}
+\footnotetext[1]{Jingyuan Liu is the corresponding author, E-mail: \texttt{jingyuan@xmu.edu.cn}. \\
+This research is partially supported by the National Key Research and Development Program of China (No.2022YFA1003800), the National Natural Science Foundation of China (No. 12292981, 12526213, 12271456, 71988101, 123B2009), 
+the Fundamental and Interdisciplinary Disciplines Breakthrough Plan of the Ministry of Education of China (No. JYB2025XDXM118), 
+the Ministry of Education Research in the Humanities and Social Sciences (No. 22YJA910002), 
+the New Cornerstone Science Foundation, the LMAM, 
+the Fundamental Research Funds for the Central Universities, Peking University, and LMEQF.}
+} \fi
+
+\if0\blind
+{
+  \bigskip
+  \bigskip
+  \bigskip
+  \begin{center}
+    {\LARGE\bf Deconfounding via Profiled Transfer Learning}
+\end{center}
+\date{}
+\medskip
+} \fi
+
+
+
+\bigskip
+\begin{abstract}
+Unmeasured confounders are a major source of bias in regression-based effect estimation and causal inference. In this paper, we propose a new profiled transfer learning framework, ProTrans, to address confounding effects in the target dataset, when additional source datasets with similar confounding structures are available. We introduce the concept of profiled residuals to characterize the shared confounding patterns between source and target datasets. By incorporating these profiled residuals into the target debiasing step, we effectively mitigate the latent confounding effects. We also propose a source selection strategy to enhance the robustness of ProTrans to noninformative sources. As a byproduct, ProTrans can also be used to estimate treatment effects in the presence of potential confounders, without the use of auxiliary features such as instrumental or proxy variables, which are often challenging to select in practice. Theoretically, we prove that the resulting estimated model shift from the sources to the target is confounding-free without imposing specific assumptions on the true confounding structure, and that the target parameter estimation achieves the minimax optimal rate under mild conditions. Simulated and real-world experiments validate the effectiveness of ProTrans and support the theoretical findings.
+%Transfer learning leverages information from a large source dataset to improve performance on a target problem. However, when hidden confounders are present, existing transfer learning methods can be biased as they fail to account for these confounders and may even transmit confounded information from the source to the target. In this work, we propose a novel debiased transfer learning method for high-dimensional models with hidden confounders. Our method removes the influence of hidden confounders without requiring additional information such as instrumental variables or proxy variables. We show that the influence of confounders in the source model can be exploited to identify and mitigate confounding in the target model. A debiasing term is constructed by incorporating the residual structure of fitted source models, which serves as a proxy for the hidden confounders affecting the target model. Theoretically, we demonstrate that the estimated model shift from source to target is confounding-free and that the target model achieves the minimax optimal rate when the source sample size is sufficiently large. We also propose a source selection procedure to enhance robustness against low-quality sources and ensure minimal efficiency loss when no confounders are present. Simulated and real-world experiments validate the effectiveness of the proposed method and support the theoretical findings.
+\end{abstract}
+
+\noindent%
+{\it Keywords: Confounded models; Transfer learning; Deconfounding; Model shift} 
+\vfill
+
+\newpage
+\spacingset{1.9} % DON'T change the spacing!
+\section{Introduction}
+
+In many real-world applications ranging from genetics to economics, unmeasured confounders frequently arise. Failure to account for these confounders can lead to biased parameter estimation, spurious correlations, misleading partial dependencies and invalid causal conclusions.
+% \citep{novembre2008interpreting}. 
+Existing methods for addressing hidden confounders typically involve either direct estimation of confounding effects or the incorporation of auxiliary variables. For example, factor analysis-based techniques attempt to model the confounding structure directly \citep{cevid2020spectral,fan2021robust,guo2022doubly,bing2022adaptive,sun2024decorrelating}.  Instrumental variable (IV) techniques address unmeasured confounding by leveraging exogenous variables that affect the outcome only through the exposure of interest \citep{baiocchi2014instrumental, maciejewski2019using}.
+\cite{miao2018identifying} and \cite{cui2024semiparametric} use observed proxy variables for hidden confounders to adjust for them in the models, and difference-in-differences methods \citep{donald2007inference,ding2019bracketing} can mitigate time-invariant hidden confounding. Nevertheless, these approaches often face practical challenges in choosing suitable auxiliaries or rely on stringent assumptions, such as the exclusion restriction and the parallel trends assumption \citep{martens2006instrumental,zhao2025semiparametric}. %For instance, the validity of IVs requires strong identifiability assumptions that are often untestable in practice \citep{martens2006instrumental}, proxy variable methods require access to additional variables, and difference-in-differences approaches depend heavily on the parallel trends assumption. %These strategies for handling confounding typically depend on supplementary information or strong assumptions, which are often difficult to satisfy or implement in practical settings.
+
+%Given the limitations of existing methods that deconfound only within the target model, we explore a transfer learning framework to estimate confounded models. Our goal is to leverage source models to deconfound the target model without requiring additional information or making strong assumptions about hidden confounders. Although transfer learning methods have advanced rapidly, current approaches still face challenges in mitigating the effects of hidden confounders in the target model. 
+To circumvent these issues, it is important to note that the aforementioned traditional deconfounding methods operate within single-dataset frameworks. However, modern data collection often provides access to multiple data sources that may share similar or related data structures with the target dataset of primary interest. Transfer learning is therefore used to leverage source information and improve estimation and inference performance when modeling the target dataset. Although related, source models often differ from the target model to a certain extent. Consequently, a growing body of work focuses on modeling and addressing distributional differences and heterogeneity between source and target models; see, for example, \cite{li2022transfer, lin2024profiled, tian2025learning, yuan2025optimal}. For a broad and in-depth understanding of transfer learning, see comprehensive surveys such as \cite{weiss2016survey,gholizade2025review}. The similarity between source and target datasets reasonably suggests that their underlying confounding mechanisms may also exhibit comparable patterns. This motivates us to leverage source information to mitigate confounding bias in the target data through transfer learning.
+%Common approaches in transfer learning are typically categorized into feature adaptation, distribution adaptation and data property adjustment \citep{zhuang2020comprehensive}. Among these, distribution adaptation focuses on aligning the distributions of the source and target data to address model shift, which is a key challenge in supervised learning involving covariates $X$ and response variable $Y$. 
+
+% Depending on the type of knowledge borrowed from the source data, distributed adaptation can be broadly classified into covariate shift and posterior drift.
+
+%When only the marginal distributions of $X$ differ between the source and target domains, the scenario is commonly referred to as covariate shift. To address this, importance weighting methods are widely used in both classification and regression tasks \citep{sugiyama2007covariate,segovia2023double,yan2024transfer}. In contrast, posterior drift refers to the case where the conditional expectations $\mathbb{E}[Y|X]$ also differ between the source and target domains. This is a more general setting and has attracted significant research interest. \cite{li2022transfer} studies posterior drift in high-dimensional linear regression, while \cite{tian2023transfer,li2024estimation} extend the analysis to generalized linear models. \cite{he2024adatrans} and \cite{he2024transfusion} introduce fused regularizers that are robust to covariate shift and leverage sample-wise information effectively. \cite{cai2024transfera} investigates posterior drift in nonparametric regression, and \cite{cai2024transferb} applies this framework to functional mean estimation. \cite{hu2023optimal} explores semiparametric regression using additive models, and \cite{he2024representation} incorporates representation learning into this context. 
+
+From the statistical perspective, existing transfer learning methodologies generally follow two paradigms: (1) a two-step approach that first estimates an ensemble model incorporating all source datasets, followed by target-specific model shift estimation \citep{li2022transfer,tian2023transfer,cai2024transferb}, and (2) a joint estimation framework that simultaneously learns target and source parameters \citep{he2024adatrans,li2024estimation}. 
+However, direct application of either paradigm to confounded models fails to exploit the shared confounding structure between the target and sources. We will later provide a detailed demonstration of this defect in conventional transfer learning methods. As a result, the estimates for model shift and consequently the target parameters remain biased. 
+
+%In transfer learning, most existing studies assume the ideal case in which covariates $X$ are fully exogenous. However, 
+
+To this end, we propose a new profiled transfer learning framework, referred to as ProTrans, for scenarios in which the source and target models share similar hidden confounding structures. Beyond transferring covariates-response associations from the source data, ProTrans also transfers hidden confounding effects from sources to deconfound the target model. This is achieved by constructing source profiled residuals and transferring them to the target. The source profiled residuals are defined as the differences between observed and predicted values from the initially estimated source models, which preserve the confounding structures. By transferring these residuals to the target, ProTrans effectively aligns the confounding effects between sources and the target. By subtracting the transferred profiled residuals during the target-specific debiasing step, ProTrans eliminates confounding bias in the estimation of model shift. The target parameters can be naturally estimated using the resulting model shift and certain deconfounded source parameter estimates. Furthermore, under more general and realistic scenarios where confounding effects may vary between several sources and the target model, we introduce an informative source selection procedure based on a newly proposed quality score for each source.  
+
+\begin{comment}
+Specifically, we consider the high-dimensional confounded linear models in both source and target domains:
+\begin{align}
+\label{eq:structural_equation}
+    Y = X\beta + H \phi + \varepsilon,\quad X = f(H) + E,
+\end{align}
+
+
+However, in more general settings, hidden confounders $H$ can still significantly affect the estimation of $\beta$ and cannot be fully addressed using only the target model. In contrast, we find that confounders in the source models can improve estimation in the target model under very mild assumptions about the confounding structures. To achieve this, our approach introduces an additional debiasing step differing from existing transfer learning methods. First, we approximate the conditional confounding influence $\mathbb{E}[H\phi|X]$ on the response $Y$ in the source models utilizing the residuals from the source data. We then transfer this approximation to the target model by identifying an optimal estimate of the confounding influence and removing it from the target data. With this debiasing step, the estimation of model shift becomes unaffected by confounders in many general cases without requiring any additional information. 
+\end{comment}
+We systematically study the theoretical properties of ProTrans estimators for both model shift and the target parameter. Noting that model shift can be particularly important in certain applications, we show that the ProTrans estimator for model shift achieves the oracle convergence rate, matching the optimal estimation rate of models without hidden confounders. Unlike existing methods that often rely on strict assumptions about confounders, ProTrans does not require any specific assumptions regarding hidden confounders, making it applicable to a much wider range of scenarios. For target parameter estimation, we show that the hidden confounders only affect the estimation of source models while this influence can be substantially mitigated due to the large size of the source data.
+As a result, the estimation of the target model in ProTrans is faster than that achieved by classical transfer learning methods, in which the confounding effect on the target model is still difficult to eliminate due to the small size of the target data and hence tends to dominate the resulting estimation error. We also provide the minimax lower bound for the target model estimation under mild conditions. Moreover, with the newly proposed source selection procedure, we show that ProTrans is robust to low-quality sources, and the selection procedure can effectively filter out unhelpful sources while preserving the theoretical guarantees. 
+%A theoretical trade-off is discussed between the quality of source data and the quantity of source samples.
+% \gray{(Should we add some statements to emphasize that ProTrans does not require stringent assumptions or auxiliary variables as traditional methods: If the model shift itself is of the primary interest, e.g., treatment effect estimation, then no conditions at all are needed for confounding structure; if target parameter is also of interest, source data, with higher data quality and larger sample sizes, are easier to meet the assumptions of deconfounding methods like trim transform. I am a little concerned because actually if the target parameters are of interest, we still need to impose assumptions, though mainly on source data.)} 
+
+The contributions of ProTrans can be summarized in two main aspects. First, to the best of our knowledge, ProTrans is the first attempt to leverage additional source information to mitigate confounding effects. % we propose a profiled  transfer learning framework called  for confounded models which can mitigate the influence of confounders on the target task. Our approach transfers the hidden confounder structure from source models to eliminate confounding bias in the target. To our knowledge, this is the first method to introduce a robust debiasing step into the transfer learning process for confounded models. 
+Notably, ProTrans requires neither restrictive assumptions about hidden confounding structures nor auxiliary variables as in most existing deconfounding methods, significantly expanding its applicability to real-world problems. Second, ProTrans also complements existing transfer learning literature, since direct application of conventional transfer learning to confounded models fails to transfer the confounding structure and hence cannot eliminate confounding effects. As a byproduct, ProTrans holds particular interest for treatment effect estimation, where the treatment group serves as the target and the typically larger control group serves as the source. In this framework, the model shift directly yields treatment effect estimates.
+
+%Second,  Extensive simulation and real-data experiments in causal inference and genetics further demonstrate the effectiveness and applicability of our model and debiasing methods. 
+
+The remainder of the paper is organized as follows. Section \ref{sec:methodology} introduces the ProTrans method for estimating both the model shift and the target parameter, and demonstrates that conventional transfer learning approaches are biased in the presence of confounding. Section \ref{sec:theorem} establishes the non-asymptotic bounds and minimax optimality of ProTrans estimators for model shift and the target parameter. Section \ref{sec:source_selection} introduces a source selection procedure to handle noninformative source data. Sections \ref{sec:simulation} and \ref{sec:realdata} evaluate the finite-sample performance and demonstrate the application of ProTrans via simulation studies and real-data applications, respectively. Additional theoretical results, technical proofs and numerical results are provided in the online Supplementary Material.
+
+
+\section{Deconfounding via Profiled Transfer Learning}
+% \ziyuan{Should we change the section title because it is the same as the paper title?}
+\label{sec:methodology}
+\subsection{Confounded model: challenge and motivation}
+\label{subsec:preliminary}
+% \gray{(The model in the original introduction section is combined with the target model here. Also trim transform is reviewed using target model instead of source model - it's easier to argue its limitation.)}
+% \textcolor{black}{I feel it is better strengthen our motivation by clearly stating challenges in this subsection. Currently it reads a bit plain. May rephrase some paragraph and opening sentences. For instance, it gets to linear structure and then spends a whole page on trimmed transformation, which seems a little distracting or lack of emphasis.}
+
+% old version
+% Consider the high-dimensional confounded model with independent and identically distributed (i.i.d.) data $(X_{ti}, Y_{ti})$ and unobserved confounders $H_{ti}$ drawn from our target population:
+% \begin{align}
+% \label{eq:target_model}
+%     Y_{ti} = \beta_t^\top X_{ti} + \phi_t^\top H_{ti} + \varepsilon_{ti},\quad X_{ti} = f(H_{ti}) +E_{ti}, \ i = 1, \dots, n_t,
+% \end{align}
+% where $n_t$ is the target sample size, which is typically small. $Y_{ti} \in \mathbb{R}$ denotes the response variable, $X_{ti} \in \mathbb{R}^p$ is the observed covariates, and its associated coefficient $\beta_t\in \mathbb{R}^p$ is often of primary interest. $H_{ti}\in \mathbb{R}^q$,where $q$ is fixed, denotes the hidden confounders and $\phi_t^\top H_{ti}$, where $\phi_t\in \mathbb{R}^q$, represents the confounding effect in the target model. The function $f: \mathbb{R}^{q}\to\mathbb{R}^p$ is an unknown mapping that describes the confounding structure in $X_{ti}$ and the error term $E_{ti}\in \mathbb{R}^p$ is assumed to be uncorrelated with $H_{ti}$. 
+% The pure noise $\varepsilon_{ti}\in \mathbb{R}$ is independent of $X_{ti}, \ H_{ti}$ and $E_{ti}$. 
+% To avoid confusion, throughout the paper, we refer to ``confounding structure" as the relationship between $H$ and $X$ described by the second equation in \eqref{eq:target_model}, and ``confounding effect" as the influence of $H$ on $Y$ from the first equation in \eqref{eq:target_model}.  
+
+% Model \eqref{eq:target_model} is a structural equation model, which is widely used to describe the general causal relationships among covariates, response, and hidden confounders \citep{fox2002structural,pearl2012causal}. In this model, the presence of hidden confounders $H_{ti}$ inevitably introduces bias when estimating $\beta_t$. When $f(\cdot)$ is linear, \cite{cevid2020spectral}, \cite{guo2022doubly} and \cite{sun2024decorrelating} connected this model with the perturbed linear model to depict the influence of these hidden confounders. 
+% Specifically, the bias can be identified by decomposing the confounding term $\phi_t^\top H_{ti}$ into two components: a covariate-related term, $b_t^\top X_{ti}$, where $b_t =(X_t^\top X_t)^{\dagger}X_t H_t \phi_t$ and $A^{\dagger}$ denotes the Moore–Penrose inverse of $A$, and an uncorrelated term, $U_{ti} = \phi_t^\top H_{ti} - b_t^\top X_{ti}$. Consequently, the model can be rewritten as a perturbed linear model:
+% \begin{align}
+%     Y_{ti} = (\beta_t+b_t)^\top X_{ti} + U_{ti}+\varepsilon_{ti},
+%     \label{perturb}
+% \end{align}
+% where $b_t$ is indeed the bias induced by the hidden confounders. \cite{cevid2020spectral} then proposed using the following trim transform approach to mitigate this estimation bias based on model \eqref{perturb}. Denote the design matrix for the covariates by $X_t=(X_{t1},\ldots,X_{tn_t})^\top\in\mathrm{R}^{n_t\times p}$, and analogously denote $Y_t\in \mathbb{R}^{n_t}, H_t\in \mathbb{R}^{n_t\times q},E_t\in \mathbb{R}^{n_t\times p}$ and $\varepsilon_t\in \mathbb{R}^{n_t}$. Obtain the singular value decomposition of $X_t$, $X_t = U_tD_tV^\top_t$. Then the trim transform suggests to take
+% \begin{align}
+% \label{eq:trim_transform}
+%     \mathcal{Q}_t = U_t \operatorname{diag}\left(\min(\tau_t/D_t,1)\right)U_t^\top,
+% \end{align}
+% where $\tau_t$ is the $\tau$-th ordered singular value of $X_t$ for some $\tau$. In practice, we can take $\tau=\lfloor n_t/2\rfloor$. Define $\tilde{X}_t = \mathcal{Q}_t X_t$ as the covariates adjusted by the trim transform. In the same fashion, we also get the trimmed versions of other variables $\tilde{Y}_t$, $\tilde{H}_t$, $\tilde{E}_t$, $\tilde{U}_t$ and $\tilde{\varepsilon}_t$. Finally, $\beta_t$ can be estimated directly from the trimmed response $\tilde{Y}_t$ and trimmed covariates $\tilde{X}_t$ using standard regularized regression methods. For example, a LASSO-based estimator yields
+% \begin{align*}
+%   \hat{\beta}_t^{\text{trim}} = \argmin_{\beta \in \mathbb{R}^p} \left\{\frac{1}{n_t}\left\|\tilde{Y}_t - \tilde{X}_t \beta\right\|_2^2 +\lambda\|\beta\|_1 \right\}.
+% \end{align*}
+
+% When considering the linear form $f(H_t) = H_t\Psi$ where $\Psi\in\mathbb{R}^{q\times p}$, \cite{cevid2020spectral} stated that trim transform can shrink the original data in directions such that the perturbation term $\tilde{X}_{t}b_t$ is much smaller than the signal $\tilde{X}_{t}\beta_t$. This allows for more effective isolation of the true signal $\beta_t$ from the confounding bias. The effectiveness of this method depends heavily on how concentrated the confounding effect $H_t \phi_t^\top$ is in the spike directions of the empirical covariance matrix $X_t^\top X_t/n_t$. In high-dimensional settings, the bulk eigenvalues of $X_t^\top X_t/n_t$ are typically around $p/n_t$. When the target sample size $n_t$ is small, these bulk eigenvalues become large, making it difficult for the confounding structure $f(H_t)$ to produce spikes with significant eigengaps. In fact, the top $q$ eigenvalues of $\Psi^\top \Psi$ need to be much larger than the bulk eigenvalues of $X_t^\top X_t/n_t$, which is also difficult to achieve when $n_t$ is small. As a result, the confounding effect $H_t\phi_t^\top$ does not easily concentrate in the spike directions. Therefore, when the confounding effect on the response $Y_t$ is substantial (i.e., $\phi_t$ is large) or the confounding structure in the covariates $X_t$ is weak (i.e., $f(H_t)$ lacks a prominent spike or is small relative to $E_t$), mitigating the confounding bias $b_t$ remains challenging, particularly when $n_t$ is small. 
+
+Consider the confounded model with data $(X_{ti}, Y_{ti})$ drawn from our target population:
+\begin{align}
+\label{eq:target_model}
+    Y_{ti} = \beta_t^\top X_{ti} + \phi_t^\top H_{ti} + \varepsilon_{ti},\quad X_{ti} = f(H_{ti}) +E_{ti}, \ i = 1, \dots, n_t,
+\end{align}
+where $n_t$ is the target sample size, which is typically small. The coefficient vector $\beta_t\in \mathbb{R}^p$, which links the response variable $Y_{ti} \in \mathbb{R}$ to the observed covariates $X_{ti} \in \mathbb{R}^p$, is often of primary interest. Let $H_{ti}\in \mathbb{R}^q$, where $q$ is fixed, denote the hidden confounders, and $\phi_t^\top H_{ti}$, where $\phi_t\in \mathbb{R}^q$, represents the confounding effect in the target model. The function $f: \mathbb{R}^{q}\to\mathbb{R}^p$ is an unknown mapping that describes the confounding structure in $X_{ti}$ and the error term $E_{ti}\in \mathbb{R}^p$ is assumed to be uncorrelated with $H_{ti}$. 
+The pure noise term $\varepsilon_{ti}\in \mathbb{R}$ is assumed to be independent of $X_{ti}, \ H_{ti}$ and $E_{ti}$. For identification, we further assume that $X_{ti},Y_{ti},H_{ti},E_{ti}$ and $\varepsilon_{ti}$ all have zero mean. 
+% To avoid confusion, throughout the paper, we refer to ``confounding structure" as the relationship between $H$ and $X$ described by the second equation in \eqref{eq:target_model}, and ``confounding effect" as the influence of $H$ on $Y$ from the first equation in \eqref{eq:target_model}.  
+% \textcolor{black}{Sentences should not begin with symbols, please check if there are more such cases.}
+
+Model \eqref{eq:target_model} is a structural equation model, which is widely used to describe the general causal relationships among covariates, response, and hidden confounders \citep{fox2002structural,pearl2012causal}. The presence of hidden confounders $H_{ti}$ inevitably introduces bias when estimating $\beta_t$. Denote the design matrix for the covariates by $X_t=(X_{t1},\ldots,X_{tn_t})^\top\in\mathrm{R}^{n_t\times p}$, and analogously denote $Y_t\in \mathbb{R}^{n_t}, H_t\in \mathbb{R}^{n_t\times q},E_t\in \mathbb{R}^{n_t\times p}$ and $\varepsilon_t\in \mathbb{R}^{n_t}$.
+Specifically, the bias can be identified by rewriting the model as 
+\begin{align}
+    Y_{t} =  X_{t}(\beta_t+b_t) + U_{t}+\varepsilon_{t},
+    \label{perturb}
+\end{align}
+where the bias $b_t =(X_t^\top X_t)^{\dagger}X_t^\top H_t \phi_t$, $A^{\dagger}$ denotes the Moore–Penrose inverse of $A$, and $U_{t} = (I_{n_t} - X_t (X_t^\top X_t)^{\dagger}X_t^\top) H_t\phi_t$ is an term uncorrelated with $X_t$.
+
+In the high-dimensional setting, \cite{cevid2020spectral,guo2022doubly,sun2024decorrelating} proposed using the trim transform approach to mitigate this bias when $f(\cdot)$ is linear. Define the singular value decomposition of $X_t$, $X_t = U_tD_tV^\top_t$. Then the trim transform suggests to take
+\begin{align}
+\label{eq:trim_transform}
+    \mathcal{Q}_t = U_t \operatorname{diag}\left(\min(\tau_t/D_t,1)\right)U_t^\top,
+\end{align}
+where $\tau_t$ is the $\tau$-th ordered singular value of $X_t$ for some $\tau$. Finally, $\beta_t$ can be estimated from the trimmed response $\tilde{Y}_t = \mathcal{Q}_t Y_t$ and trimmed covariates $\tilde{X}_t=\mathcal{Q}_t X_t$ using standard regularized regression methods such as LASSO.
+The effectiveness of this approach heavily relies on the concentration of the bias $b_t$ in the spike directions of the empirical covariance matrix $X_t^\top X_t/n_t$. The trim transform needs to shrink the original data in directions such that the bias $b_t$ is much smaller than the signal $\beta_t$. This imposes a strict limitation on the method, restricting its use to the model \eqref{eq:target_model} with a linear form $f(\cdot)$. A similar limitation arises under the fixed $p$ scenario, as \cite{tang2023synthetic} shows that an adequately constructed synthetic IV must also be projected out.
+
+Instead of deconfounding the model \eqref{eq:target_model} using target data alone, we often have access to source datasets that share similar confounding structures with the target. For example, in genetic studies, hidden confounders such as cell-type composition and batch effects are often shared across datasets. Data from historical records or other tissues with large sample sizes can therefore be leveraged. Thus a natural solution is to utilize the rich source data via transfer learning where a typical challenge is to estimate the model shift from the source to the target model \eqref{eq:target_model}. Interestingly, similar confounding structures help achieve confounding-free model-shift estimation, which we view as a ``blessing of confounding''.  This can be useful in certain causal inference problems with hidden confounders. Furthermore, deconfounding the source models is more feasible due to their larger sample sizes. This allows for sufficiently precise deconfounding estimation even when the linear constraint on $f(\cdot)$ is relaxed to broader, unknown functional forms. Leveraging source information helps to handle more general confounder models and improves estimation relative to relying solely on target data.
+
+
+
+% When considering the linear form $f(H_t) = H_t\Psi$ where $\Psi\in\mathbb{R}^{q\times p}$, \cite{cevid2020spectral} stated that trim transform can shrink the original data in directions such that the perturbation term $\tilde{X}_{t}b_t$ is much smaller than the signal $\tilde{X}_{t}\beta_t$. This allows for more effective isolation of the true signal $\beta_t$ from the confounding bias. The effectiveness of this method depends heavily on how concentrated the confounding effect $H_t \phi_t^\top$ is in the spike directions of the empirical covariance matrix $X_t^\top X_t/n_t$. In high-dimensional settings, the bulk eigenvalues of $X_t^\top X_t/n_t$ are typically around $p/n_t$. When the target sample size $n_t$ is small, these bulk eigenvalues become large, making it difficult for the confounding structure $f(H_t)$ to produce spikes with significant eigengaps. In fact, the top $q$ eigenvalues of $\Psi^\top \Psi$ need to be much larger than the bulk eigenvalues of $X_t^\top X_t/n_t$, which is also difficult to achieve when $n_t$ is small. As a result, the confounding effect $H_t\phi_t^\top$ does not easily concentrate in the spike directions. Therefore, when the confounding effect on the response $Y_t$ is substantial (i.e., $\phi_t$ is large) or the confounding structure in the covariates $X_t$ is weak (i.e., $f(H_t)$ lacks a prominent spike or is small relative to $E_t$), mitigating the confounding bias $b_t$ remains challenging, particularly when $n_t$ is small. 
+
+
+\subsection{ProTrans: Profiled transfer learning}
+
+Assume $K$ source datasets are available. For each $k, \ k=1,\ldots,K$, we observe i.i.d. source data $(X^{(k)}_{s},Y^{(k)}_{s})$ from the $k$-th source model 
+\begin{align}
+\label{eq:source_model}
+    Y^{(k)}_{si} = \beta^{(k)\top}_s X^{(k)}_{si} + \phi^{(k)\top}_s H^{(k)}_{si} + \varepsilon^{(k)}_{si},\quad X^{(k)}_{si} = f(H^{(k)}_{si}) +E^{(k)}_{si}, \ i=1,\cdots,n_s^{(k)},
+\end{align}
+where the notations are parallel to those in the target model \eqref{eq:target_model}.  %When $K=1$, the superscripts in the notations may be omitted for simplicity. 
+Denote the total sample size of all sources as $n_s = \sum_{k=1}^K n_s^{(k)}$, and assume $n_s\gg n_t$.  
+In order to utilize the extensive source information to improve the estimation of target parameters, transfer learning frameworks typically decompose the parameter of interest $\beta_t$ in the target model \eqref{eq:target_model} into two components: the average source effect $\beta_s = \sum_{k=1}^K n_s^{(k)}\beta_s^{(k)}/n_s$ and the model shift $\eta_0 = \beta_t-\beta_s$ from sources to target. %This problem is common in practical scenarios. To illustrate this, we present two typical examples.
+
+We first focus on the model shift $\eta_0$, and propose a profiled transfer technique that leverages the shared confounding structure between the source models \eqref{eq:source_model} and the target model \eqref{eq:target_model} to mitigate the estimation bias of $\eta_0$. 
+Let $\hat{\beta}_{\text{init}}$ be some initial estimator for $\beta_s$. Note that $\hat{\beta}_{\text{init}}$ requires only mild conditions (to be stated in Theorem \ref{thm:upper_bound_of_eta}), and need not be deconfounded in advance. Then we define the profiled source residual $\hat{Z}_s^{(k)} = Y^{(k)}_s - X^{(k)}_s\hat{\beta}_{\text{init}}\in \mathbb{R}^{n_s^{(k)}}$. Intuitively, the residual $\hat{Z}_s^{(k)}$ encodes information about hidden confounders in the $k$-th source model, specifically,
+\begin{align*}
+    \hat{Z}_s^{(k)} = X_s^{(k)}\left(\beta_s^{(k)} - \hat{\beta}_{\text{init}}\right) + H_s^{(k)} \phi_s^{(k)} + \varepsilon_s^{(k)}.
+\end{align*}
+
+We then propose a profiling strategy to transfer the confounding effects $H_s\phi_s^{(k)}$ from sources to the target using $\hat{Z}_s^{(k)}$, by constructing a profiled target residual $\hat{Z}_t\in \mathbb{R}^{n_t}$ that mitigates the confounding effect in the target data. The goal of $\hat{Z}_t$ is to counteract the confounding effect in the target model so that $(Y_t - \hat{Z}_t)$ is minimally influenced by $H_t$. In the target-specific debiasing step, we subtract both $\hat{Z}_t$ and $X_t\hat{\beta}_{\text{init}}$ from the target response and then apply classical (penalized) least-squares estimators. For example, a confounding-free LASSO estimator for the model shift $\eta_0 = \beta_t - \beta_s$ can be obtained as
+\begin{align}
+\label{eq:estimator_of_eta}
+    \hat{\eta} = \argmin_{\eta \in \mathbb{R}^p }\left\{\frac{1}{n_t}\left\|Y_t - X_t \hat{\beta}_{\text{init}} - \hat{Z}_t - X_t \eta \right\|_2^2 +  \lambda_t \|\eta\|_1\right\},
+\end{align}
+under the high-dimensional setting with a sparse $\eta_0$. 
+
+To construct a reasonable profiled target residual $\hat{Z}_t$, note that $Y_t -\hat{Z}_t - X_t\hat{\beta}_{\text{init}}$ in \eqref{eq:estimator_of_eta} can be decomposed as
+\begin{align*}
+    Y_t - \hat{Z}_t - X_t\hat{\beta}_{\text{init}}&= X_t\left(\eta_0 +(X_t^\top X_t)^{\dagger} X_t^\top (H_t\phi_t - \hat{Z}_t) - (\hat{\beta}_{\text{init}} - \beta_s)\right) \\&+ \left(I_{n_t} - X_t(X_t^\top X_t)^{\dagger} X_t^\top\right) \left(H_t\phi_t -\hat{Z}_t\right) + \varepsilon_t,
+\end{align*}
+The role of $\hat{Z}_t$ is to ensure that the term $(X_t^\top X_t)^{\dagger} X_t^\top (H_t\phi_t - \hat{Z}_t)$ approximates the bias $\hat{\beta}_{\text{init}}-\beta_s$ induced by the initial estimator, while remaining unaffected by the confounders. More precisely, by further decomposing the least squares term $\|Y_t - \hat{Z}_t - X_t\hat{\beta}_{\text{init}}\|_2^2$, we should ensure that the additional error term
+\begin{align}
+\label{eq:sup:additional_error_term}
+    & \left|\left(\eta_0 - \hat{\eta}\right)^\top X_t^\top X_t \left((X_t^\top X_t)^{\dagger} X_t^\top (H_t\phi_t - \hat{Z}_t) - \left(\hat{\beta}_{\text{init}} - \beta_s \right)\right)\right|\notag\\ \le\ &
+    \left\|\eta_0 - \hat{\eta}\right\|_1 \left\| X_t^\top (H_t\phi_t - \hat{Z}_t) -X_t^\top X_t \left(\hat{\beta}_{\text{init}} - \beta_s \right)\right\|_{\infty}
+\end{align}
+is sufficiently small. When the source and target models have similar structures, we have $X_t^\top X_t/n_t \approx X_s^\top X_s/n_s$ and $X_t^\top H_t\phi_t/n_t \approx \sum_{k=1}^K X_s^{(k)\top}H_s^{(k)}\phi_s^{(k)}/n_s$ under the infinite norm. Recalling the definition of $\hat{Z}_s^{(k)}$, we obtain
+\begin{align*}
+    \frac{1}{n_s}\sum_{k=1}^K X_s^{(k)\top}\hat{Z}_s^{(k)} \approx  \frac{1}{n_t} X_t^\top H_t\phi_t - \frac{1}{n_t}X_t^\top X_t\left( \hat{\beta}_{\text{init}}-\beta_s \right) +  \frac{1}{n_s}\sum_{k=1}^K X_s^{(k)\top}\varepsilon_s^{(k)}.
+\end{align*}
+Therefore, it is sufficient to align $X_t^\top \hat{Z}_t$ with $X_s^{(k)\top}\hat{Z}_s^{(k)}$ to guarantee that the additional error term \eqref{eq:sup:additional_error_term} remains small. Thus, we construct the profiled target residual $\hat{Z}_t$ through the profiled residual transfer:
+ % \gray{(This is a key step. Should be more insightful: what is the intuition of transferring the ``covariances" between X and Z in \eqref{eq:bias_correction_term}, instead of, say, Z? what shared information between source and target does this transfer rely on? - This relates to the precise definition of ``shared confounding structure".)}
+\begin{align}
+\label{eq:bias_correction_term}
+    \hat{Z}_t = \argmin_{Z_t \in \mathbb{R}^{n_t}}\left\{\left\|\frac{1}{n_t}X_t^\top Z_t - \frac{1}{n_s}\sum_{k=1}^K X_s^{(k)\top}\hat{Z}_s^{(k)}\right\|_{\infty}\right\}.
+\end{align}
+%By transferring $\hat{Z}_s^{(k)}$ to $\hat{Z}_t$ through equation \eqref{eq:bias_correction_term}, this information is effectively incorporated into the target model. 
+% When the confounding structures in the target and source models are similar \red{(again, we should specify (perhaps earlier) what the exact meaning of "the confounding structure is similar")},
+% Solving \eqref{eq:bias_correction_term} enables an effective transfer of the confounding effects from sources to target.
+The effectiveness of transferring the confounding effects from sources to the target by \eqref{eq:bias_correction_term} requires only mild assumptions about the confounding structure $f(\cdot)$. This also makes the profiled residual transfer fairly general and capable of addressing various confounding structures, rather than only the commonly assumed linear form. 
+
+
+\begin{remark}\label{emp:cate}
+In many scenarios, the model shift $\eta_0$ carries its own scientific significance and may be our primary focus. For instance, in treatment effect estimation, the presence of unmeasured confounders frequently induces substantial bias in the resulting estimates. Existing methods often utilize instrumental variables or proxy methods to mitigate confounding effectss. Instead, if we regard the treatment group with indicator $T=1$ as the target model \eqref{eq:target_model}, and the control group with $T=0$ as the source model \eqref{eq:source_model}, the conditional average treatment effect $\tau(x)$ for a given covariate $x$ is indeed 
+$\tau(x) = \mathbb{E}[Y|x,T = 1] - \mathbb{E}[Y|x,T = 0] = (\beta_t -\beta_s)^\top x$, which can be obtained once $\eta_0 = \beta_t - \beta_s$ is estimated.
+\end{remark}
+
+In applications, further investigation of the target parameter $\beta_t$ in \eqref{eq:target_model} is often needed. Given that $\hat{\eta}$ is already confounding-free, a natural estimator for $\beta_t$ is $\hat{\beta}_t = \hat{\beta}_s +\hat{\eta}$, where $\hat{\beta}_s$ is a deconfounded estimator for the source parameter $\beta_s$. For example, the estimator $\hat{\beta}_s$ can be obtained by applying trimmed regression to the pooled source data. We define the pooled  design matrix as $X_s = (X_s^{(1)\top}, \cdots, X_s^{(K)\top})^\top \in \mathbb{R}^{n_s \times p}$, the response vector as $Y_s = (Y_s^{(1)\top}, \ldots, Y_s^{(K)\top})^\top \in \mathbb{R}^{n_s}$ and define $\tilde{X}_s = \mathcal{Q}_s X_s$ and $\tilde{Y}_s = \mathcal{Q}_s Y_s$ as the covariates and response adjusted using the trim transform $\mathcal{Q}_s$ of the source data, as described similarly in \eqref{eq:trim_transform}. The estimator $\hat{\beta}_s$ is then given by
+\begin{align}
+\label{eq:estimator_betas}
+    \hat{\beta}_s = \argmin_{\beta \in \mathbb{R}^p} \left\{\frac{1}{n_s}  \left\|\tilde{Y}_s - \tilde{X}_s \beta\right\|_2^2 +\lambda_s\|\beta\|_1 \right\}.
+\end{align}
+A greater concentration of confounding effects makes the trim transform more effective in obtaining the deconfounded estimator $\hat{\beta}_s$ in source models. 
+\red{In addition to the trim method, the LAVA approach proposed by \cite{chernozhukov2017lava} and the synthetic two-stage regularized regression introduced by \cite{tang2023synthetic} can also be employed to obtain the source estimator for $\beta_s$.}
+% \textcolor{black}{this sentence/paragrph on trim transform reads somehow strange, may need re-organize to flow better?}
+% Not limited to the linear form, the trim transform remains applicable for general and unknown confounding structure $f(\cdot)$ as long as it satisfies certain mild conditions. 
+% Deconfounding the source models using methods such as the trim transform is similar to deconfounding the target model. However, 
+Mitigating confounding bias and hence obtaining reliable deconfounded estimators in source models is generally more feasible due to the large source sample size.
+% This is because the bulk eigenvalues of $X_s^\top X_s/n_s$ are approximately $p/n_s$ which is much smaller than those of target, resulting in larger eigengaps. 
+
+
+\begin{comment}
+The trim transform for the source model is defined as follows:
+\begin{align}
+\label{eq:trim_transform}
+    \mathcal{Q}_s = U_s \operatorname{diag}\left(\min(\tau_s/D_s,1)\right)U_s^\top,
+\end{align}
+where $X_s = U_sD_sV^\top_s$ is the singular value decomposition of $X_s$ and $\tau_s$ is a threshold equals to the $\tau$th singular value of $X_s$ for some $\tau$. In practical, $\tau_s$ can be chosen as the $\lfloor n_s/2\rfloor$-th singular value of $X_s$. We then define $\tilde{X}_s = \mathcal{Q}_s X_s = (\tilde{X}_s^{(1)\top},\cdots,\tilde{X}_s^{(K)\top})^\top$ as the covariates adjusted by the trim transform. Similarly, we define $\tilde{Y}_s^{(k)}$ and then $\tilde{H}_s^{(k)},\tilde{E}_s^{(k)},\tilde{U}_s^{(k)},\tilde{\varepsilon}_s^{(k)}$. 
+Analogous notations are also defined for the target model. 
+The trim transform mitigates the influence of hidden confounding and ensures that the covariance of $\tilde{X}_s^{(k)}$ are free of spikes and have comparable eigenvalues, which is important especially when the confounding structure $f(H_s^{(k)})$ caused spikes highly correlated to $H_s^{(k)}$. Second, we apply the Lasso method to the source data to obtain the estimator $\hat{\beta}_s$ by
+\begin{align}
+\label{eq:estimator_betas}
+    \hat{\beta}_s = \argmin_{\beta \in \mathbb{R}^p} \left\{\frac{1}{n_s}\sum_{k=1}^K  \left\|\tilde{Y}_s^{(k)} - \tilde{X}_s^{(k)} \beta\right\|_2^2 +\lambda_s\|\beta\|_1 \right\},
+\end{align}
+where $n_s = \sum_{k=1}^K n_s^{(k)}$.
+
+The above two steps are standard procedures. The trim transform proposed by \cite{cevid2020spectral} is designed for high-dimensional perturbed linear regression. The joint estimation of source data follows the methods described in \cite{li2022transfer, li2024estimation}.
+\end{comment}
+
+In summary, we address the challenge of hidden confounders in the target model via two steps. The first step involves estimating the model shift from source domains to the target domain using the proposed profiled residual transfer \eqref{eq:bias_correction_term}, which is robust to confounding structures and the initial estimates of the source models. The second step is the deconfounded estimation of the source models, which becomes more manageable due to the large sample size of the source data.
+We refer to the entire approach as profiled transfer learning (ProTrans), and summarize the procedure based on the trim method in Algorithm \ref{algo:transfer_method}. \red{ This algorithm can also be directly extended to methods such as LAVA and the synthetic IV method by correspondingly modifying the source estimation procedure. }
+
+  \begin{breakablealgorithm}\label{algo}
+  \renewcommand{\algorithmicrequire}{\textbf{Input:}}
+  \renewcommand{\algorithmicensure}{\textbf{Output:}}
+  \caption{Profiled Transfer Learning Algorithm}\label{algo:transfer_method}
+  \begin{algorithmic}[1]
+  \REQUIRE Source data $(X^{(k)}_s,Y^{(k)}_s),k=1,\cdots,K$ with total sample size $n_s$ and target data $(X_t,Y_t)$ with sample size $n_t$. 
+  \ENSURE Estimators for model shift $\eta_0$ and target parameter $\beta_t$. 
+  
+   \textbf{Source Parameter Estimation:}
+  \STATE Singular value decomposition: $X_s= U_sD_sV_s$ where $X_s=(X_s^{(1)\top},\cdots,X_s^{(K)\top})^\top$;
+  \STATE Trimming: $\mathcal{Q}_s \leftarrow U_s \operatorname{diag}\left(\min(\tau_s/D_s,1)\right)U^\top_s$, where $\tau_s$ can be taken as the $\lfloor n_s/2\rfloor$th ordered singular value of $X_s$;
+  \STATE Trim transform: $\tilde{X}_s \leftarrow \mathcal{Q}_sX_s,\tilde{Y}_s \leftarrow \mathcal{Q}_sY_s$ where $Y_s = (Y_s^{(1)\top},\cdots,Y_s^{(K)\top})^\top$;
+  \STATE LASSO estimation: Obtain $\hat{\beta}_s$ through \eqref{eq:estimator_betas};
+ 
+  \textbf{Model Shift Estimation:}
+  \STATE Initial estimation: Find some initial estimator $\hat{\beta}_{\text{init}}$ for $\beta_s$. 
+  \STATE Profiled source residual: $\hat{Z}_s^{(k)} \leftarrow Y^{(k)}_s - X^{(k)}_s\hat{\beta}_{\text{init}},\quad 1\le k\le K$;
+  \STATE Profiled residual transfer: Obtain the profiled target residual $\hat{Z}_t$ via \eqref{eq:bias_correction_term};
+  \STATE LASSO estimation: Obtain $\hat{\eta}$ through \eqref{eq:estimator_of_eta};
+
+  \textbf{Target Parameter Estimation:}
+  \STATE Target estimation: $\hat{\beta}_t \leftarrow \hat{\beta}_s +\hat{\eta}$;
+  \RETURN Estimators $\hat{\eta}$ of $\eta_0$ and $\hat{\beta}_t$ of $\beta_t$.
+  \end{algorithmic}  
+  \end{breakablealgorithm}
+
+We conclude this section with the following remark which states that the direct application of transfer learning to confounded models fails to eliminate confounding-induced bias in model shift and target parameter estimation.
+\begin{remark}
+\label{remark:classical_transfer_learning}
+ Based on the deconfounded source parameter estimator $\hat{\beta}_s$, the trimmed covariates $\tilde{X}_t$ and trimmed response $\tilde{Y}_t$, conventional transfer learning frameworks guide us to adopt the target estimator $\tilde{\beta}_t = \hat{\beta}_s +\tilde{\eta}$, where $\tilde{\eta}$ is an estimator for model shift such as the LASSO estimator for regressing $\tilde{Y}_t - \tilde{X}_t\hat{\beta}_s$ against $\tilde{X}_t$, i.e.,
+\begin{align}
+\label{eq:classical_estimator_eta}
+    \tilde{\eta} = \argmin_{\eta\in \mathbb{R}^p } \left\{\frac{1}{n_t}\left\|\tilde{Y}_t - \tilde{X}_t\hat{\beta}_s - \tilde{X}_t\eta \right\|_2^2 +\tilde{\lambda}_t \|\eta\|_1\right\}. 
+\end{align}
+However, the bias term $b_t$ remains in the response of the target model:
+\begin{align*}
+    \tilde{Y}_t - \tilde{X}_t\hat{\beta}_s = \tilde{X}_t \left[\left(\beta_t - \beta_s\right) + \left(\beta_s - \hat{\beta}_s\right)+ b_t\right] + \tilde{U}_t + \tilde{\varepsilon}_t,
+\end{align*}
+so that $\tilde{\eta}$ still suffers from the bias introduced by hidden confounders, which persists regardless of the amount of available source data. Rigorous comparison of non-asymptotic error bounds between $\tilde{\eta}$ in \eqref{eq:classical_estimator_eta} and the ProTrans estimator $\hat{\eta}$ in \eqref{eq:estimator_of_eta} is presented in the next section. 
+\end{remark}
+
+% \ziyuan{I wonder whether this remark should be placed here or immediately after we introduce the profiled residual transfer?}
+  
+
+
+\paragraph{Convention for quantitative constants.}
+All constants used as upper-bound multipliers, sample-size thresholds or
+probability-decay exponents in the theorem and lemma statements below are
+strictly positive, unless a different range is explicitly specified. They are
+chosen before the sample sizes and dimensions to which a bound is applied.
+They may depend on the explicitly fixed distributional bounds, fixed
+confounder dimension and requested confidence exponent. This convention does
+not impose a sign on model coefficients, entries of matrices or other
+algebraically defined quantities.
+
+\section{Theoretical Guarantees for ProTrans}
+\label{sec:theorem}
+\subsection{Model shift estimation}
+% \ziyuan{Subsection titles can be replaced?}
+
+We begin by analyzing the properties of the estimator $\hat{\eta}$ for $\eta_0 = \beta_t - \beta_s$. First, we define the parameter space for the source parameters $\beta_s^{(k)}$ and the target parameter $\beta_t$ as 
+\begin{align*}
+    \Theta(s_\delta,s_\eta) = \left\{\beta_s^{(k)},\beta_t\ \big|\ \|\beta_s^{(k)} - \beta_s\|_1 \le s_\delta, \|\eta_0\|_0\le s_\eta, k=1,2,\cdots,K\right\}. 
+\end{align*}
+In this section, we consider the case where $s_\delta$ is a constant and $s_\eta = o(n_t^{1/2})$. 
+This parameter space requires that the difference between each source parameter $\beta_s^{(k)}$ and the average $\beta_s$ is bounded, and that the model shift $\eta_0$ is sparse. This condition is common in high-dimensional regression when transferring parameters from source to target. We denote the support set of $\eta_0$ as $S_\eta$ and its complement as $S_\eta^c$. The following standard assumption is imposed.
+
+% The following standard assumptions are imposed.
+% \begin{assump}
+%     \label{assum:model_assumption}
+%     \begin{enumerate}
+%      \item[a.] For each $1 \le k \le K$, the difference between the source parameter $\beta_s^{(k)}$ and their average $\beta_s$ is bounded, i.e., $\|\beta_s^{(k)} - \beta_s\|_1 \le s_\delta$ for some constant $s_\delta$. 
+%     \item[b.] The true model shift $\eta_0 = \beta_t - \beta_s$ has a support set $S_\eta$ with cardinality at most $s_\eta$, where $s_\eta$ is a constant. 
+%     \end{enumerate}
+% \end{assump}
+ 
+
+\begin{assump}
+\label{assum:distribution_E_H_f}
+Let $p\ge2$, let $q\ge1$ be fixed, let $K\ge1$, and let
+$n_t,n_s^{(1)},\ldots,n_s^{(K)}$ be positive integers, with
+$n_s=\sum_k n_s^{(k)}\ge n_t$. Put $w_k=n_s^{(k)}/n_s$ and
+$a_t=\sqrt{\log p/n_t}$, $a_s=\sqrt{\log p/n_s}$.
+\begin{enumerate}
+\item[a.] All target and source sample rows are mutually independent. The
+pairs $(E,H)$ have the same joint distribution in every domain, and the same
+function $f$ is used in $X=f(H)+E$. Coordinates of $E,H,f(H)$ are centered
+and have sub-Gaussian norms at most a fixed $L>0$, uniformly over all
+coordinates and domains. Moreover $\mathbb E[EH^\top]=0$. Independence
+between $E$ and $H$ is not required.
+\item[b.] The centered noise terms are independent of their corresponding
+$(E,H)$, have a common variance $\sigma^2\ge0$, and have sub-Gaussian norm
+at most a fixed $L_\varepsilon>0$. The model coefficients are deterministic.
+\item[c.] On the restricted-eigenvalue event $\mathcal R$, for every
+$u\in\mathcal A_{s_\eta}
+=\{u: \|u_{S_\eta^c}\|_1\le3\|u_{S_\eta}\|_1\}$,
+$n_t^{-1}\|X_tu\|_2^2\ge C_r\|u\|_2^2$, where $C_r>0$ is fixed.
+\item[d.] With $\bar\phi_s=\sum_k w_k\phi_s^{(k)}$, there are fixed
+$C_\phi,B_\phi>0$ such that
+\[
+ \|\bar\phi_s-\phi_t\|_2\le C_\phi a_t,
+ \qquad \max_{1\le k\le K}\|\phi_s^{(k)}-\phi_t\|_2\le B_\phi.
+\]
+The first condition is the original weighted-average similarity condition.
+The second is a uniform bound on source heterogeneity; it does not require
+each source's discrepancy to tend to zero. The constants $L,L_\varepsilon,
+C_r,C_\phi,B_\phi$, the initial-error bound $C_s>0$ and the source-coefficient
+spread bound $s_\delta\ge0$ are independent of $p,n_t,n_s,K$.
+\end{enumerate}
+\end{assump}
+
+The common joint law in Assumption \ref{assum:distribution_E_H_f}.a
+allows a general nonlinear $f$ with uniformly bounded coordinatewise
+sub-Gaussian norms. Assumption d preserves weighted-average similarity and
+allows different source confounding effects, provided their discrepancies
+are uniformly bounded. Its weighted centered fluctuations are controlled
+in Supplementary Lemma \ref{lem:weighted_confounding_transfer}; they are
+not bounded by taking a product of a pooled-matrix norm and an average of
+source coefficients. No linearity or isotropy assumption is imposed on $f$.
+
+Under these standard assumptions, Theorem \ref{thm:upper_bound_of_eta} below provides non-asymptotic error bounds for the estimated model shift $\hat{\eta}$.
+\begin{thm}
+\label{thm:upper_bound_of_eta}
+Under Assumption \ref{assum:distribution_E_H_f}, suppose
+$s_\eta\in\{0,\ldots,p\}$, $|S_\eta|\le s_\eta$ and $\max_k\|\beta_s^{(k)}-\beta_s\|_1\le s_\delta$.
+Fix a desired confidence exponent $c>0$. There exist strictly positive
+constants $N_0,C_1,C_2$, depending only on
+$L,L_\varepsilon,q,C_\phi,B_\phi,C_s,s_\delta,c$, such that for
+$n_t\ge N_0\log p$ and any
+\[
+ \lambda_t\ge4(C_1\sqrt q\|\phi_t\|_2+C_2)\sqrt{\log p/n_t}>0,
+\]
+there is an event $\mathcal G$ with $\mathbb P(\mathcal G)\ge1-p^{-c}$ on
+which every minimizer $\hat\eta$ in \eqref{eq:estimator_of_eta}, using any
+minimizer $\hat Z_t$ in \eqref{eq:bias_correction_term}, satisfies, whenever
+$\mathcal R$ and $\mathcal I=\{\|\hat\beta_{\mathrm{init}}-\beta_s\|_1\le C_s\}$ hold,
+\begin{align*}
+ \|\hat\eta-\eta_0\|_1&\le {6\over C_r}s_\eta\lambda_t, &
+ \|\hat\eta-\eta_0\|_2&\le {3\over2C_r}\sqrt{s_\eta}\lambda_t, &
+ {\|X_t(\hat\eta-\eta_0)\|_2\over\sqrt{n_t}}
+ &\le {3\over2\sqrt{C_r}}\sqrt{s_\eta}\lambda_t.
+\end{align*}
+The statement is unconditional with confidence $1-p^{-c}$ when the RE and
+initial-estimator bounds are imposed almost surely. More generally the
+probability of all three conclusions is at least
+$1-p^{-c}-\mathbb P(\mathcal R^c)-\mathbb P(\mathcal I^c)$.
+For probability statements, estimators are understood to be measurable
+selections; the deterministic bounds hold for every profiling and Lasso
+minimizer. No independence of the initial estimator and the samples is
+needed: the proof is uniform over initial estimators on $\mathcal I$.
+\end{thm}
+
+In Theorem \ref{thm:upper_bound_of_eta}, by selecting the tuning parameter $\lambda_t\asymp \sqrt{\log p/n_t}$, the estimator $\hat{\eta}$ achieves the optimal convergence rate $\sqrt{\log p/n_t}$, even in the presence of hidden confounding. By introducing the profiled target residual $\hat{Z}_t$, ProTrans effectively removes the bias caused by confounders. It is also noteworthy that the result in Theorem \ref{thm:upper_bound_of_eta} is general and applies to many scenarios, given the mild conditions on the initial estimator $\hat{\beta}_{\text{init}}$ and the confounding structure $f(\cdot)$. %and remains stable across different choices of both hidden confounding and the choice of the initial estimators.
+As shown in Remark \ref{emp:cate}, Theorem \ref{thm:upper_bound_of_eta} can be directly used to estimate the conditional average treatment effect $\tau(x)$ in the presence of hidden confounders. When using ProTrans, the estimated conditional average treatment effect for a given covariate vector $x$ achieves root-$n$ convergence, provided that $\|x\|_{\infty}$ is bounded, even in the presence of hidden confounders.
+
+Furthermore, we provide the minimax lower bound for estimating $\eta_0$. Let $\mathcal{B}_0(s_\eta)$ denote the $l_0$-norm ball $\mathcal{B}_0(s_\eta) = \left\{\eta\in\mathbb{R}^p; \|\eta\|_0 \le s_\eta\right\}$. 
+\begin{prop}
+    \label{prop:lower_bound_of_eta}
+    Under the same conditions as in Theorem \ref{thm:upper_bound_of_eta}, it holds that
+    \begin{align*}
+       \inf_{\hat{\eta}} \sup_{\eta \in \mathcal{B}_0(s_\eta)} \mathbb{P}\left(\|\hat{\eta} - \eta_0\|_2 \ge c_0\sqrt{\frac{s_\eta \log p}{n_t}}\right) \ge \frac{1}{2},
+    \end{align*}
+    for some constant $c_0>0$. 
+\end{prop}
+
+Proposition \ref{prop:lower_bound_of_eta} shows that the proposed estimator $\hat{\eta}$ achieves the optimal convergence rate. For comparison, we also provide the estimation error of the estimator $\tilde{\eta}$ defined in Remark \ref{remark:classical_transfer_learning} which directly applies conventional transfer learning frameworks to confounded models. We show that $\tilde{\eta}$ is highly sensitive to hidden confounders, even under the simplest linear confounding structure $f(H)=H\Psi$. 
+ % \gray{(Maybe directly provide the error bound and also minimax result for the general $f(\cdot)$ - move the first result about $\tilde{\eta}$ of Proposition 2 here? and use the following linear structure as an illustrative special case.)} 
+ Existing results \citep{cevid2020spectral,guo2022doubly} provide the following upper error bound for $\tilde{\eta}$:
+\begin{align*}
+    \|\tilde{\eta} - \eta_0\|_1 \lesssim \sqrt{\frac{p\|\phi_t\|_2^2}{n_t\lambda^2_q(\Psi)}}\vee\sqrt{\frac{\log p}{n_t}}  + \|\beta_s - \hat{\beta}_{s}\|_1, 
+\end{align*}
+ where $\lambda_q(\Psi)$ denotes the smallest singular value of $\Psi$. We also show the minimax lower bound for any possible estimator from the classical transfer learning methods. With slight abuse of notation, let $\tilde{\beta}_s$ be a generic estimator for $\beta_s$ using source data, $\tilde{\eta}$ be a generic estimator for the model shift $\beta_t-\beta_s$ using the transferred target data $(Y_t-X_t\tilde{\beta}_s,X_t)$. Further denote $\mathcal{F}_\eta$ to be the collection of such $\tilde{\eta}$. Proposition \ref{prop:lower_bound_of_baseline_eta_only} provides the minimax lower bounds for such $\tilde{\eta}\in \mathcal{F}_\eta$.
+\begin{prop}
+     \label{prop:lower_bound_of_baseline_eta_only}
+     Under the same conditions as in Theorem \ref{thm:upper_bound_of_eta}, we have %if $\tilde{\eta}$ belongs to the class of estimators constructed solely using the target data and the source estimator $\hat{\beta}_s$, then 
+     \begin{align*}
+       \inf_{\tilde{\eta}\in \mathcal{F}_\eta} \sup_{\eta \in \mathcal{B}_0(s_\eta)} \mathbb{P}\left(\|\tilde{\eta} - \eta_0\|_2 \ge c_1 \sqrt{\frac{p\|\phi_t\|_2^2}{n_t\lambda_q^2(\Psi)}} \vee c_2\sqrt{\frac{s_\eta\log p}{n_t}} \right)\ge \frac{1}{2},
+     \end{align*}
+     for some strictly positive constants $c_1,c_2$.
+\end{prop}
+ 
+ % \gray{(The following is the first time to discuss theoretical insight. May combine this with part of the last paragraph of the whole theoretical session. Focus on the model shift. Then we don't need to repeat in the end of the whole session, and only focus on the target parameter there.)} 
+If the confounding effect $\|\phi_t\|_2$ is large, or the confounding structure is poorly conditioned (i.e., $\lambda_q(\Psi)$ is small), the term $\sqrt{p\|\phi_t\|_2^2/n_t\lambda^2_q(\Psi)}$ due to confounding bias might dominate the error bound, resulting in a slower convergence rate for $\tilde{\eta}$ compared to $\hat{\eta}$. Assuming $\|\phi_t\|_2$ is bounded, the confounding bias in $\tilde{\eta}$ remains small only if $\lambda_q(\Psi)\gg p^{1/2}\log^{-1/2}p$. This requirement is stringent, as it holds only when all nonzero singular values of $\Psi$ are of similar magnitude. Additionally, hidden confounders in the source models may make accurate estimation of $\beta_s$ infeasible. A large $\|\hat{\beta}_s - \beta_s\|_1$ can further increase the estimation error of $\tilde{\eta}$. In contrast, ProTrans does not rely on the linear confounding structure or a large $\lambda_q(\Psi)$, and only requires a bounded initial estimator $\hat{\beta}_{\text{init}}$ for $\beta_s$. The optimal convergence rate for $\hat{\eta}$ in Theorem \ref{thm:upper_bound_of_eta} remains valid even when the confounding structure is complex and the source and target models are heavily affected by hidden confounders. This represents a significant improvement of ProTrans over classical transfer learning estimators.
+
+
+\begin{remark}
+The homogeneity requirements in Assumptions \ref{assum:distribution_E_H_f}.a and \ref{assum:distribution_E_H_f}.b can be extended to the heterogeneous case, where the distributions of $H_{ti},E_{ti}$ are allowed to differ from those of $H_{si}^{(k)},E_{si}^{(k)}$. The heterogeneity affects the profiled residual transfer from $\hat{Z}_s$ to $\hat{Z}_t$. However, this issue can be effectively addressed if the initial estimator $\hat{\beta}_{\text{init}}$ converges rapidly. An intrinsic doubly robust property of the term $(X_s^\top X_s/n_s - X_t^\top X_t/n_t)(\hat{\beta}_{\text{init}} -\beta_s)$ in the profiled residual transfer-induced error ensures that the results in Theorem \ref{thm:upper_bound_of_eta} remain valid if either the covariance structures of the source and target models are sufficiently similar ($\|X_s^\top X_s/n_s - X_t^\top X_t/n_t\|_{\infty}$ is small) or the initial estimator $\hat{\beta}_{\text{init}}$ for $\beta_s$ is sufficiently accurate ($\|\hat{\beta}_{\text{init}} -\beta_s\|_1$ is small).  In the heterogeneous case, it suffices for the initial estimator to satisfy the rate $\left\|\hat{\beta}_{\text{init}}-\beta_s\right\|_1\lesssim \sqrt{\log p/n_t}$, which is likely to hold when $\hat{\beta}_{\text{init}}$ is chosen as the deconfounded estimator for the source models due to the relatively large sample size $n_s$ compared to $n_t$. We will present a detailed demonstration of the deconfounded estimator in the next section.
+% \gray{(Better clarify the rate. E.g. what if we directly use $\hat{\beta}_s$ as the initial?)} An intrinsic doubly robust property \gray{(better include a reference)} \ziyuan{This method is considered doubly robust because of the term $(X_s^\top X_s/n_s - X_t^\top X_t/n_t)(\hat{\beta}_{init} -\beta_s)$. However, it is not doubly robust in the standard sense used in causal inference. I wonder whether its necessary to cite some classical doubly robust works or not. } 
+\end{remark}
+
+\subsection{Target parameter estimation}\label{theory:target}
+%From the previous section, we know that if there exists a consistent estimator $\hat{\beta}_{\text{init}}$ for $\beta_s$, then the estimator $\hat{\eta}$ converges to $\eta_0$ at the optimal rate $\sqrt{\log p/n_t}$. 
+In this section, we consider the ProTrans estimator $\hat{\beta}_t = \hat{\beta}_s + \hat{\eta}$ for the target parameter $\beta_t$. Compared with the model shift estimator $\hat{\eta}$, the theoretical analysis of $\hat{\beta}_t$ additionally requires $\hat{\beta}_s$ to converge at a relatively fast rate. Suppose that the parameter $\beta_s$ has a support set $S_s$ with cardinality at most $s=o(n_s^{1/2})$. Although hidden confounders may bias the estimation of $\beta_s$, the large sample sizes in the source models generally provide sufficient accuracy in $\hat{\beta}_s$ when using the trim transform. To begin, we define the covariance matrix of $X_s$ as $\Sigma_X = \mathbb{E}[X_s^\top X_s/n_s]$ and impose the following regularity condition for the trim transform. 
+ % \begin{assump}
+ %     \label{assum:source_model}
+ %    The true parameter $\beta_s$ has a support set $S_s$ with cardinality at most $s$, where $s$ is a constant. \gray{(Again, this is not an assumption.)}
+ % \end{assump}
+ \red{
+ \begin{assump}
+     \label{assum:trim_transform}
+     \begin{enumerate}
+         \item[a.] The threshold $\tau_s$ in the trim transform $\mathcal{Q}_s$ defined in \eqref{eq:trim_transform} satisfies that $\tau_s \asymp p^{1/2}n_s^{-1/2}$. 
+         \item[b.] The $\tau$-th eigenvalue and eigengap of $\Sigma_X = \mathbb{E}[X_s^\top X_s/n_s]$ is large enough, i.e., 
+         \begin{align*}
+             \lambda_{\tau}(\Sigma_X) \gg p^{1/2} \log^{3/2} p ,\quad \Delta_\tau = \lambda_\tau(\Sigma_X) - \lambda_{\tau+1}(\Sigma_X) \gg p^{1/2}n_s^{-1/4}\log^{3/4} p.
+         \end{align*} 
+         \item[c.] The restricted eigenvalue condition holds for some constant $C_r>0$ in the convex cone $\mathcal{A}_{S_s} = \left\{\beta \in \mathbb{R}^p; 3\|\beta_{S_s}\|_1 - \|\beta_{S_s^c}\|_1\ge 0\right\}$,i.e., $n_s^{-1}\|\mathcal{Q}_sX_s\beta\|_2^2 \ge C_r \|\beta\|_2^2$ for $\beta\in \mathcal{A}_{S_s}$. 
+     \end{enumerate}
+ \end{assump}
+ }
+The conditions in Assumption \ref{assum:trim_transform} regularize the trim transform. Assumption \ref{assum:trim_transform}.a imposes a standard requirement that the eigenvalues of the trimmed covariance matrix do not exceed $p^{1/2}n_s^{-1/2}$, which aligns with the typical bulk eigenvalues of a non-confounded empirical covariance matrix.
+Assumption \ref{assum:trim_transform}.b requires that both the $\tau$-th eigenvalue and the eigengap of $\Sigma_X$ are sufficiently large. The condition commonly used to eliminate hidden confounders requires that the top eigenvalues of $\Sigma_X$ are on the order of $p$. A weaker condition for consistent estimation of $\beta_s$ is that the top eigenvalues of $\Sigma_X$ are on the order of $pn_s^{-1}$. Compared to these, our condition on the top eigenvalues of $\Sigma_X$ is mild because we only require the confounding structure $f(\cdot)$ to induce spikes of order $p^{1/2}\log^{3/2} p$ in the covariance matrix $\Sigma_X$. The eigengap condition is also mild because the bulk eigenvalues of $\Sigma_X$ are constant. The presence of spikes further ensures this condition, especially in source models where $n_s$ is larger than in the target model.
+
+Theorem \ref{thm:upper_bound_of_betas} provides the error bounds for the estimator $\hat{\beta}_s$ from multiple source datasets. 
+ \begin{thm}
+     \label{thm:upper_bound_of_betas}
+     Under Assumptions \ref{assum:distribution_E_H_f} and \ref{assum:trim_transform}, with probability at least $1-p^{-c}$, the source estimator $\hat{\beta}_s$ defined in \eqref{eq:estimator_betas} satisfies 
+     \begin{align}
+     \label{eq:thm:source_bound}
+            \|\hat{\beta}_s - \beta_s\|_1  \le C_3 s\lambda_s + \frac{1}{\lambda_s} \frac{p\|\phi_t\|_2^2}{n_s \lambda_\Psi^2},\quad \|\hat{\beta}_s - \beta_s\|_2  \le C_3 \sqrt{s}\lambda_s + \frac{1}{\lambda_s}\frac{p\|\phi_t\|_2^2}{n_s \lambda_\Psi^2},
+        \end{align}
+        where the tuning parameter $\lambda_s$ satisfies $\lambda_s \ge C_4 \sqrt{\log p/n_s} +C_5 \sqrt{p/n_s}\lambda_\Psi^{-1}\|\phi_t\|_2$, $\lambda^{-1}_\Psi$ denotes the largest singular value of $\Sigma_X^{-1}\mathbb{E}[f^\top(H_s)H_s/n_s]$ and $c,C_3,C_4,C_5$ are constants. 
+ \end{thm}
+
+% \gray{(Below mainly explains the intuition of Theorem \ref{thm:upper_bound_of_betas} rather than explaining the assumptions. better move it after the theorem?)} \ziyuan{I consolidate the discussion of Theorem \ref{thm:upper_bound_of_betas} here.}
+
+% Denote by $\lambda^{-1}_\Psi$ the first singular value of $\Sigma_X^{-1}\mathbb{E}[f^\top(H_s)H_s/n_s]$. Since $\mathbb{E}[f^\top(H_s)H_s/n_s] \in \mathbb{R}^{p\times q}$ is a rank-$q$ matrix, $\lambda_\Psi$ is typically large \change{when the confounding bias $b_s$ is mainly located in the leading eigenspaces of $\Sigma_X$} \red{(this is the foundation for trim transform to work, so we should argue this is reasonable under the assumptions)} and the leading eigenvalues of $\Sigma_X$ are large.  The trim transform $\mathcal{Q}_s$, with appropriate choices of $\tau$ and $\tau_s$ satisfying Assumption \ref{assum:trim_transform}, shrinks components along directions associated with large singular values, thereby reducing the confounding bias. %This is similar to the conditions for the linear confounder structure $X = H\Psi+ E$. 
+% When $n_s\ll p$, the $\tau$-th singular value of $X_s^\top X_s/n_s$ is often larger than $p^{1/2}n_s^{-1/4}\gg p^{1/4}\log^{3/2}p$, which also guarantees Assumption \ref{assum:trim_transform}. 
+% \red{(why do we care about small source sample size $n_s$?)}
+
+Theorem \ref{thm:upper_bound_of_betas} addresses general multi-source models with unknown nonlinear confounding structures. In the special case of a single-source model with a linear confounding structure $X_s = H_s\Psi +E_s$, the results in Theorem \ref{thm:upper_bound_of_betas} align with Theorem 2 in \cite{cevid2020spectral}. The error bound \eqref{eq:thm:source_bound} for $\hat{\beta}_s$ consists of two components: the first term represents the standard Lasso estimation error when all confounding effects have been accounted for, and the second term is the confounder-induced error, given by $p\|\phi_t\|_2^2/(\lambda_s n_s \lambda_\Psi^2)$. The parameter $\lambda_\Psi$ indicates how concentrated the confounding effects are and a large $\lambda_\Psi$ reduces this bias term. When the confounding effects $H_s^{(k)}\phi_s^{(k)}$ are primarily concentrated in the leading eigenspaces of $\Sigma_X$, the trim transform $\mathcal{Q}_s$ with appropriate choices of $\tau$ and $\tau_s$ satisfying Assumption \ref{assum:trim_transform}, shrinks confounding effects along directions associated with large singular values, thereby significantly reducing the confounding bias. A large $\lambda_s$ can also reduce the bias term, as the stronger $l_1$-penalty helps to shrink the bias $b_s$, although it is not required to be $l_1$-sparse. 
+
+% \ziyuan{The next paragraph is about why use source but not target.}
+
+It is notable that $\lambda_\Psi$ reflects the population level properties of the confounding structure. Specifically, $\lambda_\Psi$ measures the spike eigenvalues of $\Sigma_X$ caused by the confounding structure $f(\cdot)$ which remains consistent in both the source and target models. However, applying the trim transform and the deconfounded estimator to the source models is still more practical and effective than directly deconfounding the target model. In high-dimensional settings, the empirical covariance matrix can deviate significantly from $\Sigma_X$ and the sample size greatly influences whether these spikes can be accurately detected. Due to the large sample size $n_s$ of source models, these spikes are more likely to appear prominently in the empirical covariance matrices $X_s^\top X_s/n_s$ of source models than in the target model. The concentration of confounding effects in the leading eigenspaces of $X_s^\top X_s/n_s$ is governed by the eigengap ratio between the spike and bulk eigenvalues of $X_s^\top X_s/n_s$, given by $\lambda_\Psi^2/(p/n_s)$. This term also appears in the confounder-induced error in Theorem  \ref{thm:upper_bound_of_betas}. In contrast, the smaller sample size $n_t$ in the target model makes it more difficult for the empirical covariance matrix $X_t^\top X_t/n_t$ to capture the spikes in $\Sigma_X$. 
+
+Combining the source estimator $\hat{\beta}_s$ for $\beta_s$ with the model shift estimator $\hat{\eta}$ for $\eta_0$, we obtain the estimation error for the target estimator $\hat{\beta}_t$ in Theorem \ref{thm:upper_bound_of_betat}. 
+
+\begin{thm}
+    \label{thm:upper_bound_of_betat}
+    Under the same conditions as in Theorems \ref{thm:upper_bound_of_eta} and \ref{thm:upper_bound_of_betas}, with probability at least $1-p^{-c}$, the proposed estimator $\hat{\beta}_t$ for $\beta_t$ satisfies
+         \begin{align*}
+            \|\hat{\beta}_t - \beta_t\|_1  &\le  C_6 \sqrt{\frac{p\|\phi_t\|_2^2}{n_s\lambda_\Psi^2}} \vee C_7 s_\eta\sqrt{\frac{\log p}{n_t}},\\
+            \|\hat{\beta}_t - \beta_t\|_2  &\le  C_6 \sqrt{\frac{p\|\phi_t\|_2^2}{n_s\lambda_\Psi^2}} \vee C_7\sqrt{\frac{ s_\eta\log p}{n_t}},
+        \end{align*}
+        where we set $\lambda_t=\sqrt{\log p/n_t},\lambda_s = \sqrt{\log p/n_s}\vee \lambda_\Psi^{-1}\|\phi_t\|_2\sqrt{p/n_s}$ and $c,C_6,C_7$ are constants. 
+\end{thm}
+
+
+In Theorem \ref{thm:upper_bound_of_betat}, the estimation error of the ProTrans estimator $\hat{\beta}_t$ consists of two components: the confounding-free error in estimating $\eta_0$ and the source estimation error in $\beta_s$. The confounding effect appears only in the source estimation and can be mitigated due to the large sample size of the source data. In the following proposition, we show that the ProTrans estimator $\hat{\beta}_t$ also attains the minimax lower bound for this problem. 
+% \gray{(Please add the minimax result for $\hat{\beta}_t$ if possible, for more parallel comparison with the conventional transfer learning. I know your point is that it's enough to show that our upper bound is smaller than the minimax lower bound for conventional transfer learning. But it's also meaningful to show ``the resulting $\hat{\beta}_t$ is the best we can do" under the ``correct" profiled transfer learning framework. Of course, under the ``wrong" conventional transfer learning framework, the minimax lower bound becomes worse, and the merit of ProTrans is more visible.)} \ziyuan{I add the minimax results here.} 
+\begin{prop}
+    \label{prop:minimax_for_beta_t}
+    Under the same conditions as in Theorems \ref{thm:upper_bound_of_eta} and \ref{thm:upper_bound_of_betas}, we have that for any estimator $\hat{\beta}_t$ of $\beta_t$,
+     \begin{align*}
+     \underset{\substack{\beta_t = \beta_s + \eta \\ \eta \in \mathcal{B}_0(s_\eta),\beta_s\in \mathcal{B}_0(s)}}{\sup} \mathbb{P}\left(\|\hat{\beta}_t - \beta_t\|_2 \ge c_1 \sqrt{\frac{p\|\phi_t\|_2^2}{n_s\lambda_\Psi^2} }\vee c_2\sqrt{\frac{s_\eta\log p}{n_t}} \right)\ge \frac{1}{2},
+     \end{align*} 
+     for some strictly positive constants $c_1,c_2$. 
+\end{prop}
+
+
+Meanwhile, we also establish the minimax result for estimators of $\beta_t$ when directly applying the conventional transfer learning method to confounded models. Recall the definition of $\tilde{\beta}_s,\tilde{\eta}$ in Proposition \ref{prop:lower_bound_of_baseline_eta_only} and define the set $\mathcal{F}_\beta$ as the collection of all classical transfer learning estimators of $\beta_t$ in the form $ \tilde{\beta}_t = \tilde{\beta}_s +\tilde{\eta}$.
+\begin{prop}
+     \label{prop:lower_bound_of_baseline_eta}
+     Under the same conditions as in Theorems \ref{thm:upper_bound_of_eta} and \ref{thm:upper_bound_of_betas}, we have %if $\tilde{\eta}$ belongs to the class of estimators constructed solely using the target data and the source estimator $\hat{\beta}_s$, then 
+     \begin{align*}
+       \inf_{\tilde{\beta}_t\in \mathcal{F}_\beta}\underset{\substack{\beta_t = \beta_s + \eta \\ \eta \in \mathcal{B}_0(s_\eta),\beta_s\in \mathcal{B}_0(s)}}{\sup}\mathbb{P}\left(\|\tilde{\beta}_t - \beta_t\|_2 \ge c_1 \sqrt{\frac{p\|\phi_t\|_2^2}{n_t\lambda_\Psi^2} }\vee c_2\sqrt{\frac{s_\eta\log p}{n_t}} \right)\ge \frac{1}{2},
+     \end{align*}
+     for some strictly positive constants $c_1,c_2$. 
+\end{prop}
+
+% \red{(The following discussion overlaps with previous sessions. may be integrated with the previous discussion. especially if we move the results of model shift to the previous section. Here mainly focus on discussing the theoretical comparison between $\hat{\beta}_t$ and $\tilde\beta_t$.)}
+
+% We compare the lower bound of the transfer estimator $\tilde{\eta}$ with the upper bound of $\hat{\eta}$ obtained using the debiasing procedure in Theorem \ref{thm:upper_bound_of_eta}. As previously discussed, the debiasing method completely eliminates the confounding bias in estimating $\eta_0$. We further evaluate the performance of the estimator $\tilde{\beta}_t$ against the proposed debiased estimator $\hat{\beta}_t$. 
+
+When the confounding structure $f(\cdot)$ is difficult to identify ($\lambda_\Psi$ is small) or the confounding effect is large ($\|\phi_t\|_2$ is large), the confounder-induced bias dominates the lower bound of $\tilde{\beta}_t$. Classical transfer learning methods cannot reduce this bias, regardless of the size of the source sample. As shown in Proposition \ref{prop:lower_bound_of_baseline_eta}, the confounding bias remains at $n_t^{-1/2}p^{1/2}\|\phi_t\|_2\lambda^{-1}_\Psi$. In contrast, ProTrans significantly reduces the confounding bias to $n_s^{-1/2}p^{1/2}\|\phi_t\|_2\lambda^{-1}_\Psi$ as shown in Theorem \ref{thm:upper_bound_of_betat}. With ProTrans, the larger source sample size helps mitigate the error caused by hidden confounding. Consequently, the condition for achieving a sufficiently small confounding bias in $\hat{\beta}_t$ is relaxed to $\lambda_\Psi \gg (n_t/n_s)^{1/2} p^{1/2}\log^{-1/2}p$. This requirement is much milder when the source sample size is significantly larger than the target sample size.
+
+\red{\begin{remark}
+The theoretical results and associated benefits are not tied to the trim method used for source estimation in the high-dimensional setting. The same profiled residual transfer idea can also be combined with other deconfounding methods, such as LAVA \citep{chernozhukov2017lava} and synthetic two-stage regularized regression \citep{tang2023synthetic}, under both high- and fixed-dimensional scenarios. Analogous results are provided in the supplementary material.
+\end{remark}}
+
+
+
+\section{Informative Source Selection for ProTrans}
+\label{sec:source_selection}
+In Assumption \ref{assum:distribution_E_H_f}, we assume that the sources are informative such that the average of the confounding-effect coefficients $\phi_s^{(k)},1\le k\le K$ is close to $\phi_t$ in the target model. However, in many realistic scenarios, some sources may have confounding effects that deviate significantly from $\phi_t$, making them unlikely to help eliminate the confounding effect in the target model. 
+
+We propose a source selection procedure to address this issue. First, we consider an initial estimator $\hat{\beta}^{(k)}_{\text{init}}$ of $\beta_s^{(k)}$. Let $\hat{Z}_t^{(k)}$ be the profiled residual term defined as in \eqref{eq:bias_correction_term}, and $\tilde{Z}_t^{(k)}=\mathcal{Q}_t\hat{Z}_t^{(k)}$. Further take the trimmed estimator of $\eta^{(k)}_0 = \beta_t - \beta_s^{(k)}$ as
+\begin{align*}
+\hat{\eta}^{(k)} = \argmin_{\eta\in \mathbb{R}^p}\left\{\frac{1}{n_t}\left\|\tilde{Y}_t - \tilde{X}_t \hat{\beta}^{(k)}_{\text{init}} - \tilde{Z}_t^{(k)} - \tilde{X}_t\eta \right\|_2^2 + \lambda_t^{(k)} \|\eta\|_1\right\}. 
+\end{align*}
+Here we use trimmed regression to ensure the stability and consistency of $\hat{\eta}^{(k)}$ even when $\phi_s^{(k)}$ differs much from $\phi_t$.
+Next, we define the quantity
+\begin{align*}
+    v^{(k)} = \left\|\frac{X_t^\top}{n_t}\left(Y_t - X_t\hat{\beta}^{(k)}_{\text{init}} - \hat{Z}^{(k)}_{t} - X_t\hat{\eta}^{(k)}\right)\right\|_{\infty}.
+\end{align*}
+Intuitively, when $\phi_s^{(k)}$ is close to $\phi_t$, the profiled residual $\tilde{Z}_t^{(k)}$ can transfer the confounding information from the $k$-th source to the target model. Consequently, the estimator $\hat{\eta}^{(k)}$ remains accurate and $v^{(k)}$ is small. In contrast, when $\phi_s^{(k)}$ differs substantially from $\phi_t$, the transfer process introduces a term proportional to the discrepancy between the confounding effects of the $k$-th source model and the target model. This discrepancy enlarges $v^{(k)}$ when the gap $\phi_s^{(k)}-\phi_t$ increases.
+
+Based on this observation, we define 
+$$\mathcal{I}(\rho) = \left\{k\ |\ v^{(k)} \le \rho\min_{1\le k\le K}v^{(k)}, \ k=1,2,\cdots, K \right\}$$
+as the informative source group for some constant $\rho \ge 1$. Using only source data in $\mathcal{I}(\rho)$, we obtain the estimator $\hat{\beta}_t^{(\mathcal{I}(\rho))}$ via ProTrans. Here we consider the case that all source parameters $\beta_s^{(k)},1\le k\le K$ are transferable. Formally, the coefficient $\beta_s^{(k)}$ has a support set $S_s^{(k)}$ with $|S_s^{(k)}|\le s$ and the difference $\eta_0^{(k)} = \beta_t - \beta_s^{(k)}$ has a support set $S_\eta^{(k)}$ with $|S_\eta^{(k)}| \le s_\eta$ for $1\le k\le K$. This helps us focus on detecting sources containing informative confounding structures. If some source models are non-transferable due to large or dense coefficients $\eta_0^{(k)}$, existing source selection methods can be applied beforehand \citep{li2022transfer}. To study the theoretical properties of $\hat{\beta}_t^{(\mathcal{I}(\rho))}$, we introduce the following assumption.
+\begin{assump}
+\label{assum:source_detection}
+    \begin{enumerate}
+        \item[a.] For each $k=1,\ldots,K$, the sample size $n_s^{(k)}$ is larger than $n_t$. 
+        \item[b.] It holds that $\lambda_\Psi \ge C_{\lambda} p^{1/2}n_t^{-1/2}$, and there exists at least one informative source model in the sense that there exists some $k, \ 1\le k\le K$, such that $\|\phi_s^{(k)}-\phi_t\|^2_2 \le C_{\phi}\lambda_\Psi^2p^{-1}\log p$ for constants $C_{\lambda},C_{\phi}$. 
+    \end{enumerate}
+\end{assump}
+Assumption \ref{assum:source_detection}.a requires each source dataset to have a larger sample size than $n_t$. This condition can be relaxed by aggregating smaller source datasets into a single one with a total sample size exceeding $n_t$. % In that case, we simply replace $v^{(k)}$ by $v^{(\mathcal{K})}$, where $\mathcal{K}$ is a subset of the $K$ source data. 
+Assumption \ref{assum:source_detection}.b posits source-target model similarity, which guarantees the efficacy of ProTrans. This requirement is mild, as we only need at least one informative source model and make no demands on the characteristics of the other sources.
+ Theorem \ref{thm:source_selection} provides the estimation error for $\hat{\beta}_t^{(\mathcal{I}(\rho))}$.
+\begin{thm}
+\label{thm:source_selection}
+    Under Assumptions \ref{assum:distribution_E_H_f}, \ref{assum:trim_transform} and \ref{assum:source_detection}, with probability at least $1-p^{-c}$, the following inequalities hold:
+    \begin{align*}
+        \|\hat{\beta}_t^{(\mathcal{I}(\rho))}  - \beta_t\|_1 &\le C_8\sqrt{\frac{p\|\phi_t\|_2^2 }{n_s^{(\mathcal{I}(\rho))}\lambda_\Psi^2}}\vee C_9 (s_\eta +\rho)\sqrt{\frac{\log p}{n_t}},\\
+        \|\hat{\beta}_t^{(\mathcal{I}(\rho))}  - \beta_t\|_2 &\le C_8\sqrt{\frac{p\|\phi_t\|_2^2 }{n_s^{(\mathcal{I}(\rho))}\lambda_\Psi^2}}\vee C_9 (\sqrt{s_\eta}+\rho)\sqrt{\frac{\log p}{n_t}},
+    \end{align*}
+    where $n_s^{(\mathcal{I}(\rho))} = \sum_{k\in \mathcal{I}(\rho)} n_s^{(k)}$ is the total sample size of the source data in the informative source group $\mathcal{I}(\rho)$, and $c,C_8,C_9$ are constants.              
+\end{thm}
+
+If $\|\phi_s^{(k)}-\phi_t\|_2^2 \le C_\phi  \lambda_\Psi^2 p^{-1} \log p$ for the $k$-th source, then $v^{(k)}$ falls, with high probability, within the interval $[c\sqrt{\log p/n_t},C\sqrt{\log p/n_t}]$ for some strictly positive constants $c,C>0$. With a properly chosen constant $\rho$, the proposed selection procedure includes all informative source data in $\mathcal{I}(\rho)$. When all sources are informative, the results in Theorem \ref{thm:source_selection} are similar to those in Theorem \ref{thm:upper_bound_of_betat}, indicating that the source selection procedure does not result in a significant loss of efficiency. For a noninformative source model $k'$ where $\|\phi_s^{(k')} -\phi_t\|_2$ is large, the corresponding quantity $v^{(k')}$ will also be large; specifically, $v^{(k')}\gg \sqrt{\log p/n_t}$. Thus it will be excluded from the informative source group $\mathcal{I}(\rho)$. %The choice of $\rho$ in crucial, as it balances the quality and quantity of source data in $\mathcal{I}(\rho)$. 
+A small $\rho$ reduces the sample size $n_s^{(\mathcal{I}(\rho))}$ of source data used in transfer learning, increasing confounding bias in source estimation; a large $\rho$ results in greater discrepancies between $\phi_s^{(k)}$ and $\phi_t$ for $k \in \mathcal{I}(\rho)$, weakening the effectiveness of the profiled residual transfer. The optimal choice of $\rho$ is a common challenge in rank-based selection methods and is frequently discussed \citep{baranowski2020ranking,malhotra2021threshold}. Numerical results presented later indicate that the performance is not highly sensitive to the choice of $\rho$, allowing practitioners to select $\rho$ approximately based on prior knowledge or expert guidance.
+% In practice, we can chose a proper $\rho$ that includes sources whose $\nu^{(k)}$ values are clustered around small numbers, when at least a certain proportion of the sources are informative. 
+
+\section{Simulation Study}
+\label{sec:simulation}
+
+In this section, we evaluate the performance of ProTrans under high-dimensional confounded models. We consider both linear and nonlinear confounding structures. Specifically, for the source and target models (denoted by the subscript $l$ as $s$ and $t$, respectively), the outcome model is given by
+$Y_l = \beta_l^\top X_l + \phi_l^\top H_l + \varepsilon_l$, 
+with three types of confounding structures as
+\red{\begin{equation*}
+   \begin{array}{ll}
+\text{Scenario 1 (linear):}&  X_l = H_l^\top \Psi + E_l,\\
+\text{Scenario 2 (nonlinear 1):}& X_l = 4\left(1+\exp(-H_l^\top \Psi)\right)^{-1} + 4\sin (H_l^\top \Psi) + E_l,\\
+\text{Scenario 3 (nonlinear 2):} & X_l = 4\tanh\!\left(H_l^\top \Psi\right) + E_l.
+\end{array} 
+\end{equation*}}
+The source and target data $(X_{li},Y_{li}), \ l=s,t, 1\le i \le n_l$ are generated from the above models. The hidden confounders $H_{li}$ are independently sampled from $\mathcal{N}(0, I_q)$, the random noise $\varepsilon_{li}$ from $\mathcal{N}(0,\sigma^2)$ and  $E_{li}$ from $\mathcal{N}(0,\sigma_E^2 I_p)$. The matrix $\Psi \in \mathbb{R}^{q\times p}$ is a random matrix with i.i.d. entries drawn from $0.5 n_s^{-1/2}\log n_s \mathcal{N}(0,1)$. The scaling factor $n_s^{-1/2}\log n_s$ ensures that the influence of the confounders $H_s$ is sufficiently strong for the source data. We set $q = 3$, $\sigma = 1$, and $\sigma_E = 2$ and we consider both the single-source and multi-source cases. In the single-source case, the source sample size is set to $n_s = 600$, and the target sample size to $n_t = 100$. The true source coefficient is defined as $\beta_s = 2\sum_{i=1}^5 e_i$, where $e_i\in \mathbb{R}^p$ is the vector whose $i$-th entry is equal to one and all other entries equal to zero. The target coefficient is given by $\beta_t = \beta_s + \eta_0$, where $\eta_0 = -4e_1 + 2 e_{p}$. In the multi-source case, the number of sources is set to $K = 4$, with a sample size $n_s^{(k)} = 150$ for $1 \le k \le 4$. The coefficient for the $k$-th source is defined as $\beta_s^{(k)} = 2\sum_{i=1}^5 e_i +e_k$ and hence $\beta_s = \sum_{k=1}^K \beta_s^{(k)}/4$. The values of $n_t$ and $\eta$ are identical to those in the single-source case.
+
+We compare the performance of ProTrans with the following four baseline methods under the high-dimensional setting. 
+\begin{itemize}
+\item [(1)] \textit{SingleTrim}: applying the trimmed lasso method \citep{cevid2020spectral} only to the target data.
+\item [(2)] \textit{TransTrim}: combining standard transfer learning \citep{li2022transfer} with a trimming step, resulting in $\tilde{\eta}$ in \eqref{eq:classical_estimator_eta}, the trimmed source estimator $\hat{\beta}_s$, and $\tilde{\beta}_t=\hat{\beta}_s+\tilde{\eta}$.
+%where $\beta_s$ is estimated as the trimmed LASSO estimator $\hat{\beta}_s$, and $\eta = \beta_t - \beta_s$ is then estimated by applying the trimmed lasso to the adjusted target data $(X_t,Y_t - X_t\hat{\beta_s})$. 
+\item [(3)] \textit{SingleFarm}: adopting FARM \citep{fan2021robust} for deconfounding only the target data, in which the trim transform in the \textit{SingleTrim} is replaced by a projection onto the orthogonal complement of the factor space estimated using both the source and target data.
+\item [(4)] \textit{TransFarm}: combining standard transfer learning with FARM.
+\end{itemize}
+\red{In addition, we evaluate the performance of ProTrans in the fixed-dimensional setting and the additional numerical results are provided in the supplementary material.} 
+
+We set $\tau = \lfloor n_t/2\rfloor$ for the trim transform \eqref{eq:trim_transform} in the proposed method ProTrans and baselines {\it SingleTrim}, {\it TransTrim}. For {\it SingleFarm} and {\it TransFarm}, we define the factor space to be that spanned by top $r$ right singular vectors of $X = (X_t^\top,X_s^\top)^\top \in \mathbb{R}^{(n_s+n_t)\times p}$, where $r$ is chosen based on the largest relative eigen-gap, i.e., $r = \argmax_{1\le j\le p-1} (\sigma_j(X'X) - \sigma_{j+1}(X'X))/\sigma_{j+1}(X'X)$, with $\sigma_i(M)$ denoting the $i$-th eigenvalue of $M$. The tuning parameters $\lambda_s$ and $\lambda_t$ are selected through cross-validation using the standard function provided in the \textit{glmnet} package in R.
+
+First, we evaluate the performance of ProTrans and the four baseline approaches across different covariate dimensions $p$. We set $\phi_s = \phi_t$, which are sampled from $\mathcal{N}(0,\sigma_\phi^2 I_p)$ with $\sigma_\phi = 1$ for Scenario 1 and $\sigma_\phi = 8$ for Scenario 2 and 3. Each simulation is repeated 100 times. The average $l_2$-norm errors in estimating $\eta$ and $\beta_t$ across all simulation runs are presented in Table \ref{table: simulation_p}. Across different values of $p$, we observe that ProTrans consistently outperforms the existing methods. In Scenario 1, due to the linear structure of the covariates $X = H^\top \Psi + E$, both the trim transform and orthogonal projection help to mitigate the confounding effects by estimating a subspace where hidden confounders exert minimal influence. As a result, while baseline methods still perform reasonably well,  our method does not rely on estimating the hidden confounder space and achieves higher accuracy. In Scenarios 2 and 3, the covariates follow a nonlinear and unknown structure, making it difficult to estimate the confounder space. This leads to substantial estimation biases for the baseline methods. In contrast, ProTrans remains effective.
+
+
+% \begin{table}[!ht]
+% \renewcommand{\arraystretch}{0.65}
+%     \centerfloat
+%     \caption{The $l_2$ norm errors of different methods across various dimensions $p$.}
+%     \label{table: simulation_p}
+%     \begin{tabular}{cccccccccc}
+%         \toprule
+%         \multirow{3}{*}{$\bm{p}$} & \multirow{3}{*}{\textbf{Method}} & \multicolumn{4}{c}{\textbf{Scenario 1: Linear}} & \multicolumn{4}{c}{\textbf{Scenario 2: Nonlinear}} \\
+%         \cmidrule(lr){3-6} \cmidrule(lr){7-10}
+%         &  & \multicolumn{2}{c}{\textbf{single-source}} & \multicolumn{2}{c}{\textbf{multi-source}}& \multicolumn{2}{c}{\textbf{single-source}} & \multicolumn{2}{c}{\textbf{multi-source}}\\
+%         \cmidrule(lr){3-4} \cmidrule(lr){5-6} \cmidrule(lr){7-8} \cmidrule(lr){9-10}
+%         & & $\eta$ & $\beta_{t}$ & $\eta$& $\beta_{t}$ & $\eta$ & $\beta_{t}$ & $\eta$ & $\beta_{t}$ \\
+%         \midrule
+%         \multirow{5}{*}{500} 
+%         & SingleTrim  & $0.5487\ (0.0475)$ & $0.6848\ (0.0580)$ & $0.4317\ (0.0378)$ & $0.5504\ (0.0456)$ & $3.4026\ (0.3320)$ & $4.1600\ (0.4037)$ & $1.9179\ (0.1755)$ & $2.4167\ (0.1625)$\\
+%         & TransTrim   & $0.4336\ (0.0333)$ & $0.3932\ (0.0305)$ & $0.3640\ (0.0249)$ & $0.3407\ (0.0228)$ & $2.4928\ (0.2576)$ & $2.3104\ (0.2446)$ & $1.6905\ (0.1799)$ & $1.5379\ (0.1683)$\\
+%         & SingleFarm  & $0.8095\ (0.0419)$ & $1.2055\ (0.0551)$ & $0.8065\ (0.0381)$ & $1.2223\ (0.0494)$ & $6.9808\ (0.3406)$ & $8.3018\ (0.3801)$ & $8.9792\ (0.5033)$ & $10.757\ (0.5450)$\\
+%         & TransFarm   & $\bm{0.1712}\ (0.0161)$ & $\bm{0.2493}\ (0.0170)$ & $0.2016\ (0.0199)$ & $0.2890\ (0.0201)$ & $1.9045\ (0.1755)$ & $2.0508\ (0.1625)$ & $2.3952\ (0.1853)$ & $2.5490\ (0.1732)$\\
+%         & ProTrans    & $0.2460\ (0.0165)$ & $0.2502\ (0.0165)$ & $\bm{0.1965}\ (0.0121)$ & $\bm{0.2167}\ (0.0107)$ & $\bm{0.6301}\ (0.0599)$ & $\bm{0.7037}\ (0.0657)$ & $\bm{0.4209}\ (0.0449)$ & $\bm{0.5159}\ (0.0455)$\\
+%         \hline
+%         \multirow{5}{*}{1000} 
+%         & SingleTrim  & $0.6095\ (0.0393)$ & $0.7685\ (0.0477)$ & $0.4756\ (0.0287)$ & $0.6057\ (0.0350)$ & $4.0412\ (0.3030)$ & $4.8515\ (0.3597)$ & $2.1601\ (0.1799)$ & $2.7241\ (0.1683)$ \\
+%         & TransTrim   & $0.4246\ (0.0247)$ & $0.3843\ (0.0220)$ & $0.3538\ (0.0174)$ & $0.3212\ (0.0148)$ & $2.3566\ (0.1911)$ & $2.1424\ (0.1774)$ & $1.5994\ (0.1799)$ & $1.4360\ (0.1683)$\\
+%         & SingleFarm  & $1.0009\ (0.0490)$ & $1.4586\ (0.0609)$ & $1.0485\ (0.0723)$ & $1.5430\ (0.0865)$ & $8.1897\ (0.4476)$ & $9.8817\ (0.4883)$ & $10.806\ (0.5213)$ & $12.945\ (0.5661)$\\
+%         & TransFarm   & $0.2824\ (0.0226)$ & $0.3365\ (0.0206)$ & $0.2493\ (0.0230)$ & $0.3112\ (0.0203)$ & $2.5817\ (0.1799)$ & $2.5789\ (0.1683)$ & $3.5975\ (0.1853)$ & $3.5881\ (0.1732)$\\
+%         & ProTrans    & $\bm{0.2480}\ (0.0148)$ & $\bm{0.2422}\ (0.0129)$ & $\bm{0.2143}\ (0.0109)$ & $\bm{0.2160}\ (0.0088)$ & $\bm{0.6330}\ (0.0438)$ & $\bm{0.6231}\ (0.0400)$ & $\bm{0.5221}\ (0.0449)$ & $\bm{0.5329}\ (0.0455)$\\
+%         \hline
+%         \multirow{5}{*}{1500} 
+%         & SingleTrim  & $0.7046\ (0.0477)$ & $0.8852\ (0.0574)$ & $0.5500\ (0.0335)$ & $0.6990\ (0.0410)$ & $4.4333\ (0.3664)$ & $5.2496\ (0.4290)$ & $2.3954\ (0.1666)$ & $2.9493\ (0.1554)$\\
+%         & TransTrim   & $0.4317\ (0.0298)$ & $0.3883\ (0.0265)$ & $0.3566\ (0.0202)$ & $0.3201\ (0.0180)$ & $2.5141\ (0.2187)$ & $2.2771\ (0.1979)$ & $1.6564\ (0.1666)$ & $1.4628\ (0.1554)$ \\
+%         & SingleFarm  & $0.9031\ (0.0540)$ & $1.2649\ (0.0651)$ & $0.8402\ (0.0544)$ & $1.2124\ (0.0653)$ & $7.8893\ (0.5033)$ & $9.3110\ (0.5450)$ & $10.097\ (0.1853)$ & $11.877\ (0.1732)$ \\
+%         & TransFarm   & $0.2876\ (0.0225)$ & $0.3106\ (0.0205)$ & $0.2525\ (0.0206)$ & $0.2870\ (0.0186)$ & $2.4598\ (0.1666)$ & $2.4086\ (0.1554)$ & $3.0365\ (0.1853)$ & $2.9568\ (0.1732)$\\
+%         & ProTrans    & $\bm{0.2477}\ (0.0156)$ & $\bm{0.2364}\ (0.0137)$ & $\bm{0.1989}\ (0.0103)$ & $\bm{0.1990}\ (0.0090)$ & $\bm{0.6042}\ (0.0368)$ & $\bm{0.5776}\ (0.0351)$ & $\bm{0.5348}\ (0.0449)$ & $\bm{0.5207}\ (0.0455)$ \\
+%         \hline
+%         \multirow{5}{*}{2000} 
+%         & SingleTrim  & $0.8748\ (0.0657)$ & $1.0657\ (0.0772)$ & $0.6900\ (0.0522)$ & $0.8566\ (0.0612)$ & $6.0142\ (0.5298)$ & $6.9928\ (0.6134)$ & $3.3560\ (0.1853)$ & $4.0193\ (0.1732)$ \\
+%         & TransTrim   & $0.4725\ (0.0336)$ & $0.4270\ (0.0297)$ & $0.4105\ (0.0259)$ & $0.3738\ (0.0233)$ & $3.0044\ (0.2569)$ & $2.7457\ (0.2364)$ & $2.0070\ (0.1853)$ & $1.7980\ (0.1732)$\\
+%         & SingleFarm  & $0.8936\ (0.0472)$ & $1.1931\ (0.0573)$ & $0.8374\ (0.0520)$ & $1.1614\ (0.0624)$ & $8.8878\ (0.5213)$ & $10.327\ (0.5661)$ & $11.576\ (0.1853)$ & $13.430\ (0.1732)$\\
+%         & TransFarm   & $0.3306\ (0.0209)$ & $0.3329\ (0.0168)$ & $0.3130\ (0.0194)$ & $0.3255\ (0.0163)$ & $2.8150\ (0.1853)$ & $2.7142\ (0.1732)$ & $4.3404\ (0.1853)$ & $4.1830\ (0.1732)$\\
+%         & ProTrans    & $\bm{0.2894}\ (0.0173)$ & $\bm{0.2706}\ (0.0150)$ & $\bm{0.2213}\ (0.0106)$ & $\bm{0.2185}\ (0.0092)$ & $\bm{0.6586}\ (0.0449)$ & $\bm{0.6497}\ (0.0455)$ & $\bm{0.5187}\ (0.1853)$ & $\bm{0.5206}\ (0.1732)$\\
+%         \bottomrule
+%     \end{tabular}
+% \end{table}
+
+
+
+
+\begin{table}[!ht]
+\renewcommand{\arraystretch}{0.65}
+% \setlength{\tabcolsep}{4pt}
+\footnotesize
+    \centerfloat
+    \caption{The $l_2$ norm errors of different methods across various dimensions $p$.}
+    \label{table: simulation_p}
+    \begin{tabular}{cccccc}
+        \toprule
+        \multirow{2}{*}{$\bm{p}$} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{2}{c}{\textbf{single-source}} & \multicolumn{2}{c}{\textbf{multi-source}}\\
+        \cmidrule(lr){3-4} \cmidrule(lr){5-6} 
+        & & $\eta$ & $\beta_{t}$ & $\eta$& $\beta_{t}$ \\
+        \midrule
+        \multicolumn{6}{c}{\textbf{Scenario 1 (linear)}}\\
+        \hline
+        \multirow{5}{*}{1000} 
+        & SingleTrim  & $0.6095\ (0.0393)$ & $0.7685\ (0.0477)$ & $0.4756\ (0.0287)$ & $0.6057\ (0.0350)$ \\
+        & TransTrim   & $0.4246\ (0.0247)$ & $0.3843\ (0.0220)$ & $0.3538\ (0.0174)$ & $0.3212\ (0.0148)$ \\
+        & SingleFarm  & $1.0009\ (0.0490)$ & $1.4586\ (0.0609)$ & $1.0485\ (0.0723)$ & $1.5430\ (0.0865)$ \\
+        & TransFarm   & $0.2824\ (0.0226)$ & $0.3365\ (0.0206)$ & $0.2493\ (0.0230)$ & $0.3112\ (0.0203)$ \\
+        & ProTrans    & $\bm{0.2480}\ (0.0148)$ & $\bm{0.2422}\ (0.0129)$ & $\bm{0.2143}\ (0.0109)$ & $\bm{0.2160}\ (0.0088)$ \\
+        \hline
+        \multirow{5}{*}{2000} 
+        & SingleTrim  & $0.8748\ (0.0657)$ & $1.0657\ (0.0772)$ & $0.6900\ (0.0522)$ & $0.8566\ (0.0612)$ \\
+        & TransTrim   & $0.4725\ (0.0336)$ & $0.4270\ (0.0297)$ & $0.4105\ (0.0259)$ & $0.3738\ (0.0233)$ \\
+        & SingleFarm  & $0.8936\ (0.0472)$ & $1.1931\ (0.0573)$ & $0.8374\ (0.0520)$ & $1.1614\ (0.0624)$ \\
+        & TransFarm   & $0.3306\ (0.0209)$ & $0.3329\ (0.0168)$ & $0.3130\ (0.0194)$ & $0.3255\ (0.0163)$ \\
+        & ProTrans    & $\bm{0.2894}\ (0.0173)$ & $\bm{0.2706}\ (0.0150)$ & $\bm{0.2213}\ (0.0106)$ & $\bm{0.2185}\ (0.0092)$ \\
+        \hline
+         \multicolumn{6}{c}{\textbf{Scenario 2 (nonlinear)}}\\
+         \hline
+        \multirow{5}{*}{1000} 
+        & SingleTrim  & $4.0412\ (0.3030)$ & $4.8515\ (0.3597)$ & $2.1601\ (0.1799)$ & $2.7241\ (0.1683)$ \\
+        & TransTrim  & $2.3566\ (0.1911)$ & $2.1424\ (0.1774)$ & $1.5994\ (0.1799)$ & $1.4360\ (0.1683)$\\
+        & SingleFarm  & $8.1897\ (0.4476)$ & $9.8817\ (0.4883)$ & $10.806\ (0.5213)$ & $12.945\ (0.5661)$\\
+        & TransFarm  & $2.5817\ (0.1799)$ & $2.5789\ (0.1683)$ & $3.5975\ (0.1853)$ & $3.5881\ (0.1732)$\\
+        & ProTrans  & $\bm{0.6330}\ (0.0438)$ & $\bm{0.6231}\ (0.0400)$ & $\bm{0.5221}\ (0.0449)$ & $\bm{0.5329}\ (0.0455)$\\
+        \hline
+        \multirow{5}{*}{2000} 
+        & SingleTrim  & $6.0142\ (0.5298)$ & $6.9928\ (0.6134)$ & $3.3560\ (0.1853)$ & $4.0193\ (0.1732)$ \\
+        & TransTrim  & $3.0044\ (0.2569)$ & $2.7457\ (0.2364)$ & $2.0070\ (0.1853)$ & $1.7980\ (0.1732)$\\
+        & SingleFarm   & $8.8878\ (0.5213)$ & $10.327\ (0.5661)$ & $11.576\ (0.1853)$ & $13.430\ (0.1732)$\\
+        & TransFarm   & $2.8150\ (0.1853)$ & $2.7142\ (0.1732)$ & $4.3404\ (0.1853)$ & $4.1830\ (0.1732)$\\
+        & ProTrans   & $\bm{0.6586}\ (0.0449)$ & $\bm{0.6497}\ (0.0455)$ & $\bm{0.5187}\ (0.1853)$ & $\bm{0.5206}\ (0.1732)$\\
+        \hline
+         \multicolumn{6}{c}{\textbf{Scenario 3 (nonlinear)}}\\
+         \hline
+        \multirow{5}{*}{1000} 
+        & SingleTrim  & $6.5866\ (0.4950)$ &  $8.0162\ (0.6038)$  & $3.7007\ (0.2904)$& $4.6862\ (0.3561)$ \\
+        & TransTrim  & $3.8329\ (0.3128)$& $3.4703\ (0.2874)$  & $2.6072\ (0.2139)$ & $2.3395\ (0.1888)$ \\
+        & SingleFarm   & $3.7907\ (0.2981)$  & $5.1480\ (0.3473)$ & $5.3765\ (0.4486)$& $7.0284\ (0.5122)$ \\
+        & TransFarm   & $1.4845\ (0.1335)$  & $1.5292\ (0.1169)$  & $1.8390\ (0.1596)$ & $1.8965\ (0.1483)$ \\
+        & ProTrans    & $\bm{0.8309}\ (0.0761)$  & $\bm{0.8661}\ (0.0705)$  & $\bm{0.6457}\ (0.0518)$ & $\bm{0.6869}\ (0.0463)$ \\
+        \hline
+        \multirow{5}{*}{2000} 
+        & SingleTrim  & $8.5861\ (0.6055)$  & $10.2241\ (0.7212)$  & $5.5476\ (0.4822)$ & $6.7159\ (0.5701)$ \\
+        & TransTrim   & $4.8125\ (0.3914)$  & $4.3644\ (0.3549)$ & $3.2512\ (0.2560)$ & $2.9090\ (0.2298)$ \\
+        & SingleFarm  & $4.1824\ (0.3275)$  & $5.2890\ (0.3820)$ & $5.7977\ (0.4710)$  & $7.1479\ (0.5304)$ \\
+        & TransFarm   & $1.6215\ (0.1226)$ & $1.5747\ (0.1034)$ & $2.1802\ (0.1616)$  & $2.1088\ (0.1445)$ \\
+        & ProTrans   & $\bm{0.8115}\ (0.0597)$ & $\bm{0.8480}\ (0.0625)$ & $\bm{0.6699}\ (0.0503)$ & $\bm{0.6975}\ (0.0503)$ \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
+Second, we examine the impact of varying confounding levels on ProTrans and the baseline methods by adjusting the norm of the confounder effects $\|\phi_t\|_2$ while keeping the dimensionality at $p = 1500$ and all other settings unchanged. As $\|\phi_t\|_2$ increases, the confounding effect becomes more severe, making it more challenging to accurately estimate both $\eta$ and $\beta_t$. ProTrans consistently outperforms the baselines and demonstrates greater robustness to increasing confounder levels in all settings. \red{Results for the $l_1$ and $l_2$ norm errors under various confounding levels $\|\phi_t\|_2$ and additional values of the dimension $p$ are reported in the supplementary material to save space.}
+
+% In \textbf{Scenario 1 (linear covariates)}, we observe that all methods exhibit increased estimation errors as confounding grows. Baseline 1 performs poorly across all confounding levels due to its inability to correct for hidden biases. Baseline 2 and Baseline 4, while partially alleviating the bias through transfer learning, show noticeable degradation in performance, particularly in estimating \( \eta \). Baseline 3 suffers from the highest errors in both \( \eta \) and \( \beta_t \) due to its reliance on misaligned factor projections. In contrast, our method consistently outperforms all baselines. For example, at \( \|\phi_t\|_2 = 4 \), our method achieves an \( \ell_2 \) error of 0.9452 for estimating \( \eta \) in the multi-source setting, substantially lower than Baseline 2 (2.6616) and Baseline 4 (1.1701). These results confirm our method’s robustness to growing confounding intensity in the linear setting.
+
+% In \textbf{Scenario 2 (nonlinear covariates)}, the limitations of traditional baselines become even more evident. Baseline 3 and Baseline 4, which depend on orthogonal projections, incur substantial estimation errors since their assumptions are violated under nonlinear feature generation. For instance, Baseline 3 exhibits errors exceeding 9.5 for \( \beta_t \) across all confounding levels in the multi-source case. Similarly, Baseline 1 and Baseline 2 fail to control confounding as \( \|\phi_t\|_2 \) increases. By contrast, our method maintains significantly lower errors. At \( \|\phi_t\|_2 = 4 \), it achieves an \( \ell_2 \) error of 0.2596 for \( \eta \) and 0.2618 for \( \beta_t \), outperforming all baselines by a large margin. The consistent performance across confounding levels highlights the strength of our debiasing approach in handling complex, nonlinear relationships without explicitly estimating the hidden confounder space.
+
+
+% \begin{table}[!ht]
+% \renewcommand{\arraystretch}{0.6}
+% \centerfloat
+% \caption{The $l_2$ norm errors of different methods across various levels of confounding.}
+% \label{table: simulation_phi}
+% \begin{tabular}{cccccccccc}
+% \toprule
+% \multirow{3}{*}{\textbf{$\|\phi_t\|_2$}} & \multirow{3}{*}{\textbf{Method}} & \multicolumn{4}{c}{\textbf{Scenario 1: Linear}} & \multicolumn{4}{c}{\textbf{Scenario 2: Nonlinear}} \\
+% \cmidrule(lr){3-6} \cmidrule(lr){7-10}
+% &  & \multicolumn{2}{c}{\textbf{single-source}} & \multicolumn{2}{c}{\textbf{multi-source}}& \multicolumn{2}{c}{\textbf{single-source}} & \multicolumn{2}{c}{\textbf{multi-source}}\\
+% \cmidrule(lr){3-4} \cmidrule(lr){5-6} \cmidrule(lr){7-8} \cmidrule(lr){9-10}
+% & & $\eta$ & $\beta_{t}$ & $\eta$& $\beta_{t}$ & $\eta$ & $\beta_{t}$ & $\eta$ & $\beta_{t}$ \\
+% \midrule
+% \multirow{5}{*}{1} 
+% & SingleTrim  & $0.7046\ (0.0477)$ & $0.8852\ (0.0574)$ & $0.5500\ (0.0335)$ & $0.6990\ (0.0410)$ & $0.2632\ (0.0125)$ & $0.3358\ (0.0145)$ & $0.2342\ (0.0212)$ & $0.2958\ (0.0229)$ \\
+% & TransTrim   & $0.4317\ (0.0298)$ & $0.3883\ (0.0265)$ & $0.3566\ (0.0202)$ & $0.3201\ (0.0180)$ & $0.1760\ (0.0085)$ & $0.1581\ (0.0071)$ & $0.1961\ (0.0129)$ & $0.1798\ (0.0097)$ \\
+% & SingleFarm  & $0.9031\ (0.0540)$ & $1.2649\ (0.0651)$ & $0.8402\ (0.0544)$ & $1.2124\ (0.0653)$ & $1.8268\ (0.1068)$ & $2.1755\ (0.1172)$ & $9.5069\ (0.0148)$ & $10.9077\ (0.0212)$ \\
+% & TransFarm   & $0.2876\ (0.0225)$ & $0.3106\ (0.0205)$ & $0.2525\ (0.0207)$ & $0.2870\ (0.0186)$ & $0.5314\ (0.0313)$ & $0.5228\ (0.0304)$ & $2.5265\ (0.0861)$ & $2.5000\ (0.0884)$ \\
+% & ProTrans    & $\bm{0.2477}\ (0.0156)$ & $\bm{0.2364}\ (0.0137)$ & $\bm{0.1989}\ (0.0103)$ & $\bm{0.1990}\ (0.0090)$ & $\bm{0.1251}\ (0.0061)$ & $\bm{0.1197}\ (0.0050)$ & $\bm{0.1495}\ (0.0215)$ & $\bm{0.1621}\ (0.0239)$ \\
+% \hline
+% \multirow{5}{*}{2} 
+% & SingleTrim  & $2.1710\ (0.0736)$ & $2.6549\ (0.0768)$ & $1.5831\ (0.1196)$ & $1.9357\ (0.1422)$ & $0.4518\ (0.0255)$ & $0.5641\ (0.0303)$ & $0.3297\ (0.0437)$ & $0.4182\ (0.0481)$ \\
+% & TransTrim   & $1.2523\ (0.1039)$ & $1.1359\ (0.0932)$ & $0.9060\ (0.0636)$ & $0.8151\ (0.0585)$ & $0.2852\ (0.0163)$ & $0.2560\ (0.0146)$ & $0.2595\ (0.0166)$ & $0.2346\ (0.0192)$ \\
+% & SingleFarm  & $1.5738\ (0.1019)$ & $2.1868\ (0.1291)$ & $1.1739\ (0.0755)$ & $1.6664\ (0.0931)$ & $1.8901\ (0.1116)$ & $2.2608\ (0.1215)$ & $9.5360\ (0.0090)$ & $10.9435\ (0.0171)$ \\
+% & TransFarm   & $0.6719\ (0.0581)$ & $0.6869\ (0.0527)$ & $0.4152\ (0.0328)$ & $0.4494\ (0.0293)$ & $0.5665\ (0.0337)$ & $0.5551\ (0.0320)$ & $2.5589\ (0.0818)$ & $2.5279\ (0.0845)$ \\
+% & ProTrans    & $\bm{0.5908}\ (0.0440)$ & $\bm{0.5682}\ (0.0399)$ & $\bm{0.3678}\ (0.0231)$ & $\bm{0.3612}\ (0.0219)$ & $\bm{0.1522}\ (0.0075)$ & $\bm{0.1446}\ (0.0064)$ & $\bm{0.1802}\ (0.0168)$ & $\bm{0.1861}\ (0.0207)$ \\
+% \hline
+% \multirow{5}{*}{3} 
+% & SingleTrim  & $4.6748\ (0.3813)$ & $5.6459\ (0.4594)$ & $3.3765\ (0.2779)$ & $4.0441\ (0.3258)$ & $0.7740\ (0.0522)$ & $0.9505\ (0.0623)$ & $0.4912\ (0.0648)$ & $0.6218\ (0.0706)$ \\
+% & TransTrim   & $2.5785\ (0.2299)$ & $2.3449\ (0.2054)$ & $1.7611\ (0.1383)$ & $1.5987\ (0.1274)$ & $0.4720\ (0.0312)$ & $0.4242\ (0.0284)$ & $0.3736\ (0.0124)$ & $0.3334\ (0.0173)$ \\
+% & SingleFarm  & $2.8351\ (0.2094)$ & $3.8500\ (0.2690)$ & $1.7447\ (0.1218)$ & $2.4160\ (0.1514)$ & $1.9822\ (0.1190)$ & $2.3895\ (0.1291)$ & $9.5974\ (0.0104)$ & $11.0360\ (0.0163)$ \\
+% & TransFarm   & $1.3929\ (0.1244)$ & $1.3750\ (0.1129)$ & $0.7160\ (0.0579)$ & $0.7397\ (0.0521)$ & $0.6331\ (0.0380)$ & $0.6170\ (0.0355)$ & $2.6139\ (0.0840)$ & $2.5783\ (0.0870)$ \\
+% & ProTrans    & $\bm{1.1383}\ (0.0919)$ & $\bm{1.1047}\ (0.0846)$ & $\bm{0.6171}\ (0.0426)$ & $\bm{0.6081}\ (0.0409)$ & $\bm{0.1855}\ (0.0094)$ & $\bm{0.1771}\ (0.0082)$ & $\bm{0.2179}\ (0.0135)$ & $\bm{0.2194}\ (0.0179)$ \\
+% \hline
+% \multirow{5}{*}{4} 
+% & SingleTrim  & $7.7609\ (0.5610)$ & $9.3499\ (0.6788)$ & $5.8085\ (0.4662)$ & $6.8857\ (0.5428)$ & $1.2471\ (0.0926)$ & $1.5130\ (0.1099)$ & $0.7252\ (0.0973)$ & $0.9103\ (0.0997)$ \\
+% & TransTrim   & $4.3785\ (0.3877)$ & $3.9669\ (0.3437)$ & $2.9219\ (0.2039)$ & $2.6616\ (0.2532)$ & $0.7497\ (0.0593)$ & $0.6730\ (0.0533)$ & $0.5359\ (0.0067)$ & $0.4757\ (0.0106)$ \\
+% & SingleFarm  & $4.6142\ (0.3589)$ & $6.1206\ (0.4514)$ & $2.6300\ (0.2039)$ & $3.5476\ (0.1677)$ & $2.0977\ (0.1252)$ & $2.5547\ (0.1371)$ & $9.6475\ (0.0092)$ & $11.1246\ (0.0161)$ \\
+% & TransFarm   & $2.4432\ (0.2223)$ & $2.3621\ (0.1997)$ & $1.1707\ (0.0980)$ & $1.1701\ (0.0893)$ & $0.7074\ (0.0457)$ & $0.6853\ (0.0417)$ & $2.6714\ (0.0799)$ & $2.6287\ (0.0833)$ \\
+% & ProTrans    & $\bm{1.9081}\ (0.1599)$ & $\bm{1.8653}\ (0.1472)$ & $\bm{0.9478}\ (0.0732)$ & $\bm{0.9452}\ (0.0711)$ & $\bm{0.2315}\ (0.0118)$ & $\bm{0.2219}\ (0.0106)$ & $\bm{0.2618}\ (0.0076)$ & $\bm{0.2596}\ (0.0131)$ \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+
+
+
+% \begin{table}[!ht]
+% \renewcommand{\arraystretch}{0.4}
+% % \setlength{\tabcolsep}{4pt}
+% \footnotesize
+%     \centerfloat
+%     \caption{The $l_2$ norm errors of different methods across various levels of confounding.}
+%     \label{table: simulation_phi}
+%     \begin{tabular}{cccccc}
+%         \toprule
+%         \multirow{2}{*}{\textbf{$\|\phi_t\|_2$}} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{2}{c}{\textbf{single-source}} & \multicolumn{2}{c}{\textbf{multi-source}}\\
+%         \cmidrule(lr){3-4} \cmidrule(lr){5-6} 
+%         & & $\eta$ & $\beta_{t}$ & $\eta$& $\beta_{t}$ \\
+%         \midrule
+%         \multicolumn{6}{c}{\textbf{Scenario 1: Linear}}\\
+%         \hline
+%         \multirow{5}{*}{1} 
+%         & SingleTrim  & $0.7046\ (0.0477)$ & $0.8852\ (0.0574)$ & $0.5500\ (0.0335)$ & $0.6990\ (0.0410)$ \\
+% & TransTrim   & $0.4317\ (0.0298)$ & $0.3883\ (0.0265)$ & $0.3566\ (0.0202)$ & $0.3201\ (0.0180)$ \\
+% & SingleFarm  & $0.9031\ (0.0540)$ & $1.2649\ (0.0651)$ & $0.8402\ (0.0544)$ & $1.2124\ (0.0653)$  \\
+% & TransFarm   & $0.2876\ (0.0225)$ & $0.3106\ (0.0205)$ & $0.2525\ (0.0207)$ & $0.2870\ (0.0186)$ \\
+% & ProTrans    & $\bm{0.2477}\ (0.0156)$ & $\bm{0.2364}\ (0.0137)$ & $\bm{0.1989}\ (0.0103)$ & $\bm{0.1990}\ (0.0090)$ \\
+% \hline
+% \multirow{5}{*}{2} 
+% & SingleTrim  & $2.1710\ (0.0736)$ & $2.6549\ (0.0768)$ & $1.5831\ (0.1196)$ & $1.9357\ (0.1422)$  \\
+% & TransTrim   & $1.2523\ (0.1039)$ & $1.1359\ (0.0932)$ & $0.9060\ (0.0636)$ & $0.8151\ (0.0585)$  \\
+% & SingleFarm  & $1.5738\ (0.1019)$ & $2.1868\ (0.1291)$ & $1.1739\ (0.0755)$ & $1.6664\ (0.0931)$ \\
+% & TransFarm   & $0.6719\ (0.0581)$ & $0.6869\ (0.0527)$ & $0.4152\ (0.0328)$ & $0.4494\ (0.0293)$  \\
+% & ProTrans    & $\bm{0.5908}\ (0.0440)$ & $\bm{0.5682}\ (0.0399)$ & $\bm{0.3678}\ (0.0231)$ & $\bm{0.3612}\ (0.0219)$ \\
+% \hline
+% \multirow{5}{*}{3} 
+% & SingleTrim  & $4.6748\ (0.3813)$ & $5.6459\ (0.4594)$ & $3.3765\ (0.2779)$ & $4.0441\ (0.3258)$ \\
+% & TransTrim   & $2.5785\ (0.2299)$ & $2.3449\ (0.2054)$ & $1.7611\ (0.1383)$ & $1.5987\ (0.1274)$ \\
+% & SingleFarm  & $2.8351\ (0.2094)$ & $3.8500\ (0.2690)$ & $1.7447\ (0.1218)$ & $2.4160\ (0.1514)$ \\
+% & TransFarm   & $1.3929\ (0.1244)$ & $1.3750\ (0.1129)$ & $0.7160\ (0.0579)$ & $0.7397\ (0.0521)$ \\
+% & ProTrans    & $\bm{1.1383}\ (0.0919)$ & $\bm{1.1047}\ (0.0846)$ & $\bm{0.6171}\ (0.0426)$ & $\bm{0.6081}\ (0.0409)$ \\
+% \hline
+% \multirow{5}{*}{4} 
+% & SingleTrim  & $7.7609\ (0.5610)$ & $9.3499\ (0.6788)$ & $5.8085\ (0.4662)$ & $6.8857\ (0.5428)$\\
+% & TransTrim   & $4.3785\ (0.3877)$ & $3.9669\ (0.3437)$ & $2.9219\ (0.2039)$ & $2.6616\ (0.2532)$  \\
+% & SingleFarm  & $4.6142\ (0.3589)$ & $6.1206\ (0.4514)$ & $2.6300\ (0.2039)$ & $3.5476\ (0.1677)$ \\
+% & TransFarm   & $2.4432\ (0.2223)$ & $2.3621\ (0.1997)$ & $1.1707\ (0.0980)$ & $1.1701\ (0.0893)$ \\
+% & ProTrans    & $\bm{1.9081}\ (0.1599)$ & $\bm{1.8653}\ (0.1472)$ & $\bm{0.9478}\ (0.0732)$ & $\bm{0.9452}\ (0.0711)$  \\
+%         \hline
+%          \multicolumn{6}{c}{\textbf{Scenario 2: Nonlinear}}\\
+%          \hline
+%          \multirow{5}{*}{1} 
+%        & SingleTrim  & $0.2632\ (0.0125)$ & $0.3358\ (0.0145)$ & $0.2342\ (0.0212)$ & $0.2958\ (0.0229)$ \\
+% & TransTrim   & $0.1760\ (0.0085)$ & $0.1581\ (0.0071)$ & $0.1961\ (0.0129)$ & $0.1798\ (0.0097)$ \\
+% & SingleFarm   & $1.8268\ (0.1068)$ & $2.1755\ (0.1172)$ & $9.5069\ (0.0148)$ & $10.9077\ (0.0212)$ \\
+% & TransFarm  & $0.5314\ (0.0313)$ & $0.5228\ (0.0304)$ & $2.5265\ (0.0861)$ & $2.5000\ (0.0884)$ \\
+% & ProTrans   & $\bm{0.1251}\ (0.0061)$ & $\bm{0.1197}\ (0.0050)$ & $\bm{0.1495}\ (0.0215)$ & $\bm{0.1621}\ (0.0239)$ \\
+% \hline
+% \multirow{5}{*}{2} 
+% & SingleTrim  & $0.4518\ (0.0255)$ & $0.5641\ (0.0303)$ & $0.3297\ (0.0437)$ & $0.4182\ (0.0481)$ \\
+% & TransTrim  & $0.2852\ (0.0163)$ & $0.2560\ (0.0146)$ & $0.2595\ (0.0166)$ & $0.2346\ (0.0192)$ \\
+% & SingleFarm  & $1.8901\ (0.1116)$ & $2.2608\ (0.1215)$ & $9.5360\ (0.0090)$ & $10.9435\ (0.0171)$ \\
+% & TransFarm  & $0.5665\ (0.0337)$ & $0.5551\ (0.0320)$ & $2.5589\ (0.0818)$ & $2.5279\ (0.0845)$ \\
+% & ProTrans    & $\bm{0.1522}\ (0.0075)$ & $\bm{0.1446}\ (0.0064)$ & $\bm{0.1802}\ (0.0168)$ & $\bm{0.1861}\ (0.0207)$ \\
+% \hline
+% \multirow{5}{*}{3} 
+% & SingleTrim  & $0.7740\ (0.0522)$ & $0.9505\ (0.0623)$ & $0.4912\ (0.0648)$ & $0.6218\ (0.0706)$ \\
+% & TransTrim   & $0.4720\ (0.0312)$ & $0.4242\ (0.0284)$ & $0.3736\ (0.0124)$ & $0.3334\ (0.0173)$ \\
+% & SingleFarm  & $1.9822\ (0.1190)$ & $2.3895\ (0.1291)$ & $9.5974\ (0.0104)$ & $11.0360\ (0.0163)$ \\
+% & TransFarm   & $0.6331\ (0.0380)$ & $0.6170\ (0.0355)$ & $2.6139\ (0.0840)$ & $2.5783\ (0.0870)$ \\
+% & ProTrans    & $\bm{0.1855}\ (0.0094)$ & $\bm{0.1771}\ (0.0082)$ & $\bm{0.2179}\ (0.0135)$ & $\bm{0.2194}\ (0.0179)$ \\
+% \hline
+% \multirow{5}{*}{4} 
+% & SingleTrim  & $1.2471\ (0.0926)$ & $1.5130\ (0.1099)$ & $0.7252\ (0.0973)$ & $0.9103\ (0.0997)$ \\
+% & TransTrim    & $0.7497\ (0.0593)$ & $0.6730\ (0.0533)$ & $0.5359\ (0.0067)$ & $0.4757\ (0.0106)$ \\
+% & SingleFarm   & $2.0977\ (0.1252)$ & $2.5547\ (0.1371)$ & $9.6475\ (0.0092)$ & $11.1246\ (0.0161)$ \\
+% & TransFarm  & $0.7074\ (0.0457)$ & $0.6853\ (0.0417)$ & $2.6714\ (0.0799)$ & $2.6287\ (0.0833)$ \\
+% & ProTrans     & $\bm{0.2315}\ (0.0118)$ & $\bm{0.2219}\ (0.0106)$ & $\bm{0.2618}\ (0.0076)$ & $\bm{0.2596}\ (0.0131)$ \\
+%         \bottomrule
+%     \end{tabular}
+% \end{table}
+
+
+% \begin{table}[!ht]
+% \renewcommand{\arraystretch}{0.4}
+% \footnotesize
+% % \setlength{\tabcolsep}{4pt}
+% \centerfloat
+% \caption{Nonlinear setting: $l_1$ and $l_2$ norm errors (mean (sd)) across various dimensions $p$.}
+% \label{table:nonlinear_varying_p}
+% \begin{tabular}{cccccccccc}
+% \toprule
+% \multirow{3}{*}{$\bm{p}$} & \multirow{3}{*}{\textbf{Method}} 
+% & \multicolumn{4}{c}{\textbf{single-source}} 
+% & \multicolumn{4}{c}{\textbf{multi-source}} \\
+% \cmidrule(lr){3-6} \cmidrule(lr){7-10}
+% & & \multicolumn{2}{c}{$\eta$} & \multicolumn{2}{c}{$\beta_t$} 
+%   & \multicolumn{2}{c}{$\eta$} & \multicolumn{2}{c}{$\beta_t$} \\
+% \cmidrule(lr){3-4} \cmidrule(lr){5-6} \cmidrule(lr){7-8} \cmidrule(lr){9-10}
+% & & $L_1$ & $L_2$ & $L_1$ & $L_2$ & $L_1$ & $L_2$ & $L_1$ & $L_2$ \\
+% \midrule
+% \multirow{5}{*}{500}
+% & SingleTrim  & $6.5854\ (0.3279)$ & $5.3515\ (0.5104)$ & $7.2482\ (0.3453)$ & $6.6901\ (0.6328)$ & $4.6464\ (0.2542)$ & $3.2439\ (0.3362)$ & $5.3890\ (0.2768)$ & $4.1267\ (0.4137)$ \\
+% & TransTrim   & $2.9871\ (0.1730)$ & $3.9820\ (0.4091)$ & $4.0056\ (0.2109)$ & $3.6446\ (0.3788)$ & $2.3197\ (0.1332)$ & $2.7281\ (0.2696)$ & $3.1194\ (0.1529)$ & $2.4604\ (0.2442)$ \\
+% & SingleFarm  & $5.8293\ (0.2610)$ & $3.5923\ (0.2974)$ & $6.0358\ (0.2333)$ & $4.9351\ (0.3778)$ & $5.8078\ (0.2357)$ & $4.1794\ (0.3157)$ & $6.5672\ (0.2471)$ & $5.6942\ (0.3899)$ \\
+% & TransFarm   & $1.6083\ (0.1110)$ & $1.2493\ (0.1489)$ & $3.1416\ (0.1606)$ & $1.4569\ (0.1434)$ & $1.9433\ (0.1977)$ & $1.3989\ (0.1610)$ & $2.9370\ (0.1982)$ & $1.5589\ (0.1496)$ \\
+% & ProTrans    & $1.5494\ (0.1107)$ & $1.0273\ (0.0972)$ & $2.6031\ (0.1526)$ & $1.1476\ (0.1070)$ & $1.2525\ (0.0601)$ & $0.6867\ (0.0652)$ & $2.0885\ (0.0828)$ & $0.8084\ (0.0678)$ \\
+% \hline
+% \multirow{5}{*}{1000}
+% & SingleTrim  & $6.8711\ (0.2805)$ & $6.5866\ (0.4950)$ & $7.5761\ (0.3010)$ & $8.0162\ (0.6038)$ & $4.9216\ (0.2109)$ & $3.7007\ (0.2904)$ & $5.6592\ (0.2298)$ & $4.6862\ (0.3561)$ \\
+% & TransTrim   & $2.8971\ (0.1653)$ & $3.8329\ (0.3128)$ & $3.8045\ (0.2087)$ & $3.4703\ (0.2874)$ & $2.2496\ (0.1084)$ & $2.6072\ (0.2139)$ & $2.9897\ (0.1257)$ & $2.3395\ (0.1888)$ \\
+% & SingleFarm  & $5.1877\ (0.2062)$ & $3.7907\ (0.2981)$ & $5.9738\ (0.2051)$ & $5.1480\ (0.3473)$ & $5.9599\ (0.2371)$ & $5.3765\ (0.4486)$ & $6.8234\ (0.2384)$ & $7.0284\ (0.5122)$ \\
+% & TransFarm   & $1.6692\ (0.0771)$ & $1.4845\ (0.1335)$ & $2.6243\ (0.0997)$ & $1.5292\ (0.1169)$ & $1.8514\ (0.0827)$ & $1.8390\ (0.1596)$ & $2.7316\ (0.0902)$ & $1.8965\ (0.1483)$ \\
+% & ProTrans    & $1.3993\ (0.0621)$ & $0.8309\ (0.0761)$ & $2.2363\ (0.0907)$ & $0.8661\ (0.0705)$ & $1.2847\ (0.0638)$ & $0.6457\ (0.0518)$ & $2.0212\ (0.0773)$ & $0.6869\ (0.0463)$ \\
+% \hline
+% \multirow{5}{*}{1500}
+% & SingleTrim  & $7.3034\ (0.3405)$ & $7.1824\ (0.5372)$ & $7.7163\ (0.3126)$ & $8.6437\ (0.6405)$ & $5.0637\ (0.2061)$ & $4.2873\ (0.3303)$ & $5.7136\ (0.2264)$ & $5.2799\ (0.3966)$ \\
+% & TransTrim   & $2.9041\ (0.1225)$ & $3.9866\ (0.3298)$ & $3.6870\ (0.1457)$ & $3.5776\ (0.2942)$ & $2.2195\ (0.0867)$ & $2.7010\ (0.2115)$ & $2.8957\ (0.1079)$ & $2.3886\ (0.1908)$ \\
+% & SingleFarm  & $5.1953\ (0.2089)$ & $3.9399\ (0.3144)$ & $5.8374\ (0.2096)$ & $5.1576\ (0.3745)$ & $5.8308\ (0.2621)$ & $4.9658\ (0.3983)$ & $6.5458\ (0.2635)$ & $6.2776\ (0.4465)$ \\
+% & TransFarm   & $1.9394\ (0.1180)$ & $1.6318\ (0.1355)$ & $2.7472\ (0.1281)$ & $1.6095\ (0.1220)$ & $1.9292\ (0.1017)$ & $1.7710\ (0.1517)$ & $2.6916\ (0.1029)$ & $1.7458\ (0.1382)$ \\
+% & ProTrans    & $1.4337\ (0.0781)$ & $0.7191\ (0.0497)$ & $2.2278\ (0.1074)$ & $0.7511\ (0.0523)$ & $1.2024\ (0.0520)$ & $0.6389\ (0.0440)$ & $1.8801\ (0.0694)$ & $0.6539\ (0.0430)$ \\
+% \hline
+% \multirow{5}{*}{2000}
+% & SingleTrim  & $7.9291\ (0.3461)$ & $8.5861\ (0.6055)$ & $8.4003\ (0.3109)$ & $10.2241\ (0.7212)$ & $5.7839\ (0.2588)$ & $5.5476\ (0.4822)$ & $6.5066\ (0.2791)$ & $6.7159\ (0.5701)$ \\
+% & TransTrim   & $3.0132\ (0.1282)$ & $4.8125\ (0.3914)$ & $3.9696\ (0.1976)$ & $4.3644\ (0.3549)$ & $2.3438\ (0.0953)$ & $3.2512\ (0.2560)$ & $3.0940\ (0.1175)$ & $2.9090\ (0.2298)$ \\
+% & SingleFarm  & $5.5249\ (0.2224)$ & $4.1824\ (0.3275)$ & $6.1933\ (0.2221)$ & $5.2890\ (0.3820)$ & $6.2591\ (0.2416)$ & $5.7977\ (0.4710)$ & $7.0178\ (0.2403)$ & $7.1479\ (0.5304)$ \\
+% & TransFarm   & $1.8790\ (0.0731)$ & $1.6215\ (0.1226)$ & $2.7432\ (0.0882)$ & $1.5747\ (0.1034)$ & $2.2212\ (0.0938)$ & $2.1802\ (0.1616)$ & $3.0268\ (0.0960)$ & $2.1088\ (0.1445)$ \\
+% & ProTrans    & $1.3983\ (0.0547)$ & $0.8115\ (0.0597)$ & $2.3879\ (0.1489)$ & $0.8480\ (0.0625)$ & $1.3113\ (0.0521)$ & $0.6699\ (0.0503)$ & $2.0372\ (0.0683)$ & $0.6975\ (0.0503)$ \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+
+% % =========================
+% % Nonlinear, varying confounding (single-source filled; multi-source updated)
+% % =========================
+% \begin{table}[!ht]
+% \renewcommand{\arraystretch}{0.4}
+% \footnotesize
+% % \setlength{\tabcolsep}{4pt}
+% \centerfloat
+% \caption{Nonlinear setting: $l_1$ and $l_2$ norm errors (mean (sd)) across confounding levels $\|\phi_t\|_2$.}
+% \label{table:nonlinear_varying_phi}
+% \begin{tabular}{cccccccccc}
+% \toprule
+% \multirow{3}{*}{$\|\phi_t\|_2$} & \multirow{3}{*}{\textbf{Method}}
+% & \multicolumn{4}{c}{\textbf{single-source}}
+% & \multicolumn{4}{c}{\textbf{multi-source}} \\
+% \cmidrule(lr){3-6}\cmidrule(lr){7-10}
+% & & \multicolumn{2}{c}{$\eta$} & \multicolumn{2}{c}{$\beta_t$}
+% & \multicolumn{2}{c}{$\eta$} & \multicolumn{2}{c}{$\beta_t$} \\
+% \cmidrule(lr){3-4}\cmidrule(lr){5-6}\cmidrule(lr){7-8}\cmidrule(lr){9-10}
+% & & $L_1$ & $L_2$ & $L_1$ & $L_2$ & $L_1$ & $L_2$ & $L_1$ & $L_2$ \\
+% \midrule
+% \multicolumn{10}{c}{\textbf{Scenario: Nonlinear}}\\
+% \hline
+% \multirow{5}{*}{1}
+% & SingleTrim  & $1.5015\ (0.0450)$ & $0.3116\ (0.0162)$ & $1.7433\ (0.0464)$ & $0.4022\ (0.0192)$ & $1.3010\ (0.0376)$ & $0.2632\ (0.0122)$ & $1.5960\ (0.0390)$ & $0.3438\ (0.0155)$ \\
+% & TransTrim   & $0.6801\ (0.0269)$ & $0.1945\ (0.0099)$ & $0.9371\ (0.0274)$ & $0.1755\ (0.0085)$ & $0.6784\ (0.0190)$ & $0.2033\ (0.0087)$ & $1.0114\ (0.0204)$ & $0.1865\ (0.0971)$ \\
+% & SingleFarm  & $2.2170\ (0.0773)$ & $0.7001\ (0.0548)$ & $2.5115\ (0.0790)$ & $0.9190\ (0.0633)$ & $5.0659\ (0.2112)$ & $3.7867\ (0.3223)$ & $5.5443\ (0.2158)$ & $4.6118\ (0.3630)$ \\
+% & TransFarm   & $0.7293\ (0.0290)$ & $0.2454\ (0.0177)$ & $1.0400\ (0.0297)$ & $0.2486\ (0.0166)$ & $1.4899\ (0.0958)$ & $1.1057\ (0.1137)$ & $1.9981\ (0.0971)$ & $1.1105\ (0.1047)$ \\
+% & ProTrans    & $\bm{0.5390}\ (0.0150)$ & $\bm{0.1283}\ (0.0060)$ & $\bm{0.8042}\ (0.0164)$ & $\bm{0.1223}\ (0.0050)$ & $0.5762\ (0.0166)$ & $0.1344\ (0.0068)$ & $0.9370\ (0.0179)$ & $0.1447\ (0.0055)$ \\
+% \hline
+% \multirow{5}{*}{2}
+% & SingleTrim  & $2.2096\ (0.0809)$ & $0.6401\ (0.0413)$ & $2.4896\ (0.0839)$ & $0.8016\ (0.0495)$ & $1.7089\ (0.0561)$ & $0.4422\ (0.0255)$ & $2.0344\ (0.0591)$ & $0.5723\ (0.0316)$ \\
+% & TransTrim   & $0.9707\ (0.0568)$ & $0.3757\ (0.0231)$ & $1.2694\ (0.0585)$ & $0.3382\ (0.0209)$ & $0.8359\ (0.0273)$ & $0.3110\ (0.0157)$ & $1.1931\ (0.0305)$ & $0.2792\ (0.0136)$ \\
+% & SingleFarm  & $2.3528\ (0.0819)$ & $0.7932\ (0.0580)$ & $2.6774\ (0.0834)$ & $1.0473\ (0.0676)$ & $5.1147\ (0.2212)$ & $3.8741\ (0.3293)$ & $5.6023\ (0.2249)$ & $4.7238\ (0.3685)$ \\
+% & TransFarm   & $0.7869\ (0.0275)$ & $0.2985\ (0.0222)$ & $1.1292\ (0.0291)$ & $0.2989\ (0.0204)$ & $1.5231\ (0.0884)$ & $1.1311\ (0.1153)$ & $2.0496\ (0.0903)$ & $1.1343\ (0.1116)$ \\
+% & ProTrans    & $\bm{0.6292}\ (0.0213)$ & $\bm{0.1610}\ (0.0078)$ & $\bm{0.9325}\ (0.0229)$ & $\bm{0.1548}\ (0.0068)$ & $0.6455\ (0.0202)$ & $0.1632\ (0.0077)$ & $1.0244\ (0.0221)$ & $0.1716\ (0.0066)$ \\
+% \hline
+% \multirow{5}{*}{3}
+% & SingleTrim  & $2.9733\ (0.1154)$ & $1.2124\ (0.0914)$ & $3.3088\ (0.1219)$ & $1.4907\ (0.1090)$ & $2.2306\ (0.0838)$ & $0.7565\ (0.0504)$ & $2.5937\ (0.0886)$ & $0.9640\ (0.0618)$ \\
+% & TransTrim   & $1.2412\ (0.0615)$ & $0.6878\ (0.0491)$ & $1.6002\ (0.0668)$ & $0.6188\ (0.0444)$ & $1.0322\ (0.0368)$ & $0.5055\ (0.0308)$ & $1.4283\ (0.0429)$ & $0.4491\ (0.0274)$ \\
+% & SingleFarm  & $2.5463\ (0.0896)$ & $0.9351\ (0.0672)$ & $2.9172\ (0.0918)$ & $1.2418\ (0.0793)$ & $5.1915\ (0.2247)$ & $4.0261\ (0.3482)$ & $5.7027\ (0.2271)$ & $4.9209\ (0.3859)$ \\
+% & TransFarm   & $0.9096\ (0.0396)$ & $0.3866\ (0.0294)$ & $1.2972\ (0.0432)$ & $0.3827\ (0.0265)$ & $1.5191\ (0.0815)$ & $1.1769\ (0.1172)$ & $2.0693\ (0.-835)$ & $1.1781\ (0.1129)$ \\
+% & ProTrans    & $\bm{0.7539}\ (0.0337)$ & $\bm{0.2146}\ (0.0114)$ & $\bm{1.1154}\ (0.0379)$ & $\bm{0.2099}\ (0.0106)$ & $0.7261\ (0.0271)$ & $0.2072\ (0.0102)$ & $1.1361\ (0.0302)$ & $0.2134\ (0.0092)$ \\
+% \hline
+% \multirow{5}{*}{4}
+% & SingleTrim  & $3.6797\ (0.1406)$ & $1.9247\ (0.1356)$ & $4.0797\ (0.1503)$ & $2.3586\ (0.1631)$ & $2.7830\ (0.1090)$ & $1.1918\ (0.0844)$ & $3.1936\ (0.1169)$ & $1.5013\ (0.1031)$ \\
+% & TransTrim   & $1.5749\ (0.0782)$ & $1.1118\ (0.0824)$ & $2.0035\ (0.0855)$ & $0.9923\ (0.0732)$ & $1.2410\ (0.0455)$ & $0.7865\ (0.0529)$ & $1.6844\ (0.0544)$ & $0.6962\ (0.0473)$ \\
+% & SingleFarm  & $2.7717\ (0.0981)$ & $1.1541\ (0.0874)$ & $3.1919\ (0.1022)$ & $1.5302\ (0.1038)$ & $5.3336\ (0.2366)$ & $4.1611\ (0.3548)$ & $5.8735\ (0.2381)$ & $5.1095\ (0.3931)$ \\
+% & TransFarm   & $1.0428\ (0.0564)$ & $0.5076\ (0.0391)$ & $1.4960\ (0.0626)$ & $0.4975\ (0.0352)$ & $1.5691\ (0.0794)$ & $1.2456\ (0.1223)$ & $2.1503\ (0.0809)$ & $1.2443\ (0.1166)$ \\
+% & ProTrans    & $\bm{0.8445}\ (0.0354)$ & $\bm{0.2767}\ (0.0159)$ & $\bm{1.2770}\ (0.0426)$ & $\bm{0.2759}\ (0.0153)$ & $0.8008\ (0.0290)$ & $0.2646\ (0.0138)$ & $1.2549\ (0.0348)$ & $0.2711\ (0.0132)$ \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+
+% Varying p (our method only; Linear & Nonlinear)
+
+
+
+Lastly, we study the finite-sample performance of the proposed informative source selection procedure, where the confounding effect $\phi_s$ in the source models may differ from $\phi_t$ in the target model. In this simulation, we adopt the same multi-source setting as in the first experiment above, but choose $\phi_s^{(k)} = (5-k)\phi_t/4  + (k-1)\phi_t^{(k)}/4 $ for the $k$-th source model, $1\le k \le 4$. Here, $\phi_t^{(k)}$ denotes an i.i.d. copy of $\phi_t$. Table \ref{table: source_selection} presents the results of ProTrans after applying the source selection procedure with different levels of $\rho$, where $\rho =\infty$ corresponds to ProTrans without source selection. The proposed procedure identifies more informative sources and enhances transfer performance. The numerical results show a trade-off when choosing $\rho$, which is consistent with the findings in Theorem \ref{thm:source_selection}. 
+
+\begin{table}[!ht]
+\renewcommand{\arraystretch}{0.65}
+\footnotesize
+    \centerfloat
+    \caption{The $l_2$ norm errors of source-selected methods under different selection level $\rho$.}
+     \label{table: source_selection}
+    \begin{tabular}{cccccccccc}
+    \toprule
+    \textbf{Scenario} & $\bm{p}$ & $\rho = 1$ & $\rho = 1.2$& $\rho = 1.4$ & $\rho = 1.6$ & $\rho = 2$ & $\rho = 2.5$ & $\rho = 3$ & $\rho=\infty$ \\
+    \midrule
+       \multirow{4}{*}{\textbf{Scenario 1}}  & 500 &  $0.3984$& $0.3785$ &$0.3541$&$0.3398$& $0.3356$ &$0.3400$ &$0.3392$& $0.3395$  \\
+                                        & 1000 &  $0.4040$ &$0.3772$ &$0.3614$ &$0.3484$ &$0.3424$ &$0.3453$& $0.3479$& $0.3555$   \\ 
+                                         & 1500 &  $0.4136$& $0.3861$ &$0.3654$ &$0.3524$ &$0.3476$ &$0.3536$ &$0.3545$& $0.3622$   \\ 
+                                          & 2000 &  $0.4131$ &$0.3815$ &$0.3641$ &$0.3561$ &$0.3518$& $0.3552$& $0.3575$ &$0.3647$    \\ 
+                                          \hline
+       \multirow{4}{*}{\textbf{Scenario 2}}  & 500 &  $1.1866$ &$1.1467$& $1.1566$ &$1.1217$ &$1.1617$ &$1.2098$ &$1.2709$ & $1.6709$    \\
+                                & 1000 &   $1.1599$ &$1.1439$ &$1.1148$ &$1.1116$ &$1.0928$& $1.1086$ &$1.1272$& $1.6004$   \\ 
+                                 & 1500 &   $1.1547$& $1.1196$ &$1.1027$& $1.0757$ &$1.0625$ &$1.0587$& $1.1004$& $1.5725$  \\ 
+                                  & 2000 &   $1.2721$ &$1.2310$& $1.1693$& $1.1195$& $1.1050$ &$1.1127$ &$1.1480$ &$1.5855$   \\                      \hline
+       \multirow{4}{*}{\textbf{Scenario 3}}  & 500 &  $1.3609$ &$1.3427$& $1.3148$ &$1.2875$ &$1.2733$ &$1.3452$ &$1.4008$ & $1.6202$    \\
+                                & 1000 &   $1.2853$ &$1.2603$ &$1.2287$ &$1.1773$ &$1.1989$& $1.2368$ &$1.2741$& $1.5454$   \\ 
+                                 & 1500 &   $1.2490$& $1.2161$ &$1.2172$& $1.1716$ &$1.1862$ &$1.2017$& $1.2092$& $1.5266$  \\ 
+                                  & 2000 &   $1.3389$ &$1.2699$& $1.2194$& $1.1751$& $1.1485$ &$1.1763$ &$1.1737$ &$1.5183$   \\           
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+
+% The target data \((X_{ti}, Y_{ti})\) with hidden confounders \(H_{ti}\) are generated according to:
+% \[
+% Y_{ti} = \beta_t^\top X_{ti} + \phi^\top H_{ti} + \varepsilon_{ti}, \quad X_{ti} = H_{ti}^\top \Psi + E_{ti},
+% \]
+% where \(H_{ti} \sim \mathcal{N}(0, I_q)\), \(E_{ti} \sim \mathcal{N}(0, \sigma_E^2 I_p)\), and \(\varepsilon_{ti} \sim \mathcal{N}(0, \sigma^2)\). We set \(q = 3\), \(\sigma_E = 2\), \(\sigma = 1\), and \(p \in \{500, 1000, 1500, 2000\}\).
+
+% The true source coefficient vector is \(\beta_s = (2, \ldots, 2, 0, \ldots, 0)^T \in \mathbb{R}^p\), with the first \(5\) entries equal to 2 and the remaining entries equal to 0. The target coefficient is defined as \(\beta_t = \beta_s + \eta\), where the perturbation vector \(\eta \in \mathbb{R}^p\) has:
+% \[
+% \eta = (-4, 0, 0, \ldots, 0, 2)^T,
+% \]
+% i.e., the first entry of \(\eta\) is \(-4\), the last entry is \(2\), and all other entries are zero.
+
+% The confounder structure \(\Psi \in \mathbb{R}^{q \times p}\) has entries sampled from \(\mathcal{N}(0,1)\) and is scaled by:
+% \[
+% \Psi = \frac{1}{\sqrt{n_s}} \cdot \frac{\log(n_s)}{2} \cdot \text{standardized},
+% \]
+% while \(\phi \sim \mathcal{N}(0, I_q)\).
+
+% We compare the simulation results under single-source and multi-source cases, where
+% \begin{itemize}
+%     \item \textbf{Single-source:} Target sample size \(n_t = 100\), one source with \(n_s = 600\).
+%     \item \textbf{Multi-source:} Target \(n_t = 100\), \(K=4\) sources each with \(n_s^{(k)} = 150\).
+% \end{itemize}
+% We compare the proposed method with the following baseline methods:
+% \begin{itemize}
+%     \item \textbf{Baseline 1:} OLS using only target data.
+%     \item \textbf{Baseline 2:} Transfer \(\beta_s^{(k)}\) only, assuming \(\beta_s^{(k)} = \beta_t\).
+%     \item \textbf{Baseline 3:} Transfer confounder structure \(f(H_s^{(k)})\) only, assuming \(f(H_s^{(k)}) = f(H_t)\).
+%     \item \textbf{Baseline 4:} Naive transfer of both \(\beta_s^{(k)}\) and \(f(H_s^{(k)})\), without adjustment.
+% \end{itemize}
+% We compare the following criterion:
+% \begin{itemize}
+%     \item \(L_1\) estimation error: \(\|\hat{\beta}_t - \beta_t\|_1\),
+%     \item \(L_2\) estimation error: \(\|\hat{\beta}_t - \beta_t\|_2\),
+%     \item \(L_1\) prediction error: \(\|X_t \hat{\beta}_t - X_t \beta_t\|_1 / n_t\),
+%     \item \(L_2\) prediction error: \(\|X_t \hat{\beta}_t - X_t \beta_t\|_2 / \sqrt{n_t}\).
+% \end{itemize}
+% Each simulation is repeated 100 times, and the results are presented in Figure \ref{fig:loss_comparison_linear_single}, Figure \ref{fig:loss_comparison_linear_multi} and Table \ref{table: simulation_linear_p}.
+
+% The results demonstrates that our proposed method consistently outperforms all baseline methods across varying dimensionality \(p\) in both single-source and multi-source transfer learning settings.
+
+% At \( p=500 \), our method achieves an \(L_1\) estimation error of 1.1414, lower than Baseline 2 (1.3645), Baseline 3 (3.0369), and slightly better than Baseline 4 (1.1654). Notably, Baseline 3 yields a much higher \(L_2\) estimation error of 1.2055, compared to 0.2502 for our method. When \( p \) increases to 2000, our method still achieves a low \(L_1\) estimation error of 1.2593, whereas Baseline 1, 2, and 3 have significantly higher errors of 2.8727, 1.4569, and 3.0435, respectively. Regarding prediction accuracy, at \( p=2000 \), our method yields an \(L_2\) prediction error of 0.2894, clearly outperforming Baseline 1 (0.8748) and Baseline 3 (0.8936).
+
+% The advantage of our method is even more pronounced. At \( p=500 \), the \(L_1\) estimation error for our method is 1.1273, which is better than Baseline 2 (1.3527) and Baseline 4 (1.4081), while Baseline 3 again shows poor performance (3.1352). As \( p \) increases to 2000, our method maintains a low \(L_2\) estimation error of 0.2185, while Baseline 1, 2, and 3 result in higher errors of 0.8566, 0.3738, and 1.1614, respectively. Similarly, our method's \(L_1\) prediction error at \( p=2000 \) is 0.7716, in contrast to Baseline 1 (2.2090) and Baseline 3 (2.5504).
+
+% For linear case, Baseline 3 consistently exhibits the highest estimation and prediction errors. Baseline 4, which naively pools data without adjustment, performs closer to our method at lower dimensions but performs notably as \( p \) increases; Our method yields the lowest errors across all metrics and remains robust with increasing \( p \), demonstrating its scalability and effectiveness in confounded high-dimensional transfer learning. In the multi-source setting, the performance gap widens, showing our method’s superior capability in integrating multiple source information while correcting for structural biases.
+
+% \begin{figure}[H]  % Use [H] to place it exactly here
+%     \centering
+%     \includegraphics[width=0.9\textwidth]{pic/multisource_linear_p.png}
+%     \caption{Comparison of Loss Metrics for Different Methods under Different $p$ with Multi-Source Data (Linear)}
+%     \label{fig:loss_comparison_linear_multi}
+% \end{figure}
+
+% \begin{table}[H]
+%     \centering
+%     \caption{Comparison of Our Method vs. Baseline Methods for $L_1$ and $L_2$ Errors (Single-source vs Multi-source Linear cases)}
+%     \label{table: simulation_linear_p}
+%     \begin{tabular}{cclllllllll}
+%         \toprule
+%         \multirow{2}{*}{\textbf{p}} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{4}{c}{\textbf{Single-source}} & \multicolumn{4}{c}{\textbf{Multi-source}} \\
+%         \cmidrule(lr){3-6} \cmidrule(lr){7-10}
+%         & & $\beta_{L_1}$ & $\beta_{L_2}$ & $\eta_{L_1}$ & $\eta_{L_2}$ 
+%         & $\beta_{L_1}$ & $\beta_{L_2}$ & $\eta_{L_1}$ & $\eta_{L_2}$ \\
+%         \midrule
+%         \multirow{5}{*}{500} & baseline 1 & $2.1458$ & $0.6848$ & $1.8195$ & $0.5487$ & $1.9932$ & $0.5504$ & $1.6540$ & $0.4317$ \\
+%         & baseline 2 & $1.3645$ & $0.3932$ & $0.9743$ & $0.4336$ & $1.3527$ & $0.3407$ & $0.9516$ & $0.3640$ \\
+%         & baseline 3 & $3.0369$ & $1.2055$ & $2.6029$ & $0.8095$ & $3.1352$ & $1.2223$ & $2.6500$ & $0.8065$ \\
+%         & baseline 4 & $1.1654$ & $0.2493$ & $0.6023$ & $0.1712$ & $1.4081$ & $0.2890$ & $0.8129$ & $0.2016$ \\
+%         & our method & $1.1414$ & $0.2502$ & $0.7323$ & $0.2460$ & $1.1273$ & $0.2167$ & $0.6824$ & $0.1965$ \\
+%         \hline
+%         \multirow{5}{*}{1000} & baseline 1 & $2.4789$ & $0.7685$ & $2.1605$ & $0.6095$ & $2.3055$ & $0.6057$ & $1.9753$ & $0.4756$ \\
+%         & baseline 2 & $1.3574$ & $0.3843$ & $0.9696$ & $0.4246$ & $1.2970$ & $0.3212$ & $0.9115$ & $0.3538$ \\
+%         & baseline 3 & $3.2662$ & $1.4586$ & $2.7750$ & $1.0009$ & $3.3460$ & $1.5430$ & $2.8200$ & $1.0485$ \\
+%         & baseline 4 & $1.2817$ & $0.3365$ & $0.7553$ & $0.2824$ & $1.2742$ & $0.3112$ & $0.7364$ & $0.2493$ \\
+%         & our method & $1.1831$ & $0.2422$ & $0.7811$ & $0.2480$ & $1.1530$ & $0.2160$ & $0.7450$ & $0.2143$ \\
+%         \hline
+%         \multirow{5}{*}{1500} & baseline 1 & $2.6143$ & $0.8852$ & $2.3097$ & $0.7046$ & $2.3402$ & $0.6990$ & $2.0223$ & $0.5500$ \\
+%         & baseline 2 & $1.3520$ & $0.3883$ & $0.9943$ & $0.4317$ & $1.3134$ & $0.3201$ & $0.9494$ & $0.3566$ \\
+%         & baseline 3 & $3.0241$ & $1.2649$ & $2.6162$ & $0.9031$ & $2.9786$ & $1.2124$ & $2.5491$ & $0.8402$ \\
+%         & baseline 4 & $1.2127$ & $0.3106$ & $0.7665$ & $0.2876$ & $1.2175$ & $0.2870$ & $0.7505$ & $0.2525$ \\
+%         & our method & $1.1786$ & $0.2364$ & $0.8181$ & $0.2477$ & $1.1138$ & $0.1990$ & $0.7390$ & $0.1989$ \\
+%         \hline
+%         \multirow{5}{*}{2000} & baseline 1 & $2.8727$ & $1.0657$ & $2.5860$ & $0.8748$ & $2.5573$ & $0.8566$ & $2.2090$ & $0.6900$ \\
+%         & baseline 2 & $1.4569$ & $0.4270$ & $1.0220$ & $0.4725$ & $1.3573$ & $0.3738$ & $0.9604$ & $0.4105$ \\
+%         & baseline 3 & $3.0435$ & $1.1931$ & $2.7064$ & $0.8936$ & $2.9596$ & $1.1614$ & $2.5504$ & $0.8374$ \\
+%         & baseline 4 & $1.3660$ & $0.3329$ & $0.8862$ & $0.3306$ & $1.2751$ & $0.3255$ & $0.8225$ & $0.3130$ \\
+%         & our method & $1.2593$ & $0.2706$ & $0.8555$ & $0.2894$ & $1.1731$ & $0.2185$ & $0.7716$ & $0.2213$ \\
+%         \bottomrule
+%     \end{tabular}
+% \end{table}
+
+% Similarly, we investigate the performance of the proposed method under a high-dimensional confounded nonlinear model. The target data \((X_{ti}, Y_{ti})\) with hidden confounders \(H_{ti}\) are generated as:
+% \[
+% Y_{ti} = \beta_t^\top X_{ti} + \phi^\top H_{ti} + \varepsilon_{ti}, \quad X_{ti} = \frac{4}{1 + \exp(-H_{ti}^\top \Psi)} + 4 \sin(H_{ti}^\top \Psi) + E_{ti},
+% \]
+% where \(H_{ti} \sim \mathcal{N}(0, I_q)\), \(E_{ti} \sim \mathcal{N}(0, \sigma_E^2 I_p)\), and \(\varepsilon_{ti} \sim \mathcal{N}(0, \sigma^2)\). We set \(q = 3\), \(\sigma_E = 2\), \(\sigma = 1\), and vary the dimension \(p \in \{500, 1000, 1500, 2000\}\).
+
+% The true source coefficient is \(\beta_s = (2, 2, 2, 2, 2, 0, \ldots, 0)^\top \in \mathbb{R}^p\), and the target coefficient is defined by a sparse perturbation \(\beta_t = \beta_s + \eta\), where \(\eta = (-4, 0, \ldots, 0, 2)^\top\). The nonlinear confounding structure \(\Psi\) and the confounder effect vector \(\phi\) are generated as in the linear case.
+
+% We compare the same set of baseline methods under two scenarios:
+% \begin{itemize}
+%     \item \textbf{Single-source:} Target sample size \(n_t = 100\), one source with \(n_s = 600\).
+%     \item \textbf{Multi-source:} Target sample size \(n_t = 100\), with \(K = 4\) sources, each with \(n_s^{(k)} = 150\).
+% \end{itemize}
+
+% Each simulation is repeated 100 times. The results are summarized in Figure~\ref{fig:loss_comparison_nonlinear_single}, Figure~\ref{fig:loss_comparison_nonlinear_multi}, and Table~\ref{table:simulation_nonlinear_p}.
+
+% The results demonstrate that our proposed method consistently outperforms all baseline methods across varying dimensionality \(p\) in both single-source and multi-source transfer learning settings under the nonlinear confounded model.
+
+% At \( p=500 \), our method achieves an \(L_1\) estimation error of 2.0804, which is lower than Baseline 2 (3.3413), Baseline 4 (3.6249), and significantly better than Baseline 3 (8.1500). In terms of \(L_2\) estimation error, our method attains 0.7037, compared to 2.3104 for Baseline 2 and 8.3018 for Baseline 3. As \( p \) increases to 2000, our method maintains its advantage with an \(L_1\) estimation error of 2.2082, while Baseline 1, 2, and 3 report errors of 7.0187, 3.2059, and 8.6057, respectively. For prediction accuracy, our method achieves an \(L_2\) prediction error of 0.6586 at \( p=2000 \), far outperforming Baseline 1 (6.0142) and Baseline 3 (8.8878).
+
+% In the multi-source setting, the performance gap becomes significant. At \( p=500 \), our method achieves an \(L_1\) estimation error of 1.7158, outperforming Baseline 2 (2.5522) and Baseline 4 (3.7706), while Baseline 3 again performs poorly with a value of 8.8189. At \( p=2000 \), our method maintains a low \(L_2\) estimation error of 0.5206, compared to 4.0193 for Baseline 1, 1.7980 for Baseline 2, and 13.4296 for Baseline 3. Similarly, the \(L_1\) prediction error for our method is 1.2690 at \( p=2000 \), which is markedly better than Baseline 1 (4.4771) and Baseline 3 (9.1359).
+
+
+% \begin{figure}[H]  % Use [H] to place it exactly here
+%     \centering
+%     \includegraphics[width=0.9\textwidth]{pic/singlesource_nolinear_p.png}
+%     \caption{Comparison of Loss Metrics for Different Methods under Different $p$ with Single Source Data (Non-linear)}
+%     \label{fig:loss_comparison_nonlinear_single}
+% \end{figure}
+
+% \begin{figure}[H]  % Use [H] to place it exactly here
+%     \centering
+%     \includegraphics[width=0.9\textwidth]{pic/multisource_nonlinear_p.png}
+%     \caption{Comparison of Loss Metrics for Different Methods under Different $p$ with Multi-Source Data (Non-linear)}
+%     \label{fig:loss_comparison_nonlinear_multi}
+% \end{figure}
+
+
+% \begin{table}[H]
+%     \centering
+%     \caption{Comparison of Our Method vs. Baseline Methods for $L_1$ and $L_2$ Errors (Single-source vs Multi-source Nonlinear cases)}
+%     \label{table:simulation_nonlinear_p}
+%     \begin{tabular}{cclllllllll}
+%         \toprule
+%         \multirow{2}{*}{\textbf{p}} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{4}{c}{\textbf{Single-source}} & \multicolumn{4}{c}{\textbf{Multi-source}} \\
+%         \cmidrule(lr){3-6} \cmidrule(lr){7-10}
+%         & & $\beta_{L_1}$ & $\beta_{L_2}$ & $\eta_{L_1}$ & $\eta_{L_2}$ 
+%         & $\beta_{L_1}$ & $\beta_{L_2}$ & $\eta_{L_1}$ & $\eta_{L_2}$ \\
+%         \midrule
+% \multirow{5}{*}{500} & baseline 1 & $5.9343$ & $4.1600$ & $5.4301$ & $3.4026$ & $4.1391$ & $2.4167$ & $3.5403$ & $1.9179$ \\
+% & baseline 2 & $3.3413$ & $2.3104$ & $2.4838$ & $2.4928$ & $2.5522$ & $1.5379$ & $1.8937$ & $1.6905$ \\
+% & baseline 3 & $8.1500$ & $8.3018$ & $8.4803$ & $6.9808$ & $8.8189$ & $10.7573$ & $8.5488$ & $8.9792$ \\
+% & baseline 4 & $3.6249$ & $2.0508$ & $2.0412$ & $1.9045$ & $3.7706$ & $2.5490$ & $2.5111$ & $2.3952$ \\
+% & our method & $2.0804$ & $0.7037$ & $1.2316$ & $0.6301$ & $1.7158$ & $0.5159$ & $1.0156$ & $0.4209$ \\
+% \hline
+% \multirow{5}{*}{1000} & baseline 1 & $6.0550$ & $4.8515$ & $5.5720$ & $4.0412$ & $4.2793$ & $2.7241$ & $3.6734$ & $2.1601$ \\
+% & baseline 2 & $3.0491$ & $2.1424$ & $2.3638$ & $2.3566$ & $2.4194$ & $1.4360$ & $1.8010$ & $1.5994$ \\
+% & baseline 3 & $8.3268$ & $9.8817$ & $7.7187$ & $8.1897$ & $9.1910$ & $12.9452$ & $8.4242$ & $10.8058$ \\
+% & baseline 4 & $3.0816$ & $2.5789$ & $2.3127$ & $2.5817$ & $3.3723$ & $3.5881$ & $2.5887$ & $3.5975$ \\
+% & our method & $2.0054$ & $0.6231$ & $1.3256$ & $0.6330$ & $1.7965$ & $0.5329$ & $1.1863$ & $0.5221$ \\
+% \hline
+% \multirow{5}{*}{1500} & baseline 1 & $6.3513$ & $5.2496$ & $5.9946$ & $4.4333$ & $4.3813$ & $2.9493$ & $3.8495$ & $2.3954$ \\
+% & baseline 2 & $3.0659$ & $2.2771$ & $2.4263$ & $2.5141$ & $2.3472$ & $1.4628$ & $1.7852$ & $1.6564$ \\
+% & baseline 3 & $8.4375$ & $9.3110$ & $7.9122$ & $7.8893$ & $9.0614$ & $11.8769$ & $8.4092$ & $10.0969$ \\
+% & baseline 4 & $3.2393$ & $2.4086$ & $2.5724$ & $2.4598$ & $3.2693$ & $2.9568$ & $2.5827$ & $3.0365$ \\
+% & our method & $1.9504$ & $0.5776$ & $1.3296$ & $0.6042$ & $1.8184$ & $0.5207$ & $1.2620$ & $0.5348$ \\
+% \hline
+% \multirow{5}{*}{2000} & baseline 1 & $7.0187$ & $6.9928$ & $6.7726$ & $6.0142$ & $5.0657$ & $4.0193$ & $4.4771$ & $3.3560$ \\
+% & baseline 2 & $3.2059$ & $2.7457$ & $2.4105$ & $3.0044$ & $2.4771$ & $1.7980$ & $1.8519$ & $2.0070$ \\
+% & baseline 3 & $8.6057$ & $10.3269$ & $8.1257$ & $8.8878$ & $9.8391$ & $13.4296$ & $9.1359$ & $11.5763$ \\
+% & baseline 4 & $3.3874$ & $2.7142$ & $2.6521$ & $2.8150$ & $3.8588$ & $4.1830$ & $3.1329$ & $4.3404$ \\
+% & our method & $2.2082$ & $0.6497$ & $1.3190$ & $0.6586$ & $1.8669$ & $0.5206$ & $1.2690$ & $0.5187$ \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+
+
+% Comparing the linear and nonlinear settings, we observe that our method yields even greater improvements under the nonlinear confounding structure. While performance in the linear case is already competitive across all metrics, the nonlinear case exhibits lower estimation and prediction errors across the board. For instance, in the multi-source setting at \(p = 2000\), our method achieves an \(L_2\) estimation error of 0.5206 in the nonlinear model, compared to 0.2185 in the linear model. However, the relative performance gap between our method and the baselines is significantly larger in the nonlinear case.
+
+
+
+\section{Real Data Examples}
+\label{sec:realdata}
+
+
+
+\subsection{Gene expression data analysis}
+\label{subsec:gene}
+In this section, we analyze gene expression levels across several tissues.
+% , a task essential for genetic studies such as signal detection \citep{zhang2025fast}.
+The analysis is based on the GTEx Portal dataset, which includes gene expression data from 11,688 postmortem samples, covering 53 tissues from 714 human donors. Following \cite{li2022transfer}, we investigate how genes that are associated with the central nervous system (CNS) influence the expression of the protein-coding gene \textit{JAM2} (Junctional Adhesion Molecule B) in each tissue. After preprocessing, which involves matching recorded CNS genes and excluding samples with missing values, we obtain $1646$ genes as covariates. The gene expression levels often share similar structures across tissues and have their own characteristics in different tissues \citep{mele2015human,kryuchkova2017benchmark}. Given sufficient data in brain tissues, we use all 13 brain tissues in the source models, comprising a total of $n_s = 3220$ samples. The remaining tissues serve as targets, with one tissue selected as the target at a time. The target sample size $n_t$ ranges from $77$ to $816$. Both the covariates and the response gene are normalized using the estimated means and variances from the source data. 
+
+It is known that gene expression data are often confounded by cell-type composition, batch effects and other latent factors \citep{jew2020accurate,ye2023batch}. \red{To demonstrate that our method can effectively adjust for these confounders, we construct a deconfounded estimator using additional data as the gold standard.} The dataset includes several genotyping principal components and PEER factors that can serve as proxies for hidden confounders. We select $q=20$ genotyping principal components and PEER factors as proxies for confounders and deconfound the dataset by regressing them out. A standard transfer learning procedure for high-dimensional linear regression is then applied to estimate the coefficient $\beta_t$ for each target tissue.
+% The deconfounded estimates are treated as the gold standard. 
+
+
+
+\begin{table}[ht]
+\renewcommand{\arraystretch}{0.65}
+\footnotesize
+    \centerfloat
+    \caption{The $l_2$ norm errors for estimating $\beta_t$ using the proposed methods and baselines for different target tissues.}
+    \label{tab:gene_estimation}
+    \begin{tabular}{ccccccccc}
+        \toprule
+        \textbf{Tissue} & Adipose  &Artery & Blood &Heart &  Lung & Muscle & Spleen&  Testis\\
+        \midrule
+        SingleTrim &0.4921 & 0.1838 &0.2518 &0.1451 &  1.4388 & 0.1546 & 0.1364 & 0.2318 \\
+        TransTrim &0.3837 & 0.1428 &0.2084 &0.1427 &  1.2061 & 0.1050 & 0.1230&   0.2262  \\
+        SingleFarm &  0.4826 & 0.1807 &0.2439 &0.1543 &1.3647 & 0.1484& 0.1284 &    0.2017  \\
+        TransFarm & 0.2337 & 0.1671 &0.2957 & 0.1108 & 1.1777 & 0.1072 & 0.1090&   0.2416 \\
+        \vspace{-0.25cm}\makecell[c]{ProTrans \vspace{-0.5cm}\\ (full source)} &0.1859 & 0.1247 &$\bm{0.1900}$ &  $\bm{0.0874}$ & 1.2296 & $\bm{0.0936}$ & $\bm{0.0943}$&  0.1659  \\
+        \makecell[c]{ProTrans \vspace{-0.5cm}\\ (selected source)} & $\bm{0.1393}$ & $\bm{0.1179}$ & 0.2023 & 0.1134 & $\bm{0.2641}$ & 0.1180 & 0.1098 & $\bm{0.0902}$\\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
+ProTrans and the four baseline approaches are implemented to estimate $\beta_t$ for each target model. Since there are $K = 13$ source models, we also apply the source selection procedure in Section \ref{sec:source_selection} with $\rho =1.1$. This setting ensures a relatively large yet informative source dataset, selecting between 1 and 5 of the most similar sources for each target tissue. We evaluate the performance of ProTrans and baselines using the $l_2$ norm error between the estimated coefficient and the gold standard. Table \ref{tab:gene_estimation} presents the results for several selected target tissues. ProTrans, either with or without informative source selection, outperforms the baseline methods, indicating that it is minimally affected by hidden confounding in this analysis. \red{Due to unobserved confounders, baseline methods often produce spurious associations involving certain gene-expression patterns. For example, in the target tissue Adipose, all four baseline methods incorrectly identify genes such as \textit{IGFBP6}, \textit{ASCL1} and \textit{FGB} as being associated with \textit{JAM2} expression. In contrast, both ProTrans and the gold-standard analysis detect no significant differential influence of these genes on \textit{JAM2} expression between the target and source tissues. This result is also consistent with the known biological functions of these genes reported in previous studies.}
+
+The informative source selection further enhances the robustness of ProTrans. For target tissues such as blood, heart, muscle and spleen, where most source data are informative, the selection step may reduce the total source sample size and perform slightly worse than the unselected version. However, when the source data are partially informative for target tissues such as adipose, lung and testis, the selection procedure effectively filters out uninformative data, leading to notable improvements.
+
+
+
+
+
+\subsection{Treatment effect of education on earnings}
+We estimate the conditional average treatment effect (CATE) of education on earnings using data from the National Longitudinal Survey (NLS) of Young Men. This dataset contains responses from individuals aged 14 to 24 in 1966, along with their educational attainment and wages recorded during the 1976 follow-up. For preprocessing, following previous studies \citep{wang2018bounded,sun2022high}, we define the treatment variable $T$ as whether an individual attained education beyond a four-year college degree ($T=1$, high education) or not ($T=0$, low education). We retain only samples with valid information on education, wages, and select $17$ covariates after a screening step. Missing values in the selected covariates are imputed using mean imputation. Covariates and the response variable are normalized using the estimated means and variances from the source data. The final dataset includes 1,335 control group samples ($T=0$) and 680 treatment group samples ($T=1$).
+
+\red{To apply ProTrans, we treat the control group as the source model and the treatment group as the target. We implement ProTrans and the baseline method based on \cite{tang2023synthetic} under the fixed-dimensional setting described in the Supplementary Material to estimate the conditional treatment effect. Similar to Section \ref{subsec:gene}, we construct a gold standard for the conditional treatment effect using additional data as proxies for confounders, including age, IQ scores, and residence in the South (all measured in 1966) as recommended by \cite{wang2018bounded}. The baseline method, which is strongly influenced by confounding, exhibits various forms of spurious association, such as effects of job type and job characteristics (survey questions R0029900, R0035500, and R0062600). In contrast, both our method and the gold standard indicate that these covariates do not significantly contribute to differences in earnings between the treatment and control groups once confounding factors are removed. Moreover, after adjusting for confounders, the treatment consistently shows a positive effect on earnings across covariate profiles.
+}
+
+% To construct the deconfounded data, we regress out the selected confounders from the response and covariates. The high-dimensional linear transfer learning method proposed by \citet{li2022transfer} is then applied to the deconfounded data to obtain the oracle estimate $\hat{\eta}_{\text{ora}}$ for $\eta_0 = \beta_t - \beta_s$, which serves as the gold standard. We compare the $l_2$-norm error between the estimated model-shift $\hat{\eta}$ and the gold standard $\hat{\eta}_{\text{ora}}$. 
+
+% \begin{table}[ht]
+% \renewcommand{\arraystretch}{0.65}
+% \footnotesize
+%     \centerfloat
+%     \caption{The $l_2$-norm errors for estimating $\eta_0$ and the expectation of the CATE $\tau(x) = x'\eta_0$ using ProTrans and baselines.}
+%     \label{tab:earning_estimation}
+%     \begin{tabular}{cccccc}
+%         \toprule
+%         \textbf{Methods} & ProTrans & SingleTrim & TransTrim & SingleFarm & TransFarm\\
+%         \midrule
+%         Error for $\eta_0$ & 
+%         0.0041& 0.0156& 0.0157& 0.0171& 0.0185\\
+%         Error for $\mathbb{E}\tau(x)$ &0.6025& 0.9342& 0.8373& 1.7906& 1.8794\\
+%         \bottomrule
+%     \end{tabular}
+% \end{table}
+
+% The results, presented in Table \ref{tab:earning_estimation}, indicate that ProTrans is least influenced by confounders compared to the baselines, and has a clear advantage towards treatment effect estimation at the presence of confounders. In all four baselines, covariates such as the amount of liabilities and the father's job level exhibit a significant negative effect on the earnings difference between the treatment and control groups. Conversely, variables related to working hours and the age of individuals living with the respondents show a positive effect. However, both ProTrans and the oracle deconfounded model indicate that these variables do not substantially affect the earnings difference. These variables appear as false positives in the baseline results due to the influence of hidden confounders, whereas ProTrans remains robust against such confounding effects.
+
+% \section{Conclusion and Discussion}
+
+\vspace{-0.5cm}
+\section*{Disclosure Statement}\label{disclosure-statement}
+
+The authors report there are no competing interests to declare. 
+\vspace{-0.5cm}
+
+\section*{Data Availability Statement}\label{data-availability-statement}
+The data that support the findings of this study are publicly available at \href{https://www.nlsinfo.org/investigator/pages/search?s=NLSM}{https://www.nlsinfo.} \href{https://www.nlsinfo.org/investigator/pages/search?s=NLSM}{org/investigator/pages/search?s=NLSM} (NLS of Young Men) and \href{https://gtexportal.org/home/downloads/adult-gtex/bulk_tissue_expression}{https://gtexportal.org/ho} \href{https://gtexportal.org/home/downloads/adult-gtex/bulk_tissue_expression}{me/downloads/adult-gtex/bulk\_tissue\_expression} (GTEx Portal dataset). 
+
+
+
+\begin{center}
+{\large\bf SUPPLEMENTARY MATERIAL}
+\end{center}
+
+\begin{description}
+
+\item[Deconfounding\_via\_Profiled\_Transfer\_Learning\_supp]  Theoretical results and additional numerical results for ``Deconfounding via Profiled Transfer Learning'', (PDF file).
+
+\item[Code and Data] R code to implement and reproduce the simulation and real data results, corresponding outputs and raw datasets. 
+
+\end{description}
+
+% \section{BibTeX}
+
+% We hope you've chosen to use BibTeX!\ If you have, please feel free to use the package natbib with any bibliography style you're comfortable with. The .bst file agsm has been included here for your convenience. 
+\setlength{\baselineskip}{0.85\baselineskip}
+\bibliographystyle{agsm}
+\bibliography{paper-ref}
+\end{document}

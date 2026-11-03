@@ -5,7 +5,7 @@ Some selected Lean 4 formalization results verified using [Statopia Prover](http
 - [Statopia Prover](https://prover.statopia.ai/)
 - [Statlib](https://statlib.statopia.ai/)
 
-The collection contains 83 statistics problems, six guided IMO results, eleven papers (12 main developments and 40 supporting tasks), and a neural-network approximation component.
+The collection contains 83 statistics problems, six guided IMO results, twelve papers (13 main developments and 49 supporting tasks), and a neural-network approximation component.
 
 - [Paper results](papers/README.md)
 - [Statistics benchmark](statistics-benchmark/README.md)
@@ -20,6 +20,7 @@ Every paper, benchmark task and IMO task has `input/`, `proof/` and a result sum
 | [Gaussian approximation — Theorem 3.1](papers/gaussian/README.md) | 88 | 15,047 | 90 | 3 | 6/6 (1+5) |
 | [DP clustering — Theorem 1](papers/dp-clustering/README.md) | 218 | 34,932 | 4 | 0 | 16/16 (1+15) |
 | [Dynamic Matrix Recovery — Theorem 1](papers/dynamic-matrix/README.md) | 28 | 4,827 | 307 | 0 | 2/2 (1+1) |
+| [ProTrans — Theorem 1 (corrected model-shift bound)](papers/protrans/README.md) | 88 | 11,643 | 44 | 0 | 10/10 (1+9) |
 | [HulC — Theorem 1](papers/hulc/README.md) | 15 | 1,397 | 1 | 0 | 2/2 (1+1) |
 | [HMC — Theorems 2.2 (i–ii) and 5.14](papers/hmc/README.md) | 73 | 7,214 | 2 | 1 | 8/8 (2+6) |
 | [Data thinning — Theorem 1](papers/data-thinning/README.md) | 5 | 125 | 0 | 0 | 1/1 (1+0) |

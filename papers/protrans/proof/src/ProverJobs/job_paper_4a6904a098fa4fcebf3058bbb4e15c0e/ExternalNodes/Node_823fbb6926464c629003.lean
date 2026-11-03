@@ -1,0 +1,5 @@
+import Lean
+import ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.PaperProofInterfaces.Result_r2_e24c3cb04d32496a93b7f37153f2a690
+
+namespace PaperProofTasks.job_paper_4a6904a098fa4fcebf3058bbb4e15c0e
+

@@ -1,0 +1,941 @@
+version: v1
+theorem_set: document-goal
+source_tag: document-processing
+theorems:
+  - id: entry:selected:8a487260-0147-4613-8d36-1bd4c76966af
+    title: Theorem 1 (thm:upper_bound_of_eta; corrected model-shift Lasso bounds with explicit positive constants and weighted confounding transfer)
+    kind: theorem
+    latex_statement: |-
+      Consider the confounded model with data \((X_{ti}, Y_{ti})\) drawn from our target population:
+      \begin{align}
+      \label{eq:target_model}
+          Y_{ti} = \beta_t^\top X_{ti} + \phi_t^\top H_{ti} + \varepsilon_{ti},\quad X_{ti} = f(H_{ti}) +E_{ti}, \ i = 1, \dots, n_t,
+      \end{align}
+      where \(n_t\) is the target sample size, which is typically small. The coefficient vector \(\beta_t\in \mathbb{R}^p\), which links the response variable \(Y_{ti} \in \mathbb{R}\) to the observed covariates \(X_{ti} \in \mathbb{R}^p\), is often of primary interest. Let \(H_{ti}\in \mathbb{R}^q\), where \(q\) is fixed, denote the hidden confounders, and \(\phi_t^\top H_{ti}\), where \(\phi_t\in \mathbb{R}^q\), represents the confounding effect in the target model. The function \(f: \mathbb{R}^{q}\to\mathbb{R}^p\) is an unknown mapping that describes the confounding structure in \(X_{ti}\) and the error term \(E_{ti}\in \mathbb{R}^p\) is assumed to be uncorrelated with \(H_{ti}\). The pure noise term \(\varepsilon_{ti}\in \mathbb{R}\) is assumed to be independent of \(X_{ti}, \ H_{ti}\) and \(E_{ti}\). For identification, we further assume that \(X_{ti},Y_{ti},H_{ti},E_{ti}\) and \(\varepsilon_{ti}\) all have zero mean. 
+
+      Model \eqref{eq:target_model} is a structural equation model, which is widely used to describe the general causal relationships among covariates, response, and hidden confounders \citep{fox2002structural,pearl2012causal}. The presence of hidden confounders \(H_{ti}\) inevitably introduces bias when estimating \(\beta_t\). Denote the design matrix for the covariates by \(X_t=(X_{t1},\ldots,X_{tn_t})^\top\in\mathbb{R}^{n_t\times p}\), and analogously denote \(Y_t\in \mathbb{R}^{n_t}, H_t\in \mathbb{R}^{n_t\times q},E_t\in \mathbb{R}^{n_t\times p}\) and \(\varepsilon_t\in \mathbb{R}^{n_t}\).
+
+      Assume \(K\) source datasets are available. For each \(k, \ k=1,\ldots,K\), we observe i.i.d. source data \((X^{(k)}_{s},Y^{(k)}_{s})\) from the \(k\)-th source model 
+      \begin{align}
+      \label{eq:source_model}
+          Y^{(k)}_{si} = \beta_s^{(k)\top} X^{(k)}_{si} + \phi_s^{(k)\top} H^{(k)}_{si} + \varepsilon^{(k)}_{si},\quad X^{(k)}_{si} = f(H^{(k)}_{si}) +E^{(k)}_{si}, \ i=1,\cdots,n_s^{(k)},
+      \end{align}
+      where the notations are parallel to those in the target model \eqref{eq:target_model}.  
+      Denote the total sample size of all sources as \(n_s = \sum_{k=1}^K n_s^{(k)}\), and assume \(n_s\gg n_t\).  
+      In order to utilize the extensive source information to improve the estimation of target parameters, transfer learning frameworks typically decompose the parameter of interest \(\beta_t\) in the target model \eqref{eq:target_model} into two components: the average source effect \(\beta_s = \sum_{k=1}^K n_s^{(k)}\beta_s^{(k)}/n_s\) and the model shift \(\eta_0 = \beta_t-\beta_s\) from sources to target. 
+
+      We first focus on the model shift \(\eta_0\), and propose a profiled transfer technique that leverages the shared confounding structure between the source models \eqref{eq:source_model} and the target model \eqref{eq:target_model} to mitigate the estimation bias of \(\eta_0\). Let \(\hat{\beta}_{\text{init}}\) be some initial estimator for \(\beta_s\). Note that \(\hat{\beta}_{\text{init}}\) requires only mild conditions (to be stated in Theorem \ref{thm:upper_bound_of_eta}), and need not be deconfounded in advance. Then we define the profiled source residual \(\hat{Z}_s^{(k)} = Y^{(k)}_s - X^{(k)}_s\hat{\beta}_{\text{init}}\in \mathbb{R}^{n_s^{(k)}}\). Intuitively, the residual \(\hat{Z}_s^{(k)}\) encodes information about hidden confounders in the \(k\)-th source model, specifically,
+      \begin{align*}
+          \hat{Z}_s^{(k)} = X_s^{(k)}\left(\beta_s^{(k)} - \hat{\beta}_{\text{init}}\right) + H_s^{(k)} \phi_s^{(k)} + \varepsilon_s^{(k)}.
+      \end{align*}
+
+      A confounding-free LASSO estimator for the model shift \(\eta_0 = \beta_t - \beta_s\) can be obtained as
+      \begin{align}
+      \label{eq:estimator_of_eta}
+          \hat{\eta} = \argmin_{\eta \in \mathbb{R}^p }\left\{\frac{1}{n_t}\left\|Y_t - X_t \hat{\beta}_{\text{init}} - \hat{Z}_t - X_t \eta \right\|_2^2 +  \lambda_t \|\eta\|_1\right\},
+      \end{align}
+      under the high-dimensional setting with a sparse \(\eta_0\). 
+
+      To construct a reasonable profiled target residual \(\hat{Z}_t\), the profiled target residual \(\hat{Z}_t\) is constructed through the profiled residual transfer:
+      \begin{align}
+      \label{eq:bias_correction_term}
+          \hat{Z}_t = \argmin_{Z_t \in \mathbb{R}^{n_t}}\left\{\left\|\frac{1}{n_t}X_t^\top Z_t - \frac{1}{n_s}\sum_{k=1}^K X_s^{(k)\top}\hat{Z}_s^{(k)}\right\|_{\infty}\right\}.
+      \end{align}
+      The effectiveness of transferring the confounding effects from sources to the target by \eqref{eq:bias_correction_term} requires only mild assumptions about the confounding structure \(f(\cdot)\).
+
+      First, we define the parameter space for the source parameters \(\beta_s^{(k)}\) and the target parameter \(\beta_t\) as 
+      \begin{align*}
+          \Theta(s_\delta,s_\eta) = \left\{\beta_s^{(k)},\beta_t\ \big|\ \|\beta_s^{(k)} - \beta_s\|_1 \le s_\delta, \|\eta_0\|_0\le s_\eta, k=1,2,\cdots,K\right\}. 
+      \end{align*}
+      In this section, we consider the case where \(s_\delta\) is a constant and \(s_\eta = o(n_t^{1/2})\). This parameter space requires that the difference between each source parameter \(\beta_s^{(k)}\) and the average \(\beta_s\) is bounded, and that the model shift \(\eta_0\) is sparse. This condition is common in high-dimensional regression when transferring parameters from source to target. We denote the support set of \(\eta_0\) as \(S_\eta\) and its complement as \(S_\eta^c\).
+
+      <!-- formalization-clarifications:v1:0a242fab0bb212786a1b18a2c69cc616894bf968bd5c491aac0d3b9422904498 -->
+      Formalization clarifications from source and proof:
+      1. Constants and quantifiers. The displayed theorem fixes c>0 and states that there exist positive N0,C1,C2 “depending only on L,L_epsilon,q,C_phi,B_phi,C_s,s_delta,c” before imposing “n_t >= N0 log p” and “lambda_t >= 4(C1 sqrt(q)||phi_t||_2 + C2) sqrt(log p/n_t) > 0” (Theorem thm:upper_bound_of_eta). Thus the intended order is: fix the Assumption 1 parameters, the deterministic coefficient bounds s_eta, |S_eta|<=s_eta, s_delta, the initial-error bound C_s, and the confidence exponent c; choose N0,C1,C2; then the conclusion is uniform over admissible p, K, sample sizes with n_s>=n_t and n_t>=N0 log p, admissible distributions satisfying the fixed L,L_epsilon bounds, coefficients satisfying the stated B_phi and s_delta constraints, supports S_eta of size <=s_eta, all profiling minimizers, all Lasso minimizers, and all initial estimators satisfying event I. The explicit dependency list does not include p, n_t, n_s, K, phi_t, beta_t or beta_s^(k), the random rows, S_eta, s_eta, C_r, or lambda_t; C_r and s_eta occur in the conclusion and in lambda_t’s lower bound, but not in the listed dependencies of N0,C1,C2. By contrast, q is fixed and explicitly allowed, and c is allowed. The proof is consistent: it sets C1=8C_H and C2=2B0+C_epsilon, with B0 depending on C_x,C_s,C_delta,s_delta,C_d,B_phi,L_M,C_phi,C_epsilon (“C1=8C_H and C2=2B0+C_epsilon. All dependencies are as stated in the theorem”). Do not let constants depend on hidden random vectors or on p merely because Lean has them as implicit parameters; an implicit parameter does not by itself make a constant uniform. The source’s convention says constants are “chosen before the sample sizes and dimensions” and may depend on fixed distributional bounds, fixed q, and c. The section text also says s_delta is constant and s_eta=o(n_t^{1/2}), but this o-condition is not in the displayed theorem; the proof says “No asymptotic o(a_t) term or unspecified relation n_s >> n_t is used,” and the formal hypothesis used is n_s>=n_t.
+
+      2. Norms and objects. For vectors, ||·||_1 is the usual l1 norm on R^p, ||·||_2 the Euclidean norm, and ||·||_infty the maximum norm. For matrices, “||·||_infty denotes the largest absolute entry,” not an operator or sup-row-sum norm; and “||B||_{2,infty}=max_j ||B_{j,:}||_2” is the maximum Euclidean row norm, not a Frobenius or operator norm (Notation and constant ranges; Reference R1). The target/source designs are X_t in R^{n_t x p}, X_s^(k) in R^{n_s^(k) x p}, with G_t=X_t^T X_t/n_t and G_s=sum_k X_s^(k)^T X_s^(k)/n_s; Sigma_X=E[XX^T] and M=E[XH^T]=E[f(H)H^T] because E[EH^T]=0. The objects T_beta and T_phi must be kept as defined: T_beta=(1/n_s)sum_k (X_s^(k)^T X_s^(k)-n_s^(k)Sigma_X) delta_k and T_phi=(1/n_s)sum_k (X_s^(k)^T H_s^(k)-n_s^(k)M)d_k, with delta_k=beta_s^(k)-beta_s, d_k=phi_s^(k)-phi_t, and beta_s=sum_k(n_s^(k)/n_s)beta_s^(k); the source explicitly warns that one “cannot replace the weighted centered sum by a pooled matrix multiplied by an averaged coefficient vector.” Likewise A_s is the exact weighted sum sum_k X_s^(k)^T H_s^(k) phi_s^(k)/n_s, not the pooled matrix times bar-phi_s. The profiled target residual is defined by minimizing the max norm of X_t^T Z_t/n_t minus b over Z_t in R^{n_t}, with b=sum_k X_s^(k)^T \hat Z_s^(k)/n_s; it is generally nonunique, and the theorem speaks of “any minimizer \hat Z_t” and “every minimizer \hat eta.” The Lasso objective uses the unnormalized squared Euclidean norm on R^{n_t} divided by n_t plus lambda_t||eta||_1. The final prediction norm is the sample Euclidean norm ||X_t(\hat eta-eta_0)||_2/sqrt(n_t). The restricted-eigenvalue event uses n_t^{-1}||X_t u||_2^2 >= C_r||u||_2^2 on the cone ||u_{S_eta^c}||_1<=3||u_{S_eta}||_1; eta_0=beta_t-beta_s, S_eta=supp(eta_0), and s_eta=0 is included. The source does not specify a tie-breaking rule for nonunique \hat Z_t or \hat eta; for probability statements it requires measurable selections.
+
+      3. Asymptotics and probability. The displayed theorem is nonasymptotic: it gives event probability at least 1-p^{-c}, with c>0 fixed, and deterministic error bounds on G intersect R intersect I; the final probability statement is “at least 1-p^{-c}-P(R^c)-P(I^c)” (Theorem thm:upper_bound_of_eta). Here R is the restricted-eigenvalue event from Assumption 1.c and I={||\hat beta_init-beta_s||_1<=C_s}; both are separate from G. The proof defines G as the intersection of ten concentration events G_1,...,G_9,G_10^phi (Proof of Theorem 1; Reference R1 Lemma lem:high_probability_set). The theorem does not use O_P or o_P, and the proof explicitly avoids an unspecified n_s >> n_t comparison. The main-text phrases “s_eta=o(n_t^{1/2})” and “n_s >> n_t” are contextual/asymptotic discussion; they are not among the displayed theorem’s hypotheses. If formalizing an asymptotic regime, record such assumptions separately rather than silently strengthening or weakening the nonasymptotic theorem. lambda_t is any positive scalar satisfying the displayed lower bound; the source does not specify in the theorem whether lambda_t is data-dependent, independent of the sample, or chosen by cross-validation. The simulation section mentions cross-validation, but that is not part of Theorem 1. The no-independence statement is explicit: “No independence of the initial estimator and the samples is needed: the proof is uniform over initial estimators on I.”
+
+      4. Omitted definitions and owners of cited facts. Assumption 1.a says all target and source rows are mutually independent; the pairs (E,H) have the same joint distribution in every domain; the same f is used in X=f(H)+E; coordinates of E,H,f(H) are centered with sub-Gaussian norms at most fixed L, uniformly over coordinates and domains; E[EH^T]=0; independence of E and H is not required. Assumption 1.b says centered noise is independent of its corresponding (E,H), has common variance sigma^2>=0, and sub-Gaussian norm at most fixed L_epsilon; coefficients are deterministic. The source average beta_s is sample-size weighted with w_k=n_s^(k)/n_s, and n_s=sum_k n_s^(k)>=n_t. Event R is a separate restricted-eigenvalue event; event I controls only ||\hat beta_init-beta_s||_1, not each source coefficient separately. Reference R1, Lemma lem:high_probability_set, owns the simultaneous event G, its ten displayed components, and the Gram-matrix bounds; Lemma lem:error_sample_covariance1 independently owns the single-sample Gram concentration and states the same constants work for target and pooled source rows. Reference R2, Lemma lem:error_sample_covariance_sparse, owns the T_beta bound under deterministic ||delta_k||_1<=s_delta; beta_s’s definition gives sum_k w_k delta_k=0, but the quoted sparse lemma as supplied does not require that zero-average condition, so do not add it as a lemma hypothesis. Reference R3, Lemma lem:weighted_confounding_transfer, owns the T_phi bound under deterministic ||d_k||_2<=B_phi; the inequality for ||A_t-A_s||_infty is a proof-derived consequence, not a separately labeled universal lemma. References R4 and R5, Lemmas lem:error_sample_covariance2 and lem:error_noise, own, respectively, the bounds for f(H)^T H/N-M_f and E^T H/N, and for X^T epsilon/N; the displayed factor 2C_H and the four-way simultaneous D_t,D_s,e_t,e_s bound are proof applications, not assumptions of those lemmas. These cited lemmas are universal under their stated independent-row assumptions; their use on target rows or pooled source rows does not restrict them to those applications. The source leaves unspecified the logarithm base, the exact construction/selection of lambda_t, the tie-breaking of nonunique minimizers, and the precise formal role of the prose asymptotic s_eta=o(n_t^{1/2}); none of those should be invented.
+      <!-- /formalization-clarifications -->
+
+      Under Assumption \ref{assum:distribution_E_H_f}, suppose
+      \(s_\eta\in\{0,\ldots,p\}\), \(|S_\eta|\le s_\eta\) and \(\max_k\|\beta_s^{(k)}-\beta_s\|_1\le s_\delta\).
+      Fix a desired confidence exponent \(c>0\). There exist strictly positive
+      constants \(N_0,C_1,C_2\), depending only on
+      \(L,L_\varepsilon,q,C_\phi,B_\phi,C_s,s_\delta,c\), such that for
+      \(n_t\ge N_0\log p\) and any
+      \[
+       \lambda_t\ge4(C_1\sqrt q\|\phi_t\|_2+C_2)\sqrt{\log p/n_t}>0,
+      \]
+      there is an event \(\mathcal G\) with \(\mathbb P(\mathcal G)\ge1-p^{-c}\) on
+      which every minimizer \(\hat\eta\) of the estimator displayed with label \texttt{eq:estimator_of_eta} in Definitions and notation, using any
+      minimizer \(\hat Z_t\) of the profiled residual transfer displayed with label \texttt{eq:bias_correction_term} in Definitions and notation, satisfies, whenever
+      \(\mathcal R\) and \(\mathcal I=\{\|\hat\beta_{\mathrm{init}}-\beta_s\|_1\le C_s\}\) hold,
+      \begin{align*}
+       \|\hat\eta-\eta_0\|_1&\le {6\over C_r}s_\eta\lambda_t, &
+       \|\hat\eta-\eta_0\|_2&\le {3\over2C_r}\sqrt{s_\eta}\lambda_t, &
+       {\|X_t(\hat\eta-\eta_0)\|_2\over\sqrt{n_t}}
+       &\le {3\over2\sqrt{C_r}}\sqrt{s_\eta}\lambda_t.
+      \end{align*}
+      The statement is unconditional with confidence \(1-p^{-c}\) when the RE and
+      initial-estimator bounds are imposed almost surely. More generally the
+      probability of all three conclusions is at least
+      \(1-p^{-c}-\mathbb P(\mathcal R^c)-\mathbb P(\mathcal I^c)\).
+      For probability statements, estimators are understood to be measurable
+      selections; the deterministic bounds hold for every profiling and Lasso
+      minimizer. No independence of the initial estimator and the samples is
+      needed: the proof is uniform over initial estimators on \(\mathcal I\).
+    assumptions:
+      - |-
+        Convention for quantitative constants. All constants used as upper-bound multipliers, sample-size thresholds or probability-decay exponents in the theorem and lemma statements below are strictly positive, unless a different range is explicitly specified. They are chosen before the sample sizes and dimensions to which a bound is applied. They may depend on the explicitly fixed distributional bounds, fixed confounder dimension and requested confidence exponent. This convention does not impose a sign on model coefficients, entries of matrices or other algebraically defined quantities.
+
+        \begin{assump}
+        \label{assum:distribution_E_H_f}
+        Let \(p\ge2\), let \(q\ge1\) be fixed, let \(K\ge1\), and let
+        \(n_t,n_s^{(1)},\ldots,n_s^{(K)}\) be positive integers, with
+        \(n_s=\sum_k n_s^{(k)}\ge n_t\). Put \(w_k=n_s^{(k)}/n_s\) and
+        \(a_t=\sqrt{\log p/n_t}\), \(a_s=\sqrt{\log p/n_s}\).
+        \begin{enumerate}
+        \item[a.] All target and source sample rows are mutually independent. The
+        pairs \((E,H)\) have the same joint distribution in every domain, and the same
+        function \(f\) is used in \(X=f(H)+E\). Coordinates of \(E,H,f(H)\) are centered
+        and have sub-Gaussian norms at most a fixed \(L>0\), uniformly over all
+        coordinates and domains. Moreover \(\mathbb E[EH^\top]=0\). Independence
+        between \(E\) and \(H\) is not required.
+        \item[b.] The centered noise terms are independent of their corresponding
+        \((E,H)\), have a common variance \(\sigma^2\ge0\), and have sub-Gaussian norm
+        at most a fixed \(L_\varepsilon>0\). The model coefficients are deterministic.
+        \item[c.] On the restricted-eigenvalue event \(\mathcal R\), for every
+        \(u\in\mathcal A_{s_\eta}
+        =\{u: \|u_{S_\eta^c}\|_1\le3\|u_{S_\eta}\|_1\}\),
+        \(n_t^{-1}\|X_tu\|_2^2\ge C_r\|u\|_2^2\), where \(C_r>0\) is fixed.
+        \item[d.] With \(\bar\phi_s=\sum_k w_k\phi_s^{(k)}\), there are fixed
+        \(C_\phi,B_\phi>0\) such that
+        \[
+         \|\bar\phi_s-\phi_t\|_2\le C_\phi a_t,
+         \qquad \max_{1\le k\le K}\|\phi_s^{(k)}-\phi_t\|_2\le B_\phi.
+        \]
+        The first condition is the original weighted-average similarity condition.
+        The second is a uniform bound on source heterogeneity; it does not require
+        each source's discrepancy to tend to zero. The constants \(L,L_\varepsilon,
+        C_r,C_\phi,B_\phi\), the initial-error bound \(C_s>0\) and the source-coefficient
+        spread bound \(s_\delta\ge0\) are independent of \(p,n_t,n_s,K\).
+        \end{enumerate}
+        \end{assump}
+    proof_body: |-
+      ### Definitions and notation used in Proof
+      \paragraph{Notation and constant ranges.}
+      In this subsection, Assumption 1 means Assumption
+      \ref{assum:distribution_E_H_f} of the main paper, including its uniform
+      sub-Gaussian and bounded-heterogeneity conditions. All concentration
+      constants and confidence exponents are strictly positive. Fix the requested
+      exponent \(c>0\) before choosing the constants. Put
+      \[
+       w_k=n_s^{(k)}/n_s,\quad a_t=\sqrt{\log p/n_t},\quad
+       a_s=\sqrt{\log p/n_s},\quad
+       \Sigma_X=\mathbb E[XX^\top],\quad M=\mathbb E[XH^\top].
+      \]
+      For a matrix, \(\|\cdot\|_\infty\) denotes the largest absolute entry; for a
+      vector it is the usual maximum norm. We use
+      \(\|B\|_{2,\infty}=\max_j\|B_{j,:}\|_2\).
+      The moments exist by the uniform sub-Gaussian assumptions. In particular,
+      \(M=\mathbb E[f(H)H^\top]\) because \(\mathbb E[EH^\top]=0\), and there is a
+      fixed \(L_M>0\), depending only on \(L\), with \(\|M\|_{2,\infty}\le L_M\sqrt q\).
+      This follows coordinatewise from Cauchy--Schwarz and the second-moment
+      bounds. We work with \(n_s\ge n_t\ge N_0\log p\) and choose \(N_0\ge1\) large
+      enough for the concentration lemmas below; consequently \(a_s\le a_t\le1\).
+
+      ### Proof
+      For later cross-references, the concentration events are
+          \begin{align}
+             & \left\{\left\|\frac{1}{n_t} X_t^\top X_t - \Sigma_X\right\|_{\infty} \le C_x\sqrt{\frac{\log p}{n_t}}\right\},\label{set:g_1}\tag{\(\mathcal{G}_1\)}\\
+              &\left\{\left\|\frac{1}{n_s}\sum_{k=1}^K X_s^{(k)\top}X_s^{(k)} - \Sigma_X\right\|_{\infty} \le C_x\sqrt{\frac{\log p}{n_s}}\right\},\label{set:g_2}\tag{\(\mathcal{G}_2\)} \\
+              & \left\{ \left\|\frac{1}{n_s}\sum_{k=1}^K n_s^{(k)}\left(\frac{1}{n_s^{(k)}}X_s^{(k)\top}X_s^{(k)} - \Sigma_X \right)\left(\beta_s^{(k)} - \frac{1}{n_s}\sum_{k=1}^Kn_s^{(k)}\beta_s^{(k)} \right) \right\|_{\infty}\le  C_{\delta} s_\delta\sqrt{\frac{\log p}{n_s}} \right\},
+                \label{set:g_3}\tag{\(\mathcal{G}_3\)}\\&
+                \left\{\left\|\frac{1}{n_t}f(H_t)^\top H_t - M\right\|_{2,\infty} \le 
+              C_{H} \sqrt{\frac{q \log p}{n_t}}\right\},\label{set:g_4}\tag{\(\mathcal{G}_4\)}\\&
+              \left\{\left\|\frac{1}{n_s}\sum_{k=1}^K f(H_s^{(k)})^\top H_s^{(k)} - M \right\|_{2,\infty} \le
+              C_{H} \sqrt{\frac{q \log p}{n_s}}\right\},\label{set:g_5}\tag{\(\mathcal{G}_5\)}\\& 
+              \left\{\left\| \frac{1}{n_t} E_t^\top H_t\right\|_{2,\infty} \le C_H\sqrt{\frac{q\log p}{n_t}}\right\}, \label{set:g_6}\tag{\(\mathcal{G}_6\)}\\&
+              \left\{\left\| \frac{1}{n_s} \sum_{k=1}^K E_s^{(k)\top} H_s^{(k)}\right\|_{2,\infty} \le C_H\sqrt{\frac{q\log p}{n_s}}\right\}, \label{set:g_7}\tag{\(\mathcal{G}_7\)}\\&
+              \left\{\left\|\frac{1}{n_t}X_t^\top \varepsilon_t\right\|_{\infty} \le C_\varepsilon \sqrt{\frac{\log p}{n_t}}\right\}, \label{set:g_8}\tag{\(\mathcal{G}_8\)}\\&
+              \left\{\left\|\frac{1}{n_s}\sum_{k=1}^K X_s^{(k)\top} \varepsilon_s^{(k)}\right\|_{\infty} \le C_\varepsilon \sqrt{\frac{\log p}{n_s}}\right\}, \label{set:g_9}\tag{\(\mathcal{G}_9\)}
+          \end{align}
+      \begin{equation}
+       \left\{\|T_\phi\|_\infty\le C_dB_\phi\sqrt q\,a_s\right\}.
+       \label{set:g_10_weighted}\tag{\(\mathcal G_{10}^{\phi}\)}
+      \end{equation}
+      Here \(T_\phi\) has the explicit definition below. The simultaneous event
+      \(\mathcal G\) is the intersection of these ten events. The original labels
+      \(\mathcal G_1,\ldots,\mathcal G_9\) are retained for later cross-references.
+
+      Let \(\mathcal G\) be the simultaneous event described in [ref:R1]. On this event the target and pooled source
+      Gram matrices \(G_t=X_t^\top X_t/n_t\) and
+      \(G_s=\sum_kX_s^{(k)\top}X_s^{(k)}/n_s\) satisfy
+      \[
+       \|G_t-\Sigma_X\|_\infty\le C_xa_t,\qquad
+       \|G_s-\Sigma_X\|_\infty\le C_xa_s.
+      \]
+      Set \(\delta_k=\beta_s^{(k)}-\beta_s\), \(d_k=\phi_s^{(k)}-\phi_t\),
+      \(\bar d=\sum_kw_kd_k\), and
+      \[
+       T_\beta={1\over n_s}\sum_k
+       (X_s^{(k)\top}X_s^{(k)}-n_s^{(k)}\Sigma_X)\delta_k,\qquad
+       T_\phi={1\over n_s}\sum_k
+       (X_s^{(k)\top}H_s^{(k)}-n_s^{(k)}M)d_k.
+      \]
+      The source coefficient definition gives \(\sum_kw_k\delta_k=0\).
+      [ref:R2] and [ref:R3] give
+      \[
+       \|T_\beta\|_\infty\le C_\delta s_\delta a_s,\qquad
+       \|T_\phi\|_\infty\le C_d B_\phi\sqrt q\,a_s.
+      \]
+      Also put \(D_t=X_t^\top H_t/n_t-M\),
+      \(D_s=\sum_kX_s^{(k)\top}H_s^{(k)}/n_s-M\),
+      \(e_t=X_t^\top\varepsilon_t/n_t\) and
+      \(e_s=\sum_kX_s^{(k)\top}\varepsilon_s^{(k)}/n_s\).
+      On \(\mathcal G\), [ref:R4] and [ref:R5] imply
+      \[
+       \|D_t\|_{2,\infty}\le2C_H\sqrt q\,a_t,\quad
+       \|D_s\|_{2,\infty}\le2C_H\sqrt q\,a_s,\quad
+       \|e_t\|_\infty\le C_\varepsilon a_t,\quad
+       \|e_s\|_\infty\le C_\varepsilon a_s.
+      \]
+      Crucially, the exact confounding decomposition is
+      \begin{align}
+       A_t-A_s&=(D_t-D_s)\phi_t-M\bar d-T_\phi,
+       \label{eq:correct_weighted_confounding_decomposition}\\
+       A_t&=X_t^\top H_t\phi_t/n_t,\qquad
+       A_s=\sum_kX_s^{(k)\top}H_s^{(k)}\phi_s^{(k)}/n_s.\notag
+      \end{align}
+      Thus average similarity controls the population term, while the independent
+      weighted-sum lemma controls its separate centered fluctuation:
+      \[
+       \|A_t-A_s\|_\infty\le
+       [4C_H\sqrt q\|\phi_t\|_2+C_dB_\phi\sqrt q+
+       L_MC_\phi\sqrt q]a_t.
+      \]
+      One cannot replace the weighted centered sum by a pooled matrix multiplied
+      by an averaged coefficient vector.
+
+      Write \(d=\beta_s-\hat\beta_{\mathrm{init}}\) and
+      \(b=\sum_kX_s^{(k)\top}\hat Z_s^{(k)}/n_s\).
+      The source model yields the exact identity
+      \[
+       b=G_sd+T_\beta+A_s+e_s.
+      \]
+      The four nonnegative error magnitudes may equivalently be named
+      \begin{align}
+       B_1&=\|(G_t-G_s)d\|_\infty,\label{term:B_1}\tag{\(B_1\)}\\
+       B_2&=\|T_\beta\|_\infty,\label{term:B_2}\tag{\(B_2\)}\\
+       B_3&=\|A_t-A_s\|_\infty,\label{term:B_3}\tag{\(B_3\)}\\
+       B_4&=\|e_s\|_\infty.\label{term:B_4}\tag{\(B_4\)}
+      \end{align}
+      These labels identify the corresponding covariance, source-spread,
+      confounding-transfer and source-noise estimates for subsequent proofs.
+      Use the feasible target profiling comparison point
+      \(Z_0=X_td+H_t\phi_t\). Its target score is \(G_td+A_t\), hence
+      \begin{align}
+       \Delta &:={X_t^\top Z_0\over n_t}-b
+             =(G_t-G_s)d-T_\beta+(A_t-A_s)-e_s,
+       \label{eq:profiled_score_decomposition}\\
+       \|\Delta\|_\infty&\le
+       [4C_H\sqrt q\|\phi_t\|_2+B_0]a_t,\notag\\
+       B_0&=2C_xC_s+C_\delta s_\delta+C_dB_\phi\sqrt q
+             +L_MC_\phi\sqrt q+C_\varepsilon>0,\notag
+      \end{align}
+      where the inequality uses \(\|d\|_1\le C_s\) on \(\mathcal I\).
+      By the definition of the profiling minimizer,
+      \(\|X_t^\top\hat Z_t/n_t-b\|_\infty\le\|\Delta\|_\infty\).
+      Therefore the full Lasso noise score obeys
+      \begin{align}
+       Q&=\left\|{X_t^\top\over n_t}
+             (X_td+H_t\phi_t-\hat Z_t+\varepsilon_t)\right\|_\infty
+             \le2\|\Delta\|_\infty+\|e_t\|_\infty\notag\\
+        &\le(C_1\sqrt q\|\phi_t\|_2+C_2)a_t,
+       \label{eq:corrected_profiled_score_bound}
+      \end{align}
+      with the strictly positive choices \(C_1=8C_H\) and
+      \(C_2=2B_0+C_\varepsilon\). All dependencies are as stated in the theorem.
+      No asymptotic \(o(a_t)\) term or unspecified relation \(n_s\gg n_t\) is used.
+
+      For completeness the two minimizers exist in finite dimensions. The image
+      \(\{X_t^\top Z/n_t:Z\in\mathbb R^{n_t}\}\) is a closed linear subspace;
+      minimizing its distance to \(b\) in the maximum norm attains a minimum
+      by restricting to a bounded sublevel set in that image. Any preimage
+      supplies \(\hat Z_t\). The Lasso objective is continuous and coercive because
+      \(\lambda_t>0\), so it also attains a minimum.
+
+      Let \(h=\hat\eta-\eta_0\). Lasso optimality and \(Q\le\lambda_t/4\) give
+      \begin{align}
+       {\|X_th\|_2^2\over n_t}
+       &\le\lambda_t(\|\eta_0\|_1-\|\eta_0+h\|_1)
+                        +{\lambda_t\over2}\|h\|_1\notag\\
+       &\le{3\lambda_t\over2}\|h_{S_\eta}\|_1
+                        -{\lambda_t\over2}\|h_{S_\eta^c}\|_1.
+       \label{eq:sup:oracle_inequality}
+      \end{align}
+      Nonnegativity of the left side gives
+      \(\|h_{S_\eta^c}\|_1\le3\|h_{S_\eta}\|_1\).
+      On \(\mathcal R\), the RE bound therefore applies. If \(h=0\) all conclusions
+      hold. Otherwise, by \(\|h_{S_\eta}\|_1\le\sqrt{s_\eta}\|h\|_2\),
+      \[
+       C_r\|h\|_2^2\le {3\lambda_t\over2}\sqrt{s_\eta}\|h\|_2,
+       \qquad \|h\|_2\le{3\lambda_t\over2C_r}\sqrt{s_\eta}.
+      \]
+      The cone gives \(\|h\|_1\le4\sqrt{s_\eta}\|h\|_2\), giving \(6/C_r\).
+      Substituting the \(\ell_2\) bound into
+      \(\|X_th\|_2^2/n_t\le3\lambda_t\sqrt{s_\eta}\|h\|_2/2\)
+      gives the prediction constant \(3/(2\sqrt{C_r})\).
+      The case \(s_\eta=0\) is included: the cone then forces \(h=0\).
+      Finally, \(\mathbb P(\mathcal G)\ge1-p^{-c}\); intersecting with
+      \(\mathcal R\) and \(\mathcal I\) gives exactly the probability statement in
+      the main theorem, without assuming these random events occur automatically.
+
+      ### References
+      #### Reference R1
+      Target: Lemma \ref{lem:high_probability_set}
+
+      Citation: Let $\mathcal G$ be the simultaneous event described in Lemma \ref{lem:high_probability_set}. On this event the target and pooled source Gram matrices $G_t=X_t^\top X_t/n_t$ and $G_s=\sum_kX_s^{(k)\top}X_s^{(k)}/n_s$ satisfy
+      \[
+       \|G_t-\Sigma_X\|_\infty\le C_xa_t,\qquad
+       \|G_s-\Sigma_X\|_\infty\le C_xa_s.
+      \]
+      Finally, $\mathbb P(\mathcal G)\ge1-p^{-c}$; intersecting with
+      $\mathcal R$ and $\mathcal I$ gives exactly the probability statement in
+      the main theorem, without assuming these random events occur automatically.
+
+      Bibliography: supp
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction. The named result is Lemma \(\ref{lem:high_probability_set}\) in the supplied supplement D1, `supp.tex`, in the subsection “Lemmas for Theorem 1.” The explicit definition of the simultaneous event \(\mathcal G\) as the intersection of the ten concentration events \(\mathcal G_1,\ldots,\mathcal G_9,\mathcal G_{10}^{\phi}\) is displayed in the preceding “Proof of Theorem 1” in D1. The first two of these events are exactly the target and pooled-source Gram-matrix bounds stated in the Citation. The source proof keeps the restricted-eigenvalue event \(\mathcal R\) and the initial-estimator event \(\mathcal I\) separate from \(\mathcal G\).
+
+      The independently stated Lemma \(\ref{lem:error_sample_covariance1}\) in D1 directly supplies the covariance-concentration result underlying the target and pooled-source Gram bounds in \(\mathcal G_1\) and \(\mathcal G_2\). The displayed statements are from the supplied supplement D1; supplement authors were not supplied. The companion main article is credited to Ziyuan Chen, Yifan Jiang, Jingyuan Liu, and Fang Yao. No original page or article equation number beyond the supplied D1 labels was supplied.
+
+      ##### Lemma \(\ref{lem:high_probability_set}\)
+
+      ###### Definitions and notation
+      Let \(p\ge2\), let \(q\ge1\) be fixed, let \(K\ge1\), and let \(n_t,n_s^{(1)},\ldots,n_s^{(K)}\) be positive integers with
+      \[
+       n_s=\sum_{k=1}^K n_s^{(k)}\ge n_t.
+      \]
+      Put
+      \[
+       w_k=\frac{n_s^{(k)}}{n_s},\qquad
+       a_t=\sqrt{\frac{\log p}{n_t}},\qquad
+       a_s=\sqrt{\frac{\log p}{n_s}},\qquad
+       \Sigma_X=\mathbb E[XX^\top],\qquad
+       M=\mathbb E[XH^\top].
+      \]
+      The target model is
+      \[
+       Y_{ti}=\beta_t^\top X_{ti}+\phi_t^\top H_{ti}+\varepsilon_{ti},
+       \qquad
+       X_{ti}=f(H_{ti})+E_{ti},\quad i=1,\ldots,n_t,
+      \]
+      and, for \(k=1,\ldots,K\), the \(k\)-th source model is
+      \[
+       Y_{si}^{(k)}=\beta_s^{(k)\top}X_{si}^{(k)}+\phi_s^{(k)\top}H_{si}^{(k)}+\varepsilon_{si}^{(k)},
+       \qquad
+       X_{si}^{(k)}=f(H_{si}^{(k)})+E_{si}^{(k)},\quad i=1,\ldots,n_s^{(k)}.
+      \]
+      Let
+      \[
+       X_t=(X_{t1},\ldots,X_{tn_t})^\top\in\mathbb R^{n_t\times p},
+       \qquad
+       X_s^{(k)}=(X_{s1}^{(k)},\ldots,X_{s n_s^{(k)}}^{(k)})^\top\in\mathbb R^{n_s^{(k)}\times p},
+      \]
+      and analogously define \(H_t,E_t,\varepsilon_t\) and \(H_s^{(k)},E_s^{(k)},\varepsilon_s^{(k)}\). The source average coefficient is
+      \[
+       \beta_s=\sum_{k=1}^K w_k\beta_s^{(k)}
+       =\frac{1}{n_s}\sum_{k=1}^K n_s^{(k)}\beta_s^{(k)},
+      \]
+      and the model shift is \(\eta_0=\beta_t-\beta_s\). Let \(S_\eta\) denote the support of \(\eta_0\).
+
+      The target and pooled-source Gram matrices are
+      \[
+       G_t=\frac{X_t^\top X_t}{n_t},
+       \qquad
+       G_s=\frac{\sum_{k=1}^K X_s^{(k)\top}X_s^{(k)}}{n_s}.
+      \]
+      For a matrix, \(\|\cdot\|_\infty\) denotes the largest absolute entry; for a vector it is the usual maximum norm. We write
+      \[
+       \|B\|_{2,\infty}=\max_j\|B_{j,:}\|_2.
+      \]
+
+      The event \(\mathcal G\) in Lemma \(\ref{lem:high_probability_set}\) is defined in the proof of Theorem 1 in D1 as the intersection of the following ten events, with the original labels retained:
+      \[
+      \begin{aligned}
+      \mathcal G_1&=\left\{\left\|\frac{1}{n_t}X_t^\top X_t-\Sigma_X\right\|_\infty
+      \le C_x\sqrt{\frac{\log p}{n_t}}\right\},\\
+      \mathcal G_2&=\left\{\left\|\frac{1}{n_s}\sum_{k=1}^K X_s^{(k)\top}X_s^{(k)}-\Sigma_X\right\|_\infty
+      \le C_x\sqrt{\frac{\log p}{n_s}}\right\},\\
+      \mathcal G_3&=\left\{\left\|\frac{1}{n_s}\sum_{k=1}^K n_s^{(k)}
+      \left(\frac{1}{n_s^{(k)}}X_s^{(k)\top}X_s^{(k)}-\Sigma_X\right)
+      \left(\beta_s^{(k)}-\frac{1}{n_s}\sum_{j=1}^K n_s^{(j)}\beta_s^{(j)}\right)
+      \right\|_\infty
+      \le C_\delta s_\delta\sqrt{\frac{\log p}{n_s}}\right\},\\
+      \mathcal G_4&=\left\{\left\|\frac{1}{n_t}f(H_t)^\top H_t-M\right\|_{2,\infty}
+      \le C_H\sqrt{\frac{q\log p}{n_t}}\right\},\\
+      \mathcal G_5&=\left\{\left\|\frac{1}{n_s}\sum_{k=1}^K f(H_s^{(k)})^\top H_s^{(k)}-M\right\|_{2,\infty}
+      \le C_H\sqrt{\frac{q\log p}{n_s}}\right\},\\
+      \mathcal G_6&=\left\{\left\|\frac{1}{n_t}E_t^\top H_t\right\|_{2,\infty}
+      \le C_H\sqrt{\frac{q\log p}{n_t}}\right\},\\
+      \mathcal G_7&=\left\{\left\|\frac{1}{n_s}\sum_{k=1}^K E_s^{(k)\top}H_s^{(k)}\right\|_{2,\infty}
+      \le C_H\sqrt{\frac{q\log p}{n_s}}\right\},\\
+      \mathcal G_8&=\left\{\left\|\frac{1}{n_t}X_t^\top\varepsilon_t\right\|_\infty
+      \le C_\varepsilon\sqrt{\frac{\log p}{n_t}}\right\},\\
+      \mathcal G_9&=\left\{\left\|\frac{1}{n_s}\sum_{k=1}^K X_s^{(k)\top}\varepsilon_s^{(k)}\right\|_\infty
+      \le C_\varepsilon\sqrt{\frac{\log p}{n_s}}\right\},\\
+      \mathcal G_{10}^{\phi}&=\left\{\|T_\phi\|_\infty\le C_dB_\phi\sqrt q\,a_s\right\},
+      \end{aligned}
+      \]
+      where
+      \[
+       d_k=\phi_s^{(k)}-\phi_t,
+       \qquad
+       T_\phi=\frac{1}{n_s}\sum_{k=1}^K
+       \left(X_s^{(k)\top}H_s^{(k)}-n_s^{(k)}M\right)d_k.
+      \]
+      Thus
+      \[
+       \mathcal G=\bigcap_{j=1}^9\mathcal G_j\cap\mathcal G_{10}^{\phi}.
+      \]
+      In particular, on \(\mathcal G_1\) and \(\mathcal G_2\),
+      \[
+       \|G_t-\Sigma_X\|_\infty\le C_xa_t,
+       \qquad
+       \|G_s-\Sigma_X\|_\infty\le C_xa_s.
+      \]
+
+      The restricted-eigenvalue event \(\mathcal R\), which the source proof keeps separate from \(\mathcal G\), is the event from Assumption \(\ref{assum:distribution_E_H_f}\).c: for
+      \[
+       \mathcal A_{s_\eta}
+       =\left\{u:\|u_{S_\eta^c}\|_1\le3\|u_{S_\eta}\|_1\right\},
+      \]
+      one has
+      \[
+       \frac1{n_t}\|X_tu\|_2^2\ge C_r\|u\|_2^2
+       \qquad\text{for every }u\in\mathcal A_{s_\eta},
+      \]
+      with fixed \(C_r>0\). The initial-estimator event, also kept separate, is
+      \[
+       \mathcal I=\left\{\|\hat\beta_{\mathrm{init}}-\beta_s\|_1\le C_s\right\},
+      \]
+      where \(\hat\beta_{\mathrm{init}}\) is an initial estimator for \(\beta_s\) and \(C_s>0\) is the fixed initial-error bound from the main theorem.
+
+      ###### Assumptions
+      Assumption \(\ref{assum:distribution_E_H_f}\).a: Let \(p\ge2\), let \(q\ge1\) be fixed, let \(K\ge1\), and let \(n_t,n_s^{(1)},\ldots,n_s^{(K)}\) be positive integers, with \(n_s=\sum_k n_s^{(k)}\ge n_t\). Put \(w_k=n_s^{(k)}/n_s\) and \(a_t=\sqrt{\log p/n_t}\), \(a_s=\sqrt{\log p/n_s}\). All target and source sample rows are mutually independent. The pairs \((E,H)\) have the same joint distribution in every domain, and the same function \(f\) is used in \(X=f(H)+E\). Coordinates of \(E,H,f(H)\) are centered and have sub-Gaussian norms at most a fixed \(L>0\), uniformly over all coordinates and domains. Moreover \(\mathbb E[EH^\top]=0\). Independence between \(E\) and \(H\) is not required.
+
+      Assumption \(\ref{assum:distribution_E_H_f}\).b: The centered noise terms are independent of their corresponding \((E,H)\), have a common variance \(\sigma^2\ge0\), and have sub-Gaussian norm at most a fixed \(L_\varepsilon>0\). The model coefficients are deterministic.
+
+      Deterministic coefficient bounds in the main theorem: \(s_\eta\in\{0,\ldots,p\}\), \(|S_\eta|\le s_\eta\), and
+      \[
+      \max_{1\le k\le K}\|\beta_s^{(k)}-\beta_s\|_1\le s_\delta,
+      \]
+      where \(s_\delta\ge0\) is the fixed source-coefficient spread bound.
+
+      Assumption \(\ref{assum:distribution_E_H_f}\).d: With
+      \[
+       \bar\phi_s=\sum_{k=1}^K w_k\phi_s^{(k)},
+      \]
+      there are fixed \(C_\phi,B_\phi>0\) such that
+      \[
+       \|\bar\phi_s-\phi_t\|_2\le C_\phi a_t,
+       \qquad
+       \max_{1\le k\le K}\|\phi_s^{(k)}-\phi_t\|_2\le B_\phi.
+      \]
+      The first condition is the weighted-average similarity condition. The second is a uniform bound on source heterogeneity; it does not require each source’s discrepancy to tend to zero. The constants \(L,L_\varepsilon,C_r,C_\phi,B_\phi\), the initial-error bound \(C_s>0\), and the source-coefficient spread bound \(s_\delta\ge0\) are independent of \(p,n_t,n_s,K\).
+
+      The statement is for \(n_s\ge n_t\ge N_0\log p\), with \(N_0\ge1\) chosen sufficiently large; consequently \(a_s\le a_t\le1\).
+
+      ###### Statement
+      Under Assumptions \(\ref{assum:distribution_E_H_f}\).a--b and the deterministic coefficient bounds in the main theorem and Assumption \(\ref{assum:distribution_E_H_f}\).d, for every \(c>0\) there exist strictly positive
+      \[
+       C_x,C_\delta,C_H,C_d,C_\varepsilon,N_0
+      \]
+      such that, whenever \(n_s\ge n_t\ge N_0\log p\), all the bounds used in the proof of Theorem 1 hold simultaneously on an event \(\mathcal G\) with
+      \[
+       \mathbb P(\mathcal G)\ge1-p^{-c}.
+      \]
+      Here \(\mathcal G\) is the simultaneous event specified in Definitions and notation as \(\bigcap_{j=1}^9\mathcal G_j\cap\mathcal G_{10}^{\phi}\). The source proof keeps the restricted-eigenvalue event \(\mathcal R\) and the initial-estimator event \(\mathcal I\) separate from \(\mathcal G\).
+
+      ##### Lemma \(\ref{lem:error_sample_covariance1}\)
+
+      ###### Definitions and notation
+      Let \(p\ge2\). Let \(X\) be an \(N\times p\) sample matrix whose \(N\) rows are independent and have the common covariate law \(X=f(H)+E\) from Assumption \(\ref{assum:distribution_E_H_f}\).a. Define
+      \[
+       \Sigma_X=\mathbb E[XX^\top].
+      \]
+      For a matrix, \(\|\cdot\|_\infty\) denotes the largest absolute entry. The constants \(C_x,N_x>0\) are strictly positive and may depend on the fixed distributional parameters and on \(c\).
+
+      ###### Assumptions
+      Assumption \(\ref{assum:distribution_E_H_f}\).a: Let \(p\ge2\), let \(q\ge1\) be fixed, let \(K\ge1\), and let \(n_t,n_s^{(1)},\ldots,n_s^{(K)}\) be positive integers, with \(n_s=\sum_{k=1}^K n_s^{(k)}\ge n_t\). Put \(w_k=n_s^{(k)}/n_s\) and \(a_t=\sqrt{\log p/n_t}\), \(a_s=\sqrt{\log p/n_s}\). All target and source sample rows are mutually independent. The pairs \((E,H)\) have the same joint distribution in every domain, and the same function \(f\) is used in \(X=f(H)+E\). Coordinates of \(E,H,f(H)\) are centered and have sub-Gaussian norms at most a fixed \(L>0\), uniformly over all coordinates and domains. Moreover \(\mathbb E[EH^\top]=0\). Independence between \(E\) and \(H\) is not required.
+
+      For this lemma, \(N\) denotes the number of independent rows with the common covariate law, and \(N\ge N_x\log p\).
+
+      ###### Statement
+      Under Assumption \(\ref{assum:distribution_E_H_f}\).a, for every \(c>0\) there are \(C_x,N_x>0\) such that for \(N\ge N_x\log p\) independent rows with the common covariate law,
+      \[
+       \mathbb P\left(
+       \left\|\frac{X^\top X}{N}-\Sigma_X\right\|_\infty
+       \le C_x\sqrt{\frac{\log p}{N}}
+       \right)
+       \ge1-\frac{p^{-c}}{20}.
+      \]
+      The same constants work for the target rows and for all pooled source rows.
+
+      #### Reference R2
+      Target: Lemma \ref{lem:error_sample_covariance_sparse}
+
+      Citation: Set $\delta_k=\beta_s^{(k)}-\beta_s$, $d_k=\phi_s^{(k)}-\phi_t$, $\bar d=\sum_kw_kd_k$, and
+      \[
+       T_\beta={1\over n_s}\sum_k
+       (X_s^{(k)\top}X_s^{(k)}-n_s^{(k)}\Sigma_X)\delta_k,\qquad
+       T_\phi={1\over n_s}\sum_k
+       (X_s^{(k)\top}H_s^{(k)}-n_s^{(k)}M)d_k.
+      \]
+      The source coefficient definition gives $\sum_kw_k\delta_k=0$.
+      Lemmas \ref{lem:error_sample_covariance_sparse} and
+      \ref{lem:weighted_confounding_transfer} give
+      \[
+       \|T_\beta\|_\infty\le C_\delta s_\delta a_s,\qquad
+       \|T_\phi\|_\infty\le C_d B_\phi\sqrt q\,a_s.
+      \]
+
+      Bibliography: supp
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction from D1, the Supplementary Material for “Deconfounding via Profiled Transfer Learning,” in the subsection “Lemmas for Theorem 1.” The displayed result is locally labeled Lemma \(\ref{lem:error_sample_covariance_sparse}\). It supplies the source-spread covariance estimate used for the term \(\|T_\beta\|_\infty\le C_\delta s_\delta a_s\) in the current proof and hence supports the \(B_2\) covariance/source-spread bound in the target argument. The statement below reproduces the lemma as supplied in D1. No separate original-article theorem numbering is supplied for this local supplementary lemma.
+
+      ##### Lemma \(\ref{lem:error_sample_covariance_sparse}\)
+
+      ###### Definitions and notation
+      Let \(p\ge2\), let \(q\ge1\) be fixed, let \(K\ge1\), and let \(n_t,n_s^{(1)},\ldots,n_s^{(K)}\) be positive integers, with
+      \[
+       n_s=\sum_{k=1}^K n_s^{(k)}\ge n_t.
+      \]
+      Put
+      \[
+       w_k=n_s^{(k)}/n_s,\qquad 
+       a_t=\sqrt{\log p/n_t},\qquad 
+       a_s=\sqrt{\log p/n_s}.
+      \]
+      For each \(k=1,\ldots,K\), let \(X_s^{(k)}\in\mathbb R^{n_s^{(k)}\times p}\) denote the \(k\)-th source design matrix, whose rows are the source covariate vectors. Write
+      \[
+       \Sigma_X=\mathbb E[XX^\top].
+      \]
+      For a matrix, \(\|\cdot\|_\infty\) denotes the largest absolute entry; for a vector it denotes the usual maximum norm. Also \(\|\delta_k\|_1\) is the usual \(\ell_1\)-norm on \(\mathbb R^p\). The quantity \(s_\delta\) is a nonnegative deterministic bound on the \(\ell_1\)-norms of the deterministic vectors \(\delta_k\), and \(c>0\) is an arbitrary positive confidence exponent.
+
+      ###### Assumptions
+      The lemma is stated under Assumption 1.a of the main paper, where Assumption 1 is \(\ref{assum:distribution_E_H_f}\). The applicable setup and condition are:
+
+      Let \(p\ge2\), let \(q\ge1\) be fixed, let \(K\ge1\), and let
+      \(n_t,n_s^{(1)},\ldots,n_s^{(K)}\) be positive integers, with
+      \[
+       n_s=\sum_{k=1}^K n_s^{(k)}\ge n_t.
+      \]
+      Put
+      \[
+       w_k=n_s^{(k)}/n_s,\qquad 
+       a_t=\sqrt{\log p/n_t},\qquad 
+       a_s=\sqrt{\log p/n_s}.
+      \]
+
+      Assumption 1.a:
+      - All target and source sample rows are mutually independent.
+      - The pairs \((E,H)\) have the same joint distribution in every domain, and the same function \(f\) is used in \(X=f(H)+E\).
+      - Coordinates of \(E,H,f(H)\) are centered and have sub-Gaussian norms at most a fixed \(L>0\), uniformly over all coordinates and domains.
+      - Moreover \(\mathbb E[EH^\top]=0\). Independence between \(E\) and \(H\) is not required.
+
+      In addition, the lemma assumes that, for every \(k=1,\ldots,K\), \(\delta_k\in\mathbb R^p\) is deterministic and satisfies
+      \[
+       \|\delta_k\|_1\le s_\delta,
+      \]
+      where \(s_\delta\ge0\).
+
+      ###### Statement
+      Under Assumption 1.a, let deterministic \(\delta_k\in\mathbb R^p\) satisfy
+      \[
+       \|\delta_k\|_1\le s_\delta,
+      \]
+      with \(s_\delta\ge0\). For every \(c>0\) there are \(C_\delta,N_\delta>0\) such that,
+      if \(n_s\ge N_\delta\log p\),
+      \[
+       \mathbb P\left(\left\|{1\over n_s}\sum_{k=1}^K
+       (X_s^{(k)\top}X_s^{(k)}-n_s^{(k)}\Sigma_X)\delta_k
+       \right\|_\infty\le C_\delta s_\delta a_s\right)
+       \ge 1-p^{-c}/20.
+      \]
+      No lower bound on each individual \(n_s^{(k)}\) is needed.
+
+      #### Reference R3
+      Target: Lemma \ref{lem:weighted_confounding_transfer}
+
+      Citation: Set $\delta_k=\beta_s^{(k)}-\beta_s$, $d_k=\phi_s^{(k)}-\phi_t$, $\bar d=\sum_kw_kd_k$, and
+      \[
+       T_\beta={1\over n_s}\sum_k
+       (X_s^{(k)\top}X_s^{(k)}-n_s^{(k)}\Sigma_X)\delta_k,\qquad
+       T_\phi={1\over n_s}\sum_k
+       (X_s^{(k)\top}H_s^{(k)}-n_s^{(k)}M)d_k.
+      \]
+      The source coefficient definition gives $\sum_kw_k\delta_k=0$.
+      Lemmas \ref{lem:error_sample_covariance_sparse} and
+      \ref{lem:weighted_confounding_transfer} give
+      \[
+       \|T_\beta\|_\infty\le C_\delta s_\delta a_s,\qquad
+       \|T_\phi\|_\infty\le C_d B_\phi\sqrt q\,a_s.
+      \]
+      Thus average similarity controls the population term, while the independent
+      weighted-sum lemma controls its separate centered fluctuation:
+      \[
+       \|A_t-A_s\|_\infty\le
+       [4C_H\sqrt q\|\phi_t\|_2+C_dB_\phi\sqrt q+
+       L_MC_\phi\sqrt q]a_t.
+      \]
+
+      Bibliography: supp
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction from D1 (`supp.tex`), subsection “Lemmas for Theorem 1” and the preceding notation paragraph. The group `Lemma lem:weighted_confounding_transfer` reproduces the lemma labeled `lem:weighted_confounding_transfer`, which supplies the weighted centered-sum bound used for \(T_\phi\). The group `Lemma lem:error_sample_covariance_sparse` reproduces the separately stated sparse sample-covariance lemma invoked in the same citation for \(T_\beta\). The group `Lemma lem:error_sample_covariance2` reproduces the separately stated concentration lemma for \(f(H)^\top H/N-M_f\) and \(E^\top H/N\), which underlies the \(D_t\) and \(D_s\) bounds appearing in the cited decomposition toward the \(\|A_t-A_s\|_\infty\) inequality. The final \(\|A_t-A_s\|_\infty\) inequality itself is a proof-derived consequence in the supplied source, not a separately labeled source lemma; it additionally uses the average-similarity condition in Assumption 1.d and the bound on \(M\). No proof of any lemma is reproduced here, and no claim is made that the citation’s application conditions have been checked. The text of Assumption 1.a is quoted from the supplied assumption block in the current theorem context, since D1 refers to Assumption 1 without restating its parts.
+
+      ##### Lemma lem:weighted_confounding_transfer
+      ###### Definitions and notation
+      Let \(p\ge2\), let \(q\ge1\) be fixed, let \(K\ge1\), and let \(n_t,n_s^{(1)},\ldots,n_s^{(K)}\) be positive integers with
+      \[
+      n_s=\sum_{k=1}^K n_s^{(k)}\ge n_t.
+      \]
+      Put
+      \[
+      w_k=\frac{n_s^{(k)}}{n_s},\qquad a_t=\sqrt{\frac{\log p}{n_t}},\qquad a_s=\sqrt{\frac{\log p}{n_s}},\qquad
+      \Sigma_X=\mathbb E[XX^\top],\qquad M=\mathbb E[XH^\top].
+      \]
+      For each \(k\), \(X_s^{(k)}\in\mathbb R^{n_s^{(k)}\times p}\) is the source design matrix and \(H_s^{(k)}\in\mathbb R^{n_s^{(k)}\times q}\) is the source hidden-confounder matrix. For a matrix, \(\|\cdot\|_\infty\) denotes the largest absolute entry; for a vector, \(\|\cdot\|_2\) denotes the Euclidean norm. Since \(\mathbb E[EH^\top]=0\), one has \(M=\mathbb E[f(H)H^\top]\). Also \(\|B\|_{2,\infty}=\max_j\|B_{j,:}\|_2\), and there is a fixed \(L_M>0\), depending only on \(L\), with \(\|M\|_{2,\infty}\le L_M\sqrt q\).
+
+      ###### Assumptions
+      The lemma is stated under Assumption 1.a of the main paper. The global setup is: \(p\ge2\); \(q\ge1\) is fixed; \(K\ge1\); \(n_t,n_s^{(1)},\ldots,n_s^{(K)}\) are positive integers with \(n_s=\sum_{k=1}^K n_s^{(k)}\ge n_t\). Assumption 1.a states:
+
+      All target and source sample rows are mutually independent. The pairs \((E,H)\) have the same joint distribution in every domain, and the same function \(f\) is used in \(X=f(H)+E\). Coordinates of \(E,H,f(H)\) are centered and have sub-Gaussian norms at most a fixed \(L>0\), uniformly over all coordinates and domains. Moreover \(\mathbb E[EH^\top]=0\). Independence between \(E\) and \(H\) is not required.
+
+      The lemma additionally assumes the inline deterministic condition on \(d_k\) stated in its Statement.
+
+      ###### Statement
+      Under Assumption 1.a, let deterministic \(d_k\in\mathbb R^q\) satisfy
+      \[
+      \|d_k\|_2\le B_\phi
+      \]
+      with \(B_\phi>0\). For every \(c>0\) there are \(C_d,N_d>0\) such that if
+      \[
+      n_s\ge N_d\log p,
+      \]
+      then
+      \[
+      \mathbb P\left(\left\|\frac{1}{n_s}\sum_k
+       (X_s^{(k)\top}H_s^{(k)}-n_s^{(k)}M)d_k\right\|_\infty
+             \le C_dB_\phi\sqrt q\,a_s\right)\ge1-p^{-c}/20.
+      \]
+      The constants depend only on the fixed distributional bounds and \(c\); \(q\) is displayed explicitly in the threshold.
+
+      ##### Lemma lem:error_sample_covariance_sparse
+      ###### Definitions and notation
+      Use the same global setup: \(p\ge2\), \(q\ge1\) fixed, \(K\ge1\), \(n_t,n_s^{(1)},\ldots,n_s^{(K)}\) positive integers with \(n_s=\sum_{k=1}^K n_s^{(k)}\ge n_t\), and
+      \[
+      a_s=\sqrt{\frac{\log p}{n_s}},\qquad \Sigma_X=\mathbb E[XX^\top].
+      \]
+      For each \(k\), \(X_s^{(k)}\in\mathbb R^{n_s^{(k)}\times p}\) is the source design matrix. For a matrix, \(\|\cdot\|_\infty\) denotes the largest absolute entry; for a vector it is the usual maximum norm.
+
+      ###### Assumptions
+      The lemma is stated under Assumption 1.a of the main paper. The global setup is as above. Assumption 1.a states:
+
+      All target and source sample rows are mutually independent. The pairs \((E,H)\) have the same joint distribution in every domain, and the same function \(f\) is used in \(X=f(H)+E\). Coordinates of \(E,H,f(H)\) are centered and have sub-Gaussian norms at most a fixed \(L>0\), uniformly over all coordinates and domains. Moreover \(\mathbb E[EH^\top]=0\). Independence between \(E\) and \(H\) is not required.
+
+      The lemma additionally assumes the inline deterministic conditions on \(\delta_k\) and \(s_\delta\) stated in its Statement.
+
+      ###### Statement
+      Under Assumption 1.a, let deterministic \(\delta_k\in\mathbb R^p\) satisfy
+      \[
+      \|\delta_k\|_1\le s_\delta,
+      \]
+      with \(s_\delta\ge0\). For every \(c>0\) there are \(C_\delta,N_\delta>0\) such that, if
+      \[
+      n_s\ge N_\delta\log p,
+      \]
+      then
+      \[
+      \mathbb P\left(\left\|\frac{1}{n_s}\sum_k
+       (X_s^{(k)\top}X_s^{(k)}-n_s^{(k)}\Sigma_X)\delta_k
+       \right\|_\infty\le C_\delta s_\delta a_s\right)\ge1-p^{-c}/20.
+      \]
+      No lower bound on each individual \(n_s^{(k)}\) is needed.
+
+      ##### Lemma lem:error_sample_covariance2
+      ###### Definitions and notation
+      Let \(p\ge 2\) and \(q\ge 1\) be fixed. Let \(N\) be a positive integer sample size. The rows \((E_i,H_i)\), \(i=1,\ldots,N\), are independent with the common joint law specified in Assumption 1.a. Write \(H\in\mathbb R^{N\times q}\) for the matrix with rows \(H_i^\top\), \(E\in\mathbb R^{N\times p}\) for the matrix with rows \(E_i^\top\), and \(f(H)\in\mathbb R^{N\times p}\) for the matrix with rows \(f(H_i)^\top\). Put
+      \[
+      M_f=\mathbb E[f(H)H^\top].
+      \]
+      For a matrix, \(\|B\|_{2,\infty}=\max_j\|B_{j,:}\|_2\). Under Assumption 1.a, \(M_f=M=\mathbb E[XH^\top]\).
+
+      ###### Assumptions
+      The lemma is stated under Assumption 1.a of the main paper. Assumption 1.a states:
+
+      All target and source sample rows are mutually independent. The pairs \((E,H)\) have the same joint distribution in every domain, and the same function \(f\) is used in \(X=f(H)+E\). Coordinates of \(E,H,f(H)\) are centered and have sub-Gaussian norms at most a fixed \(L>0\), uniformly over all coordinates and domains. Moreover \(\mathbb E[EH^\top]=0\). Independence between \(E\) and \(H\) is not required.
+
+      The lemma additionally assumes that the \(N\) rows are independent common-law rows, as stated in its Statement.
+
+      ###### Statement
+      Under Assumption 1.a, put
+      \[
+      M_f=\mathbb E[f(H)H^\top].
+      \]
+      For every \(c>0\) there are \(C_H,N_H>0\) such that for
+      \[
+      N\ge N_H\log p
+      \]
+      independent common-law rows, simultaneously
+      \[
+      \|f(H)^\top H/N-M_f\|_{2,\infty}
+             \le C_H\sqrt{q\log p/N},\qquad
+      \|E^\top H/N\|_{2,\infty}\le C_H\sqrt{q\log p/N}
+      \]
+      with probability at least \(1-p^{-c}/20\).
+
+      #### Reference R4
+      Target: Lemma \ref{lem:error_sample_covariance2}
+
+      Citation: Also put $D_t=X_t^\top H_t/n_t-M$,
+      $D_s=\sum_kX_s^{(k)\top}H_s^{(k)}/n_s-M$,
+      $e_t=X_t^\top\varepsilon_t/n_t$ and
+      $e_s=\sum_kX_s^{(k)\top}\varepsilon_s^{(k)}/n_s$.
+      On $\mathcal G$, Lemmas \ref{lem:error_sample_covariance2} and
+      \ref{lem:error_noise} imply
+      \[
+       \|D_t\|_{2,\infty}\le2C_H\sqrt q\,a_t,\quad
+       \|D_s\|_{2,\infty}\le2C_H\sqrt q\,a_s,\quad
+       \|e_t\|_\infty\le C_\varepsilon a_t,\quad
+       \|e_s\|_\infty\le C_\varepsilon a_s.
+      \]
+
+      Bibliography: supp
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction from D1, *Supplementary Material for “Deconfounding via Profiled Transfer Learning”*, subsection “Lemmas for Theorem 1.” The supplement states Lemma \ref{lem:error_sample_covariance2} and Lemma \ref{lem:error_noise} separately. The first supplies the two matrix concentration bounds involving \(f(H)^\top H/N\), \(E^\top H/N\), and \(M_f\); the second supplies the bound involving \(X^\top\varepsilon/N\). These correspond to the two component terms in the citation’s definitions of \(D_t,D_s\) and to the noise terms \(e_t,e_s\), respectively. The factor \(2C_H\) and the simultaneous display of all four bounds are conclusions drawn in the current proof, not additional conclusions asserted in either source lemma. The supplement identifies “Assumption 1” with Assumption \ref{assum:distribution_E_H_f} of the main paper; since the uploaded main file D2 was unavailable, the content of Assumption \ref{assum:distribution_E_H_f}.a–b is reproduced from the fixed current theorem’s supplied Assumption block. Supplement authors are not supplied. No proof is included here.
+
+      ##### Lemma \ref{lem:error_sample_covariance2}
+      ###### Definitions and notation
+      Let \(f:\mathbb R^q\to\mathbb R^p\), let \(H\) be an \(N\times q\) matrix of confounders, and let \(E\) be an \(N\times p\) matrix of errors, with \(X=f(H)+E\). Here \(f(H)\) denotes the \(N\times p\) matrix obtained by applying \(f\) rowwise to \(H\). Define
+      \[
+       M_f=\mathbb E[f(H)H^\top]\in\mathbb R^{p\times q}.
+      \]
+      In the surrounding supplemental notation,
+      \[
+       M=\mathbb E[XH^\top]=\mathbb E[f(H)H^\top]=M_f,
+      \]
+      because \(\mathbb E[EH^\top]=0\). Also
+      \[
+       w_k=\frac{n_s^{(k)}}{n_s},\qquad
+       a_t=\sqrt{\frac{\log p}{n_t}},\qquad
+       a_s=\sqrt{\frac{\log p}{n_s}},\qquad
+       \Sigma_X=\mathbb E[XX^\top].
+      \]
+      For a matrix, \(\|\cdot\|_\infty\) denotes the largest absolute entry; for a vector it is the maximum norm. For a matrix \(B\),
+      \[
+       \|B\|_{2,\infty}=\max_j\|B_{j,:}\|_2.
+      \]
+      The lemma concerns \(N\) independent rows having the common joint law of \((E,H)\) described in Assumption \ref{assum:distribution_E_H_f}.a. The matrices \(f(H)^\top H/N\) and \(E^\top H/N\) are \(p\times q\).
+
+      ###### Assumptions
+      Let \(p\ge2\) and let \(q\ge1\) be fixed.
+
+      \begin{assump}
+      \label{assum:distribution_E_H_f}
+      \begin{enumerate}
+      \item[a.] All target and source sample rows are mutually independent. The
+      pairs \((E,H)\) have the same joint distribution in every domain, and the same
+      function \(f\) is used in \(X=f(H)+E\). Coordinates of \(E,H,f(H)\) are centered
+      and have sub-Gaussian norms at most a fixed \(L>0\), uniformly over all
+      coordinates and domains. Moreover \(\mathbb E[EH^\top]=0\). Independence
+      between \(E\) and \(H\) is not required.
+      \end{enumerate}
+      \end{assump}
+
+      ###### Statement
+      Under Assumption \ref{assum:distribution_E_H_f}.a, put \(M_f=\mathbb E[f(H)H^\top]\).
+      For every \(c>0\) there are \(C_H,N_H>0\) such that for
+      \(N\ge N_H\log p\) independent common-law rows, simultaneously
+      \[
+       \|f(H)^\top H/N-M_f\|_{2,\infty}
+             \le C_H\sqrt{q\log p/N},\qquad
+       \|E^\top H/N\|_{2,\infty}\le C_H\sqrt{q\log p/N}
+      \]
+      with probability at least \(1-p^{-c}/20\).
+
+      ##### Lemma \ref{lem:error_noise}
+      ###### Definitions and notation
+      Let \(X\) be an \(N\times p\) design matrix and let \(\varepsilon\) be the corresponding \(N\)-vector of centered noise terms. For a vector, \(\|\cdot\|_\infty\) denotes the usual maximum norm; for a matrix \(X^\top\varepsilon/N\), \(\|\cdot\|_\infty\) denotes the largest absolute entry among its \(p\) coordinates. The lemma is stated for \(N\) independent rows. Under Assumption \ref{assum:distribution_E_H_f}.a--b, the target and pooled source rows both satisfy the required independent-row and distributional conditions, and the noise has common variance \(\sigma^2\ge0\) and sub-Gaussian norm at most \(L_\varepsilon>0\), independently of the corresponding \((E,H)\).
+
+      ###### Assumptions
+      Let \(p\ge2\) and let \(q\ge1\) be fixed.
+
+      \begin{assump}
+      \label{assum:distribution_E_H_f}
+      \begin{enumerate}
+      \item[a.] All target and source sample rows are mutually independent. The
+      pairs \((E,H)\) have the same joint distribution in every domain, and the same
+      function \(f\) is used in \(X=f(H)+E\). Coordinates of \(E,H,f(H)\) are centered
+      and have sub-Gaussian norms at most a fixed \(L>0\), uniformly over all
+      coordinates and domains. Moreover \(\mathbb E[EH^\top]=0\). Independence
+      between \(E\) and \(H\) is not required.
+      \item[b.] The centered noise terms are independent of their corresponding
+      \((E,H)\), have a common variance \(\sigma^2\ge0\), and have sub-Gaussian norm
+      at most a fixed \(L_\varepsilon>0\). The model coefficients are deterministic.
+      \end{enumerate}
+      \end{assump}
+
+      ###### Statement
+      Under Assumptions 1.a--b, for every \(c>0\) there are
+      \(C_\varepsilon,N_\varepsilon>0\) such that for
+      \(N\ge N_\varepsilon\log p\) independent rows,
+      \[
+       \mathbb P\left(\|X^\top\varepsilon/N\|_\infty
+             \le C_\varepsilon\sqrt{\log p/N}\right)\ge1-p^{-c}/20.
+      \]
+      These constants work for both target and pooled source rows, including
+      zero noise variance.
+
+      #### Reference R5
+      Target: Lemma \ref{lem:error_noise}
+
+      Citation: Also put $D_t=X_t^\top H_t/n_t-M$,
+      $D_s=\sum_kX_s^{(k)\top}H_s^{(k)}/n_s-M$,
+      $e_t=X_t^\top\varepsilon_t/n_t$ and
+      $e_s=\sum_kX_s^{(k)\top}\varepsilon_s^{(k)}/n_s$.
+      On $\mathcal G$, Lemmas \ref{lem:error_sample_covariance2} and
+      \ref{lem:error_noise} imply
+      \[
+       \|D_t\|_{2,\infty}\le2C_H\sqrt q\,a_t,\quad
+       \|D_s\|_{2,\infty}\le2C_H\sqrt q\,a_s,\quad
+       \|e_t\|_\infty\le C_\varepsilon a_t,\quad
+       \|e_s\|_\infty\le C_\varepsilon a_s.
+      \]
+
+      Bibliography: supp
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction from D1, the supplement “Supplementary Material for ‘Deconfounding via Profiled Transfer Learning’,” in the subsection “Lemmas for Theorem 1.” The named result is Lemma \ref{lem:error_noise}; the additional independently stated source result directly involved in the current citation is Lemma \ref{lem:error_sample_covariance2}. Attribution: supplementary material for the main article by Ziyuan Chen, Yifan Jiang, Jingyuan Liu, and Fang Yao; supplement authors are not supplied.
+
+      Lemma \ref{lem:error_noise} supplies the two noise-score concentration statements used for the target’s \(e_t\)- and \(e_s\)-type conclusions. Lemma \ref{lem:error_sample_covariance2} supplies the two row-norm concentration statements for the \(f(H)\)- and \(E\)-components that the current citation invokes for the \(D_t\)- and \(D_s\)-type conclusions. No bridge between these source lemmas and the current target is derived here, and no assertion is made that the target’s application conditions have been discharged. The proof of the external lemmas is not organized here.
+
+      ##### Lemma \ref{lem:error_noise}
+
+      ###### Definitions and notation
+      In the ambient supplement notation, \(p\ge2\) and \(q\ge1\) is fixed. For a matrix, \(\|\cdot\|_\infty\) denotes the largest absolute entry; for a vector it is the usual maximum norm. We use
+      \[
+      \|B\|_{2,\infty}=\max_j\|B_{j,:}\|_2.
+      \]
+      The covariate is written as \(X=f(H)+E\) with the common function \(f\), and \(\varepsilon\) denotes the noise vector. In the lemma, \(X\) is the corresponding \(N\times p\) covariate matrix and \(\varepsilon\) is the corresponding \(N\)-vector of noise terms, for \(N\) independent rows. All constants in quantitative upper bounds and probability-decay exponents are strictly positive unless explicitly assigned another range; they depend only on the fixed regularity parameters specified in the relevant statement, not silently on sample sizes or dimensions.
+
+      ###### Assumptions
+      Assumption 1.a (part a of Assumption \ref{assum:distribution_E_H_f} of the main paper; the supplement states that “Assumption 1” means this block in the main paper):
+
+      All target and source sample rows are mutually independent. The pairs \((E,H)\) have the same joint distribution in every domain, and the same function \(f\) is used in \(X=f(H)+E\). Coordinates of \(E,H,f(H)\) are centered and have sub-Gaussian norms at most a fixed \(L>0\), uniformly over all coordinates and domains. Moreover,
+      \[
+      \mathbb E[EH^\top]=0.
+      \]
+      Independence between \(E\) and \(H\) is not required.
+
+      Assumption 1.b (part b of Assumption \ref{assum:distribution_E_H_f} of the main paper):
+
+      The centered noise terms are independent of their corresponding \((E,H)\), have a common variance \(\sigma^2\ge0\), and have sub-Gaussian norm at most a fixed \(L_\varepsilon>0\). The model coefficients are deterministic.
+
+      ###### Statement
+      Under Assumptions 1.a--b, for every \(c>0\) there are \(C_\varepsilon,N_\varepsilon>0\) such that for
+      \[
+      N\ge N_\varepsilon\log p
+      \]
+      independent rows,
+      \[
+      \mathbb P\left(\|X^\top\varepsilon/N\|_\infty
+             \le C_\varepsilon\sqrt{\log p/N}\right)\ge1-p^{-c}/20.
+      \]
+      These constants work for both target and pooled source rows, including zero noise variance.
+
+      ##### Lemma \ref{lem:error_sample_covariance2}
+
+      ###### Definitions and notation
+      In the ambient supplement notation, \(p\ge2\) and \(q\ge1\) are fixed. For a matrix, \(\|\cdot\|_\infty\) denotes the largest absolute entry; for a vector it is the usual maximum norm. We use
+      \[
+      \|B\|_{2,\infty}=\max_j\|B_{j,:}\|_2.
+      \]
+      The covariate is \(X=f(H)+E\). In the lemma, \(f(H)\) and \(H\) denote the corresponding \(N\times p\) and \(N\times q\) sample matrices, and \(E\) denotes the \(N\times p\) error sample matrix. The quantity \(M_f\) is
+      \[
+      M_f=\mathbb E[f(H)H^\top].
+      \]
+      “Common-law rows” means rows drawn from the common joint law of \((E,H)\) specified in Assumption 1.a. All constants in quantitative upper bounds and probability-decay exponents are strictly positive unless explicitly assigned another range; they depend only on the fixed regularity parameters specified in the relevant statement, not silently on sample sizes or dimensions.
+
+      ###### Assumptions
+      Assumption 1.a (part a of Assumption \ref{assum:distribution_E_H_f} of the main paper; the supplement states that “Assumption 1” means this block in the main paper):
+
+      All target and source sample rows are mutually independent. The pairs \((E,H)\) have the same joint distribution in every domain, and the same function \(f\) is used in \(X=f(H)+E\). Coordinates of \(E,H,f(H)\) are centered and have sub-Gaussian norms at most a fixed \(L>0\), uniformly over all coordinates and domains. Moreover,
+      \[
+      \mathbb E[EH^\top]=0.
+      \]
+      Independence between \(E\) and \(H\) is not required.
+
+      ###### Statement
+      Under Assumption 1.a, put
+      \[
+      M_f=\mathbb E[f(H)H^\top].
+      \]
+      For every \(c>0\) there are \(C_H,N_H>0\) such that for
+      \[
+      N\ge N_H\log p
+      \]
+      independent common-law rows, simultaneously
+      \[
+      \|f(H)^\top H/N-M_f\|_{2,\infty}
+             \le C_H\sqrt{q\log p/N},
+      \]
+      and
+      \[
+      \|E^\top H/N\|_{2,\infty}\le C_H\sqrt{q\log p/N},
+      \]
+      with probability at least \(1-p^{-c}/20\).
+    lean_name: Theorem_1_thm_upper_bound_of_eta_corrected_model_shift_Lasso_bounds_with_explicit_positive_constants_and_weighted_confou
+    lean_namespace: Statlib.Imported
+    layer: formalization
+    priority: 3
+    dependencies: []
+    notes: generated from a persisted ordinary goal; no attack-DAG dependency semantics

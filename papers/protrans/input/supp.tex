@@ -1,0 +1,2831 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{enumerate}
+\usepackage{natbib}
+\usepackage{url} % not crucial - just used below for the URL 
+\usepackage{amsfonts,amsmath,verbatim,amssymb,epsfig,enumitem,url,amsbsy,enumitem,color,natbib,graphicx}
+% \usepackage{geometry}
+\usepackage{algorithm, algorithmic}
+\usepackage{bm,ulem,courier}
+\usepackage{subfigure}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{diagbox}
+%\pdfminorversion=4
+\usepackage[figuresright]{rotating}
+\usepackage{pdflscape}
+\usepackage{booktabs}
+\usepackage{bm}
+\usepackage{makecell}
+\usepackage{array}
+\usepackage{hyperref}
+
+
+%\pdfminorversion=4
+% NOTE: To produce blinded version, replace "0" with "1" below.
+\newcommand{\blind}{0}
+
+% DON'T change margins - should be 1 inch all around.
+\addtolength{\oddsidemargin}{-.5in}%
+\addtolength{\evensidemargin}{-1in}%
+\addtolength{\textwidth}{1in}%
+\addtolength{\textheight}{1.7in}%
+\addtolength{\topmargin}{-1in}%
+
+\def\references{\bibliography{reference}}
+%\bibliographystyle{rss}
+\renewcommand\refname{ \noindent \bf References \vspace{0.0in}}
+  %reduce spacing between bibitems with natbib package
+  \let\oldthebibliography=\thebibliography
+  \let\endoldthebibliography=\endthebibliography
+  \renewenvironment{thebibliography}[1]{
+    \begin{oldthebibliography}{#1}
+      \setlength{\parskip}{0ex}
+      \setlength{\itemsep}{0.ex}}
+  {\end{oldthebibliography}}
+  
+\makeatletter
+\newcommand*{\centerfloat}{%
+  \parindent \z@
+  \leftskip \z@ \@plus 1fil \@minus \marginparwidth
+  \rightskip \leftskip
+  \parfillskip \z@skip}
+\makeatother
+
+\newcommand{\myvec}[1]%
+{\stackrel{\raisebox{-2pt}[0pt][0pt]{\tiny$\rightharpoonup$}}{#1}}
+
+\def\v{{\varepsilon}}
+\def\red{\textcolor{red}}
+\def\blue{\textcolor{blue}}
+% \def\old{\sout{\textcolor{blue}}}
+\makeatletter
+\newenvironment{breakablealgorithm}
+  {% \begin{breakablealgorithm}
+   \begin{center}
+     \refstepcounter{algorithm}% New algorithm
+     \hrule height.8pt depth0pt \kern2pt% \@fs@pre for \@fs@ruled 画线
+     \renewcommand{\caption}[2][\relax]{% Make a new \caption
+       {\raggedright\textbf{\ALG@name~\thealgorithm} ##2\par}%
+       \ifx\relax##1\relax % #1 is \relax
+         \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##2}%
+       \else % #1 is not \relax
+         \addcontentsline{loa}{algorithm}{\protect\numberline{\thealgorithm}##1}%
+       \fi
+       \kern2pt\hrule\kern2pt
+     }
+  }{% \end{breakablealgorithm}
+     \kern2pt\hrule\relax% \@fs@post for \@fs@ruled 画线
+   \end{center}
+  }
+\makeatother
+
+
+\newcommand{\change}[1]{\textcolor{black}{#1}}
+% \newcommand{\change}[1]{\textcolor{black}{#1}}
+
+
+%\startlocaldefs
+%\numberwithin{equation}{section}
+%\theoremstyle{plain}
+%\newtheorem{theorem}{Theorem}%[section]
+%\newtheorem{assumption}{Assumption}
+%\renewcommand\proofname{Proof}
+%\renewcommand\contentsname{Contents}
+\renewcommand\refname{References}
+\renewcommand\figurename{Figure}
+\renewcommand\tablename{Table}
+\newtheorem{thm}{Theorem}
+\newtheorem{cor}{Corollary}
+\newtheorem{prop}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{assump}{Assumption}
+\newtheorem{remark}{Remark}
+\newtheorem{emp}{Example}
+\def\argmin{\mathop{\rm argmin}}
+\def\rank{\mathop{\rm rank}}
+\def\bias{bias}
+\def\myvec{\mathop{\rm vec}}
+\def\Tr{\operatorname{Tr}}
+\def\cost{\mathcal{C}}
+\renewcommand{\theequation}{S.\arabic{equation}}
+\renewcommand{\theassump}{S.\arabic{assump}}
+\renewcommand{\thethm}{S.\arabic{thm}}
+\renewcommand{\theprop}{S.\arabic{prop}}
+\renewcommand{\thelemma}{S.\arabic{lemma}}
+\renewcommand{\thecor}{S.\arabic{cor}}
+\renewcommand{\theremark}{S.\arabic{remark}}
+\renewcommand{\thesection}{S.\arabic{section}}
+\renewcommand{\thetable}{S.\arabic{table}}
+\renewcommand{\thefigure}{S.\arabic{figure}}
+\newenvironment{pf}{{\noindent \it Proof}\ }{\hfill $\square$\par}
+%\endlocaldefs
+
+
+% \usepackage{xr-hyper}
+
+% \makeatletter
+% \newcommand*{\addFileDependency}[1]{
+% \typeout{(#1)}
+% \@addtofilelist{#1}
+% \IfFileExists{#1}{}{\typeout{No file #1.}}
+% }
+% \makeatother
+
+% \newcommand*{\myexternaldocument}[1]{%
+% \externaldocument{#1}%
+% \addFileDependency{#1.tex}%
+% \addFileDependency{#1.aux}%
+% }
+% \myexternaldocument{main}
+
+
+\begin{document}
+
+%\bibliographystyle{natbib}
+
+\def\spacingset#1{\renewcommand{\baselinestretch}%
+{#1}\small\normalsize} \spacingset{1}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\spacingset{1.9}
+  \bigskip
+  \bigskip
+  \bigskip
+  \begin{center}
+    {\LARGE\bf Supplementary Material for ``Deconfounding via Profiled Transfer Learning''}
+\end{center}
+  \medskip
+
+
+\paragraph{Quantitative constant convention.}
+All constants in quantitative upper bounds and probability-decay exponents
+are strictly positive unless explicitly assigned another range. They depend
+only on the fixed regularity parameters specified in the relevant statement,
+not silently on sample sizes or dimensions. This convention does not impose
+signs on model coefficients or algebraically defined quantities.
+
+\section{Detailed Proofs and Technique Lemmas}
+\subsection{Proof of Theorem 1}
+\paragraph{Notation and constant ranges.}
+In this subsection, Assumption 1 means Assumption
+\ref{assum:distribution_E_H_f} of the main paper, including its uniform
+sub-Gaussian and bounded-heterogeneity conditions. All concentration
+constants and confidence exponents are strictly positive. Fix the requested
+exponent $c>0$ before choosing the constants. Put
+\[
+ w_k=n_s^{(k)}/n_s,\quad a_t=\sqrt{\log p/n_t},\quad
+ a_s=\sqrt{\log p/n_s},\quad
+ \Sigma_X=\mathbb E[XX^\top],\quad M=\mathbb E[XH^\top].
+\]
+For a matrix, $\|\cdot\|_\infty$ denotes the largest absolute entry; for a
+vector it is the usual maximum norm. We use
+$\|B\|_{2,\infty}=\max_j\|B_{j,:}\|_2$.
+The moments exist by the uniform sub-Gaussian assumptions. In particular,
+$M=\mathbb E[f(H)H^\top]$ because $\mathbb E[EH^\top]=0$, and there is a
+fixed $L_M>0$, depending only on $L$, with $\|M\|_{2,\infty}\le L_M\sqrt q$.
+This follows coordinatewise from Cauchy--Schwarz and the second-moment
+bounds. We work with $n_s\ge n_t\ge N_0\log p$ and choose $N_0\ge1$ large
+enough for the concentration lemmas below; consequently $a_s\le a_t\le1$.
+
+\begin{pf}{\it of Theorem 1.}
+For later cross-references, the concentration events are
+    \begin{align}
+       & \left\{\left\|\frac{1}{n_t} X_t^\top X_t - \Sigma_X\right\|_{\infty} \le C_x\sqrt{\frac{\log p}{n_t}}\right\},\label{set:g_1}\tag{$\mathcal{G}_1$}\\
+        &\left\{\left\|\frac{1}{n_s}\sum_{k=1}^K X_s^{(k)\top}X_s^{(k)} - \Sigma_X\right\|_{\infty} \le C_x\sqrt{\frac{\log p}{n_s}}\right\},\label{set:g_2}\tag{$\mathcal{G}_2$} \\
+        & \left\{ \left\|\frac{1}{n_s}\sum_{k=1}^K n_s^{(k)}\left(\frac{1}{n_s^{(k)}}X_s^{(k)\top}X_s^{(k)} - \Sigma_X \right)\left(\beta_s^{(k)} - \frac{1}{n_s}\sum_{k=1}^Kn_s^{(k)}\beta_s^{(k)}\right) \right\|_{\infty}\le  C_{\delta} s_\delta\sqrt{\frac{\log p}{n_s}} \right\},
+          \label{set:g_3}\tag{$\mathcal{G}_3$}\\&
+          \left\{\left\|\frac{1}{n_t}f(H_t)^\top H_t - M\right\|_{2,\infty} \le 
+        C_{H} \sqrt{\frac{q \log p}{n_t}}\right\},\label{set:g_4}\tag{$\mathcal{G}_4$}\\&
+        \left\{\left\|\frac{1}{n_s}\sum_{k=1}^K f(H_s^{(k)})^\top H_s^{(k)} - M \right\|_{2,\infty} \le
+        C_{H} \sqrt{\frac{q \log p}{n_s}}\right\},\label{set:g_5}\tag{$\mathcal{G}_5$}\\& 
+        \left\{\left\| \frac{1}{n_t} E_t^\top H_t\right\|_{2,\infty} \le C_H\sqrt{\frac{q\log p}{n_t}}\right\}, \label{set:g_6}\tag{$\mathcal{G}_6$}\\&
+        \left\{\left\| \frac{1}{n_s} \sum_{k=1}^K E_s^{(k)\top} H_s^{(k)}\right\|_{2,\infty} \le C_H\sqrt{\frac{q\log p}{n_s}}\right\}, \label{set:g_7}\tag{$\mathcal{G}_7$}\\&
+        \left\{\left\|\frac{1}{n_t}X_t^\top \varepsilon_t\right\|_{\infty} \le C_\varepsilon \sqrt{\frac{\log p}{n_t}}\right\}, \label{set:g_8}\tag{$\mathcal{G}_8$}\\&
+        \left\{\left\|\frac{1}{n_s}\sum_{k=1}^K X_s^{(k)\top} \varepsilon_s^{(k)}\right\|_{\infty} \le C_\varepsilon \sqrt{\frac{\log p}{n_s}}\right\}, \label{set:g_9}\tag{$\mathcal{G}_9$}
+    \end{align}
+\begin{equation}
+ \left\{\|T_\phi\|_\infty\le C_dB_\phi\sqrt q\,a_s\right\}.
+ \label{set:g_10_weighted}\tag{$\mathcal G_{10}^{\phi}$}
+\end{equation}
+Here $T_\phi$ has the explicit definition below. The simultaneous event
+$\mathcal G$ is the intersection of these ten events. The original labels
+$\mathcal G_1,\ldots,\mathcal G_9$ are retained for later cross-references.
+
+Let $\mathcal G$ be the simultaneous event described in Lemma
+\ref{lem:high_probability_set}. On this event the target and pooled source
+Gram matrices $G_t=X_t^\top X_t/n_t$ and
+$G_s=\sum_kX_s^{(k)\top}X_s^{(k)}/n_s$ satisfy
+\[
+ \|G_t-\Sigma_X\|_\infty\le C_xa_t,\qquad
+ \|G_s-\Sigma_X\|_\infty\le C_xa_s.
+\]
+Set $\delta_k=\beta_s^{(k)}-\beta_s$, $d_k=\phi_s^{(k)}-\phi_t$,
+$\bar d=\sum_kw_kd_k$, and
+\[
+ T_\beta={1\over n_s}\sum_k
+ (X_s^{(k)\top}X_s^{(k)}-n_s^{(k)}\Sigma_X)\delta_k,\qquad
+ T_\phi={1\over n_s}\sum_k
+ (X_s^{(k)\top}H_s^{(k)}-n_s^{(k)}M)d_k.
+\]
+The source coefficient definition gives $\sum_kw_k\delta_k=0$.
+Lemmas \ref{lem:error_sample_covariance_sparse} and
+\ref{lem:weighted_confounding_transfer} give
+\[
+ \|T_\beta\|_\infty\le C_\delta s_\delta a_s,\qquad
+ \|T_\phi\|_\infty\le C_d B_\phi\sqrt q\,a_s.
+\]
+Also put $D_t=X_t^\top H_t/n_t-M$,
+$D_s=\sum_kX_s^{(k)\top}H_s^{(k)}/n_s-M$,
+$e_t=X_t^\top\varepsilon_t/n_t$ and
+$e_s=\sum_kX_s^{(k)\top}\varepsilon_s^{(k)}/n_s$.
+On $\mathcal G$, Lemmas \ref{lem:error_sample_covariance2} and
+\ref{lem:error_noise} imply
+\[
+ \|D_t\|_{2,\infty}\le2C_H\sqrt q\,a_t,\quad
+ \|D_s\|_{2,\infty}\le2C_H\sqrt q\,a_s,\quad
+ \|e_t\|_\infty\le C_\varepsilon a_t,\quad
+ \|e_s\|_\infty\le C_\varepsilon a_s.
+\]
+Crucially, the exact confounding decomposition is
+\begin{align}
+ A_t-A_s&=(D_t-D_s)\phi_t-M\bar d-T_\phi,
+ \label{eq:correct_weighted_confounding_decomposition}\\
+ A_t&=X_t^\top H_t\phi_t/n_t,\qquad
+ A_s=\sum_kX_s^{(k)\top}H_s^{(k)}\phi_s^{(k)}/n_s.\notag
+\end{align}
+Thus average similarity controls the population term, while the independent
+weighted-sum lemma controls its separate centered fluctuation:
+\[
+ \|A_t-A_s\|_\infty\le
+ [4C_H\sqrt q\|\phi_t\|_2+C_dB_\phi\sqrt q+
+ L_MC_\phi\sqrt q]a_t.
+\]
+One cannot replace the weighted centered sum by a pooled matrix multiplied
+by an averaged coefficient vector.
+
+Write $d=\beta_s-\hat\beta_{\mathrm{init}}$ and
+$b=\sum_kX_s^{(k)\top}\hat Z_s^{(k)}/n_s$.
+The source model yields the exact identity
+\[
+ b=G_sd+T_\beta+A_s+e_s.
+\]
+The four nonnegative error magnitudes may equivalently be named
+\begin{align}
+ B_1&=\|(G_t-G_s)d\|_\infty,\label{term:B_1}\tag{$B_1$}\\
+ B_2&=\|T_\beta\|_\infty,\label{term:B_2}\tag{$B_2$}\\
+ B_3&=\|A_t-A_s\|_\infty,\label{term:B_3}\tag{$B_3$}\\
+ B_4&=\|e_s\|_\infty.\label{term:B_4}\tag{$B_4$}
+\end{align}
+These labels identify the corresponding covariance, source-spread,
+confounding-transfer and source-noise estimates for subsequent proofs.
+Use the feasible target profiling comparison point
+$Z_0=X_td+H_t\phi_t$. Its target score is $G_td+A_t$, hence
+\begin{align}
+ \Delta &:={X_t^\top Z_0\over n_t}-b
+       =(G_t-G_s)d-T_\beta+(A_t-A_s)-e_s,
+ \label{eq:profiled_score_decomposition}\\
+ \|\Delta\|_\infty&\le
+ [4C_H\sqrt q\|\phi_t\|_2+B_0]a_t,\notag\\
+ B_0&=2C_xC_s+C_\delta s_\delta+C_dB_\phi\sqrt q
+       +L_MC_\phi\sqrt q+C_\varepsilon>0,\notag
+\end{align}
+where the inequality uses $\|d\|_1\le C_s$ on $\mathcal I$.
+By the definition of the profiling minimizer,
+$\|X_t^\top\hat Z_t/n_t-b\|_\infty\le\|\Delta\|_\infty$.
+Therefore the full Lasso noise score obeys
+\begin{align}
+ Q&=\left\|{X_t^\top\over n_t}
+       (X_td+H_t\phi_t-\hat Z_t+\varepsilon_t)\right\|_\infty
+       \le2\|\Delta\|_\infty+\|e_t\|_\infty\notag\\
+  &\le(C_1\sqrt q\|\phi_t\|_2+C_2)a_t,
+ \label{eq:corrected_profiled_score_bound}
+\end{align}
+with the strictly positive choices $C_1=8C_H$ and
+$C_2=2B_0+C_\varepsilon$. All dependencies are as stated in the theorem.
+No asymptotic $o(a_t)$ term or unspecified relation $n_s\gg n_t$ is used.
+
+For completeness the two minimizers exist in finite dimensions. The image
+$\{X_t^\top Z/n_t:Z\in\mathbb R^{n_t}\}$ is a closed linear subspace;
+minimizing its distance to $b$ in the maximum norm attains a minimum
+by restricting to a bounded sublevel set in that image. Any preimage
+supplies $\hat Z_t$. The Lasso objective is continuous and coercive because
+$\lambda_t>0$, so it also attains a minimum.
+
+Let $h=\hat\eta-\eta_0$. Lasso optimality and $Q\le\lambda_t/4$ give
+\begin{align}
+ {\|X_th\|_2^2\over n_t}
+ &\le\lambda_t(\|\eta_0\|_1-\|\eta_0+h\|_1)
+                  +{\lambda_t\over2}\|h\|_1\notag\\
+ &\le{3\lambda_t\over2}\|h_{S_\eta}\|_1
+                  -{\lambda_t\over2}\|h_{S_\eta^c}\|_1.
+ \label{eq:sup:oracle_inequality}
+\end{align}
+Nonnegativity of the left side gives
+$\|h_{S_\eta^c}\|_1\le3\|h_{S_\eta}\|_1$.
+On $\mathcal R$, the RE bound therefore applies. If $h=0$ all conclusions
+hold. Otherwise, by $\|h_{S_\eta}\|_1\le\sqrt{s_\eta}\|h\|_2$,
+\[
+ C_r\|h\|_2^2\le {3\lambda_t\over2}\sqrt{s_\eta}\|h\|_2,
+ \qquad \|h\|_2\le{3\lambda_t\over2C_r}\sqrt{s_\eta}.
+\]
+The cone gives $\|h\|_1\le4\sqrt{s_\eta}\|h\|_2$, giving $6/C_r$.
+Substituting the $\ell_2$ bound into
+$\|X_th\|_2^2/n_t\le3\lambda_t\sqrt{s_\eta}\|h\|_2/2$
+gives the prediction constant $3/(2\sqrt{C_r})$.
+The case $s_\eta=0$ is included: the cone then forces $h=0$.
+Finally, $\mathbb P(\mathcal G)\ge1-p^{-c}$; intersecting with
+$\mathcal R$ and $\mathcal I$ gives exactly the probability statement in
+the main theorem, without assuming these random events occur automatically.
+\end{pf}
+
+\subsection{Lemmas for Theorem 1}
+\paragraph{Uniform concentration argument.}
+We give the common scalar argument used in all five concentration bounds
+below, including the weighted ones. There is a fixed $V>0$, depending only
+on the uniform sub-Gaussian bounds, such that any centered product of two
+coordinates among $E,H,f(H),X,\varepsilon$ has moments bounded by
+$r!V^r$ for all integers $r\ge2$ (enlarge $V$ if necessary).
+Indeed, the sub-Gaussian tail bound gives coordinate moments at most
+$B\sqrt r$ in $L^r$; applying Cauchy--Schwarz to a product and then
+centering gives a bound $(B' r)^r\le r!V^r$ after changing the constant.
+For deterministic $u$ with $\|u\|_1\le D$, the same bound for a linear
+combination of such centered products is $r!(VD)^r$, by the triangle
+inequality in $L^r$. This argument requires no independence between the
+two factors in a single product.
+
+For $N$ independent centered variables $U_l$ with
+$\mathbb E|U_l|^r\le r!V^r$, expanding the exponential series gives
+$\log\mathbb E e^{\theta U_l}\le2V^2\theta^2$ for
+$|\theta|V\le1/2$. Independence, exponential Markov, and optimization
+with $\theta=\min(t/(4V^2),1/(2V))$ yield
+\begin{equation}
+ \mathbb P\left(\left|{1\over N}\sum_{l=1}^NU_l\right|>t\right)
+ \le2\exp[-bN\min(t^2/V^2,t/V)]
+ \label{eq:profiled_scalar_bernstein}
+\end{equation}
+for an absolute $b>0$. The same proof applies to independent variables
+with different laws and the same moment bound. Consequently, for any
+fixed confidence exponent $c>0$, constants $C,N_0>0$ can be chosen so
+that deviations $C\sqrt{\log p/N}$ in at most $p^2$ or $pq$ coordinates
+fail with probability at most $p^{-c}/20$, whenever
+$N\ge N_0\log p$. Since $q$ is fixed, its factor in the union bound is
+absorbed by the choice of $C,N_0$, not by changing $c$ silently.
+For a normalization $D=0$ the corresponding random variable is identically
+zero and its deviation bound is deterministic.
+
+\begin{lemma}
+\label{lem:error_sample_covariance1}
+Under Assumption 1.a, for every $c>0$ there are $C_x,N_x>0$ such that for
+$N\ge N_x\log p$ independent rows with the common covariate law,
+\[
+ \mathbb P\left(\|X^\top X/N-\Sigma_X\|_\infty
+                 \le C_x\sqrt{\log p/N}\right)\ge1-p^{-c}/20.
+\]
+The same constants work for the target rows and for all pooled source rows.
+\end{lemma}
+\begin{pf}
+Apply \eqref{eq:profiled_scalar_bernstein} to
+$X_{li}X_{lj}-\mathbb E[X_iX_j]$ and take a union over $p^2$ entries.
+The four terms in $X_iX_j=(f(H)_i+E_i)(f(H)_j+E_j)$ satisfy the uniform
+moment bound, or use directly the sub-Gaussian bound for $X_i$.
+In particular the covariance term for the $N\times p$ sample matrix
+$f(H)$ is $f(H)^\top f(H)$, not $f(H)^\top H$; the latter
+uses the $N\times q$ sample matrix $H$ and has different dimensions.
+\end{pf}
+
+\begin{lemma}
+\label{lem:error_sample_covariance_sparse}
+Under Assumption 1.a, let deterministic $\delta_k\in\mathbb R^p$ satisfy
+$\|\delta_k\|_1\le s_\delta$, with $s_\delta\ge0$.
+For every $c>0$ there are $C_\delta,N_\delta>0$ such that,
+if $n_s\ge N_\delta\log p$,
+\[
+ \mathbb P\left(\left\|{1\over n_s}\sum_k
+ (X_s^{(k)\top}X_s^{(k)}-n_s^{(k)}\Sigma_X)\delta_k
+ \right\|_\infty\le C_\delta s_\delta a_s\right)\ge1-p^{-c}/20.
+\]
+No lower bound on each individual $n_s^{(k)}$ is needed.
+\end{lemma}
+\begin{pf}
+For coordinate $j$, sum the independent centered scalar variables
+$U_{ki,j}=X_{ki,j}(X_{ki}^\top\delta_k)-
+\mathbb E[X_jX^\top]\delta_k$ over all $n_s$ source rows.
+Their $L^r$ norms are bounded uniformly by a constant times
+$s_\delta r$, using $\|\delta_k\|_1\le s_\delta$.
+Normalize by $s_\delta$ when it is positive, apply
+\eqref{eq:profiled_scalar_bernstein}, and take a union over $p$ coordinates.
+If $s_\delta=0$ the assertion is deterministic.
+This proof does not factor a sum of matrix--vector products into two sums.
+\end{pf}
+
+\begin{lemma}
+\label{lem:error_sample_covariance2}
+Under Assumption 1.a, put $M_f=\mathbb E[f(H)H^\top]$.
+For every $c>0$ there are $C_H,N_H>0$ such that for
+$N\ge N_H\log p$ independent common-law rows, simultaneously
+\[
+ \|f(H)^\top H/N-M_f\|_{2,\infty}
+       \le C_H\sqrt{q\log p/N},\qquad
+ \|E^\top H/N\|_{2,\infty}\le C_H\sqrt{q\log p/N}
+\]
+with probability at least $1-p^{-c}/20$.
+\end{lemma}
+\begin{pf}
+The products $f(H)_jH_l$ and $E_jH_l$ obey the uniform scalar moment
+bound. The latter are centered because $\mathbb E[EH^\top]=0$.
+Take a union bound over the $2pq$ entries in the two matrices after applying
+\eqref{eq:profiled_scalar_bernstein}. The maximum row norm is at most
+$\sqrt q$ times the maximum absolute entry. This is an event inclusion;
+the probability of a maximum is not the maximum of the probabilities.
+\end{pf}
+
+\begin{lemma}
+\label{lem:weighted_confounding_transfer}
+Under Assumption 1.a, let deterministic $d_k\in\mathbb R^q$ satisfy
+$\|d_k\|_2\le B_\phi$ with $B_\phi>0$.
+For every $c>0$ there are $C_d,N_d>0$ such that if
+$n_s\ge N_d\log p$,
+\[
+ \mathbb P\left(\left\|{1\over n_s}\sum_k
+ (X_s^{(k)\top}H_s^{(k)}-n_s^{(k)}M)d_k\right\|_\infty
+       \le C_dB_\phi\sqrt q\,a_s\right)\ge1-p^{-c}/20.
+\]
+The constants depend only on the fixed distributional bounds and $c$;
+$q$ is displayed explicitly in the threshold.
+\end{lemma}
+\begin{pf}
+For each coordinate $j$ the summands are
+$(X_{ki,j}H_{ki}^\top-\mathbb E[X_jH^\top])d_k$.
+They are centered and independent across rows and source groups, even
+though their deterministic vectors $d_k$ differ.
+Since $\|d_k\|_1\le\sqrt q B_\phi$, the common moment argument applies
+after division by $\sqrt q B_\phi$. Apply scalar Bernstein to all $n_s$
+summands and take a union over $p$ coordinates. No $\log K$ or a minimum
+individual source sample size enters the estimate.
+\end{pf}
+
+\begin{lemma}
+\label{lem:error_noise}
+Under Assumptions 1.a--b, for every $c>0$ there are
+$C_\varepsilon,N_\varepsilon>0$ such that for
+$N\ge N_\varepsilon\log p$ independent rows,
+\[
+ \mathbb P\left(\|X^\top\varepsilon/N\|_\infty
+       \le C_\varepsilon\sqrt{\log p/N}\right)\ge1-p^{-c}/20.
+\]
+These constants work for both target and pooled source rows, including
+zero noise variance.
+\end{lemma}
+\begin{pf}
+Independence of $\varepsilon$ and $(E,H)$ and its zero mean imply
+$\mathbb E[X_j\varepsilon]=0$. Products of sub-Gaussian variables satisfy
+the common moment bound. Apply scalar Bernstein and a union over the $p$
+coordinates. The constants use $L,L_\varepsilon$ and do not divide by
+$\sigma$, so the case $\sigma=0$ causes no singularity.
+\end{pf}
+
+\begin{lemma}
+\label{lem:high_probability_set}
+Under Assumptions 1.a--b and the deterministic coefficient bounds in the
+main theorem and Assumption 1.d, for every $c>0$ there exist strictly
+positive $C_x,C_\delta,C_H,C_d,C_\varepsilon,N_0$ such that, whenever
+$n_s\ge n_t\ge N_0\log p$, all the bounds used in the proof of Theorem 1
+hold simultaneously on an event $\mathcal G$ with
+$\mathbb P(\mathcal G)\ge1-p^{-c}$.
+\end{lemma}
+\begin{pf}
+Use Lemma \ref{lem:error_sample_covariance1} twice, for target and pooled
+source Gram matrices; Lemma \ref{lem:error_sample_covariance_sparse} once;
+Lemma \ref{lem:error_sample_covariance2} twice; Lemma
+\ref{lem:weighted_confounding_transfer} once; and Lemma
+\ref{lem:error_noise} twice. There are eight failure events, each at most
+$p^{-c}/20$. Choose $N_0\ge1$ to exceed the finitely many thresholds and
+choose common positive constants at least as large as the corresponding
+ones in those lemmas. The union bound gives failure at most
+$8p^{-c}/20\le p^{-c}$. This step does not relabel a possibly negative
+exponent as a positive constant. RE and initial-estimator events are kept
+separate, as stated in the main theorem.
+\end{pf}
+
+\subsection{Proof of Proposition 1}
+\begin{pf}{\it of Proposition 1. }
+     We consider the special case that $\beta_s^{(k)} = \beta_s = 0,1\le k \le K$ and the noise distribution is Gaussian distribution $N(0,\sigma^2)$. We then consider the case that $f=0,\phi_t = 0$ and $X_t,X_s^{(k
+     )}$ follow standard Gaussian distribution $N(0,I_p)$. Define the distribution of source data and target data as $P_s(\eta),P_t(\eta)$. For $\eta_1,\eta_2\in \mathcal{B}_0(s_\eta)$, We know that
+    \begin{align*}
+        D_{KL}\left(P_s(\eta_1)\|P_s(\eta_2)\right) = 0,\quad 
+        D_{KL}\left(P_t(\eta_1)\|P_t(\eta_2)\right) = \frac{1}{2\sigma^2} \left\|X_t\left(\eta_1 - \eta_2\right)\right\|_2^2. 
+    \end{align*}
+    Define a $\delta$-packing of $\mathcal{B}_0(s_\eta)$ in metric $\rho$ as $\left\{\eta_1,\cdots,\eta_M\right\}\subseteq \mathcal{B}_0(s_\eta)$ such that $\rho(\eta_i,\eta_j) >\delta$ for all $i\not= j$. We construct a packing of $\mathcal{B}_0(s_\eta)$ as $\mathcal{H}_{s_\eta}$ in which each $\eta\in \mathcal{H}_{s_\eta}$ satisfies $\|\eta\|_0 = s_\eta$ and any nonzero element of $\eta$ is $\gamma \not = 0$. From the Varshamov-Gilbert bound, there exist such a $\mathcal{H}_{s_\eta}$ with 
+    \begin{align*}
+        \quad \left|\mathcal{H}_{s_\eta}\right| \ge \exp\left\{\frac{s_\eta}{2}\log \frac{p - s_\eta}{s_\eta/2}\right\}
+    \end{align*}\
+    satisfies that for any $\eta_i,\eta_j\in \mathcal{H}_{s_\eta}$,
+    \begin{align*}
+        \sum_{l=1}^p \mathbf{1}_{(\eta_i)_l \not = (\eta_j)_l} \ge \frac{s_\eta}{2}.
+    \end{align*}
+    
+    Hence $\|\eta_i-\eta_j\|_2 \ge \gamma \sqrt{s_\eta/2}$. Choose $\gamma = \delta\sqrt{2/s_\eta}$, we know that such $\mathcal{H}_{s_\eta}$ is a $\delta$-packing of $\mathcal{B}_0(s_\eta)$ in $l_2$ norm. 
+    
+    So
+    \begin{align*}
+        D_{KL}\left(P_t(\eta_i)\|P_t(\eta_j)\right) = \frac{1}{2\sigma^2} \left\|X_t\left(\eta_i - \eta_j\right)\right\|_2^2\le\frac{2 n_t \|\eta_i-\eta_j\|_2^2}{\sigma^2} \le\frac{2 n_t s_\eta\delta^2}{\sigma^2}.
+    \end{align*}
+    With Fano's lemma, we know that 
+    \begin{align*}
+        \inf_{\hat{\eta}} \sup_{\eta \in \mathcal{B}_0(s_\eta)} \mathbb{P}\left(\|\hat{\eta} - \eta_0\|_2 \ge \delta\right) & \ge 1- \frac{\max_{i,j}D_{KL}\left(P_t(\eta_i)\|P_t(\eta_j)\right) +\log 2}{\log \left|\mathcal{H}_{s_\eta}\right|}\\ &\ge
+        1- \frac{2(2n_t \delta^2 +\log 2)}{s_\eta \log (2(p-s_\eta)/s_\eta)} \ge \frac{1}{2},
+    \end{align*}
+    if we choose $\delta = c_0\sqrt{s_\eta \log p/n_t}$ for a small enough constant $c_0$. 
+    
+    Similarly, we have $\|\eta_i-\eta_j\|_1 \ge \gamma s_\eta/2$. Choose $\gamma = 2\delta/s_\eta $, we know that such $\mathcal{H}_{s_\eta}$ is a $\delta$-packing of $\mathcal{B}_0(s_\eta)$ in $l_1$ norm. 
+
+    So
+    \begin{align*}
+        D_{KL}\left(P_t(\eta_i)\|P_t(\eta_j)\right)  \le \frac{4 n_t \|\eta_i-\eta_j\|_1^2}{\sigma^2} \le\frac{4 n_t \delta^2}{\sigma^2},
+    \end{align*}
+    this is because $\|\eta_i-\eta_j\|_2 \le \|\eta_i-\eta_j\|_1$. 
+    With Fano's lemma, we know that 
+    \begin{align*}
+        \inf_{\hat{\eta}} \sup_{\eta \in \mathcal{B}_0(s_\eta)} \mathbb{P}\left(\|\hat{\eta} - \eta_0\|_1 \ge \delta\right) & \ge 1- \frac{\max_{i,j}D_{KL}\left(P_t(\eta_i)\|P_t(\eta_j)\right) +\log 2}{\log \left|\mathcal{H}_{s_\eta}\right|}\\ &\ge
+        1- \frac{2(4n_t  \delta^2 +\log 2)}{s_\eta \log (2(p-s_\eta)/s_\eta)} \ge \frac{1}{2},
+    \end{align*}
+    if we choose $\delta = c_0\sqrt{s_\eta \log p/n_t}$. 
+\end{pf}
+
+\subsection{Proof of Theorem 2}
+\begin{pf}{\it of Theorem 2. }
+We first define $\mathcal{V}_s = V_s \operatorname{diag}(\min(\tau_s/D_s,1)) V_s^\top$ and thus $\tilde{X}_s^{(k)} = X^{(k)}_s \mathcal{V}_s$ and $\tilde{X}_s^{(k)\top}\tilde{X}_s^{(k)} = \mathcal{V}_s^2 X_s^{(k)\top}X_s^{(k)}$. Define several events:
+\begin{align}
+&\left\{\left\|\frac{1}{n_s}\sum_{k=1}^K \tilde{X}_s^{(k)\top} \tilde{\varepsilon}_s^{(k)}\right\|_{\infty}\le C_\varepsilon\sqrt{\frac{\log p}{n_s}} \right\},\label{set:g_10}\tag{$\mathcal{G}_{10}$}\\
+&\left\{\left\|\frac{1}{n_s}\sum_{k=1}^K \tilde{X}_s^{(k)\top}\left(\tilde{H}_s^{(k)}\phi_s^{(k)}- \tilde{X}_s^{(k)}b_s\right)\right\|_{\infty}\le C_kC_\phi \sqrt{\frac{q\log p}{n_s}}\|\phi_t\|_2+  2C_t \sqrt{\frac{p}{n_s}}\lambda_\Psi^{-1} \|\phi_t\|_2\right\},\label{set:g_11}\tag{$\mathcal{G}_{11}$}\\
+&\left\{\left\|\frac{1}{n_s} \sum_{k=1}^K \tilde{X}_s^{(k)\top}\tilde{X}_s^{(k)}\left(\beta_s^{(k)}-\frac{1}{n_s}\sum_{k=1}^K n_s^{(k)}\beta_s^{(k)}\right)\right\|_{\infty} \le C_k s_\delta \sqrt{\frac{\log p}{n_s}}\right\},\label{set:g_12}\tag{$\mathcal{G}_{12}$}
+\end{align}
+Define the event $\mathcal{G}' = \cap_{j=10}^{12} \mathcal{G}_j$. From Lemma \ref{lem:high_probability_set2}, the event $\mathcal{G}'$ happens with a probability 
+\begin{align*}
+    \mathbb{P}\left(\mathcal{G}'\right) \ge 1 - p^{-c}. 
+\end{align*}
+    From the definition of $\hat{\beta}_s$, we know that 
+    \begin{align*}
+        \frac{1}{n_s}\sum_{k=1}^K \left\|\tilde{Y}_s^{(k)} - \tilde{X}_s^{(k)}\hat{\beta}_s\right\|_2^2 +\lambda_s\|\hat{\beta}_s\|_1 \le  \frac{1}{n_s}\sum_{k=1}^K \left\|\tilde{Y}_s^{(k)} - \tilde{X}_s^{(k)}\beta_s\right\|_2^2 +\lambda_s\|\beta_s\|_1.
+    \end{align*}
+    The source model is 
+    \begin{align*}
+        \tilde{Y}^{(k)}_s = \tilde{X}_s^{(k)}\left(\beta_s^{(k)} - \frac{1}{n_s}\sum_{k=1}^K n_s^{(k)}\beta_s^{(k)}+\beta_s \right) + \tilde{H}_s^{(k)}\phi_s^{(k)} + \tilde{\varepsilon}_s^{(k)}. 
+    \end{align*}
+     So
+    \begin{align}
+        \frac{1}{n_s}\left\|\tilde{X}_s\left(\hat{\beta}_s -\beta_s\right)\right\|_2^2 & \le \lambda_s\left(\|\beta_s\|_1 - \|\hat{\beta}_s\|_1\right)  -\frac{2}{n_s}\left(\beta_s - \hat{\beta}_s\right)^\top\left(\sum_{k=1}^K \tilde{X}_s^{(k)\top} \tilde{\varepsilon}_s^{(k)}\right)\label{term:B_5}\tag{$B_5$}\\ &-
+        \frac{2}{n_s}\left(\beta_s - \hat{\beta}_s\right)^\top\left(\sum_{k=1}^K \tilde{X}_s^{(k)\top}\tilde{H}_s^{(k)}\phi_s^{(k)}\right)\label{term:B_6}\tag{$B_6$}\\ &- \frac{2}{n_s}\left(\beta_s - \hat{\beta}_s\right)^\top \left(\sum_{k=1}^K \tilde{X}_s^{(k)\top}\tilde{X}_s^{(k)}\left(\beta_s^{(k)}-\frac{1}{n_s}\sum_{k=1}^K n_s^{(k)}\beta_s^{(k)}\right)\right) \label{term:B_7}\tag{$B_7$}. 
+    \end{align}
+    In the right hand of the above inequality, we named three terms \ref{term:B_5}, \ref{term:B_6} and \ref{term:B_7}. The term \ref{term:B_5} measures the noise influence. The term \ref{term:B_6} is caused by the hidden confounders. The term \ref{term:B_7} is due to the fluctuation of source models. 
+
+    For term \ref{term:B_5}, we have 
+    \begin{align}
+        \left|\frac{2}{n_s}\left(\beta_s - \hat{\beta}_s\right)^\top\left(\sum_{k=1}^K \tilde{X}_s^{(k)\top} \tilde{\varepsilon}_s^{(k)}\right)\right| &\le  \left\|\frac{2}{n_s}\sum_{k=1}^K \tilde{X}_s^{(k)\top} \tilde{\varepsilon}_s^{(k)}\right\|_{\infty} \left\|\beta_s - \hat{\beta}_s\right\|_1\notag \\&\le 
+        2C_\varepsilon \sqrt{\frac{\log p}{n_s}}\left\|\beta_s - \hat{\beta}_s\right\|_1\label{eq:error_bound_B5},
+    \end{align}
+    in the event \ref{set:g_10}.
+
+    For term \ref{term:B_6}, define that $b_s = \Sigma_X^{-1}\mathbb{E} [X^\top H] \phi_t$, we have
+    \begin{align*}
+        \left|\frac{2}{n_s}\left(\beta_s - \hat{\beta}_s\right)^\top\left(\sum_{k=1}^K \tilde{X}_s^{(k)\top}\tilde{H}_s^{(k)}\phi_s^{(k)}\right)\right|&\le 
+    \left|\frac{2}{n_s}\left(\beta_s - \hat{\beta}_s\right)^\top\left(\sum_{k=1}^K \tilde{X}_s^{(k)\top}\tilde{X}_s^{(k)}b_s\right)\right|\\&+ \left|\frac{2}{n_s}\left(\beta_s - \hat{\beta}_s\right)^\top\left(\sum_{k=1}^K \tilde{X}_s^{(k)\top}\left(\tilde{H}_s^{(k)}\phi_s^{(k)}- \tilde{X}_s^{(k)}b_s\right)\right)\right|.
+    \end{align*}
+    The first term is bounded by
+    \begin{align*}
+         \left|\frac{2}{n_s}\left(\beta_s - \hat{\beta}_s\right)^\top\left(\sum_{k=1}^K \tilde{X}_s^{(k)\top}\tilde{X}_s^{(k)}b_s\right)\right| &\le \left\|\frac{2}{n_s}\tilde{X}_s b_s\right\|_2\left\|\tilde{X}_s\left(\beta_s - \hat{\beta}_s\right)\right\|_2. 
+    \end{align*}
+    The second term is bounded by
+    \begin{align*}
+       &  \left|\frac{2}{n_s}\left(\beta_s - \hat{\beta}_s\right)^\top\left(\sum_{k=1}^K \tilde{X}_s^{(k)\top}\left(\tilde{H}_s^{(k)}\phi_s^{(k)}- \tilde{X}_s^{(k)}b_s\right)\right)\right|\\ \le\ & 
+       \left\|\frac{2}{n_s}\sum_{k=1}^K \tilde{X}_s^{(k)\top}\left(\tilde{H}_s^{(k)}\phi_s^{(k)}- \tilde{X}_s^{(k)}b_s\right)\right\|_{\infty}\left\|\beta_s - \hat{\beta}_s\right\|_1\\\le\ & 
+       2\left(C_kC_\phi \sqrt{\frac{q\log p}{n_s}}+  2C_t \sqrt{\frac{p}{n_s}}\lambda_\Psi^{-1} \|\phi_t\|_2\right)\left\|\beta_s - \hat{\beta}_s\right\|_1,
+    \end{align*}
+    in event \ref{set:g_11}. So
+    \begin{align}
+       & \left|\frac{2}{n_s}\left(\beta_s - \hat{\beta}_s\right)^\top\left(\sum_{k=1}^K \tilde{X}_s^{(k)\top}\tilde{H}_s^{(k)}\phi_s^{(k)}\right)\right|\notag \\  \le\ &  \left\|\frac{2}{n_s}\tilde{X}_s b_s\right\|_2\left\|\tilde{X}_s\left(\beta_s - \hat{\beta}_s\right)\right\|_2+2\left(C_kC_\phi \sqrt{\frac{q\log p}{n_s}}+  2C_t \sqrt{\frac{p}{n_s}}\lambda_\Psi^{-1} \|\phi_t\|_2\right) \left\|\beta_s - \hat{\beta}_s\right\|_1\label{eq:error_bound_B6}. 
+    \end{align}
+
+    For term \ref{term:B_7}, we have
+    \begin{align}
+        & \left|\frac{2}{n_s}\left(\beta_s - \hat{\beta}_s\right)^\top \left(\sum_{k=1}^K \tilde{X}_s^{(k)\top}\tilde{X}_s^{(k)}\left(\beta_s^{(k)}-\frac{1}{n_s}\sum_{k=1}^K n_s^{(k)}\beta_s^{(k)}\right)\right)\right| \notag\\ \le\ & 
+        \left\|\frac{2}{n_s}\sum_{k=1}^K \tilde{X}_s^{(k)\top}\tilde{X}_s^{(k)}\left(\beta_s^{(k)}-\frac{1}{n_s}\sum_{k=1}^K n_s^{(k)}\beta_s^{(k)}\right)\right\|_{\infty}\left\|\beta_s - \hat{\beta}_s\right\|_1\notag\\ \le\ & 
+      2C_k s_\delta \sqrt{\frac{\log p}{n_s}}\left\|\beta_s - \hat{\beta}_s\right\|_1\label{eq:error_bound_B7}, 
+    \end{align}
+    in event \ref{set:g_12}. 
+
+    With the bounds \eqref{eq:error_bound_B5},\eqref{eq:error_bound_B6} and \eqref{eq:error_bound_B7} or error terms \ref{term:B_5},\ref{term:B_6} and \ref{term:B_7}, it holds that
+    \begin{align*}
+         \frac{1}{n_s}\left\|\tilde{X}_s\left(\hat{\beta}_s - \beta_s\right)\right\|_2^2 &\le \lambda_s\left(\|\beta_s\|_1 - \|\hat{\beta}_s\|_1\right) \\&+ 2\left(\left(C_\varepsilon +C_\delta C_x+C_kC_\phi\right)\sqrt{\frac{\log p}{n_s}}+   2C_t \sqrt{\frac{p}{n_s}}\lambda_\Psi^{-1} \|\phi_t\|_2\right)\left\|\beta_s - \hat{\beta}_s\right\|_1\\&+\left\|\frac{2}{n_s}\tilde{X}_s b_s\right\|_2\left\|\tilde{X}_s\left(\beta_s - \hat{\beta}_s\right)\right\|_2. 
+    \end{align*}
+    When $\lambda_s \ge 8\left(\left(C_\varepsilon +C_k s_\delta +C_kC_\phi \right)\sqrt{\log p/n_s}+ C_t\sqrt{p/n_s}\lambda^{-1}_\Psi\|\phi_t\|_2 \right)$, it holds that
+    \begin{align}
+        \frac{1}{n_s}\left\|\tilde{X}_s\left(\hat{\beta}_s - \beta_s\right)\right\|_2^2 \le \lambda_s\|\beta_s\|_1 - \lambda_s\|\hat{\beta}_s\|_1 +\frac{\lambda_s}{4}\|\hat{\beta}_s - \beta_s\|_1 + \left\|\frac{2}{n_s}\tilde{X}_s b_s\right\|_2\left\|\tilde{X}_s\left(\beta_s - \hat{\beta}_s\right)\right\|_2. \label{eq:confouning_lasso_inequality}
+    \end{align}
+
+    \textbf{Case 1.} If
+        \begin{align*}
+            \left\|\frac{2}{n_s}\tilde{X}_s b_s\right\|_2\left\|\tilde{X}_s\left(\beta_s - \hat{\beta}_s\right)\right\|_2 \le \frac{\lambda_s}{4}\left\|(\hat{\beta}_s - \beta_s)_{S_s}\right\|_1,
+        \end{align*}
+         then \eqref{eq:confouning_lasso_inequality} can be simplified as
+        \begin{align*}
+             & \frac{1}{n_s}\left\|\tilde{X}_s\left(\hat{\beta}_s - \beta_s\right)\right\|_2^2 \\ \le \ & \lambda_s\|\beta_s\|_1 - \lambda_s\|\hat{\beta}_s\|_1 +\frac{\lambda_s}{2}\|\hat{\beta}_s - \beta_s\|_1\\= \ & 
+             \lambda_s\|(\beta_s)_{S_s}\|_1 - \lambda_s\|(\hat{\beta}_s)_{S_s}\|_1 - \lambda_s\|(\hat{\beta}_s)_{S^c_s}\|_1 + \frac{\lambda_s}{2}\|(\hat{\beta}_s - \beta_s)_{S_s}\|_1 + \frac{\lambda_s}{2}\|(\hat{\beta}_s - \beta_s)_{S_s^c}\|_1 \\\le \ & 
+             \frac{3}{2}\lambda_s\|(\hat{\beta}_s - \beta_s)_{S_s}\|_1 - \frac{1}{2}\lambda_s\|(\hat{\beta}_s - \beta_s)_{S_s^c}\|_1,
+             \end{align*}
+             where in the last inequality we use $\|(\beta_s)_{S_s}\|_1 - \|(\hat{\beta}_s)_{S_s}\|_1 \le \|(\hat{\beta}_s - \beta_s)_{S_s}\|_1$ and $\|(\hat{\beta}_s)_{S_s^c}\|_1 = \|(\hat{\beta}_s - \beta_s)_{S_s^c}\|_1$.
+
+        This gives us that $ 3\|(\hat{\beta}_s - \beta_s)_{S_s}\|_1 - \|(\hat{\beta}_s - \beta_s)_{S_s^c}\|_1\ge 0$. From the restricted eigenvalue condition in Assumption 2, we have
+        \begin{align*}
+            C_r\|\hat{\beta}_s - \beta_s\|_2^2 \le \frac{1}{n_s}\left\|\tilde{X}_s\left(\hat{\beta}_s - \beta_s\right)\right\|_2^2 \le \frac{3}{2}\lambda_s\|(\hat{\beta}_s - \beta_s)_{S_s}\|_1\le \frac{3}{2}\lambda_s\sqrt{s}\|(\hat{\beta}_s - \beta_s)_{S_s}\|_1. 
+        \end{align*}
+        So
+        \begin{align*}
+            \|(\hat{\beta}_s - \beta_s)_{S_s}\|_2 \le \frac{3}{2C_r}\sqrt{s}\lambda_s,\quad \|(\hat{\beta}_s - \beta_s)_{S_s}\|_1 \le \sqrt{s} \|(\hat{\beta}_s - \beta_s)_{S_s}\|_2\le \frac{3}{2C_r}s\lambda_s,
+        \end{align*}
+        and then
+        \begin{equation}
+        \label{eq:case1_error}
+            \begin{aligned}
+            \|\hat{\beta}_s - \beta_s\|_1 & \le 4 \|(\hat{\beta}_s - \beta_s)_{S_s}\|_1 \le \frac{6}{C_r}s\lambda_s, \\
+            \|\hat{\beta}_s - \beta_s\|_2 &\le \left(\frac{3}{2C_r}\lambda_s \|(\hat{\beta}_s - \beta_s)_{S_s}\|_1\right)^{1/2} \le \frac{3}{2C_t}\sqrt{s}\lambda_s. 
+            \end{aligned}
+        \end{equation}
+
+\textbf{Case 2.} If \begin{align*}
+            \left\|\frac{2}{n_s}\tilde{X}_s b_s\right\|_2\left\|\tilde{X}_s\left(\beta_s - \hat{\beta}_s\right)\right\|_2 \ge \frac{\lambda_s}{4}\left\|(\hat{\beta}_s - \beta_s)_{S_s}\right\|_1.
+        \end{align*}
+        then 
+        \begin{align*}
+            \|(\hat{\beta}_s - \beta_s)_{S_s}\|_1 \le \frac{8}{\lambda_s}\left\|\frac{1}{n_s}\tilde{X}_s b_s\right\|_2\left\|\tilde{X}_s\left(\beta_s - \hat{\beta}_s\right)\right\|_2. 
+        \end{align*}
+        And \eqref{eq:confouning_lasso_inequality} can be simplified as 
+        \begin{align}
+             &\frac{1}{n_s}\left\|\tilde{X}_s\left(\hat{\beta}_s - \beta_s\right)\right\|_2^2 \notag\\\le \ &\frac{5}{4}\lambda_s\|(\hat{\beta}_s - \beta_s)_{S_s}\|_1 - \frac{1}{4}\lambda_s\|(\hat{\beta}_s - \beta_s)_{S_s^c}\|_1 +  \left\|\frac{2}{n_s}\tilde{X}_s b_s\right\|_2\left\|\tilde{X}_s\left(\beta_s - \hat{\beta}_s\right)\right\|_2\notag\\\le \ &
+             10 \left\|\frac{1}{n_s}\tilde{X}_s b_s\right\|_2\left\|\tilde{X}_s\left(\beta_s - \hat{\beta}_s\right)\right\|_2- \frac{1}{4}\lambda_s\|(\hat{\beta}_s - \beta_s)_{S_s^c}\|_1. \label{eq:confounding_dominate}
+        \end{align}
+        So
+        \begin{align*}
+            \frac{1}{n_s}\left\|\tilde{X}_s\left(\hat{\beta}_s - \beta_s\right)\right\|_2 \le 10 \left\|\frac{1}{n_s}\tilde{X}_s b_s\right\|_2. 
+        \end{align*}
+        The inequality \eqref{eq:confounding_dominate} also gives us that
+        \begin{align*}
+            \|(\hat{\beta}_s - \beta_s)_{S_s^c}\|_1 \le \frac{40}{\lambda_s}\left\|\frac{1}{n_s}\tilde{X}_s b_s\right\|_2\left\|\tilde{X}_s\left(\beta_s - \hat{\beta}_s\right)\right\|_2. 
+        \end{align*}
+        So
+        \begin{align}
+        \label{eq:case2_error}
+            \|\hat{\beta}_s - \beta_s\|_2 \le \|\hat{\beta}_s - \beta_s\|_1 &\le  \|(\hat{\beta}_s - \beta_s)_{S_s}\|_1 + \|(\hat{\beta}_s - \beta_s)_{S_s^c}\|_1\notag \\&   \le \frac{48}{\lambda_s}\left\|\frac{1}{n_s}\tilde{X}_s b_s\right\|_2\left\|\tilde{X}_s\left(\beta_s - \hat{\beta}_s\right)\right\|_2\notag\\& \le
+            \frac{480}{\lambda_s}\left\|\frac{1}{\sqrt{n_s}}\tilde{X}_s b_s\right\|_2^2
+        \end{align}
+
+        With \eqref{eq:case1_error} and \eqref{eq:case2_error}, it holds for a constant $C$ that
+        \begin{align*}
+            \|\hat{\beta}_s - \beta_s\|_2 & \le \frac{C}{C_r}\sqrt{s}\lambda_s + \frac{1}{\lambda_s} \left\|\frac{1}{\sqrt{n_s}}\tilde{X}_s b_s\right\|_2^2,\\
+            \|\hat{\beta}_s - \beta_s\|_1 & \le \frac{C}{C_r} s\lambda_s + \frac{1}{\lambda_s} \left\|\frac{1}{\sqrt{n_s}}\tilde{X}_s b_s\right\|_2^2. 
+        \end{align*}
+        Finally, we know that from the definition of the trim transform, 
+        \begin{align*}
+            \left\|\frac{1}{\sqrt{n_s}}\tilde{X}_s b_s\right\|^2_2 \le C\frac{p}{n_s}\|\Sigma_X^{-1} \mathbb{E}[f(H)^\top H]\phi_t\|^2_2 \le C \frac{p\|\phi_t\|_2^2}{n_s \lambda_\Psi^2},
+        \end{align*}
+        with Assumption 2. 
+\end{pf}
+\subsection{Lemmas for Theorem 2}
+\begin{lemma}
+    \label{lem:high_probability_set2}
+    Under Assumption 1, the event $\mathcal{G}' = \cap_{j=10}^{12}\mathcal{G}_j$ happens with a probability 
+    \begin{align*}
+        \mathbb{P}\left(\mathcal{G}'\right) \ge 1 - p^{-c},
+    \end{align*}
+    for a constant $c>0$. 
+\end{lemma}
+\begin{pf}{\it of Lemma \ref{lem:high_probability_set2}. }
+    From Lemma \ref{lem:trimed_noise_error}, we know that for some $c_1$
+    \begin{align*}
+        \mathbb{P}(\mathcal{G}_{10}) \ge 1- p^{-c_1}.
+    \end{align*}
+    From Lemma \ref{lem:trimed_uncorelated_bias}, we know that for some $c_2$ 
+    \begin{align*}
+        \mathbb{P}(\mathcal{G}_{11}) \ge 1- p^{-c_2}.
+    \end{align*}
+    From Lemma \ref{lem:trimed_sample_covariance}, we know that for some $c_3$
+    \begin{align*}
+        \mathbb{P}(\mathcal{G}_{12}) \ge 1- p^{-c_3}.
+    \end{align*}
+    So there exist some $c$
+    \begin{align*}
+        \mathbb{P}(\mathcal{G}') \ge 1-p^{-c}.
+    \end{align*}
+\end{pf}
+
+
+
+\begin{lemma}
+    \label{lem:trimed_noise_error}
+    If $E_i,H_i,i=1,\cdots,n$ are i.i.d. sampled from distributions for $E$ and $H$ that satisfies Assumption 1 and the function $f$ satisfies the condition for $f$ in Assumption 1, then with probability larger than $1 - p^{-c}$,
+    \begin{align*}
+        \left\|\frac{1}{n}\tilde{X}_s^{(k)\top}\tilde{\varepsilon}_s^{(k)} \right\|_{\infty}\le C_\varepsilon\sqrt{\frac{\log p}{n_s}}. 
+    \end{align*}
+    for some strictly positive constants $c, C_\varepsilon$. 
+\end{lemma}
+
+\begin{pf}{\it of Lemma \ref{lem:trimed_noise_error}. }
+    Because that $\varepsilon_s$ is independent to $X_s$ and $\varepsilon_{s,\cdot,i},1\le i\le n_s$ are mean zero sub-Gaussian random variables. We have 
+    \begin{align*}
+        \mathbb{P}\left(\left\|\frac{1}{n}\tilde{X}_s^{(k)\top}\tilde{\varepsilon}_s^{(k)} \right\|_{\infty}\ge C_\varepsilon\sqrt{\frac{\log p}{n_s}}\right) \le \sum_{i=1}^p \mathbb{P}\left(\left|\frac{1}{n}\sum_{j=1}^{n_s}\tilde{X}_{s,i,j}^{(k)\top}\tilde{\varepsilon}_{s,,j}^{(k)} \right|\ge C_\varepsilon\sqrt{\frac{\log p}{n_s}}\right) \le p^{-c}. 
+    \end{align*}
+\end{pf}
+
+\begin{lemma}
+    \label{lem:trimed_sample_covariance}
+    If $E_i,H_i,i=1,\cdots,n$ are i.i.d. sampled from distributions for $E$ and $H$ that satisfies Assumption 1 and the function $f$ satisfies the condition for $f$ in Assumption 1, then with probability larger than $1 -  p^{-c}$,
+    \begin{align*}
+        \left\|\frac{1}{n_s}\mathcal{V}^2_s \sum_{k=1}^K X_s^{(k)\top}X_s^{(k)}\left(\beta_s^{(k)}-\frac{1}{n_s}\sum_{k=1}^K n_s^{(k)}\beta_s^{(k)}\right)\right\|_{\infty} \le  C_ks_\delta \sqrt{\frac{\log p}{n_s}},
+    \end{align*}
+    for some strictly positive constants $c,C_k$. 
+\end{lemma}
+\begin{pf}{\it of Lemma \ref{lem:trimed_sample_covariance}. }
+From Assumption 1, we know that $E_{s,\cdot,i}$, $H_{s,\cdot,i}$, $f(H_s)_{\cdot,i}$ and $\varepsilon_{\cdot}$ follows sub-Gaussian distributions. So $X_s^\top X_s/n_s$ is a random matrix with $(X_{s})_{i,\cdot}$ as i.i.d. sub-Gaussian random variables. 
+
+Consider the perturbation form: $X_s^\top X_s/n_s = \Sigma + \left(X_s^\top X_s/n_s - \Sigma\right):=\Sigma + E$. We know that 
+\begin{align*}
+    \left\|E\right\|_{op} \le \sqrt{p}\left\|X_s^\top X_s/n_s - \Sigma\right\|_{\infty} \le C_x\sqrt{\frac{p\log p}{n}}
+\end{align*}
+holds with probability larger than $1-6p^{-c C_x^2/16 +2}$ from Lemma \ref{lem:error_sample_covariance1}. From the Weyl theorem, we know that 
+\begin{align*}
+    \left|\hat{\lambda}_i - \lambda_i\right| \le \left\|E\right\|_{op} \le C_x\sqrt{\frac{p\log p }{n}}. 
+\end{align*}
+From the Devis-Kahan theorem in the infinity norm (Theorem 15 in \cite{bhardwaj2024matrix}), if the eigen-gap $\Delta_i = \lambda_i -\lambda_{i+1}$ for those eigenvalues $\lambda_i,1\le i\le \tau$ is larger than $p^{1/2}n^{-1/4}\log^{3/4} p$, then 
+\begin{align*}
+    \left\|\hat{v}_i - v_i\right\|_{\infty} &\le c\|V\|_{\infty}\left(\|\hat{v}_i - v_i\|_{2} + \frac{\sqrt{\|E\|_{\infty} p}\log p}{\lambda_i}\right)\\& \le c \|V\|_{\infty}\left(\frac{\|E\|_{op}}{\Delta_i}+\frac{\sqrt{\|E\|_{\infty} p}\log p}{\lambda_i}\right)\\& \le 
+    c\sqrt{\frac{\log p}{p}} \left(n_s^{-1/4}\log^{-1/4} p +n_s^{-1/4} p^{1/2}\lambda_\tau^{-1} \log^{5/4} p\right) \le c\left(\frac{\log p}{n_sp^2}\right)^{1/4}. 
+\end{align*}
+Here the second inequality is the Devis-Kahan theorem in the $l_2$ norm, the last inequality using the Assumption 2. 
+
+Define $\mathcal{V} = V\operatorname{diag}(\tau_s/D_{1:\tau},1_{p-\tau})V^\top$ where $\Sigma_X = VDV^\top$. It holds that
+\begin{align}
+    \left\|\mathcal{V}^2_s \frac{1}{n_s}X_s^{\top}X_s - \mathcal{V}^2\Sigma_X\right\|_{\infty} 
+    &\le 
+    \left\| X_s^\top X_s - \Sigma_X\right\|_{\infty} + \left\|\left(I_p - \mathcal{V}^2_s\right) X_s^{(k)}X_s - \left(I_p - \mathcal{V}^2\right)\Sigma_X\right\|_{\infty}\notag
+    \\&\le  
+    \left\| X_s^{(k)}X_s - \Sigma_X\right\|_{\infty} + \sum_{i=1}^\tau \left\|(\hat{\lambda}_i - \tau_s^2)\hat{v}_i\hat{v}^\top_i - (\lambda_i -\tau_s^2)v_iv^\top_i\right\|_{\infty}\notag
+    \\&\le 
+    C_x\sqrt{\frac{\log p}{n_s}} + \sum_{i=1}^\tau \left(|\hat{\lambda}_i - \lambda_i|\left\|v_{i}\right\|^2_{\infty} +\left|\hat{\lambda}_i-\tau_s^2\right|\left\|\hat{v}_{i} -v_i\right\|^2_{\infty}\right)\notag
+    \\&\le 
+    C_x\sqrt{\frac{\log p}{n_s}} + C\left(\sum_{i=1}^\tau \sqrt{\frac{p \log p}{n_s}}\left(\sqrt{\frac{\log p}{p}}\right)^2 \right.\notag\\& \left.\hspace{3cm}+ \sum_{i=1}^\tau \left(\sqrt{\frac{p \log p}{n_s}} + |\lambda_i-\tau_s^2|\right)\sqrt{\frac{\log p}{n_s p^2}}\right)\notag
+    \\& \le 
+     C_k\sqrt{\frac{\log p}{n_s}}\label{eq:trimed_infinity_norm}. 
+\end{align}
+Here we use Assumption 2 and $\sum_{i=1}^\tau |\lambda_i - \tau_s^2|\le c p$. If the element eigen-gap condition is not hold, we only need the eigen gap $\Delta_\tau = \lambda_\tau - \lambda_{\tau+1}$ is larger than $p^{1/2}n^{-1/4}\log^{3/4} p $ holds for a $\tau$. From Lemma S.13 in supplementary of \cite{chen2024matrix} or Theorem 2 in \cite{pensky2024davis}, we have the subspace version of Devis-kahan theorem in the two-to-infinity norm that 
+\begin{align*}
+    \left\|\hat{V}_{\cdot,1:\tau} - V_{\cdot,1:\tau}R\right\|_{2,\infty} \le c\|V_{\cdot,1:\tau}\|_{2,\infty}\left(\frac{\|E\|_{op}}{\Delta_\tau} +\frac{\sqrt{\|E\|_{\infty}p}\log p }{\lambda_\tau}\right)
+\end{align*}
+ holds for a rotation matrix $\mathcal{R}\in \mathbb{R}^{\tau\times \tau}$ and the inequality \eqref{eq:trimed_infinity_norm} still holds. 
+
+So
+\begin{align*}
+     & \left\|\frac{1}{n_s}\mathcal{V}^2_s \sum_{k=1}^K X_s^{(k)\top}X_s^{(k)}\left(\beta_s^{(k)}-\frac{1}{n_s}\sum_{k=1}^K n_s^{(k)}\beta_s^{(k)}\right)\right\|_{\infty} \\=\ & \left\|\frac{1}{n_s} \sum_{k=1}^K \left(n_s^{(k)}\mathcal{V}^2_s\left(\frac{1}{n_s^{(k)}}X_s^{(k)\top}X_s^{(k)}-\mathcal{V}^2\Sigma_X\right)\right)\left(\beta_s^{(k)}-\frac{1}{n_s}\sum_{k=1}^K n_s^{(k)}\beta_s^{(k)}\right)\right\|_{\infty}
+     \\\le \ &
+     \left\|\frac{1}{n_s}\mathcal{V}^2_s \sum_{k=1}^K X_s^{(k)\top}X_s^{(k)} - \mathcal{V}^2\Sigma_X\right\|_{\infty}\sum_{k=1}^K \frac{n_s^{(k)}}{n_s}\left\|\beta_s^{(k)}-\frac{1}{n_s}\sum_{k=1}^K n_s^{(k)}\beta_s^{(k)}\right\|_{1}\\\le \ &
+      C_k s_\delta\sqrt{\frac{\log p}{n_s}}. 
+\end{align*}
+\end{pf}
+
+\begin{lemma}
+    \label{lem:trimed_uncorelated_bias}
+    If $E_i,H_i,i=1,\cdots,n$ are i.i.d. sampled from distributions for $E$ and $H$ that satisfies Assumption 1 and the function $f$ satisfies the condition for $f$ in Assumption 1, then with probability larger than $1 - p^{-c} - \exp(-cn)$,
+    \begin{align*}
+        \left\|\frac{1}{n_s}\sum_{k=1}^K \tilde{X}_s^{(k)\top}\left(\tilde{H}_s^{(k)}\phi_s^{(k)}- \tilde{X}_s^{(k)}b_s\right)\right\|_{\infty}\le C_kC_\phi \sqrt{\frac{q\log p}{n_s}}+  2C_t \sqrt{\frac{p}{n_s}}\lambda_\Psi^{-1} \|\phi_t\|_2. 
+    \end{align*}
+    for some strictly positive constants $c,C_k,C_t$. 
+\end{lemma}
+% \begin{pf}{\it of Lemma \ref{lem:trimed_uncorelated_bias}. }
+%     Recall the definition of trim transform $\mathcal{V}_s$. We know that $\mathcal{V}_s^2 X_s^{(k)\top}X_s^{(k)} = \tilde{X}_s^{(k)\top}\tilde{X}_s^{(k)}$ and $\mathcal{V}_s^2 X_s^{(k)\top}H_s^{(k)} = \tilde{X}_s^{(k)\top}\tilde{H}_s^{(k)}$. 
+%     In the proof of Proposition 5 in the supplementary of \cite{guo2022doubly}, we know that
+%     \begin{align*}
+%         \left\|\frac{1}{n_s}\mathcal{W}^{-1}\mathcal{V}_s^2\sum_{k=1}^K X_s^{(k)\top}\left(H_s^{(k)}\phi_s^{(k)}-X_s^{(k)}b_s\right)\right\|_{\infty} \le \sqrt{\frac{1}{n_s}}\left\|\left(H_s\phi_t-X_sb_s\right)\right\|_2,
+%     \end{align*} 
+%     where $\mathcal{W}$ is a diagonal matrix with diagonal entries as $\mathcal{W}_{l,l} = \|\tilde{X}_{s,\cdot,l}\|_2/\sqrt{n_s}$ for $1\le l\le p$, and 
+%     \begin{align*}
+%         \mathbb{P}\left(C\le \mathcal{W}_{l,l} \le C_t \quad  1\le l \le p\right) \ge 1 - p^{-c} - \exp(-cn). 
+%     \end{align*}
+%     So (\textcolor{red}{this control is not sharp})
+%     \begin{align*}
+%          \left\|\frac{1}{n_s}\mathcal{V}_s^2\sum_{k=1}^K X_s^{(k)\top}\left(H_s^{(k)}\phi_s^{(k)}-X_s^{(k)}b_s\right)\right\|_{\infty} &\le C_t \sqrt{\frac{1}{n_s}}\left\|\left(H_s\phi_s-X_sb_s\right)\right\|_2 \\& \le 
+%          C_t \left(\mathbb{E}[H_{s,\cdot}\phi_t - X_{s,\cdot}b_s]^2\right)^{1/2} \le C_t \frac{1}{\lambda_\Psi}\|\phi_t\|_2,
+%     \end{align*}
+%     where with Assumption \ref{assum:source_model} that
+%     \begin{align*}
+%         \mathbb{E}[H_{s,\cdot}\phi_t - X_{s,\cdot}b_s]^2 = \phi_t^\top \left(\Sigma_{H} - E [f(H)^\top H]^\top \Sigma_X^{-1} E [f(H)^\top H]\right)\phi_t \le \frac{1}{\lambda^2_\Psi}\|\phi_t\|_2^2. 
+%     \end{align*}
+% \end{pf}
+
+\begin{pf}{\it of Lemma \ref{lem:trimed_uncorelated_bias}. }
+    Recall the definition of trim transform $\mathcal{V}_s$. We know that $\mathcal{V}_s^2 \sum_{k=1}^K X_s^{(k)\top}X_s^{(k)} = \tilde{X}_s^{(k)\top}\tilde{X}_s^{(k)}$ and $\mathcal{V}_s^2 \sum_{k=1}^K X_s^{(k)\top}H_s^{(k)} = \tilde{X}_s^{(k)\top}\tilde{H}_s^{(k)}$. So
+    \begin{align*}
+        & \left\|\frac{1}{n_s}\sum_{k=1}^K \tilde{X}_s^{(k)\top}\left(\tilde{H}_s^{(k)}\phi_s^{(k)}- \tilde{X}_s^{(k)}b_s\right)\right\|_{\infty} \\  = \ &  \left\|\frac{1}{n_s}\mathcal{V}_s^2 \sum_{k=1}^K X_s^{(k)\top}\left(H_s^{(k)}\phi_s^{(k)}- X_s^{(k)}b_s\right)\right\|_{\infty} \\\le\ & \left\|\frac{1}{n_s}\mathcal{V}_s^2 \sum_{k=1}^K \left(X_s^{(k)\top}H_s^{(k)}- \mathbb{E}[f(H)^\top H]\right)\phi_t \right\|_{\infty} + \left\|\frac{1}{n_s}\mathcal{V}_s^2 \sum_{k=1}^K \left(\Sigma_X - X_s^{(k)\top}X_s^{(k)} \right)\Sigma_X^{-1}\mathbb{E}[f(H)^\top H]\phi_t\right\|_{\infty}.
+    \end{align*}
+    % For the first term, we use the notations is proof of Lemma \ref{lem:trimed_sample_covariance} and control the term 
+    % \begin{align*}
+    %     \|\mathcal{V}^2_s \frac{1}{n_s}X_s^{\top}H_s - \mathcal{V}^2\mathbb{E}[f(H)^\top H]\|_{\infty} \le C_k \sqrt{\frac{\log p}{n_s}}
+    % \end{align*}
+    % similarly to \eqref{eq:trimed_infinity_norm} and
+    % \begin{align*}
+    %     \left\|\left(\mathcal{V}_s^2 - \mathcal{V}^2\right)\Sigma_{X}\Sigma_{X}^{-1}\mathbb{E}[f(H)^\top H]\phi_t\right\|_{\infty} \le \left\|\left(\mathcal{V}_s^2 - \mathcal{V}^2\right)\Sigma_{X}\right\|_{2,\infty}\left\|\Sigma_{X}^{-1}\mathbb{E}[f(H)^\top H]\phi_t\right\|_{2} \le C_t \sqrt{\frac{p}{n_s}}\lambda_\Psi^{-1} \|\phi_t\|_2.
+    % \end{align*}
+    For the first term, we use the sub-gaussian of $\mathcal{V}_s^2 X_{si}^{(k)}$ and $H_{si}^{(k)}$, so that 
+    \begin{align*}
+        \left\|\frac{1}{n_s}\mathcal{V}_s^2 \sum_{k=1}^K \left(X_s^{(k)\top}H_s^{(k)}- \mathbb{E}[f(H)^\top H]\right)\phi_t \right\|_{\infty} \le C_k \sqrt{\frac{\log p}{n_s}}\|\phi_t\|_2.
+    \end{align*}
+    For the second term, we have 
+    \begin{align*}
+        & \left\|\frac{1}{n_s}\mathcal{V}_s^2 \sum_{k=1}^K \left(\Sigma_X - X_s^{(k)\top}X_s^{(k)} \right)\Sigma_X^{-1}\mathbb{E}[f(H)^\top H]\phi_t\right\|_{\infty} \\ \le\ & 
+         \left\|\frac{1}{n_s}\mathcal{V}_s^2 \sum_{k=1}^K \left(\Sigma_X - X_s^{(k)\top}X_s^{(k)} \right)\right\|_{2,\infty}\left\|\Sigma_X^{-1}\mathbb{E}[f(H)^\top H]\phi_t\right\|_{2}\\ \le\ & C_t \sqrt{\frac{p}{n_s}}\lambda_\Psi^{-1} \|\phi_t\|_2. 
+    \end{align*}
+    So 
+    \begin{align*}
+        \left\|\frac{1}{n_s}\sum_{k=1}^K \tilde{X}_s^{(k)\top}\left(\tilde{H}_s^{(k)}\phi_s^{(k)}- \tilde{X}_s^{(k)}b_s\right)\right\|_{\infty} &\le C_k  \sqrt{\frac{\log p}{n_s}}\|\phi\|_2 +  2C_t \sqrt{\frac{p}{n_s}}\lambda_\Psi^{-1} \|\phi_t\|_2 \\&\le C_k C_\phi \sqrt{\frac{\log p}{n_s}} +  2C_t \sqrt{\frac{p}{n_s}}\lambda_\Psi^{-1} \|\phi_t\|_2.
+    \end{align*}
+\end{pf}
+
+
+\subsection{Proof of Theorem 3}
+\begin{pf}{\it of Theorem 3. }
+    On the event $\mathcal{G}\cap\mathcal{G}'$, Theorem 1 gives 
+    \begin{align*}
+        \|\hat{\eta} -\eta_0\|_1 \le C_7 s_\eta \sqrt{\frac{\log p}{n_t}},
+    \end{align*}
+    when choosing $\lambda_t = \sqrt{\log p/n_t}$. 
+    From Theorem 2, it holds that
+    \begin{align*}
+        \|\hat{\beta}_s - \beta_s\|_1 \le C_6 \sqrt{\frac{p\|\phi_t\|_2^2}{n_s\lambda_\Psi^2}} \vee C_3 s \left(\sqrt{\frac{\log p}{n_s}} + \frac{\|\phi_t\|_2^2}{\lambda_\Psi}\right) \le C_6 \sqrt{\frac{p\|\phi_t\|_2^2}{n_s\lambda_\Psi^2}} \vee C s\sqrt{\frac{\log p}{n_s}},
+    \end{align*}
+    when choosing $\lambda_s = \sqrt{\log p/n_s}\vee \lambda_\Psi^{-1}\|\phi_t\|_2\sqrt{p/n_s}$. 
+    So 
+    \begin{align*}
+        \|\hat{\beta}_t - \beta_t\|_1 \le  \|\hat{\eta} -\eta_0\|_1 + \|\hat{\beta}_s - \beta_s\|_1  & \le C_8 \sqrt{\frac{p\|\phi_t\|_2^2}{n_s\lambda_\Psi^2}} \vee C s\sqrt{\frac{\log p}{n_s}} \vee C_7 s_\eta \sqrt{\frac{\log p}{n_t}} \\& \le 
+        C_6 \sqrt{\frac{p\|\phi_t\|_2^2}{n_s\lambda_\Psi^2}} \vee C_7 s_\eta \sqrt{\frac{\log p}{n_t}}.
+    \end{align*}
+    
+    The results for $l_2$ norm error is similar as
+    \begin{align*}
+        \|\hat{\beta}_t - \beta_t\|_2 \le  \|\hat{\eta} -\eta_0\|_2 + \|\hat{\beta}_s - \beta_s\|_2   \le 
+        C_6 \sqrt{\frac{p\|\phi_t\|_2^2}{n_s\lambda_\Psi^2}} \vee C_7  \sqrt{\frac{s_\eta\log p}{n_t}}.
+    \end{align*}
+\end{pf}
+
+
+\subsection{Proof of Proposition 3}
+\begin{pf}{\it of Proposition 3. }
+    We consider the special case that $\beta_s^{(k)} = \beta_s,1\le k\le K$ and the noise distribution is Gaussian distribution $N(0,\sigma^2)$. We then consider the case that $f(H)= H\Psi$ with $\lambda_1(\Psi) = \cdots = \lambda_q(\Psi) = \lambda_\Psi$. 
+
+    Define the distribution of target data as $P_t(\beta_t,\phi_t)$ and the distribution of source data as $P_s(\beta_s,\phi_t)$. Define that 
+    \begin{align*}
+        D_{KL}(P(\beta_{t1})\|P(\beta_{t2})) = \underset{\substack{\beta_{t1}=\beta_1+\eta_1,\beta_{t2}=\beta_2+\eta_2\\\beta_1,\beta_2\in \mathcal{B}_0(s),\eta_1,\eta_2\in \mathcal{B}_0(s_\eta)\\\phi_1,\phi_2\in\mathcal{B}_2(c_\phi)}}{\min} &D_{KL} (P_t(\beta_1+\eta_1,\phi_1)\|P_t(\beta_2+\eta_2,\phi_2)) \\+& D_{KL} (P_s(\beta_1,\phi_1)\|P_s(\beta_2,\phi_2)). 
+    \end{align*}
+Similar to those in the proof of Proposition 1, we define the $\delta$-packing of $\mathcal{B}_0(s_\eta+s)$ as $\mathcal{H}_{s_\eta+s}$ in $l_2$ norm. So 
+    \begin{align*}
+        \left|\mathcal{H}_{s_\eta}\right|\ge\exp\left\{\frac{s_\eta+s}{2}\log \frac{p-s_\eta-s}{(s_\eta+s)/2}\right\}.
+    \end{align*}
+    From Fano's lemma,
+    \begin{align*}
+        \inf_{\hat{\beta}_t}\underset{\substack{\beta_t=\beta+\eta\\\eta\in \mathcal{B}_0(s_\eta),\beta\in \mathcal{B}_0(s)}}{\sup}\mathbb{P}(\|\hat{\beta}_t-\beta_t\|_2 \ge \delta) \ge 1- \frac{\max_{i,j}D_{KL}(P(\beta_{ti})\|P(\beta_{tj})) +\log 2}{\log |\mathcal{H}_{s_\eta+s}|}. 
+    \end{align*}
+    \textbf{Case 1. }
+    We consider $E = 0$ and $H$ follows Gaussian distribution $N(0,I_q)$, then 
+    \begin{align*}
+        P_t(\beta_t,\phi_t) &= N\left(X_t\beta_t,(\|\phi_t\|_2^2 + \sigma^2)I_{n_t}\right),\\
+        P_s(\beta_s,\phi_t) &= N\left(X_s\beta_s,(\|\phi_t\|_2^2 + \sigma^2)I_{n_s}\right).
+    \end{align*}
+    So for any $\eta_1,\eta_2 \in \mathcal{B}_0((s_\eta)$, $\beta_1,\beta_2\in \mathcal{B}_0(s)$ and $\phi_1,\phi_2 \in \mathcal{B}_2(c_\phi)$, we have 
+    \begin{align*}
+        & D_{KL} (P_t(\beta_1+\eta_1,\phi_1)\|P_t(\beta_2+\eta_2,\phi_2)) \\= \ & 
+        \frac{n_t}{2}\log \frac{\|\phi_2\|_2^2 + \sigma^2}{\|\phi_1\|_2^2 + \sigma^2} + \frac{\|X_t(\eta_1-\eta_2 + (\beta_1-\beta_2))\|_2^2 + n_t(\|\phi_1\|_2^2 - \|\phi_2\|_2^2)}{2(\sigma^2 + \|\phi_2\|_2^2)}.
+    \end{align*}
+    And
+    \begin{align*}
+        & D_{KL} (P_s(\beta_1,\phi_1)\|P_s(\beta_2,\phi_2)) \\= \ & 
+        \frac{n_s}{2}\log \frac{\|\phi_2\|_2^2 + \sigma^2}{\|\phi_1\|_2^2 + \sigma^2} + \frac{\|X_s(\eta_1-\eta_2 + (\beta_1-\beta_2))\|_2^2 + n_s(\|\phi_1\|_2^2 - \|\phi_2\|_2^2)}{2(\sigma^2 + \|\phi_2\|_2^2)}.
+    \end{align*}
+    So
+    \begin{align*}
+        D_{KL}(P(\beta_{t1})\|P(\beta_{t2})) \le \underset{\substack{\beta_{t1}=\beta_1+\eta_1,\beta_{t2}=\beta_2+\eta_2,\\\beta_1,\beta_2\in \mathcal{B}_0(s)\\\eta_1,\eta_2\in \mathcal{B}_0(s_\eta)\\
+        \|\phi_1\|_2=c_\phi,\phi_2=\phi_1}}{\min} & D_{KL} (P_t(\beta_1+\eta_1,\phi_1)\|P_t(\beta_2+\eta_2,\phi_2))\\ + & D_{KL} (P_s(\beta_1,\phi_1)\|P_s(\beta_2,\phi_2))\\
+        &\hspace{-4cm}=  \frac{\|X_t((\eta_1-\eta_2)+(\beta_1-\beta_2))\|_2^2 + \|X_s(\beta_1-\beta_2)\|_2^2 }{2(\sigma^2 + \|\phi_2\|_2^2)}\\& \hspace{-4cm}\le
+        \frac{C\lambda_\Psi^2 p^{-1} (n_t\|\eta_1-\eta_2 + (\beta_1-\beta_2)\|_2^2 + n_s\|\beta_1-\beta_2\|_2^2)}{(2(\sigma^2 + \|\phi_2\|_2^2)}.
+    \end{align*}
+    Choose $\delta = c_1p^{1/2} n_s^{-1/2}\lambda_\Psi^{-1}C_\phi$, with $n_s\gg n_t$, then
+    \begin{align*}
+        D_{KL}(P(\beta_{t1})\|P(\beta_{t2})) \le 3. 
+    \end{align*}
+    So
+    \begin{align*}
+         \inf_{\hat{\beta}_t}\underset{\substack{\beta_t=\beta+\eta\\\eta\in \mathcal{B}_0(s_\eta),\beta\in \mathcal{B}_0(s)}}{\sup}\mathbb{P}\left(\|\hat{\beta}_t-\beta_t\|_2 \ge c_1\sqrt{\frac{p\|\phi_t\|_2^2}{n_s\lambda_\Psi^2}}\right) \ge 1- \frac{6+ 2\log 2}{(s_\eta+s)\log(2(p-s_\eta-s)/(s_\eta+s)} \ge \frac{1}{2}. 
+    \end{align*}
+    \textbf{Case 2.} We consider $H=0,c_\phi=0$ and $E$ follows Gaussian distribution $N(0,I_p)$. Under these conditions, the problem reduces to transfer learning for high-dimensional linear regression. Theorem B in the supplementary materials of \cite{li2022transfer} provides the minimax lower bound as follows:
+    \begin{align*}
+        \inf_{\hat{\beta}_t}\underset{\substack{\beta_t=\beta+\eta\\\eta\in \mathcal{B}_0(s_\eta),\beta\in \mathcal{B}_0(s)}}{\sup}\mathbb{P}\left(\|\hat{\beta}_t-\beta_t\|_2 \ge c_2\sqrt{\frac{s_\eta \log p}{n_t}} \vee \sqrt{\frac{s\log p}{n_s}}\right) \ge  \frac{1}{2}. 
+    \end{align*}
+    With the assumption that $n_s\gg n_t$ and $s_\eta,s$ are constants, finally we have
+    \begin{align*}
+        \inf_{\hat{\beta}_t}\underset{\substack{\beta_t=\beta+\eta\\\eta\in \mathcal{B}_0(s_\eta),\beta\in \mathcal{B}_0(s)}}{\sup}\mathbb{P}\left(\|\hat{\beta}_t-\beta_t\|_2 \ge c_1\sqrt{\frac{p\|\phi_t\|_2^2}{n_s\lambda_\Psi^2}}\vee c_2\sqrt{\frac{s_\eta \log p}{n_t}} \right) \ge  \frac{1}{2}. 
+    \end{align*}
+\end{pf}
+
+
+\subsection{Proof of Proposition 2 and 4}
+\begin{pf}{\it of Proposition 2 and 4. }
+    We consider the special case that $\beta_s^{(k)} = \beta_s, 1\le k \le K$ and the noise distribution is Gaussian distribution $N(0,\sigma^2)$. We then consider the case that $f(H) = H\Psi$ with $\lambda_1(\Psi) = \cdots = \lambda_q(\Psi) = \lambda_\Psi$. 
+    
+    Define the distribution of target data as $P_t(\eta,\beta_s,\phi_t)$. Also define that 
+    \begin{align*}
+        D_{KL}(P_t(\eta_1)\|P_t(\eta_2)) = \min_{\beta_1,\beta_2\in \mathcal{B}_0(s),\phi_1,\phi_2 \in\mathcal{B}_2(c_\phi)} D_{KL}(P_t(\eta_1,\beta_1,\phi_1)\|P_t(\eta_2,\beta_2,\phi_2)). 
+    \end{align*}
+    Similar to those in the proof of Proposition 1, we define the $\delta$-packing of $\mathcal{B}_0(s_\eta)$ as $\mathcal{H}_{s_\eta}$ in $l_2$ norm. So 
+    \begin{align*}
+        \left|\mathcal{H}_{s_\eta}\right|\ge\exp\left\{\frac{s_\eta}{2}\log \frac{p-s_\eta}{s_\eta/2}\right\}.
+    \end{align*}
+    From Fano's lemma,
+    \begin{align*}
+        \inf_{\tilde{\eta}}\sup
+        _{\eta\in \mathcal{B}_0(s_\eta)}\mathbb{P}(\|\tilde{\eta}-\eta_0\|_2 \ge \delta) \ge 1- \frac{\max_{i,j}D_{KL}(P_t(\eta_i)\|P_t(\eta_j)) +\log 2}{\log\|\mathcal{H}_{s_\eta}\|}. 
+    \end{align*}
+
+    \textbf{Case 1. }
+    We consider $E$ = 0 and $H$ follows Gaussian distribution $N(0,I_q)$, then
+    \begin{align*}
+        P_t(\eta,\beta_s,\phi_t) = N\left(X_t\left(\eta +\beta_s - \hat{\beta}_s\right), \left(\|\phi_t\|_2^2 + \sigma^2\right) I_n\right). 
+    \end{align*}
+    So for $\eta_1,\eta_2\in \mathcal{B}_0(s_\eta)$, $\beta_1,\beta_2\in \mathcal{B}_0(s)$ and $\phi_1,\phi_2 \in \mathcal{B}_2(c_\phi)$, we have 
+    \begin{align*}
+        & D_{KL}(P_t(\eta_1,\beta_1,\phi_1)\|P_t(\eta_2,\beta_2,\phi_2))\\ =\ & \frac{n_t}{2} \log \frac{\|\phi_2\|_2^2 +\sigma^2}{\|\phi_1\|_2^2 + \sigma^2} + \frac{\|X_t(\eta_1-\eta_2 + (\beta_1 -\hat{\beta}_1) - (\beta_2 -\hat{\beta}_2))\|_2^2 + n_t(\|\phi_1\|_2^2 - \|\phi_2\|_2^2)}{2(\sigma^2 + \|\phi_2\|_2^2)}. 
+    \end{align*}
+   
+    So
+    \begin{align*}
+        D_{KL}(P_t(\eta_1)\|P_t(\eta_2)) &\le \min_{\beta_1,\beta_2\in \mathcal{B}_0(s),\|\phi_1\|_2=c_\phi,\phi_2=\phi_1} D_{KL}(P_t(\eta_1,\beta_1,\phi_1)\|P_t(\eta_2,\beta_2,\phi_2))\\&= 
+        % \log \frac{4\|\phi_1\|_2^2 +\sigma^2}{\|\phi_1\|_2 +\sigma^2} + \frac{\|X_t(\eta_1-\eta_2 + (\beta_1 -\hat{\beta}_1) - (\beta_2 -\hat{\beta}_2))\|_2^2 - 3\|\phi_1\|_2^2}{2(\sigma^2 + 4\|\phi_1\|_2^2)}\\&\le 
+        % \frac{3\|\phi_1\|_2^2}{\|\phi_1\|_2^2 +\sigma^2} + \frac{C\lambda_\Psi^2 p^{-1}n_t\|\eta_1-\eta_2+ (\beta_1 -\hat{\beta}_1) - (\beta_2 -\hat{\beta}_2)\|^2_2- 3\|\phi_1\|_2^2}{2(\sigma^2 + 4\|\phi_1\|_2^2)}. 
+         \frac{C\lambda_\Psi^2 p^{-1}n_t\|\eta_1-\eta_2+ (\beta_1 -\hat{\beta}_1) - (\beta_2 -\hat{\beta}_2)\|^2_2}{2(\sigma^2 + \|\phi_1\|_2^2)}. 
+    \end{align*}
+    Here the last inequality is from $X_t = H_t\Psi$ and $\eta_1-\eta_2+ (\beta_1 -\hat{\beta}_1) - (\beta_2 -\hat{\beta}_2))$ is independent to $H_t\Psi$. So with probability larger than $1-p^{-c}$, the length of the projection for the direction vector of $\eta_1-\eta_2+ (\beta_1 -\hat{\beta}_1) - (\beta_2 -\hat{\beta}_2)$ to the row space of $\Psi$ can be bounded by $C p^{-1/2}$. 
+
+    Choose $\delta = c_1 p^{1/2}n_t^{-1/2}\lambda_\Psi^{-1}c_\phi$ for some constant $c_1$, then
+    \begin{align*}
+        &\frac{C\lambda_\Psi^2 p^{-1}n_t\|\eta_1-\eta_2+ (\beta_1 -\hat{\beta}_1) - (\beta_2 -\hat{\beta}_2)\|^2_2}{2(\sigma^2 + \|\phi_1\|_2^2)} \\\le \ &
+        \frac{2C\lambda_\Psi^2 p^{-1} n_t\left(\delta^2 +  (C\sqrt{s}pc_\phi^2)/(n_s\lambda_\Psi^2)\right)}{2(\sigma^2 + \|\phi_1\|_2^2)}
+        \le 3. 
+    \end{align*}
+    The first inequality uses Theorem 2 and $n_s\gg n_t$. Then
+    \begin{align*}
+        D_{KL}(P_t(\eta_1)\|P_t(\eta_2)) \le 3.
+    \end{align*}
+    So
+    \begin{align}
+         \inf_{\tilde{\eta}}\sup
+        _{\eta\in \mathcal{B}_0(s_\eta)}\mathbb{P}\left(\|\tilde{\eta}-\eta_0\|_2 \ge c_1 \sqrt{\frac{p\|\phi_t\|_2^2}{n_t\lambda_\Psi^2}}\right) \ge 1- \frac{6 +2\log 2}{s_\eta\log (2(p-s_\eta)/s_\eta)} \ge \frac{1}{2}.\label{eq:lower_bound_case1}
+    \end{align}
+    \textbf{Case 2. }
+    We consider $H=0,c_\phi=0$ and $E$ follows Gaussian distribution $N(0,I_p)$, then
+    \begin{align*}
+        D_{KL}(P_t(\eta_1)\|P_t(\eta_2)) & \le \frac{1}{2\sigma^2}\|X_t(\eta_1-\eta_2 + (\beta_1 -\hat{\beta}_1) - (\beta_2 -\hat{\beta}_2))\|_2^2 \\& \le 
+        \frac{2n_t \|\eta_i-\eta_j + (\beta_1 -\hat{\beta}_1) - (\beta_2 -\hat{\beta}_2)\|_2^2}{\sigma^2}. 
+    \end{align*}
+    Choose $\delta = c_2\sqrt{s_\eta \log p/n_t}$, with $\|\beta_s - \hat{\beta}_s\|_2 \le c\sqrt{s\log p/n_s}$, we know that 
+    \begin{align*}
+        D_{KL}(P_t(\eta_1)\|P_t(\eta_2)) \le \frac{c_2s_\eta \log p}{\sigma^2}. 
+    \end{align*}
+    and then 
+    \begin{align}
+        \inf_{\tilde{\eta}}\sup
+        _{\eta\in \mathcal{B}_0(s_\eta)}\mathbb{P}\left(\|\tilde{\eta}-\eta_0\|_2 \ge c_2\sqrt{\frac{s_\eta\log p}{n_t}}\right) \ge \frac{1}{2}.\label{eq:lower_bound_case2}
+    \end{align}
+
+    With \eqref{eq:lower_bound_case1} and \eqref{eq:lower_bound_case2}, we have
+    \begin{align*}
+         \inf_{\tilde{\eta}}\sup
+        _{\eta\in \mathcal{B}_0(s_\eta)}\mathbb{P}\left(\|\tilde{\eta}-\eta_0\|_2 \ge c_1 \sqrt{\frac{p\|\phi_t\|_2^2}{n_t\lambda_\Psi^2}} \vee c_2\sqrt{\frac{s_\eta\log p}{n_t}}\right) \ge \frac{1}{2}.
+    \end{align*}
+
+    For the $l_1$ norm lower bound. The case 1 is the same as above proof. For case 2, we only need to choose $\delta = c_2\sqrt{s_\eta \log p/n_t}$. Because $\|\eta_i-\eta_j\|_2 \le  \|\eta_i-\eta_j\|_1$. So we still have 
+    \begin{align*}
+        D_{KL}(P_t(\eta_1)\|P_t(\eta_2)) \le \frac{c_2s_\eta \log p}{\sigma^2}. 
+    \end{align*}
+    So
+    \begin{align*}
+        \inf_{\tilde{\eta}}\sup
+        _{\eta\in \mathcal{B}_0(s_\eta)}\mathbb{P}\left(\|\tilde{\eta}-\eta_0\|_1 \ge c_1 \sqrt{\frac{p\|\phi_t\|_2^2}{n_t\lambda_\Psi^2}} \vee c_2\sqrt{s_\eta\frac{\log p}{n_t}}\right) \ge \frac{1}{2}.
+    \end{align*}
+
+    For the definition of $\tilde{\beta}_t = \tilde{\eta} + \tilde{\beta}_s$, we have
+    \begin{align*}
+        \mathbb{P}\left(\|\tilde{\beta}_t - \beta_t\|_2 \ge \delta \right) \ge \mathbb{P} \left(\|\tilde{\eta} - \eta_0\|_2 - \|\tilde{\beta}_s - \beta_s\|_2 \ge \delta \right) \ge \mathbb{P}\left(\|\tilde{\eta} - \eta_0\|_2\ge \frac{\delta}{2}\right). 
+    \end{align*}
+    This is because $\delta \gg \|\tilde{\eta} - \eta_0\|_2$ from $n_s\gg n_t$. 
+\end{pf}
+
+
+\subsection{Proof of Theorem 4. }
+
+\begin{pf}{\it of Theorem 4. }
+    Recall the event $\mathcal{G},\mathcal{G}'$ defined in the proof of Theorem 1 and 2, similarly define $\mathcal{G}^{(k)}$ with only the $K$th source data are used. Formally, we define that 
+    \begin{align}
+        &\left\{\left\|\frac{1}{n_s{(k)}} X_s^{(k)\top}X_s^{(k)} - \Sigma_X\right\|_{\infty} \le C_x\sqrt{\frac{\log p}{n_s^{(k)}}}\right\},\label{set:g_2_k}\tag{$\mathcal{G}_2^{(k)}$} \\&
+        \left\{\left\|\frac{1}{n_s^{(k)}}f(H_s^{(k)})^\top H_s^{(k)} - \mathbb{E}_{H} f(H)^\top H \right\|_{2,\infty} \le
+        C_{H} \sqrt{\frac{q \log p}{n_s^{(k)}}}\right\},\label{set:g_5_k}\tag{$\mathcal{G}_5^{(k)}$}\\& 
+        \left\{\left\| \frac{1}{n_s^{(k)}} E_s^{(k)\top} H_s^{(k)}\right\|_{2,\infty} \le C_H\sqrt{\frac{q\log p}{n_s^{(k)}}}\right\}, \label{set:g_7_k}\tag{$\mathcal{G}_7^{(k)}$}\\&
+        \left\{\left\|\frac{1}{n_s^{(k)}} X_s^{(k)\top} \varepsilon_s^{(k)}\right\|_{\infty} \le C_\varepsilon \sqrt{\frac{\log p}{n_s^{(k)}}}\right\}, \label{set:g_9_k}\tag{$\mathcal{G}_9^{(k)}$}
+    \end{align}
+    and $\mathcal{G}^{(k)} = \mathcal{G}_2^{(k)}\cap\mathcal{G}_5^{(k)}\cap\mathcal{G}_7^{(k)}\cap\mathcal{G}_9^{(k)}$. Similarly to Lemma \ref{lem:high_probability_set} and \ref{lem:high_probability_set2}, it holds that 
+    \begin{align*}
+    \mathbb{P}\left(\mathcal{G}^{(k)} \right) \ge 1 - p^{-c}.     
+    \end{align*}
+    With the definition of $v^{(k)}$, we have 
+    \begin{align}
+        v^{(k)}=\ &  \left\|\frac{1}{n_t}X_t^\top\left(X_t\left(\beta_t - \hat{\beta}_{\text{init}}^{(k)} - \hat{\eta}^{(k)}\right)+H_t\phi_t+\varepsilon_t\right) \right.\notag\\ & \hspace{3cm}\left.- \frac{1}{n_s^{(k)}}X_s^{(k)\top}\hat{Z}_s^{(k)}+ \left(\frac{1}{n_s^{(k)}}X_s^{(k)\top}\hat{Z}_s^{(k)} - \frac{1}{n_t}X_t^\top \hat{Z}^{(k)}_t \right)\right\|_{\infty}\notag\\ \le\ & 
+        \left\| \mathbb{E}[X^\top H]\left(\phi_t -\phi_s^{(k)}\right)\right\|_{\infty} \notag
+                \\ + \ &
+        \left\|\frac{1}{n_t}X_t^\top\left(X_t\left(\beta_s^{(k)} - \hat{\beta}_{\text{init}}^{(k)}\right)\right) - \frac{1}{n_s^{(k)}}X_s^{(k)\top}\hat{Z}_s^{(k)}+ \frac{1}{n_s^{(k)}} X_s^{(k)\top}H_s^{(k)}\phi_s^{(k)}\right\|_{\infty}\label{term:A_1_k} \tag{$A_1^{(k)}$}
+        \\ +\ & 
+        \left\|\frac{1}{n_t}X_t^\top\left(X_t\left(\beta_t - \beta_s^{(k)}- \hat{\eta}^{(k)}\right)\right) \right\|_{\infty}\label{term:A_2_k} \tag{$A_2^{(k)}$}
+        \\ + \ & \left\|\frac{1}{n_t}X_t^\top \varepsilon_t \right\|_{\infty}\label{term:A_3_k} \tag{$A_3^{(k)}$}
+        \\ + \ & \left\|\frac{1}{n_t}X_t^\top \hat{Z}^{(k)}_t -  \frac{1}{n_s^{(k)}}X_s^{(k)\top}\hat{Z}_s^{(k)}\right\|_{\infty} 
+        \label{term:A_4_k} \tag{$A_4^{(k)}$}
+        \\ + \ & \left\|\left(\frac{1}{n_t}X_t^\top H_t - \frac{1}{n_s^{(k)}} X_s^{(k)\top}H_s^{(k)}\right)\phi_s^{(k)}\right\|_{\infty}  \label{term:A_5_k} \tag{$A_5^{(k)}$}
+        \\ + \ & \left\|\left(\frac{1}{n_t}X_t^\top H_t - \mathbb{E}[X^\top H]\right)\left(\phi_t -\phi_s^{(k)}\right)\right\|_{\infty}\label{term:A_6_k} \tag{$A_6^{(k)}$}. 
+    \end{align}
+
+    For term \ref{term:A_1_k}, it holds that 
+    \begin{align*}
+        & \left\|\frac{1}{n_t}X_t^\top\left(X_t\left(\beta_s^{(k)} - \hat{\beta}_{\text{init}}^{(k)}\right)\right) - \frac{1}{n_s^{(k)}}X_s^{(k)\top}\hat{Z}_s^{(k)}+\frac{1}{n_s^{(k)}} X_s^{(k)\top}H_s^{(k)}\phi_s^{(k)}\right\|_{\infty} \\=\ &   \left\|\frac{1}{n_t}X_t^\top\left(X_t\left(\beta_s^{(k)} - \hat{\beta}_{\text{init}}^{(k)}\right)\right) - \frac{1}{n_s^{(k)}}X_s^{(k)\top}\left(X_s^{(k)}\left(\beta_s^{(k)}- \hat{\beta}_{\text{init}}^{(k)}\right)+ \varepsilon_s^{(k)}\right)\right\|_{\infty}
+        \\\le \ & 
+         \left\|\frac{1}{n_t}X_t^\top X_t - \Sigma_X\right\|_{\infty}\left\|\beta_s^{(k)} - \hat{\beta}_{\text{init}}^{(k)}\right\|_{1} + \left\|\frac{1}{n_s^{(k)}}X_s^{(k)\top}X_s^{(k)} - \Sigma_X\right\|_{\infty}\left\|\beta_s^{(k)}- \hat{\beta}_{\text{init}}^{(k)}\right\|_{1}\\+ \ & 
+         \left\|\frac{1}{n_s^{(k)}}X_s^{(k)\top}\varepsilon_s^{(k)}\right\|_{\infty}
+         \\\le \ & 
+         C_s\left(\sqrt{\frac{\log p}{n_t}}\right),
+    \end{align*}
+    in events \ref{set:g_1},\ref{set:g_2_k},\ref{set:g_9_k}. 
+
+    For term \ref{term:A_2_k}, it holds that 
+    \begin{align*}
+        \left\|\frac{1}{n_t}X_t^\top X_t\left(\beta_t - \beta_s^{(k)}- \hat{\eta}^{(k)}\right)\right\|_{\infty} & \le \left(\left\|\frac{1}{n_t}X_t^\top X_t - \Sigma_X\right\|_{\infty} +\left\|\Sigma_X\right\|_{\infty}\right) \left\|\beta_t - \beta_s^{(k)} - \hat{\eta}^{(k)}\right\|_{1}
+        \\& \le 
+        C\left(\sqrt{\frac{p\|\phi_t-\phi_s^{(k)}\|^2_2}{n_t \lambda_\Psi^2}}\vee \left(\sqrt{q}\|\phi_s^{(k)}\|_2 +1\right)s_\eta\sqrt{\frac{\log p}{n_t}}\right)
+    \end{align*}
+    Here we use Lemma \ref{lem:l1_bound_etak} in the last inequality. 
+    
+    For term \ref{term:A_3_k}, it holds that
+    \begin{align*}
+        \left\|\frac{1}{n_t}X_t^\top \varepsilon_t \right\|_{\infty} \le C_\varepsilon\sqrt{\frac{\log p}{n_t}}
+    \end{align*}
+    in event \ref{set:g_8}. 
+    
+    For term \ref{term:A_4_k}, we have the decomposition
+    \begin{align}
+       \left\|\frac{1}{n_t}X_t^\top \hat{Z}^{(k)}_t -  \frac{1}{n_s^{(k)}}X_s^{(k)\top}\hat{Z}_s^{(k)}\right\|_{\infty} &\le 
+        \left\|\left(\frac{1}{n_t}X_t^\top X_t  -X_s^{(k)\top}X_s^{(k)} \right)\left(\beta_s - \hat{\beta}_{\text{init}}^{(k)}\right)\right\|_{\infty}
+        \label{term:B_1_k} \tag{$B_1^{(k)}$}
+        \\  & + 
+        \left\| \frac{1}{n_s^{(k)}}X_s^{(k)\top}X_s^{(k)} \left(\beta_s^{(k)} - \beta_s^{(k)}\right) \right\|_{\infty}
+        \label{term:B_2_k} \tag{$B_2^{(k)}$}
+        \\ & + 
+        \min_{\omega \in \mathbb{R}^p} \left\|\frac{1}{n_t}X_t^\top X_t \omega - \frac{1}{n_s^{(k)}}X_s^{(k)\top}X_s^{(k)} b_s^{(k)}\right\|_{\infty}
+        \label{term:B_3_k} \tag{$B_3^{(k)}$}
+        \\ & + \left\|\frac{1}{n_s^{(k)}} X_s^{(k)\top}\varepsilon_s^{(k)}\right\|_{\infty}
+        \label{term:B_4_k} \tag{$B_4^{(k)}$}.
+    \end{align}
+    The term \ref{term:B_1_k},\ref{term:B_2_k} and \ref{term:B_4_k} can be bounded in the same way as for term \ref{term:B_1}, \ref{term:B_2} and \ref{term:B_4}  in Theorem 1. 
+    
+    For term \ref{term:B_3_k}, in the event \ref{set:g_4} and \ref{set:g_5_k}, 
+    \begin{align*}
+        \min_{\omega \in \mathbb{R}^p} \left\|\frac{1}{n_t}X_t^\top X_t \omega - \frac{1}{n_s^{(k)}}X_s^{(k)\top}X_s^{(k)} b_s^{(k)}\right\|_{\infty} & \le 
+        \left\|\frac{1}{n_t}X_t^\top H_t \phi_s^{(k)} - \frac{1}{n_s^{(k)}}X_s^{(k)\top}H_s^{(k)} \phi_s^{(k)}\right\|_{\infty}\\&\le 
+        \left\|\frac{1}{n_t}X_t^\top H_t  -\mathbb{E}_H f(H)^\top H \right\|_{2,\infty}\left\|\phi_s^{(k)}\right\|_{2}\\&+
+        \left\|\frac{1}{n_s^{(k)}}X_s^{(k)\top}H_s^{(k)}-\mathbb{E}_H f(H)^\top H  \right\|_{2,\infty}\left\|\phi_s^{(k)}\right\|_{2}\\& \le
+        C_H\left(\sqrt{\frac{q\log p}{n_t}} + \sqrt{\frac{q\log p}{n_s^{(k)}}}\right)\left\|\phi_s^{(k)}\right\|_2. 
+    \end{align*}
+   Then with $n_s^{(k)}\gg n_t$, it holds that
+    \begin{align*}
+         \left\|\frac{1}{n_t}X_t^\top \hat{Z}^{(k)}_t -  \frac{1}{n_s^{(k)}}X_s^{(k)\top}\hat{Z}_s^{(k)}\right\|_{\infty} \le (2C_H\sqrt{q} + C_s)\sqrt{\frac{\log p }{n_t}}\|\phi_s^{(k)}\|_2 + o\left(\sqrt{\frac{\log p}{n_t}}\right).
+    \end{align*}
+
+    For term \ref{term:A_5_k}, it holds that
+    \begin{align*}
+        \left\|\left(\frac{1}{n_t}X_t^\top H_t - \frac{1}{n_s^{(k)}} X_s^{(k)\top}H_s^{(k)}\right)\phi_s^{(k)}\right\|_{\infty}  \le C\|\phi_s^{(k)}\|_2\sqrt{\frac{q\log p}{n_t}},
+    \end{align*}
+    in events \ref{set:g_4},\ref{set:g_5_k},\ref{set:g_6},\ref{set:g_7_k}. 
+
+    For term \ref{term:A_6_k}, it holds that 
+    \begin{align*}
+        \left\|\left(\frac{1}{n_t}X_t^\top H_t - \mathbb{E}[X^\top H]\right)\left(\phi_t -\phi_s^{(k)}\right)\right\|_{\infty} \le C\|\phi_t-\phi_s^{(k)}\|_2\sqrt{\frac{q\log p}{n_t}}. 
+    \end{align*}
+    in events \ref{set:g_4},\ref{set:g_6}.
+
+    So the value $v^{(k)}$ can be upper bounded by 
+    \begin{align*}
+        v^{(k)}&  \le \left\|\mathbb{E}[X^\top H] (\phi_t - \phi_s^{(k)})\right\|_{\infty} + (C_1\sqrt{q}(\|\phi_s^{(k)}\|_2+1) + C_2)(1+s_\eta)\sqrt{\frac{\log p}{n_t}} + C_3 \sqrt{\frac{p\|\phi_t-\phi_s^{(k)}\|^2_2}{n_t \lambda_\Psi^2}}\\& \le 
+        \left(C_4+C_3\sqrt{\frac{p}{n_t\lambda_\Psi^2}}\right) \|\phi_t - \phi_s^{(k)}\|_2 + (C_1\sqrt{q}(\|\phi_s^{(k)}\|_2+1) + C_2)(1+s_\eta)\sqrt{\frac{\log p}{n_t}} \\& \le
+        (C_4 + C_3C_\lambda)\|\phi_t - \phi_s^{(k)}\|_2 + (C_1\sqrt{q}(\|\phi_s^{(k)}\|_2+1) + C_2)(1+s_\eta)\sqrt{\frac{\log p}{n_t}}
+    \end{align*}
+    Similarly, the value $v^{(k)}$ can be lower bounded by 
+    \begin{align*}
+        v^{(k)} & \ge(C_4 - C_3C_\lambda)\|\phi_t - \phi_s^{(k)}\|_2 - (C_1\sqrt{q}(\|\phi_s^{(k)}\|_2+1) + C_2)(1+s_\eta)\sqrt{\frac{\log p}{n_t}}. 
+    \end{align*}
+
+    From Assumption 3, there exist some $k^*$ such that 
+    $\|\phi_t - \phi_s^{(k^*)}\|_2 \le C_\phi \lambda_\Psi^2 p^{-1}\log p$. So
+    \begin{align*}
+        v^{(k^*)} \le (C_4 + C_3C_\lambda)C_\phi \lambda_\Psi^2 p^{-1}\log p + (C_1\sqrt{q}(\|\phi_s^{(k)}\|_2+1) + C_2)(1+s_\eta)\sqrt{\frac{\log p}{n_t}}.
+    \end{align*}
+    Recall the definition of selection source group, for any $k\in \mathcal{I}(\rho)$, we have 
+    \begin{align*}
+        v^{(k)} \le \rho \min_{1\le k\le K} v^{(k)} \le \rho v^{(k^*)}. 
+    \end{align*}
+    So 
+    \begin{align}
+    \label{eq:information_phi}
+         \|\phi_t - \phi_s^{(k)}\|_2 \le C\rho \lambda_\Psi^2p^{-1}\log p + C\rho (\sqrt{q}\|\phi_t\|_2 + 1)s_\eta\sqrt{\frac{\log p}{n_t}}. 
+    \end{align}
+
+    Now we study the properties of $\hat{\eta}^{(\mathcal{I(\rho)})}$ and $\hat{\beta}_t^{(\mathcal{I}(\rho))} = \hat{\eta}^{(\mathcal{I(\rho)})} + \hat{\beta}_s^{(\mathcal{I}(\rho))}$. 
+
+    For $\hat{\eta}^{(\mathcal{I(\rho)})}$, we follow the proof of Lemma \ref{lem:l1_bound_etak}. Define that $\beta_s^{(\mathcal{I}(\rho))}$ is the weighted center of source models in $\mathcal{I}(\rho)$. Because for any $k\in \mathcal{I}(\rho)$, the inequality \eqref{eq:information_phi} holds, we have
+    \begin{align*}
+        \|\hat{\eta}^{(\mathcal{I(\rho)})} - (\beta_t - \beta_s^{(\mathcal{I}(\rho))})\|_1 &\le  C_3 \sqrt{\frac{p\max_{k\in \mathcal{I}(\rho)}\|\phi_t - \phi_s^{(k)}\|^2_2}{n_t\lambda_\Psi^2}} \vee (C_1\sqrt{q}\|\phi_t\|_2+C_2)s_\eta\sqrt{\frac{\log p}{n_t}}\\&\le ((C_1\sqrt{q}\|\phi_t\|_2+C_2)s_\eta + \rho)\sqrt{\frac{\log p}{n_t}},
+    \end{align*}
+    and 
+    \begin{align*}
+        \|\hat{\eta}^{(\mathcal{I(\rho)})} - (\beta_t - \beta_s^{(\mathcal{I}(\rho))})\|_2 \le ((C_1\sqrt{q}\|\phi_t\|_2+C_2)\sqrt{s_\eta} +\rho)\sqrt{\frac{\log p}{n_t}}.
+    \end{align*}
+
+    For $\hat{\beta}_s^{(\mathcal{I}(\rho)}$, from Theorem 2, we have 
+    \begin{align*}
+        \|\hat{\beta}_s^{(\mathcal{I}(\rho)} - \beta_s^{(\mathcal{I}(\rho))}\|_1 &\le C\sqrt{\frac{p\|\phi_t\|_2^2 }{n_s^{(\mathcal{I}(\rho))}\lambda_\Psi^2}}\vee C s\sqrt{\frac{\log p}{n_s^{(\mathcal{I}(\rho))}}},\\
+        \|\hat{\beta}_s^{(\mathcal{I}(\rho)} - \beta_s^{(\mathcal{I}(\rho))}\|_2 &\le C\sqrt{\frac{p\|\phi_t\|_2^2 }{n_s^{(\mathcal{I}(\rho))}\lambda_\Psi^2}}\vee C \sqrt{\frac{s\log p}{n_s^{(\mathcal{I}(\rho))}}}.
+    \end{align*}
+
+    Finally, it holds that
+    \begin{align*}
+        \|\hat{\beta}_t^{(\mathcal{I(\rho)})}  - \beta_t\|_1 &\le C\sqrt{\frac{p\|\phi_t\|_2^2 }{n_s^{(\mathcal{I}(\rho))}\lambda_\Psi^2}}\vee C (s_\eta +\rho)\sqrt{\frac{\log p}{n_t}},\\
+        \|\hat{\beta}_t^{(\mathcal{I(\rho)})}  - \beta_t\|_2 &\le C\sqrt{\frac{p\|\phi_t\|_2^2 }{n_s^{(\mathcal{I}(\rho))}\lambda_\Psi^2}}\vee C (\sqrt{s_\eta}+\rho)\sqrt{\frac{\log p}{n_t}}.
+    \end{align*}
+\end{pf}
+
+
+\subsection{Lemmas for Theorem 4. }
+\begin{lemma}
+    \label{lem:l1_bound_etak}
+    Under the same conditions as in Theorem 4, with probability larger than $1-p^{-c}$, 
+    \begin{align*}
+        \left\|\hat{\eta}^{(k)} - \left(\beta_t - \beta_s^{(k)}\right)\right\|_1 &\le
+         C s_\eta\lambda_t^{(k)} +\frac{1}{\lambda_t^{(k)}}\frac{p\|\phi_t - \phi_s^{(k)}\|^2_2}{n_t\lambda_\Psi^2},\\
+         \left\|\hat{\eta}^{(k)} - \left(\beta_t - \beta_s^{(k)}\right)\right\|_2 &\le
+         C \sqrt{s_\eta}\lambda_t^{(k)} +\frac{1}{\lambda_t^{(k)}}\frac{p\|\phi_t - \phi_s^{(k)}\|^2_2}{n_t\lambda_\Psi^2},
+    \end{align*}
+    where the tuning parameter $\lambda_t^{(k)}$ satisfies that $\lambda_t^{(k)} \ge (c_1\sqrt{q}\|\phi_s^{(k)}\|+c_2)\sqrt{\log p/n_t}+c_3\lambda_\Psi^{-1}\|\phi_t-\phi_s^{(k)}\|_2$ and $C,c_1,c_2,c_3$ are some constants. 
+\end{lemma}
+\begin{pf}{\it of Lemma \ref{lem:l1_bound_etak}. }
+    Define that $\eta^{(k)} = \beta_t -\beta_s^{(k)},\zeta^{(k)} = \phi_t - \phi_s^{(k)}$. Then define that $b^{(k)} = \Sigma_X^{-1}\mathbb{E}[X^\top H]\zeta^{(k)}$, $\mathcal{V}_t = V_t\operatorname{diag}(\min(\tau_t/D_t),1))V_t^\top$ and $\tilde{\mathcal{V}}_s^{(k)} = V_s^{(k)}\operatorname{diag}(\tau_t/D_{s,1:\tau}^{(k)},1_{p-\tau})V_s^{(k)\top}$. So $\tilde{X}_t = X_t\mathcal{V}_t$ and $\tilde{X}_t^\top\tilde{H}_t =\mathcal{V}_t^2 X_t^\top H_t$. Define several events:
+    \begin{align}
+      &  \left\{\left\|\left(\mathcal{V}_t^2 \frac{1}{n_t}X_t^\top X_t - \mathcal{V}^2\Sigma_X \right)\left(\beta_s^{(k)}-\hat{\beta}_{\text{init}}^{(k)}\right)\right\|_{\infty} \le C\sqrt{\frac{\log p}{n_t}}\right\}\label{set:g_13}\tag{$\mathcal{G}_{13}$}, \\
+     & \left\{\left\|\left(\tilde{\mathcal{V}}_s^{(k)2} \frac{1}{n_s^{(k)}}X_s^{(k)\top} X_s^{(k)} - \mathcal{V}^2\Sigma_X \right)\left(\beta_s^{(k)}-\hat{\beta}_{\text{init}}^{(k)}\right)\right\|_{\infty} \le C\sqrt{\frac{\log p}{n_s^{(k)}}}\right\}\label{set:g_13_k}\tag{$\mathcal{G}_{13}^{(k)}$}, \\
+    & \left\{\left\|\left(\mathcal{V}_t^2 \frac{1}{n_t}X_t^\top H_t - \mathcal{V}^2\mathbb{E}[X^\top H] \right)\phi_s^{(k)}\right\|_{\infty} \le C\|\phi_s^{(k)}\|_2\sqrt{\frac{q\log p}{n_t}}\right\}\label{set:g_14}\tag{$\mathcal{G}_{14}$},\\
+    & \left\{\left\|\left(\tilde{\mathcal{V}}_s^2 \frac{1}{n_s^{(k)}}X_s^{(k)\top} H_s^{(k)} - \mathcal{V}^2\mathbb{E}[X^\top H] \right)\phi_s^{(k)}\right\|_{\infty} \le C\|\phi_s^{(k)}\|_2\sqrt{\frac{q\log p}{n_s^{(k)}}}\right\}\label{set:g_14_k}\tag{$\mathcal{G}_{14}^{(k)}$},\\
+        & \left\{\left\|\mathcal{V}_t^2 \frac{1}{n_t} X_t^\top\varepsilon_t\right\|_{\infty} \le C\sqrt{\frac{\log p}{n_t}}\right\}\label{set:g_15}\tag{$\mathcal{G}_{15}$},\\
+    & \left\{\left\|\tilde{\mathcal{V}}_s^{(k)2} \frac{1}{n_s^{(k)}} X_s^{(k)\top}\varepsilon_s^{(k)}\right\|_{\infty} \le C\sqrt{\frac{\log p}{n_s^{(k)}}}\right\}\label{set:g_15_k}\tag{$\mathcal{G}_{15}^{(k)}$},\\
+    & \left\{\left\|\frac{1}{n_t}\tilde{X}_t^\top \left(\tilde{H}_t\zeta^{(k)}-\tilde{X}_t b^{(k)}\right)\right\|_{\infty}\le C_t \frac{1}{\lambda_\Psi} \|\zeta^{(k)}\|_2\right\}\label{set:g_16}\tag{$\mathcal{G}_{16}$}. 
+    \end{align}
+    Define the event $\mathcal{G}^{(k)'} = \mathcal{G}_{13}\cap\mathcal{G}_{13}^{(k)}\cap \mathcal{G}_{14}\cap\mathcal{G}_{14}^{(k)}\cap \mathcal{G}_{15}^{(k)}\cap \mathcal{G}_{16}$. From Lemma \ref{lem:high_probability_set4}, the event $\mathcal{G}^{(k)'}$ happens with a probability 
+    \begin{align*}
+        \mathbb{P}(\mathcal{G}^{(k)'}) \ge 1- p^{-c}. 
+    \end{align*}
+     Recall the definition of $\hat{\eta}^{(k)}$. We have the inequality from lasso,
+    \begin{align*}
+        \frac{1}{n_t}\left\|\tilde{Y}_t - \tilde{X}_t \hat{\beta}_{\text{init}}^{(k)} - \tilde{Z}_t^{(k)} -\tilde{X}_t \hat{\eta}^{(k)}\right\|_2^2 + \lambda_t^{(k)}\|\hat{\eta}^{(k)}\|_1 \le \frac{1}{n_t}\left\|\tilde{Y}_t - \tilde{X}_t \hat{\beta}_{\text{init}}^{(k)} - \tilde{Z}_t^{(k)} - \tilde{X}_t\eta\right\|_2^2 + \lambda_t^{(k)}\|\eta\|_1.  
+    \end{align*}
+    With $\tilde{Y}_t = \tilde{X}_t\beta_t +\tilde{H}_t\phi_t+ \tilde{\varepsilon}_t = \tilde{X}_t(\beta_s^{(k)} +\eta^{(k)}) + \tilde{H}_t(\phi_s^{(k)} +\zeta^{(k)})+ \tilde{\varepsilon}_t$, we have
+    \begin{align*}
+        \frac{1}{n_t}\left\|\tilde{X}_t(\hat{\eta}^{(k)} - \eta^{(k)})\right\|_2^2 & \le
+        \lambda_t^{(k)}(\|\eta^{(k)}\|_1 - \|\hat{\eta}^{(k)}\|_1) -  \frac{2}{n_t}(\hat{\eta}^{(k)} - \eta^{(k)})^\top\tilde{X}_t^\top \tilde{\varepsilon}_t \\& - \frac{2}{n_t}(\hat{\eta}^{(k)} - \eta^{(k)})^\top \tilde{X}_t^\top \left(\tilde{X}_t\left(\beta_s^{(k)}-\hat{\beta}_{\text{init}}^{(k)}\right) +\tilde{H}_t\phi_t - \tilde{Z}_t^{(k)}\right) \\& \le 
+        \lambda_t^{(k)}(\|\eta^{(k)}\|_1 - \|\hat{\eta}^{(k)}\|_1) + 2\|\hat{\eta}^{(k)} - \eta^{(k)}\|_1 \left\|\frac{1}{n_t}\tilde{X}_t^\top \tilde{\varepsilon}_t\right\|_{\infty} \\& +
+        2\|\hat{\eta}^{(k)} - \eta^{(k)}\|_1 \left\|\frac{1}{n_t}\tilde{X}_t^\top\left(\tilde{X}_t\left(\beta_s^{(k)}-\hat{\beta}_{\text{init}}^{(k)}\right) +\tilde{H}_t\phi_s^{(k)}- \tilde{Z}_t^{(k)}\right)\right\|_{\infty}\\& + 
+        2\|\hat{\eta}^{(k)} - \eta^{(k)}\|_1 \left\|\frac{1}{n_t}\tilde{X}_t^\top \left(\tilde{H}_t\zeta^{(k)}-\tilde{X}_t b^{(k)}\right)\right\|_{\infty}\\& +
+        2\left\|\tilde{X}_t(\hat{\eta}^{(k)} - \eta^{(k)})\right\|_2 \left\|\frac{1}{n_t}\tilde{X}_t\zeta^{(k)}\right\|_{2}.
+    \end{align*}
+    
+Consider the term 
+    \begin{equation}
+    \label{eq:trans_error_for_selection}
+        \begin{aligned}
+                   &  \left\|\frac{1}{n_t}\tilde{X}_t^\top\left(\tilde{X}_t\left(\beta_s^{(k)}-\hat{\beta}_{\text{init}}^{(k)}\right) +\tilde{H}_t\phi_s^{(k)}- \tilde{Z}_t^{(k)}\right)\right\|_{\infty} \\ \le\ &  \left\|\mathcal{V}_t^2\left[\frac{1}{n_t}X_t^\top\left(X_t\left(\beta_s^{(k)}-\hat{\beta}_{\text{init}}^{(k)}\right) +H_t\phi_s^{(k)}\right)\right] - \tilde{\mathcal{V}}_s^{(k)2}\frac{1}{n_s^{(k)}}X_s^{(k)\top} \hat{Z}_s^{(k)} \right\|_{\infty}\\ +\ &  \left\|\mathcal{V}_t^2\frac{1}{n_t} X_t^\top\hat{Z}_t - \tilde{\mathcal{V}}_s^{(k)2}\frac{1}{n_s^{(k)}}X_s^{(k)\top} \hat{Z}_s^{(k)}\right\|_{\infty}. 
+        \end{aligned}
+    \end{equation}
+    The first term in the right hand of \eqref{eq:trans_error_for_selection} is 
+    \begin{align*}
+        & \left\|\mathcal{V}_t^2\left[\frac{1}{n_t}X_t^\top\left(X_t\left(\beta_s^{(k)}-\hat{\beta}_{\text{init}}^{(k)}\right) +H_t\phi_s^{(k)}\right)\right] - \tilde{\mathcal{V}}_s^{(k)2}\frac{1}{n_s^{(k)}}X_s^{(k)\top} \hat{Z}_s^{(k)}\right\|_{\infty} \\ =\ & \left\|\left(\mathcal{V}_t^2 \frac{1}{n_t}X_t^\top X_t - \tilde{\mathcal{V}}_s^{(k)2}\frac{1}{n_s^{(k)}}X_s^{(k)\top}X_s^{(k)}\right)\left(\beta_s^{(k)}-\hat{\beta}_{\text{init}}^{(k)}\right)\right\|_{\infty} \\+\ &  \left\|\left(\mathcal{V}_t^2 \frac{1}{n_t}X_t^\top H_t - \tilde{\mathcal{V}}_s^{(k)2}\frac{1}{n_s^{(k)}}X_s^{(k)\top}H_s^{(k)}\right)\phi_s^{(k)}\right\|_{\infty} + \left\|\tilde{\mathcal{V}}_s^{(k)2} \frac{1}{n_s^{(k)}} X_s^{(k)\top}\varepsilon_s^{(k)}\right\|_{\infty},
+    \end{align*}
+    in which the first term is bounded by \ref{set:g_13} and \ref{set:g_13_k}, the second term is bounded by \ref{set:g_14} and \ref{set:g_14_k}, the third term is bounded by \ref{set:g_15_k}. 
+    The second term in the right hand of \eqref{eq:trans_error_for_selection} is 
+    \begin{align*}
+        \left\|\mathcal{V}_t^2\frac{1}{n_t} X_t^\top\hat{Z}_t - \tilde{\mathcal{V}}_s^{(k)2}\frac{1}{n_s^{(k)}}X_s^{(k)\top} \hat{Z}_s^{(k)}\right\|_{\infty} & \le \left\|\left(\mathcal{V}_t^2\frac{1}{n_t}X_t^\top X_t - \tilde{\mathcal{V}}_s^{(k)2}\frac{1}{n_s^{(k)}}X_s^{(k)\top}X_s^{(k)}\right)\left(\beta_s^{(k)} - \hat{\beta}_{\text{init}}^{(k)}\right)\right\|_{\infty}\\ & +
+        \left\|\left(\mathcal{V}_t^2\frac{1}{n_t} X_t^\top H_t-\mathcal{V}_t^2\frac{1}{n_s^{(k)}} X_s^{(k)\top} H_s^{(k)}\right)\phi_s^{(k)} \right\|_{\infty} \\& + 
+        \left\|\tilde{\mathcal{V}}_s^{(k)2} \frac{1}{n_s^{(k)}} X_s^{(k)\top}\varepsilon_s^{(k)}\right\|_{\infty}, 
+    \end{align*}
+    which is similarly bounded in the defined events. So,
+    \begin{align*}
+         \left\|\frac{1}{n_t}\tilde{X}_t^\top\left(\tilde{X}_t\left(\beta_s^{(k)}-\hat{\beta}_{\text{init}}^{(k)}\right) +\tilde{H}_t\phi_s^{(k)}- \tilde{Z}_t^{(k)}\right)\right\|_{\infty} \le (C_1\sqrt{q}\|\phi_s^{(k)}\|_2 + C_2)\sqrt{\frac{\log p}{n_t}}. 
+    \end{align*}
+
+    In event $\mathcal{G}^{(k)'}$, it holds that 
+    \begin{align*}
+        \frac{1}{n_t}\left\|\tilde{X}_t(\hat{\eta}^{(k)} - \eta^{(k)})\right\|_2^2 & \le
+        \lambda_t^{(k)}(\|\eta^{(k)}\|_1 - \|\hat{\eta}^{(k)}\|_1)\\&  + 2\left((C_1\sqrt{q}\|\phi_s^{(k)}\|_2 + C_2)\sqrt{\frac{\log p}{n_t}} +C_t\frac{1}{\lambda_\psi}\|\zeta^{(k)}\|_2\right) \|\hat{\eta}^{(k)} - \eta^{(k)}\|_1 \\& + 
+        2\left\|\tilde{X}_t(\hat{\eta}^{(k)} - \eta^{(k)})\right\|_2 \left\|\frac{1}{n_t}\tilde{X}_t\zeta^{(k)}\right\|_{2}.
+    \end{align*}
+    When $\lambda_t^{(k)}\ge 8 \left((C_1\sqrt{q}\|\phi_s^{(k)}\|_2 + C_2)\sqrt{\log p/n_t} +C_t\lambda_\Psi^{-1}\|\zeta^{(k)}\|_2\right)$, it holds that 
+    \begin{align}
+    \label{eq:eta_lasso_selection}
+        \frac{1}{n_t}\left\|\tilde{X}_t(\hat{\eta}^{(k)} - \eta^{(k)})\right\|_2^2 & \le \lambda_t^{(k)}\|\eta^{(k)}\|_1 - \lambda_t^{(k)}\|\hat{\eta}^{(k)}\|_1 + \frac{\lambda_t^{(k)}}{4}\|\hat{\eta}^{(k)} - \eta^{(k)}\|_1 + \left\|\frac{2}{n_t}\tilde{X}_t\zeta^{(k)}\right\|_{2}\left\|\tilde{X}_t(\hat{\eta}^{(k)} - \eta^{(k)})\right\|_2. 
+    \end{align}
+    The inequality \eqref{eq:eta_lasso_selection} is similar to \eqref{eq:confouning_lasso_inequality}. Follow the proof of Theorem 2, with Assumption 3.a., it holds that
+    \begin{align*}
+        \left\|\hat{\eta}^{(k)} - \eta^{(k)}\right\|_1 &\le C_3 s_\eta\lambda_t^{(k)} +\frac{1}{\lambda_t^{(k)}}\frac{p\|\zeta^{(k)}\|^2_2}{n_t\lambda_\Psi^2},\\
+        \left\|\hat{\eta}^{(k)} - \eta^{(k)}\right\|_2 &\le C_3 \sqrt{s_\eta}\lambda_t^{(k)} +\frac{1}{\lambda_t^{(k)}}\frac{p\|\zeta^{(k)}\|^2_2}{n_t\lambda_\Psi^2}. 
+    \end{align*}
+\end{pf}
+\begin{lemma}
+    \label{lem:high_probability_set4}
+    Under Assumption 1, 2 and 3, the event $\mathcal{G}^{(k)'} = \mathcal{G}_{13}\cap\mathcal{G}_{13}^{(k)}\cap \mathcal{G}_{14}\cap\mathcal{G}_{14}^{(k)}\cap \mathcal{G}_{15}^{(k)}\cap \mathcal{G}_{16}$ happens with a probability 
+    \begin{align*}
+        \mathbb{P}(\mathcal{G}^{(k)'}) \ge 1- p^{-c},
+    \end{align*}
+    for a constant $c>0$.
+\end{lemma}
+\begin{pf}{\it of Lemma \ref{lem:high_probability_set4}. }
+    The probabilities of events \ref{set:g_13} and \ref{set:g_13_k} are bounded by \eqref{eq:trimed_infinity_norm}. The probabilities of events \ref{set:g_14} and \ref{set:g_14_k} are similarly bounded by the proof of \eqref{eq:trimed_infinity_norm} in Lemma \ref{lem:trimed_sample_covariance}.  The probabilities of events \ref{set:g_15} and \ref{set:g_15_k} are similarly bounded like Lemma \ref{lem:trimed_noise_error}. The probability of event \ref{set:g_16} is bounded similarly to Lemma \ref{lem:trimed_uncorelated_bias}. 
+\end{pf}
+
+\section{Theoretical results for the fixed-dimensional scenario}
+\subsection{Model shift estimation}
+We first give some general assumptions under the fixed-dimensional scenario. 
+\begin{assump}
+\label{assum:sup:general_assump}
+    \begin{enumerate}
+    \item[a.] The errors $E_{ti},E_{si}^{(k)}$, the confounders $H_{ti},H_{si}^{(k)}$ and $f(H_{ti}),f(H_{si})^{(k)}$ are i.i.d. sub-Gaussian random variables. 
+        \item[b.] The noise terms $\varepsilon_{ti}, \varepsilon_{si}^{(k)}$ are i.i.d. sub-Gaussian random variables with zero mean and variance $\sigma^2$. 
+        \item[c.] The smallest eigenvalue of $\operatorname{Cov}(X_{ti})$ is larger than a positive constant $C_r>0$.
+        \item[d.] The confounders exert the similar effects on the target and source models, i.e., 
+        \begin{align*}
+            \left\|\frac{1}{n_s}\sum_{k=1}^K n_s^{(k)}\phi_s^{(k)} - \phi_t\right\|_2 \le C\sqrt{\frac{1}{n}},
+        \end{align*}
+        where $C$ is a constant. 
+    \end{enumerate}
+\end{assump}
+The Assumption \ref{assum:sup:general_assump}.a. to c. are general assumptions. The Assumption \ref{assum:sup:general_assump}.e. requires that the average confounding effect in the source models is similar to that in the target model, which is similar to Assumption 1.d. under the high-dimensional scenario. 
+
+\begin{thm}
+    \label{thm:sup:model_shift}
+    Under Assumption \ref{assum:sup:general_assump}, suppose the initial source estimator $\hat{\beta}_{\text{init}}$ for $\beta_s$ satisfies $\|\hat{\beta}_{\text{init}} - \beta_s\|_1 \le C_s$ for a constant $C_s>0$. Then, with probability at least $1-p^{-c}$ for a constant $c>0$, the estimator $\hat{\eta}$ defined in (5) satisfies:
+    \begin{align*}
+        \|\hat{\eta} - \eta_0\|_1 \lesssim s_\eta \lambda_t,\quad \|\hat{\eta} - \eta_0\|_2 \lesssim \sqrt{s_\eta }\lambda_t,\quad \frac{1}{\sqrt{n_t}}\|X_t(\hat{\eta} - \eta_0)\|_2 \lesssim \sqrt{s_\eta} \lambda_t.
+    \end{align*}
+    Here the tuning parameter $\lambda_t$ satisfies $\lambda_t\ge (C'_1\sqrt{q}\|\phi_t\|_2+C_2)n_t^{-1/2}$ for some strictly positive constants $C'_1,C'_2$. 
+\end{thm}
+
+\begin{pf}{\it of Theorem \ref{thm:sup:model_shift}. }
+    Note that now $p$ is fixed which is not increasing with $n$. The logarithm term $\log p$ is now a constant and we still have the bound \eqref{eq:sup:oracle_inequality} that 
+    \begin{align*}
+       \frac{1}{n_t} \left\|X_t\left(\hat{\eta} - \eta_0\right)\right\|_2^2 \le 
+        \lambda_t \|\eta_0\|_1 - \lambda_t \|\hat{\eta}\|_1 + \frac{\lambda_t}{2}\|\hat{\eta} - \eta_0\|_1, 
+    \end{align*}
+    where we set $\lambda_t \ge C'_1\sqrt{q}\|\phi_t\|_2 +C'_2)n_t^{-1/2}$ for some strictly positive constants $C'_1,C'_2$. With the lower bound $C_r$ of the smallest eigenvalue of $\operatorname{Cov}(X_{ti})$, we know that 
+    \begin{align*}
+        \frac{1}{n_t}\|X_t(\hat{\eta} - \eta_0)\|_2^2 &\ge C_r \|\hat{\eta} - \eta_0\|_2^2 - \left|(\hat{\eta} - \eta_0)'\left(\Sigma_X - \frac{1}{n_t}X_t'X_t\right)(\hat{\eta} - \eta_0)\right|\\& \gtrsim
+        C_r\left(1 - \mathcal{O}_p\left(\sqrt{\frac{p}{n_t}}\right)\right) \|\hat{\eta} - \eta_0\|_2^2 \gtrsim \|\hat{\eta} - \eta_0\|_2^2. 
+    \end{align*}
+    The remain proof is similar to that of Theorem 1, noting that now we can treat $p,\log p$ as constants. 
+\end{pf}
+
+\begin{remark}
+    Under the fixed-dimensional setting, the profiled residual transfer (7) can also be replaced by a similar procedure 
+    \begin{align}
+    \label{eq:sup:profiled_fixed_p}
+        \hat{Z}_t^{\text{fix}} = \arg\min_{Z_t\in \mathbb{R}^{n_t}} \left\{\left\|\frac{1}{n_t}X_t^\top Z_t - \frac{1}{n_s}\sum_{k=1}^K X_s^{(k)\top}\hat{Z}_s^{(k)}\right\|_2^2 +\lambda_z \|Z_t\|_2^2 \right\}
+    \end{align}
+    which employs the $l_2$ norm now for some $\lambda_z>0$. One advantage of $\hat{Z}_t^{\text{fix}}$ is that it has a closed-form expression.  A result analogous to Theorem~\ref{thm:sup:model_shift} can be derived when $\hat{Z}_t^{\text{fix}}$ is used as the estimator of the profiled target residual. 
+\end{remark}
+
+\subsection{Target parameter estimation}
+Similar to the high-dimensional case, we estimate $\beta_t$ as $\hat{\beta}_t = \hat{\eta} + \hat{\beta}_s$, where $\hat{\beta}_s$ is an estimator of the source parameter $\beta_s$. For simplicity, we focus on the single source scenario $(K=1)$ here and adopt the estimation method proposed by \cite{tang2023synthetic}, which involves a two-step regression procedure. In the first step, the estimator $\hat{\Psi}$ of $\Psi$ is obtained using maximum likelihood estimation or principal component analysis, and a semi-orthogonal matrix $B_{\hat{\Psi}^{\perp}}$ is constructed, whose columns are orthogonal to the columns of $\hat{\Psi}$. Then the synthetic IV $X_s B_{\hat{\Psi}^{\perp}}$ is regressed out to obtain $\hat{X}_s$, and $\beta_s$ is then estimated by 
+\begin{align*}
+    \hat{\beta}_s = \arg\min_{\beta \in \mathbb{R}^p} \frac{1}{n_s}\left\|Y_s - \hat{X}_s \beta\right\|_2^2,\quad \text{subject to } \|\beta\|_0 \le s,
+\end{align*}
+where $s$ denotes a tuning parameter controlling sparsity.
+\begin{assump}
+\label{assum:sup:source_fixed}
+    \begin{enumerate}
+         \item[a.] The function $f(H) = H\Psi$ for some fixed $\Psi \in \mathbb{R}^{q\times p}$. The errors $E_{ti}, E_{si}$ and the confounders $H_{ti},H_{si}$ are mean zero Gaussian random variables with $\operatorname{Cov}(H_{\cdot i}) = I_q$ and $\operatorname{Cov}(E_{\cdot i}) = D$.
+        \item[b.] The true parameter $\beta_s$ has sparsity $s < p - q $.
+        \item[c.] There exist an estimator $\hat{\Psi}$ and an orthogonal matrix $O\in \mathbb{R}^{q\times q}$ such that 
+        $\|\hat{\Psi} - \Psi O\|_2 \le a_{n_s}$ for some $a_{n_s}\rightarrow 0$ as $n_s\rightarrow \infty$.
+    \end{enumerate}
+\end{assump}
+
+\begin{thm}
+    \label{thm:sup:target_estimation}
+    Under Assumptions \ref{assum:sup:general_assump} and \ref{assum:sup:source_fixed}, with probability at least $1-p^{-c}$ for a constant $c>0$, the estimator $\hat{\beta}_t$ satisfies 
+    \begin{align*}
+       \|\hat{\beta}_t - \beta_t\|_1 \lesssim n_t^{-1/2} \vee a_{n_s} \vee n_s^{-1/2},\quad \|\hat{\beta}_t - \beta_t\|_2 \lesssim n_t^{-1/2} \vee a_{n_s} \vee n_s^{-1/2},
+    \end{align*}
+    when we set $\lambda_t$ in the model shift estimation as $\lambda_t \asymp n_t^{-1/2}$. 
+\end{thm}
+
+\begin{pf}{\it of Theorem \ref{thm:sup:target_estimation}. }
+    Theorem 2 in \cite{tang2023synthetic} shows that 
+    \begin{align*}
+        \|\hat{\beta}_s - \beta_s\|_1 = \mathcal{O}_p(n_s^{-1/2})
+    \end{align*}
+    when $a_{n_s} \le C n_s^{-1/2}$ for some constant C. When $n_s^{1/2}a_{n_s}\rightarrow \infty$, we can use only $a_{n_s}^{-2}$ data in the source dataset. Still from Theorem 2 in \cite{tang2023synthetic}, we have
+    \begin{align*}
+        \|\hat{\beta}_s - \beta_s\|_1 = \mathcal{O}_p(a_{n_s}). 
+    \end{align*}
+    Combine this with Theorem \ref{thm:sup:model_shift} and set $\lambda_t \asymp n_t^{-1/2}$, we have 
+    \begin{align*}
+        \|\hat{\beta}_t - \beta_t\|_1 \lesssim n_t^{-1/2} \vee a_{n_s} \vee n_s^{-1/2}.
+    \end{align*}
+    Due to the fixed dimensional $p$, this also holds for $l_2$ norm. 
+\end{pf}
+
+\begin{remark}
+    When directly using the target data or applying classical transfer learning methods, the available upper bound is $n_t^{-1/2}\vee a_{n_t} \vee n_s^{-1/2}$. Compared with our approach, when the convergence of $\hat{\Psi}$ is slow, these methods are constrained by the slower rate $a_{n_t}$. In contrast, our method can still achieve the optimal rate of $n_t^{-1/2}$ once $n_s$ is sufficiently large. This finding is consistent with results under the high-dimensional setting, further demonstrating the generality of the proposed profiled transfer learning framework.
+\end{remark}
+
+
+\section{Implementation Details}
+In this section, we describe the estimation and implementation procedures. For the source estimator $\hat{\beta}_s$, we adopt the standard lasso with cross-fitting as implemented in the R package \textit{glmnet} in the high-dimensional setting. In the fixed-$p$ regime, we follow the approach proposed in \cite{tang2023synthetic}. The number of confounders is estimated via maximum likelihood under a Gaussian assumption, and the estimator $\hat{\beta}_s$ is obtained through a model selection procedure with $l_0$ constraints.
+
+For the model shift estimator $\hat{\eta}$, we again apply the standard lasso to the pseudo-response $Y_t - X_t \hat{\beta}_{\text{init}} - \hat{Z}_t$. To implement the profiled residual transfer, the optimization problem
+\begin{align*}
+    \hat{Z}_t = \argmin_{Z_t \in \mathbb{R}^{n_t}}\left\{\left\|\frac{1}{n_t}X_t^\top Z_t - \frac{1}{n_s}\sum_{k=1}^K X_s^{(k)\top}\hat{Z}_s^{(k)}\right\|_{\infty}\right\}
+\end{align*}
+can be reformulated as a linear program:
+\begin{align*}
+    \hat{z} = \argmin_{0\preceq z\in \mathbb{R}^{2n_t+1}} \alpha^\top z,\quad \operatorname{s.t.} Az\le b,
+\end{align*}
+where 
+\begin{align*}
+   \alpha = \left(\begin{matrix}0_{2n_t}\\1\\\end{matrix}\right),\quad A = \left(\begin{matrix}\frac{1}{n_t}X_t^\top&-\frac{1}{n_t}X_t^\top&-1\\-\frac{1}{n_t}X_t^\top&\frac{1}{n_t}X_t^\top&-1\\\end{matrix}\right),\quad b = \left(\begin{matrix}\frac{1}{n_s}\sum_{k=1}^K X_s^{(k)\top}\hat{Z}_s^{(k)}\\-\frac{1}{n_s}\sum_{k=1}^K X_s^{(k)\top}\hat{Z}_s^{(k)}\\\end{matrix}\right).
+\end{align*}
+This problem can be efficiently solved using interior-point algorithms, yielding 
+$$\hat{Z}_t =\hat{z}_{[1:n_t]} - \hat{z}_{[n_t+1:2n_t]}.$$
+
+\section{Additional Simulation}
+
+\subsection{Fixed-dimensional scenario}
+In parallel with the high-dimensional setting discussed in the main text, we conduct additional simulations for a fixed-dimensional scenario. We consider the linear confounding structure $X_l = H_l^\top \Psi + E_l$ for $l=s,t$ and generate the source and target data $(X_{li},Y_{li})$ using the same mechanism as in the main text. The covariate dimension is fixed at $p=10$, which is much smaller than the sample size. 
+
+In the single-source case, the true source coefficient is defined as $\beta_s = 2\sum_{i=1}^3 e_i$ where $e_i \in \mathbb{R}^p$ is the vector with the $i$-th entry equals to one and all other entries equal to zero. The target coefficient is given by $\beta_t = \beta_s + \eta_0$ where the different $\eta_0 = -4e_1 + 2e_p$.  In the multi-source case, the number of sources is set to $K=3$ with a  sample size $n_s^{(k)} = 200$ for $1\le k\le 3$. The coefficient for the $k$-th source is defined as $\beta_s^{(k)} = 2\sum_{i=1}^3 e_i + e_k$ and other settings are the identical with those in the single-source case. 
+
+For the fixed-dimensional setting, we estimate the source models using synthetic two-stage regularized regression \citep{tang2023synthetic}, and apply the profiled residual transfer in equation \eqref{eq:sup:profiled_fixed_p}, which is computationally more efficient in low-dimensional problems. We compare our method with two baselines. Baseline 1 directly estimates both the source and target models using the approach of \cite{tang2023synthetic}. Baseline 2 first estimates the source coefficient $\hat{\beta}_s$ using the same approach and then applies \cite{tang2023synthetic} to the transferred target data $(X_t,Y_t-X_t\hat{\beta}_s)$. 
+
+Tables \ref{tab:sup:fixed_p_l2} and \ref{tab:sup:fixed_p_l1} show the performance of our method and the baseline approaches, demonstrating that our method also outperforms the alternatives in the fixed-dimensional setting.
+
+
+\begin{table}[!ht]
+\renewcommand{\arraystretch}{0.6}
+% \setlength{\tabcolsep}{4pt}
+\footnotesize
+    \centerfloat
+    \caption{The $l_2$ norm errors of different methods under the fixed-dimensional scenario.}
+    \label{tab:sup:fixed_p_l2}
+    \begin{tabular}{cccccc}
+        \toprule
+        \multirow{2}{*}{$\bm{p}$} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{2}{c}{\textbf{single-source}} & \multicolumn{2}{c}{\textbf{multi-source}}\\
+        \cmidrule(lr){3-4} \cmidrule(lr){5-6} 
+        & & $\eta$ & $\beta_{t}$ & $\eta$& $\beta_{t}$ \\
+        \midrule
+        \multirow{3}{*}{10} 
+        & Baseline 1 & $0.7757\ (0.2517)$  & $0.7841\ (0.2430)$ & $0.7741\ (0.2361)$ & $0.7786\ (0.2309)$ \\ 
+        & Baseline 2 & $0.3606\ (0.0025)$  & $0.3694\ (0.0028)$ & $0.3571\ (0.0025)$ & $0.3706\ (0.0028)$ \\ 
+        & ProTrans    & $\bm{0.2794}\ (0.0019)$ & $\bm{0.3471}\ (0.0035)$ & $\bm{0.2767}\ (0.0018)$ & $\bm{0.3307}\ (0.0026)$ \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
+
+\begin{table}[!ht]
+\renewcommand{\arraystretch}{0.6}
+% \setlength{\tabcolsep}{4pt}
+\footnotesize
+    \centerfloat
+    \caption{The $l_1$ norm errors of different methods under the fixed-dimensional scenario.}
+    \label{tab:sup:fixed_p_l1}
+    \begin{tabular}{cccccc}
+        \toprule
+        \multirow{2}{*}{$\bm{p}$} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{2}{c}{\textbf{single-source}} & \multicolumn{2}{c}{\textbf{multi-source}}\\
+        \cmidrule(lr){3-4} \cmidrule(lr){5-6} 
+        & & $\eta$ & $\beta_{t}$ & $\eta$& $\beta_{t}$ \\
+        \midrule
+        \multirow{3}{*}{10} 
+        & Baseline 1 & $1.5060\ (0.2517)$  & $1.5263\ (0.2430)$ & $1.4803\ (1.1537)$ & $1.4909\ (1.1284)$ \\ 
+        & Baseline 2 & $0.6852\ (0.0025)$  & $0.7708\ (0.0028)$ & $0.6759\ (0.0125)$ & $0.7706\ (0.0155)$ \\ 
+        & ProTrans    & $\bm{0.4409}\ (0.0019)$ & $\bm{0.6477}\ (0.0035)$ & $\bm{0.4271}\ (0.0060)$ & $\bm{0.6036}\ (0.0154)$ \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Sensitivity analysis of the initial estimator}
+We show that our method is robust to the choice of the initial estimator $\hat{\beta}_{\text{init}}$, as the condition in Theorem 1 shown. Besides from the used lasso initial estimator in our simulations, we consider some other initial estimators which are the perturbations of the lasso initial estimator. We consider two different perturbation forms, the first has the same sparsity pattern but perturbed non-zero values; the second has some new non-zero elements compared to the lasso initial estimator. In detail, in the first one, we add independent normal distribution perturbations with mean zero and standard deviation 0.5 in each non-zero position. In the second one, we randomly select 50 new position and add this perturbation to those selected position. Results are reported in the Tables \ref{tab:our_only_vary_p_l2},\ref{tab:our_only_vary_p_l1},\ref{tab:our_only_vary_phi_l2},\ref{tab:our_only_vary_phi_l1} as the average of 100 times repeat with other settings the same as the simulation in our main text. The results show that the performance of our method is indeed not sensitive to the selection of initial estimator. 
+
+
+\begin{table}[!ht]
+\renewcommand{\arraystretch}{0.6}
+\footnotesize
+\centerfloat
+\caption{The $l_2$ norm errors of ProTrans under different initial estimators when varying dimension $p$.}
+\label{tab:our_only_vary_p_l2}
+    \begin{tabular}{cccccc}
+        \toprule
+        \multirow{2}{*}{$\bm{p}$} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{2}{c}{\textbf{single-source}} & \multicolumn{2}{c}{\textbf{multi-source}}\\
+        \cmidrule(lr){3-4} \cmidrule(lr){5-6} 
+        & & $\eta$ & $\beta_{t}$ & $\eta$& $\beta_{t}$ \\
+        \midrule
+        \multicolumn{6}{c}{\textbf{Scenario 1 (Linear)}}\\
+        \hline
+        \multirow{3}{*}{500} 
+        & Lasso initial & $0.2460\ (0.0165)$  & $0.2502\ (0.0165)$ & $0.1965\ (0.0121)$ & $0.2167\ (0.0107)$ \\ 
+        & Perturbation 1 & 0.2353 (0.0161) &  0.2441 (0.0158) & 0.1952 (0.0128)  & 0.2175 (0.0110) \\ 
+        & Perturbation 2  & 0.2622 (0.0171)  & 0.2644 (0.0173) & 0.2037 (0.0121)  & 0.2232 (0.0107) \\
+        \hline
+        \multirow{3}{*}{1000} 
+        & Lasso initial & $0.2480\ (0.0148)$  & $0.2422\ (0.0129)$ & $0.2143\ (0.0109)$ & $0.2160\ (0.0088)$ \\ 
+        & Perturbation 1  & 0.2361 (0.0136) & 0.2350 (0.0123) & 0.2076 (0.0102)  & 0.2119 (0.0081) \\ 
+        & Perturbation 2   & 0.2543 (0.0133)& 0.2478 (0.0119)& 0.2328 (0.0125) & 0.2314 (0.0100) \\
+        \hline
+        \multirow{3}{*}{1500} 
+        & Lasso initial & $0.2477\ (0.0156)$  & $0.2364\ (0.0137) $ & $0.1989\ (0.0103) $ & $0.1990\ (0.0090)$ \\ 
+        & Perturbation 1 & 0.2463 (0.0165)  & 0.2376 (0.0146) & 0.2016 (0.0105) & 0.2019 (0.0092) \\ 
+        & Perturbation 2   & 0.2716 (0.0169)  & 0.2570 (0.0149)& 0.2287 (0.0120) & 0.2212 (0.0103) \\
+        \hline
+        \multirow{3}{*}{2000} 
+        & Lasso initial & $0.2894\ (0.0173)$  & $0.2706\ (0.0150)$ & $0.2213\ (0.0106)$ & $0.2185\ (0.0092)$ \\ 
+        & Perturbation 1 & 0.2778 (0.0172) & 0.2617 (0.0150)& 0.2153 (0.0095) & 0.2140 (0.0081)  \\ 
+        & Perturbation 2   & 0.3064 (0.0179)  & 0.2843 (0.0155)& 0.2497 (0.0106)& 0.2404 (0.0092) \\
+        \hline
+         \multicolumn{6}{c}{\textbf{Scenario 2 (Nonlinear)}}\\
+        \hline
+        \multirow{3}{*}{500} 
+        & Lasso initial & $0.6301\ (0.0599)$  & $0.7037\ (0.0657)$ & $0.4209\ (0.0449) $ & $0.5159\ (0.0455)$ \\ 
+        & Perturbation 1 & 0.7418 (0.0722)  & 0.7969 (0.0751) & 0.4504 (0.0379)  & 0.5381 (0.0401) \\ 
+        & Perturbation 2  & 0.7045 (0.0668) & 0.7651 (0.0706) & 0.4365 (0.0354)  & 0.5267 (0.0376) \\
+        \hline
+        \multirow{3}{*}{1000} 
+        & Lasso initial & $0.6330\ (0.0438)$  & $0.6231\ (0.0400)$ & $0.5221\ (0.0449)$ & $0.5329\ (0.0455)$ \\ 
+        & Perturbation 1 & 0.7689 (0.0640) & 0.7386 (0.0570)& 0.5624 (0.0457)  & 0.5637 (0.0386) \\ 
+        & Perturbation 2 & 0.7062 (0.0477)  & 0.6854 (0.0435) & 0.5636 (0.0447)  & 0.5651 (0.0372) \\
+        \hline
+        \multirow{3}{*}{1500} 
+        & Lasso initial & $0.6042\ (0.0368) $  & $0.5776\ (0.0351)$ & $0.5348\ (0.0449)$ & $0.5207\ (0.0455)$ \\ 
+        & Perturbation 1  & 0.6675 (0.0406)& 0.6267 (0.0376) & 0.5936 (0.0399) & 0.5683 (0.0359) \\
+        & Perturbation 2    & 0.6433 (0.0376)  & 0.6103 (0.0360)& 0.5888 (0.0388) & 0.5635 (0.0341) \\
+        \hline
+        \multirow{3}{*}{2000} 
+        & Lasso initial & $0.6586\ (0.0449)$  & $0.6497\ (0.0455)$ & $0.5187\ (0.1853)$ & $0.5206\ (0.1732)$ \\ 
+        & Perturbation 1 & 0.7067 (0.0500) & 0.6881 (0.0499) & 0.5784 (0.0369) & 0.5683 (0.0343) \\ 
+        & Perturbation 2    & 0.7296 (0.0467)  & 0.7085 (0.0466) & 0.6218 (0.0359) & 0.6027 (0.0329) \\
+        \hline 
+         \multicolumn{6}{c}{\textbf{Scenario 3 (Nonlinear)}}\\
+        \hline
+       \multirow{3}{*}{500} 
+        & Lasso initial & $1.0273\ (0.0972)$  & $1.1476\ (0.1070)$ & $0.6867\ (0.0652)$ & $0.8084\ (0.0678)$ \\ 
+        & Perturbation 1 & 1.0565 (0.1060)  & 1.1794 (0.1124) & 0.7099 (0.0656)  & 0.8169 (0.0676) \\ 
+        & Perturbation 2  & 1.0608 (0.1069) & 1.1817 (0.1144)& 0.6910 (0.0608) & 0.8085 (0.0648) \\
+        \hline
+        \multirow{3}{*}{1000} 
+        & Lasso initial & $0.8309\ (0.0761)$  & $0.8661\ (0.0705)$ & $0.6457\ (0.0518)$ & $0.6869\ (0.0463)$ \\ 
+        & Perturbation 1  & 0.8712 (0.0783)  & 0.8981 (0.0715) & 0.6570 (0.0520) & 0.6884 (0.0460) \\
+        & Perturbation 2  & 0.8490 (0.0718) & 0.8817 (0.0663) & 0.6547 (0.0507) & 0.6878 (0.0438) \\
+        \hline
+        \multirow{3}{*}{1500} 
+        & Lasso initial & $0.7191\ (0.0497)$  & $0.7511\ (0.0523) $ & $0.6389\ (0.0440)$ & $0.6539\ (0.0430)$ \\ 
+        & Perturbation 1  & 0.7548 (0.0494) & 0.7787 (0.0517) & 0.6660 (0.0444) & 0.6742 (0.0432) \\
+        & Perturbation 2  & 0.7592 (0.0494) & 0.7844 (0.0518)& 0.6699 (0.0464) & 0.6792 (0.0455) \\
+        \hline
+        \multirow{3}{*}{2000} 
+        & Lasso initial & $0.8115\ (0.0597)$  & $0.8480\ (0.0625)$ & $0.6699\ (0.0503)$ & $0.6975\ (0.0503)$ \\ 
+        & Perturbation 1 & 0.8320 (0.0621) & 0.8636 (0.0618)& 0.7126 (0.0538) & 0.7326 (0.0529) \\
+        & Perturbation 2  & 0.8769 (0.0665) & 0.9014 (0.0672) & 0.7178 (0.0517) & 0.7326 (0.0515) \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
+
+\begin{table}[!ht]
+\renewcommand{\arraystretch}{0.6}
+\footnotesize
+\centerfloat
+\caption{The $l_1$ norm errors of ProTrans under different initial estimators when varying dimension $p$.}
+\label{tab:our_only_vary_p_l1}
+    \begin{tabular}{cccccc}
+        \toprule
+        \multirow{2}{*}{$\bm{p}$} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{2}{c}{\textbf{single-source}} & \multicolumn{2}{c}{\textbf{multi-source}}\\
+        \cmidrule(lr){3-4} \cmidrule(lr){5-6} 
+        & & $\eta$ & $\beta_{t}$ & $\eta$& $\beta_{t}$ \\
+        \midrule
+        \multicolumn{6}{c}{\textbf{Scenario 1 (Linear)}}\\
+        \hline
+        \multirow{3}{*}{500} 
+        & Lasso initial & 0.7323 (0.0302) &1.1414 (0.0396) &0.6824 (0.0244) &1.1273 (0.0318) \\ 
+        & Perturbation 1 & 0.7292 (0.0291) & 1.1401 (0.0394) & 0.6887 (0.0231) & 1.1392 (0.0309) \\
+        & Perturbation 2  & 0.7788 (0.0305)  & 1.1830 (0.0399) & 0.7063 (0.0229) & 1.1501 (0.0301) \\
+        \hline
+        \multirow{3}{*}{1000} 
+        & Lasso initial &0.7811 (0.0230)& 1.1831 (0.0322)& 0.7450 (0.0297) & 1.1530 (0.0320) \\ 
+        & Perturbation 1  & 0.7574 (0.0246) & 1.1612 (0.0340)  & 0.7208 (0.0305) & 1.1296 (0.0332) \\
+        & Perturbation 2   & 0.7880 (0.0285)  & 1.1921 (0.0372) & 0.7621 (0.0271) & 1.1686 (0.0298) \\
+        \hline
+        \multirow{3}{*}{1500} 
+        & Lasso initial &0.8181 (0.0366) &1.1786 (0.0400) &0.7390 (0.0273) &1.1138 (0.0306) \\ 
+        & Perturbation 1  & 0.8518 (0.0415) & 1.2104 (0.0454) & 0.7214 (0.0267)& 1.0954 (0.0304) \\
+        & Perturbation 2   & 0.8659 (0.0333) & 1.2228 (0.0362) & 0.7611 (0.0251) & 1.1349 (0.0283) \\
+        \hline
+        \multirow{3}{*}{2000} 
+        & Lasso initial &0.8555 (0.0285) &1.2593 (0.0337) &0.7716 (0.0183) &1.1731 (0.0235) \\ 
+        & Perturbation 1 & 0.8101 (0.0253) & 1.2092 (0.0302) & 0.7261 (0.0168) & 1.1294 (0.0216) \\ 
+        & Perturbation 2  & 0.8675 (0.0246)& 1.2678 (0.0299) & 0.8024 (0.0227) & 1.2039 (0.0265) \\
+        \hline
+         \multicolumn{6}{c}{\textbf{Scenario 2 (Nonlinear)}}\\
+        \hline
+        \multirow{3}{*}{500} 
+        & Lasso initial &1.2316 (0.0764) &2.0804 (0.1216) &1.0156 (0.0416) &1.7158 (0.0573) \\ 
+        & Perturbation 1 & 1.2658 (0.0738) & 2.1177 (0.1212) & 1.0777 (0.0472) & 1.7771 (0.0635) \\
+        & Perturbation 2  & 1.2654 (0.0734) & 2.1172 (0.1189)  & 1.0371 (0.0405) & 1.7338 (0.0552) \\
+        \hline
+        \multirow{3}{*}{1000} 
+        & Lasso initial &1.3256 (0.0549) &2.0054 (0.0810) &1.1863 (0.0424) &1.7965 (0.0502)\\ 
+        & Perturbation 1 & 1.3713 (0.0488) & 2.0582 (0.0785)  & 1.2153 (0.0443) & 1.8251 (0.0526)\\
+        & Perturbation 2 & 1.3655 (0.0494) & 2.0482 (0.0824)  & 1.2516 (0.0492) & 1.8600 (0.0564) \\
+        \hline
+        \multirow{3}{*}{1500} 
+        & Lasso initial &1.3296 (0.0616) &1.9504 (0.0813) &1.2620 (0.0567) &1.8184 (0.0653) \\ 
+        & Perturbation 1 & 1.4054 (0.0555) & 2.0151 (0.0769)  & 1.2734 (0.0471)  & 1.8342 (0.0557) \\
+        & Perturbation 2 & 1.4143 (0.0652) & 2.0256 (0.0837) & 1.3371 (0.0551) & 1.8920 (0.0623) \\
+        \hline
+        \multirow{3}{*}{2000} 
+        & Lasso initial &1.3190 (0.0449) &2.2082 (0.1429) &1.2690 (0.0394) &1.8669 (0.0512) \\ 
+        & Perturbation 1 & 1.3455 (0.0416) & 2.2355 (0.1418)  & 1.3337 (0.0485) & 1.9354 (0.0596) \\ 
+        & Perturbation 2 & 1.4505 (0.0543) & 2.3338 (0.1450) & 1.3725 (0.0430) & 1.9744 (0.0523) \\
+        \hline 
+         \multicolumn{6}{c}{\textbf{Scenario 3 (Nonlinear)}}\\
+        \hline
+       \multirow{3}{*}{500} 
+        & Lasso initial &1.5494 (0.1107) &2.6031 (0.1526) &1.2525 (0.0601) &2.0885 (0.0828) \\ 
+        & Perturbation 1  & 1.4941 (0.0806) & 2.5533 (0.1315) & 1.2479 (0.0622) & 2.0754 (0.0836) \\
+        & Perturbation 2  & 1.5111 (0.0912) & 2.5750 (0.1424)  & 1.2406 (0.0552) & 2.0697 (0.0780) \\
+        \hline
+        \multirow{3}{*}{1000} 
+        & Lasso initial &1.3993 (0.0621) &2.2363 (0.0907) &1.2847 (0.0638) &2.0212 (0.0773) \\ 
+        & Perturbation 1  & 1.3747 (0.0557) & 2.2033 (0.0853)& 1.2093 (0.0466)  & 1.9417 (0.0635)\\
+        & Perturbation 2 & 1.4546 (0.0729) & 2.2881 (0.1001) & 1.2559 (0.0481) & 1.9860 (0.0616) \\
+        \hline
+        \multirow{3}{*}{1500} 
+        & Lasso initial &1.4337 (0.0781) &2.2278 (0.1074) &1.2024 (0.0520) &1.8801 (0.0694) \\ 
+        & Perturbation 1 & 1.4215 (0.0726) & 2.2113 (0.1028)  & 1.2404 (0.0558) & 1.9183 (0.0721)\\
+        & Perturbation 2 & 1.4849 (0.0897) & 2.2750 (0.1153) & 1.2856 (0.0578) & 1.9601 (0.0750) \\
+        \hline
+        \multirow{3}{*}{2000} 
+        & Lasso initial &1.3983 (0.0547) &2.3879 (0.1489) &1.3113 (0.0521) &2.0372 (0.0683) \\ 
+        & Perturbation 1 & 1.4380 (0.0608) & 2.4190 (0.1539) & 1.3124 (0.0487)& 2.0417 (0.0659) \\
+        & Perturbation 2& 1.4785 (0.0618)& 2.4651 (0.1519) & 1.3576 (0.0586) & 2.0806 (0.0717) \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
+\begin{table}[!ht]
+\renewcommand{\arraystretch}{0.6}
+\footnotesize
+\centerfloat
+\caption{The $l_2$ norm errors of ProTrans under different initial estimators across various levels of confounding.}
+\label{tab:our_only_vary_phi_l2}
+    \begin{tabular}{cccccc}
+        \toprule
+        \multirow{2}{*}{$\|\phi_t\|_2$} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{2}{c}{\textbf{single-source}} & \multicolumn{2}{c}{\textbf{multi-source}}\\
+        \cmidrule(lr){3-4} \cmidrule(lr){5-6} 
+        & & $\eta$ & $\beta_{t}$ & $\eta$& $\beta_{t}$ \\
+        \midrule
+        \multicolumn{6}{c}{\textbf{Scenario 1 (Linear)}}\\
+        \hline
+        \multirow{3}{*}{1} 
+        & Lasso initial &0.2477 (0.0156) &0.2364 (0.0137) &0.1989 (0.0103) &0.1990 (0.0090)\\
+        & Perturbation 1& 0.2463 (0.0165)  & 0.2376 (0.0146)& 0.2016 (0.0105)  & 0.2019 (0.0092) \\ 
+        & Perturbation 2 & 0.2716 (0.0169) & 0.2570 (0.0149)& 0.2287 (0.0120) & 0.2212 (0.0103) \\
+        \hline
+        \multirow{3}{*}{2} 
+        & Lasso initial & 0.5908 (0.0440) &0.5682 (0.0399) &0.3678 (0.0231) &0.3612 (0.0219)\\ 
+        & Perturbation 1  & 0.5956 (0.0477) & 0.5740 (0.0435)& 0.3754 (0.0235) & 0.3689 (0.0223)  \\ 
+        & Perturbation 2  & 0.5990 (0.0471)  & 0.5747 (0.0431) & 0.3911 (0.0239) & 0.3799 (0.0222) \\
+        \hline
+        \multirow{3}{*}{3} 
+        & Lasso initial & 1.1383 (0.0919) &1.1047 (0.0846) &0.6171 (0.0426) & 0.6081 (0.0409) \\ 
+        & Perturbation 1 & 1.1625 (0.1019) & 1.1302 (0.0940) & 0.6164 (0.0417) &0.6066 (0.0403)\\ 
+        & Perturbation 2  & 1.1503 (0.0976) & 1.1140 (0.0897) & 0.6404 (0.0444) & 0.6258 (0.0424)  \\
+        \hline
+        \multirow{3}{*}{4} 
+        & Lasso initial & 1.9081 (0.1599)& 1.8653 (0.1472) &0.9478 (0.0732) &0.9452 (0.0711)\\ 
+        & Perturbation 1 & 1.9230 (0.1634) & 1.8834 (0.1518) & 0.9974 (0.0747) & 0.9786 (0.0718)  \\ 
+        & Perturbation 2 & 1.9385 (0.1724) & 1.8910 (0.1587)& 0.9912 (0.0745) & 0.9798 (0.0724) \\
+        \hline
+         \multicolumn{6}{c}{\textbf{Scenario 2 (Nonlinear)}}\\
+        \hline
+        \multirow{3}{*}{1} 
+        & Lasso initial & 0.1251 (0.0061) &0.1197 (0.0050) &0.1495 (0.0215) &0.1621 (0.0239) \\ 
+        & Perturbation 1 & 0.1340 (0.0067)  & 0.1271 (0.0056) & 0.1529 (0.0073) & 0.1647 (0.0057) \\ 
+        & Perturbation 2  & 0.1669 (0.0077)& 0.1542 (0.0064)& 0.1926 (0.0105)  & 0.1942 (0.0081) \\
+        \hline
+        \multirow{3}{*}{2} 
+        & Lasso initial & 0.1522 (0.0075) &0.1446 (0.0064) &0.1802 (0.0168) &0.1861 (0.0207) \\ 
+        & Perturbation 1  & 0.1574 (0.0078) & 0.1490 (0.0066) & 0.1868 (0.0089) & 0.1914 (0.0073) \\ 
+        & Perturbation 2 & 0.1935 (0.0089) & 0.1783 (0.0076) & 0.2238 (0.0114)  & 0.2188 (0.0089)  \\
+        \hline
+        \multirow{3}{*}{3} 
+        & Lasso initial & 0.1855 (0.0094) &0.1771 (0.0082) &0.2179 (0.0135) &0.2194 (0.0179) \\ 
+        & Perturbation 1  & 0.1960 (0.0100) & 0.1861 (0.0088) & 0.2213 (0.0109) & 0.2214 (0.0091) \\
+        & Perturbation 2 & 0.2280 (0.0104) & 0.2111 (0.0090)& 0.2611 (0.0134) & 0.2514 (0.0105)  \\
+        \hline
+        \multirow{3}{*}{4} 
+        & Lasso initial & 0.2315 (0.0118) &0.2219 (0.0106) &0.2618 (0.0076) &0.2596 (0.0131) \\ 
+        & Perturbation 1  & 0.2409 (0.0126)  & 0.2299 (0.0115)& 0.2753 (0.0147) &0.2693 (0.0127)\\ 
+        & Perturbation 2  & 0.2776 (0.0136) & 0.2588 (0.0120)& 0.3121 (0.0169) & 0.2972 (0.0136) \\
+        \hline 
+         \multicolumn{6}{c}{\textbf{Scenario 3 (Nonlinear)}}\\
+        \hline
+       \multirow{3}{*}{1} 
+        & Lasso initial & 0.1283 (0.0060)& 0.1223 (0.0050) &0.1344 (0.0068) &0.1447 (0.0055) \\ 
+        & Perturbation 1 & 0.1300 (0.0061) & 0.1242 (0.0050) & 0.1342 (0.0062) & 0.1446 (0.0052)\\ 
+        & Perturbation 2 & 0.1530 (0.0072)  & 0.1425 (0.0062)& 0.1926 (0.0105) & 0.1942 (0.0081)  \\
+        \hline
+        \multirow{3}{*}{2} 
+        & Lasso initial  & 0.1610 (0.0078) &0.1548 (0.0068) &0.1632 (0.0077) & 0.1716 (0.0066)\\ 
+        & Perturbation 1 & 0.1620 (0.0085) & 0.1562 (0.0074) & 0.1654 (0.0075) & 0.1730 (0.0064) \\
+        & Perturbation 2  & 0.1880 (0.0097) & 0.1767 (0.0085) & 0.2238 (0.0114) & 0.2188 (0.0089) \\
+        \hline
+        \multirow{3}{*}{3} 
+        & Lasso initial & 0.2146 (0.0114)& 0.2099 (0.0106)& 0.2072 (0.0102) &0.2134 (0.0092) \\ 
+        & Perturbation 1   & 0.2093 (0.0115) & 0.2051 (0.0104) & 0.2079 (0.0101) & 0.2137 (0.0093)  \\
+        & Perturbation 2  & 0.2410 (0.0132)  & 0.2302 (0.0119) & 0.2611 (0.0134) & 0.2514 (0.0105) \\
+        \hline
+        \multirow{3}{*}{4} 
+        & Lasso initial & 0.2767 (0.0159) & 0.2759 (0.0153)&  0.2646 (0.0138) &0.2711 (0.0132) \\ 
+        & Perturbation 1  & 0.2771 (0.0167) & 0.2769 (0.0158) & 0.2681 (0.0141)  & 0.2738 (0.0134) \\
+        & Perturbation 2 & 0.3015 (0.0169) & 0.2954 (0.0160) & 0.3121 (0.0169)  & 0.2972 (0.0136)  \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
+
+
+\begin{table}[!ht]
+\renewcommand{\arraystretch}{0.6}
+\footnotesize
+\centerfloat
+\caption{The $l_1$ norm errors of ProTrans under different initial estimators across various levels of confounding.}
+\label{tab:our_only_vary_phi_l1}
+    \begin{tabular}{cccccc}
+        \toprule
+        \multirow{2}{*}{$\|\phi_t\|_2$} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{2}{c}{\textbf{single-source}} & \multicolumn{2}{c}{\textbf{multi-source}}\\
+        \cmidrule(lr){3-4} \cmidrule(lr){5-6} 
+        & & $\eta$ & $\beta_{t}$ & $\eta$& $\beta_{t}$ \\
+        \midrule
+        \multicolumn{6}{c}{\textbf{Scenario 1 (Linear)}}\\
+        \hline
+        \multirow{3}{*}{1} 
+        & Lasso initial &0.8181 (0.0366) &1.1786 (0.0400) &0.7390 (0.0273) &1.1138 (0.0306)\\
+        & Perturbation 1& 0.8518 (0.0415)  & 1.2104 (0.0454)  & 0.7214 (0.0267) & 1.0954 (0.0304)\\ 
+        & Perturbation 2  & 0.8659 (0.0333) & 1.2228 (0.0362) & 0.7611 (0.0251) & 1.1349 (0.0283) \\
+        \hline
+        \multirow{3}{*}{2} 
+        & Lasso initial & 1.3203 (0.0689)& 1.9486 (0.0817) &0.9822 (0.0400) &1.4702 (0.0519)\\ 
+        & Perturbation 1  & 1.3101 (0.0774) & 1.9384 (0.0914) & 0.9697 (0.0402) & 1.4598 (0.0501) \\ 
+        & Perturbation 2 & 1.2709 (0.0583) & 1.8969 (0.0728) & 1.0309 (0.0440) & 1.5198 (0.0530) \\
+        \hline
+        \multirow{3}{*}{3} 
+        & Lasso initial & 1.8291 (0.1016)& 2.8361 (0.1317) &1.3233 (0.0651) & 2.0187 (0.0945) \\ 
+        & Perturbation 1 & 1.8058 (0.0966) & 2.8125 (0.1300) & 1.3173 (0.0707) &  2.0116 (0.1022) \\ 
+        & Perturbation 2 & 1.8121 (0.0931) & 2.8130 (0.1261)  & 1.3008 (0.0602) & 1.9974 (0.0940) \\
+        \hline
+        \multirow{3}{*}{4} 
+        & Lasso initial & 2.3206 (0.1298)& 3.8045 (0.1841) &1.6963 (0.0919) &2.7348 (0.1659)\\ 
+        & Perturbation 1 & 2.4047 (0.1537) & 3.8629 (0.2112) & 1.6833 (0.0935) & 2.7177 (0.1615) \\ 
+        & Perturbation 2& 2.3219 (0.1276) & 3.7928 (0.1887) & 1.6905 (0.0929) & 2.7284 (0.1683) \\
+        \hline
+             \multicolumn{6}{c}{\textbf{Scenario 2 (Nonlinear)}}\\
+    \hline
+    \multirow{3}{*}{1} 
+    & Lasso initial & 0.5473 (0.0136) & 0.8054 (0.0149) & 0.6539 (0.0191) & 1.0290 (0.0197) \\ 
+    & Perturbation 1 & 0.5797 (0.0174) & 0.8350 (0.0180) & 0.6593 (0.0191) & 1.0335 (0.0192) \\ 
+    & Perturbation 2 & 0.6656 (0.0194) & 0.9184 (0.0205) & 0.7565 (0.0242) & 1.1264 (0.0242) \\
+    \hline
+    \multirow{3}{*}{2} 
+    & Lasso initial & 0.6268 (0.0195) & 0.9081 (0.0215) & 0.7320 (0.0235) & 1.1097 (0.0241) \\ 
+    & Perturbation 1 & 0.6366 (0.0180) & 0.9148 (0.0200) & 0.7381 (0.0207) & 1.1184 (0.0209) \\ 
+    & Perturbation 2 & 0.7240 (0.0223) & 0.9985 (0.0241) & 0.8363 (0.0266) & 1.2133 (0.0263) \\
+    \hline
+    \multirow{3}{*}{3} 
+    & Lasso initial & 0.7194 (0.0265) & 1.0383 (0.0296) & 0.8021 (0.0273) & 1.1963 (0.0286) \\ 
+    & Perturbation 1 & 0.7212 (0.0237) & 1.0383 (0.0272) & 0.8092 (0.0243) & 1.2042 (0.0257) \\
+    & Perturbation 2 & 0.8102 (0.0289) & 1.1201 (0.0305) & 0.9089 (0.0317) & 1.3006 (0.0323) \\
+    \hline
+    \multirow{3}{*}{4} 
+    & Lasso initial & 0.8304 (0.0328) & 1.1898 (0.0368) & 0.8735 (0.0288) & 1.2914 (0.0319) \\ 
+    & Perturbation 1 & 0.8106 (0.0282) & 1.1691 (0.0328) & 0.9045 (0.0305) & 1.3248 (0.0336) \\ 
+    & Perturbation 2 & 0.9092 (0.0374) & 1.2627 (0.0405) & 0.9719 (0.0322) & 1.3874 (0.0341) \\
+
+        \hline 
+         \multicolumn{6}{c}{\textbf{Scenario 3 (Nonlinear)}}\\
+        \hline
+       \multirow{3}{*}{1} 
+        & Lasso initial & 0.5390 (0.0150) & 0.8042 (0.0164) & 0.5762 (0.0166) & 0.9370 (0.0179) \\
+        & Perturbation 1 & 0.5540 (0.0162)  & 0.8172 (0.0172) & 0.5800 (0.0168)  & 0.9390 (0.0176)  \\ 
+        & Perturbation 2 & 0.6214 (0.0199) & 0.8831 (0.0211) & 0.7565 (0.0242) & 1.1264 (0.0242) \\
+        \hline
+        \multirow{3}{*}{2} 
+        & Lasso initial & 0.6292 (0.0213) & 0.9325 (0.0229) & 0.6455 (0.0202) & 1.0244 (0.0221) \\
+        & Perturbation 1 & 0.6175 (0.0209) &0.9192 (0.0228)  & 0.6430 (0.0198) & 1.0205 (0.0213) \\
+        & Perturbation 2 & 0.6764 (0.0225) & 0.9763 (0.0249)  & 0.8363 (0.0266)& 1.2133 (0.0263)\\
+        \hline
+        \multirow{3}{*}{3} 
+        & Lasso initial  & 0.7539 (0.0337) & 1.1154 (0.0379) & 0.7261 (0.0271) & 1.1361 (0.0302) \\
+        & Perturbation 1 & 0.6955 (0.0214)& 1.0554 (0.0265) & 0.7158 (0.0235)  & 1.1229 (0.0263)\\
+        & Perturbation 2  &  0.7754 (0.0295)  & 1.1326 (0.0339) & 0.9089 (0.0317)  & 1.3006 (0.0323) \\
+        \hline
+        \multirow{3}{*}{4} 
+        & Lasso initial  & 0.8445 (0.0354) & 1.2770 (0.0426) & 0.8008 (0.0290)  & 1.2549 (0.0348) \\
+        & Perturbation 1  & 0.8355 (0.0320) & 1.2662 (0.0399)  & 0.8341 (0.0337) & 1.2829 (0.0377)\\
+        & Perturbation 2 & 0.8890 (0.0378) & 1.3190 (0.0454) & 0.9719 (0.0322)  & 1.3874 (0.0341)  \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Treatment effect of education on earnings (High-dimensional scenario)}
+In this section, we continue to analyze the same dataset examining the effect of education on earnings. Unlike the main text, where an initial screening step is used to select several important covariates, here we retain 151 covariates including race, marital status, willingness to work and job satisfaction and apply ProTrans in the high-dimensional setting. All other preprocessing procedures and experimental settings remain the same as in the main text. As in \cite{wang2018bounded}, we treat age, IQ scores, and residence in the South (all measured in 1966) as confounding variables. The high-dimensional linear transfer learning method proposed by \citet{li2022transfer} is applied to the deconfounded data to obtain the oracle estimate $\hat{\eta}_{\text{ora}}$ for $\eta_0 = \beta_t - \beta_s$, which serves as the gold standard. We compare the $l_2$-norm error between the estimated model-shift $\hat{\eta}$ and the gold standard $\hat{\eta}_{\text{ora}}$. 
+
+\begin{table}[ht]
+\renewcommand{\arraystretch}{0.65}
+\footnotesize
+    \centerfloat
+    \caption{The $l_2$-norm errors for estimating $\eta_0$ and the expectation of the CATE $\tau(x) = x'\eta_0$ using ProTrans and baselines.}
+    \label{tab:earning_estimation}
+    \begin{tabular}{cccccc}
+        \toprule
+        \textbf{Methods} & ProTrans & SingleTrim & TransTrim & SingleFarm & TransFarm\\
+        \midrule
+        Error for $\eta_0$ & 
+        0.0041& 0.0156& 0.0157& 0.0171& 0.0185\\
+        Error for $\mathbb{E}\tau(x)$ &0.6025& 0.9342& 0.8373& 1.7906& 1.8794\\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+The results, presented in Table \ref{tab:earning_estimation}, indicate that ProTrans is least influenced by confounders compared to the baselines, and has a clear advantage towards treatment effect estimation at the presence of confounders. In all four baselines, covariates such as the amount of liabilities and the father's job level exhibit a significant negative effect on the earnings difference between the treatment and control groups. Conversely, variables related to working hours and the age of individuals living with the respondents show a positive effect. However, both ProTrans and the oracle deconfounded model indicate that these variables do not substantially affect the earnings difference. These variables appear as false positives in the baseline results due to the influence of hidden confounders, whereas ProTrans remains robust against such confounding effects.
+
+
+
+\subsection{Supplement numerical results}
+We report the performance under the settings $p=500,1500$ with other settings the same as that in the main text in Table \ref{tab:sup:l2_norm_p}. The results for confounder level $\|\phi_t\|_2 = 1,2,3,4$ are shown in Tables \ref{tab:sup:l2_norm_phi} and \ref{tab:sup:l2_norm_phi(continued)}. We report the $l_1$ norm errors of ProTrans and the baseline methods in the high-dimensional simulation study, as shown in Tables \ref{table:l1_norm_p_sd}, \ref{table:l1_norm_p_sd_continued} and \ref{table:l1_confounding}, \ref{table:l1_confounding_continued} and \ref{table:l1_norm_select}. We present the results for different choices of $\rho$ in the real-data experiment ``gene expression in tissues'' in Table \ref{table:diff_rho}. The results indicate that the method's performance is not highly sensitive to the choice of $\rho$, and selecting a reasonable value of $\rho$ is sufficient for good performance. 
+
+
+\begin{table}[!ht]
+\renewcommand{\arraystretch}{0.6}
+% \setlength{\tabcolsep}{4pt}
+\footnotesize
+    \centerfloat
+    \caption{The $l_2$ norm errors of different methods across various dimensions $p$.}
+    \label{tab:sup:l2_norm_p}
+    \begin{tabular}{cccccc}
+        \toprule
+        \multirow{2}{*}{$\bm{p}$} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{2}{c}{\textbf{single-source}} & \multicolumn{2}{c}{\textbf{multi-source}}\\
+        \cmidrule(lr){3-4} \cmidrule(lr){5-6} 
+        & & $\eta$ & $\beta_{t}$ & $\eta$& $\beta_{t}$ \\
+        \midrule
+        \multicolumn{6}{c}{\textbf{Scenario 1 (linear)}}\\
+        \hline
+        \multirow{5}{*}{500} 
+        & SingleTrim  & $0.5487\ (0.0475)$ & $0.6848\ (0.0580)$ & $0.4317\ (0.0378)$ & $0.5504\ (0.0456)$ \\
+        & TransTrim   & $0.4336\ (0.0333)$ & $0.3932\ (0.0305)$ & $0.3640\ (0.0249)$ & $0.3407\ (0.0228)$ \\
+        & SingleFarm  & $0.8095\ (0.0419)$ & $1.2055\ (0.0551)$ & $0.8065\ (0.0381)$ & $1.2223\ (0.0494)$ \\
+        & TransFarm   & $\bm{0.1712}\ (0.0161)$ & $\bm{0.2493}\ (0.0170)$ & $0.2016\ (0.0199)$ & $0.2890\ (0.0201)$\\
+        & ProTrans    & $0.2460\ (0.0165)$ & $0.2502\ (0.0165)$ & $\bm{0.1965}\ (0.0121)$ & $\bm{0.2167}\ (0.0107)$ \\
+        \hline
+        \multirow{5}{*}{1500} 
+        & SingleTrim  & $0.7046\ (0.0477)$ & $0.8852\ (0.0574)$ & $0.5500\ (0.0335)$ & $0.6990\ (0.0410)$ \\
+        & TransTrim   & $0.4317\ (0.0298)$ & $0.3883\ (0.0265)$ & $0.3566\ (0.0202)$ & $0.3201\ (0.0180)$  \\
+        & SingleFarm  & $0.9031\ (0.0540)$ & $1.2649\ (0.0651)$ & $0.8402\ (0.0544)$ & $1.2124\ (0.0653)$  \\
+        & TransFarm   & $0.2876\ (0.0225)$ & $0.3106\ (0.0205)$ & $0.2525\ (0.0206)$ & $0.2870\ (0.0186)$ \\
+        & ProTrans    & $\bm{0.2477}\ (0.0156)$ & $\bm{0.2364}\ (0.0137)$ & $\bm{0.1989}\ (0.0103)$ & $\bm{0.1990}\ (0.0090)$ \\
+        \hline
+         \multicolumn{6}{c}{\textbf{Scenario 2 (nonlinear)}}\\
+         \hline
+         \multirow{5}{*}{500} 
+        & SingleTrim   & $3.4026\ (0.3320)$ & $4.1600\ (0.4037)$ & $1.9179\ (0.1755)$ & $2.4167\ (0.1625)$\\
+        & TransTrim   & $2.4928\ (0.2576)$ & $2.3104\ (0.2446)$ & $1.6905\ (0.1799)$ & $1.5379\ (0.1683)$\\
+        & SingleFarm   & $6.9808\ (0.3406)$ & $8.3018\ (0.3801)$ & $8.9792\ (0.5033)$ & $10.757\ (0.5450)$\\
+        & TransFarm   & $1.9045\ (0.1755)$ & $2.0508\ (0.1625)$ & $2.3952\ (0.1853)$ & $2.5490\ (0.1732)$\\
+        & ProTrans   & $\bm{0.6301}\ (0.0599)$ & $\bm{0.7037}\ (0.0657)$ & $\bm{0.4209}\ (0.0449)$ & $\bm{0.5159}\ (0.0455)$\\
+        \hline
+        \multirow{5}{*}{1500} 
+        & SingleTrim & $4.4333\ (0.3664)$ & $5.2496\ (0.4290)$ & $2.3954\ (0.1666)$ & $2.9493\ (0.1554)$\\
+        & TransTrim  & $2.5141\ (0.2187)$ & $2.2771\ (0.1979)$ & $1.6564\ (0.1666)$ & $1.4628\ (0.1554)$ \\
+        & SingleFarm  & $7.8893\ (0.5033)$ & $9.3110\ (0.5450)$ & $10.097\ (0.1853)$ & $11.877\ (0.1732)$ \\
+        & TransFarm   & $2.4598\ (0.1666)$ & $2.4086\ (0.1554)$ & $3.0365\ (0.1853)$ & $2.9568\ (0.1732)$\\
+        & ProTrans  & $\bm{0.6042}\ (0.0368)$ & $\bm{0.5776}\ (0.0351)$ & $\bm{0.5348}\ (0.0449)$ & $\bm{0.5207}\ (0.0455)$ \\
+                \hline
+         \multicolumn{6}{c}{\textbf{Scenario 3 (nonlinear)}}\\
+         \hline
+         \multirow{5}{*}{500} 
+        & SingleTrim & $5.3515\ (0.5104)$  & $6.6901\ (0.6328)$ & $3.2439\ (0.3362)$ & $4.1267\ (0.4137)$ \\
+        & TransTrim   & $3.9820\ (0.4091)$  & $3.6446\ (0.3788)$ & $2.7281\ (0.2696)$ & $2.4604\ (0.2442)$ \\
+        & SingleFarm  & $3.5923\ (0.2974)$  & $4.9351\ (0.3778)$  & $4.1794\ (0.3157)$  & $5.6942\ (0.3899)$ \\
+        & TransFarm  & $1.2493\ (0.1489)$ & $1.4569\ (0.1434)$ & $1.3989\ (0.1610)$  & $1.5589\ (0.1496)$ \\
+        & ProTrans    & $\bm{1.0273}\ (0.0972)$  & $\bm{1.1476}\ (0.1070)$  & $\bm{0.6867}\ (0.0652)$ & $\bm{0.8084}\ (0.0678)$ \\
+        \hline
+        \multirow{5}{*}{1500} 
+        & SingleTrim  & $7.1824\ (0.5372)$ & $8.6437\ (0.6405)$ & $4.2873\ (0.3303)$ & $5.2799\ (0.3966)$ \\
+        & TransTrim    & $3.9866\ (0.3298)$ & $3.5776\ (0.2942)$ & $2.7010\ (0.2115)$ & $2.3886\ (0.1908)$ \\
+        & SingleFarm  & $3.9399\ (0.3144)$ & $5.1576\ (0.3745)$ & $4.9658\ (0.3983)$ & $6.2776\ (0.4465)$ \\
+        & TransFarm   & $1.6318\ (0.1355)$ & $1.6095\ (0.1220)$ & $1.7710\ (0.1517)$ & $1.7458\ (0.1382)$ \\
+        & ProTrans    & $\bm{0.7191}\ (0.0497)$  & $\bm{0.7511}\ (0.0523)$  & $\bm{0.6389}\ (0.0440)$ & $\bm{0.6539}\ (0.0430)$ \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
+\begin{table}[!ht]
+\renewcommand{\arraystretch}{0.6}
+% \setlength{\tabcolsep}{4pt}
+\footnotesize
+    \centerfloat
+    \caption{The $l_2$ norm errors of different methods across various levels of confounding.}
+    \label{tab:sup:l2_norm_phi}
+    \begin{tabular}{cccccc}
+        \toprule
+        \multirow{2}{*}{$\|\phi_t\|_2$} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{2}{c}{\textbf{single-source}} & \multicolumn{2}{c}{\textbf{multi-source}}\\
+        \cmidrule(lr){3-4} \cmidrule(lr){5-6} 
+        & & $\eta$ & $\beta_{t}$ & $\eta$& $\beta_{t}$ \\
+        \midrule
+        \multicolumn{6}{c}{\textbf{Scenario 1 (linear)}}\\
+        \hline
+        \multirow{5}{*}{1} 
+        & SingleTrim  & $0.7046\ (0.0477)$ & $0.8852\ (0.0574)$ & $0.5500\ (0.0335)$ & $0.6990\ (0.0410)$ \\
+        & TransTrim   & $0.4317\ (0.0298)$ & $0.3883\ (0.0265)$ & $0.3566\ (0.0202)$ & $0.3201\ (0.0180)$ \\
+        & SingleFarm  & $0.9031\ (0.0540)$ & $1.2649\ (0.0651)$ & $0.8402\ (0.0544)$ & $1.2124\ (0.0653)$ \\
+        & TransFarm   & $0.2876\ (0.0225)$ & $0.3106\ (0.0205)$ & $0.2525\ (0.0207)$ & $0.2870\ (0.0186)$ \\
+        & ProTrans    & $\bm{0.2477}\ (0.0156)$ & $\bm{0.2364}\ (0.0137)$ & $\bm{0.1989}\ (0.0103)$ & $\bm{0.1990}\ (0.0090)$ \\
+        \hline
+        \multirow{5}{*}{2} 
+        & SingleTrim  & $2.1710\ (0.0736)$ & $2.6549\ (0.0768)$ & $1.5831\ (0.1196)$ & $1.9357\ (0.1422)$  \\
+        & TransTrim   & $1.2523\ (0.1039)$ & $1.1359\ (0.0932)$ & $0.9060\ (0.0636)$ & $0.8151\ (0.0585)$ \\
+        & SingleFarm  & $1.5738\ (0.1019)$ & $2.1868\ (0.1291)$ & $1.1739\ (0.0755)$ & $1.6664\ (0.0931)$ \\
+        & TransFarm   & $0.6719\ (0.0581)$ & $0.6869\ (0.0527)$ & $0.4152\ (0.0328)$ & $0.4494\ (0.0293)$ \\
+        & ProTrans    & $\bm{0.5908}\ (0.0440)$ & $\bm{0.5682}\ (0.0399)$ & $\bm{0.3678}\ (0.0231)$ & $\bm{0.3612}\ (0.0219)$  \\
+        \hline
+         \multicolumn{6}{c}{\textbf{Scenario 2 (nonlinear)}}\\
+         \hline
+         \multirow{5}{*}{1} 
+        & SingleTrim & $0.2632\ (0.0125)$ & $0.3358\ (0.0145)$ & $0.2342\ (0.0212)$ & $0.2958\ (0.0229)$ \\
+        & TransTrim  & $0.1760\ (0.0085)$ & $0.1581\ (0.0071)$ & $0.1961\ (0.0129)$ & $0.1798\ (0.0097)$ \\
+        & SingleFarm  & $1.8268\ (0.1068)$ & $2.1755\ (0.1172)$ & $9.5069\ (0.0148)$ & $10.9077\ (0.0212)$ \\
+        & TransFarm  & $0.5314\ (0.0313)$ & $0.5228\ (0.0304)$ & $2.5265\ (0.0861)$ & $2.5000\ (0.0884)$ \\
+        & ProTrans   & $\bm{0.1251}\ (0.0061)$ & $\bm{0.1197}\ (0.0050)$ & $\bm{0.1495}\ (0.0215)$ & $\bm{0.1621}\ (0.0239)$ \\
+        \hline
+        \multirow{5}{*}{2} 
+        & SingleTrim  & $0.4518\ (0.0255)$ & $0.5641\ (0.0303)$ & $0.3297\ (0.0437)$ & $0.4182\ (0.0481)$ \\
+        & TransTrim   & $0.2852\ (0.0163)$ & $0.2560\ (0.0146)$ & $0.2595\ (0.0166)$ & $0.2346\ (0.0192)$ \\
+        & SingleFarm  & $1.8901\ (0.1116)$ & $2.2608\ (0.1215)$ & $9.5360\ (0.0090)$ & $10.9435\ (0.0171)$ \\
+        & TransFarm    & $0.5665\ (0.0337)$ & $0.5551\ (0.0320)$ & $2.5589\ (0.0818)$ & $2.5279\ (0.0845)$ \\
+        & ProTrans   & $\bm{0.1522}\ (0.0075)$ & $\bm{0.1446}\ (0.0064)$ & $\bm{0.1802}\ (0.0168)$ & $\bm{0.1861}\ (0.0207)$ \\
+                \hline
+         \multicolumn{6}{c}{\textbf{Scenario 3 (nonlinear)}}\\
+         \hline
+         \multirow{5}{*}{1} 
+        & SingleTrim & $0.3116\ (0.0162)$ & $0.4022\ (0.0192)$ & $0.2632\ (0.0122)$ & $0.3438\ (0.0155)$ \\
+        & TransTrim  & $0.1945\ (0.0099)$ & $0.1755\ (0.0085)$ & $0.2033\ (0.0087)$& $0.1865\ (0.0971)$ \\
+        & SingleFarm  & $0.7001\ (0.0548)$ & $0.9190\ (0.0633)$ & $3.7867\ (0.3223)$ & $4.6118\ (0.3630)$ \\
+        & TransFarm  & $0.2454\ (0.0177)$ & $0.2486\ (0.0166)$ & $1.1057\ (0.1137)$ & $1.1105\ (0.1047)$ \\
+        & ProTrans   & $\bm{0.1283}\ (0.0060)$ & $\bm{0.1223}\ (0.0050)$ & $\bm{0.1344}\ (0.0068)$ & $\bm{0.1447}\ (0.0055)$ \\
+         \hline
+        \multirow{5}{*}{2} 
+        & SingleTrim  & $0.6401\ (0.0413)$& $0.8016\ (0.0495)$  & $0.4422\ (0.0255)$ & $0.5723\ (0.0316)$ \\
+        & TransTrim   & $0.3757\ (0.0231)$  & $0.3382\ (0.0209)$  & $0.3110\ (0.0157)$ & $0.2792\ (0.0136)$ \\
+        & SingleFarm & $0.7932\ (0.0580)$  & $1.0473\ (0.0676)$  & $3.8741\ (0.3293)$ & $4.7238\ (0.3685)$ \\
+        & TransFarm  & $0.2985\ (0.0222)$ & $0.2989\ (0.0204)$& $1.1311\ (0.1153)$ & $1.1343\ (0.1116)$ \\
+        & ProTrans  & $\bm{0.1610}\ (0.0078)$  & $\bm{0.1548}\ (0.0068)$ & $\bm{0.1632}\ (0.0077)$ & $\bm{0.1716}\ (0.0066)$ \\
+        \bottomrule
+    \end{tabular}
+\end{table}  
+
+\begin{table}[!ht]
+\renewcommand{\arraystretch}{0.6}
+\footnotesize
+\centerfloat
+\caption{The $l_2$ norm errors of different methods across various levels of confounding (continued).}
+\label{tab:sup:l2_norm_phi(continued)}
+    \begin{tabular}{cccccc}
+        \toprule
+        \multirow{2}{*}{$\|\phi_t\|_2$} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{2}{c}{\textbf{single-source}} & \multicolumn{2}{c}{\textbf{multi-source}}\\
+        \cmidrule(lr){3-4} \cmidrule(lr){5-6} 
+        & & $\eta$ & $\beta_{t}$ & $\eta$& $\beta_{t}$ \\
+        \midrule
+        \multicolumn{6}{c}{\textbf{Scenario 1 (linear)}}\\
+        \hline
+        \multirow{5}{*}{3} 
+        & SingleTrim  & $4.6748\ (0.3813)$ & $5.6459\ (0.4594)$ & $3.3765\ (0.2779)$ & $4.0441\ (0.3258)$ \\
+        & TransTrim   & $2.5785\ (0.2299)$ & $2.3449\ (0.2054)$ & $1.7611\ (0.1383)$ & $1.5987\ (0.1274)$ \\
+        & SingleFarm  & $2.8351\ (0.2094)$ & $3.8500\ (0.2690)$ & $1.7447\ (0.1218)$ & $2.4160\ (0.1514)$ \\
+        & TransFarm   & $1.3929\ (0.1244)$ & $1.3750\ (0.1129)$ & $0.7160\ (0.0579)$ & $0.7397\ (0.0521)$ \\
+        & ProTrans    & $\bm{1.1383}\ (0.0919)$ & $\bm{1.1047}\ (0.0846)$ & $\bm{0.6171}\ (0.0426)$ & $\bm{0.6081}\ (0.0409)$ \\
+        \hline
+        \multirow{5}{*}{4} 
+        & SingleTrim  & $7.7609\ (0.5610)$ & $9.3499\ (0.6788)$ & $5.8085\ (0.4662)$ & $6.8857\ (0.5428)$ \\
+        & TransTrim   & $4.3785\ (0.3877)$ & $3.9669\ (0.3437)$ & $2.9219\ (0.2039)$ & $2.6616\ (0.2532)$ \\
+        & SingleFarm  & $4.6142\ (0.3589)$ & $6.1206\ (0.4514)$ & $2.6300\ (0.2039)$ & $3.5476\ (0.1677)$ \\
+        & TransFarm   & $2.4432\ (0.2223)$ & $2.3621\ (0.1997)$ & $1.1707\ (0.0980)$ & $1.1701\ (0.0893)$ \\
+        & ProTrans    & $\bm{1.9081}\ (0.1599)$ & $\bm{1.8653}\ (0.1472)$ & $\bm{0.9478}\ (0.0732)$ & $\bm{0.9452}\ (0.0711)$ \\
+        \hline
+         \multicolumn{6}{c}{\textbf{Scenario 2 (nonlinear)}}\\
+         \hline
+        \multirow{5}{*}{3} 
+        & SingleTrim   & $0.7740\ (0.0522)$ & $0.9505\ (0.0623)$ & $0.4912\ (0.0648)$ & $0.6218\ (0.0706)$ \\
+        & TransTrim   & $0.4720\ (0.0312)$ & $0.4242\ (0.0284)$ & $0.3736\ (0.0124)$ & $0.3334\ (0.0173)$ \\
+        & SingleFarm  & $1.9822\ (0.1190)$ & $2.3895\ (0.1291)$ & $9.5974\ (0.0104)$ & $11.0360\ (0.0163)$ \\
+        & TransFarm  & $0.6331\ (0.0380)$ & $0.6170\ (0.0355)$ & $2.6139\ (0.0840)$ & $2.5783\ (0.0870)$ \\
+        & ProTrans   & $\bm{0.1855}\ (0.0094)$ & $\bm{0.1771}\ (0.0082)$ & $\bm{0.2179}\ (0.0135)$ & $\bm{0.2194}\ (0.0179)$ \\
+         \hline
+        \multirow{5}{*}{4} 
+        & SingleTrim  & $1.2471\ (0.0926)$ & $1.5130\ (0.1099)$ & $0.7252\ (0.0973)$ & $0.9103\ (0.0997)$ \\
+        & TransTrim & $0.7497\ (0.0593)$ & $0.6730\ (0.0533)$ & $0.5359\ (0.0067)$ & $0.4757\ (0.0106)$ \\
+        & SingleFarm  & $2.0977\ (0.1252)$ & $2.5547\ (0.1371)$ & $9.6475\ (0.0092)$ & $11.1246\ (0.0161)$ \\
+        & TransFarm  & $0.7074\ (0.0457)$ & $0.6853\ (0.0417)$ & $2.6714\ (0.0799)$ & $2.6287\ (0.0833)$ \\
+        & ProTrans   & $\bm{0.2315}\ (0.0118)$ & $\bm{0.2219}\ (0.0106)$ & $\bm{0.2618}\ (0.0076)$ & $\bm{0.2596}\ (0.0131)$ \\
+        \hline
+         \multicolumn{6}{c}{\textbf{Scenario 3 (nonlinear)}}\\
+        \hline
+        \multirow{5}{*}{3} 
+        & SingleTrim  & $1.2124\ (0.0914)$ & $1.4907\ (0.1090)$ & $0.7565\ (0.0504)$ & $0.9640\ (0.0618)$ \\
+        & TransTrim   & $0.6878\ (0.0491)$ & $0.6188\ (0.0444)$ & $0.5055\ (0.0308)$ & $0.4491\ (0.0274)$ \\
+        & SingleFarm  & $0.9351\ (0.0672)$ & $1.2418\ (0.0793)$ & $4.0261\ (0.3482)$ & $4.9209\ (0.3859)$ \\
+        & TransFarm   & $0.3866\ (0.0294)$ & $0.3827\ (0.0265)$ & $1.1769\ (0.1172)$ & $1.1781\ (0.1129)$ \\
+        & ProTrans   & $\bm{0.2146}\ (0.0114)$  & $\bm{0.2099}\ (0.0106)$ & $\bm{0.2072}\ (0.0102)$ & $\bm{0.2134}\ (0.0092)$ \\
+         \hline
+        \multirow{5}{*}{4} 
+       & SingleTrim & $1.9247\ (0.1356)$ & $2.3586\ (0.1631)$ & $1.1918\ (0.0844)$ & $1.5013\ (0.1031)$ \\
+        & TransTrim  & $1.1118\ (0.0824)$ & $0.9923\ (0.0732)$ & $0.7865\ (0.0529)$ & $0.6962\ (0.0473)$ \\
+        & SingleFarm & $1.1541\ (0.0874)$ & $1.5302\ (0.1038)$ & $4.1611\ (0.3548)$ & $5.1095\ (0.3931)$ \\
+        & TransFarm  & $0.5076\ (0.0391)$  & $0.4975\ (0.0352)$  & $1.2456\ (0.1223)$ & $1.2443\ (0.1166)$ \\
+           & ProTrans  & $\bm{0.2767}\ (0.0159)$ & $\bm{0.2759}\ (0.0153)$ & $\bm{0.2646}\ (0.0138)$ &$\bm{0.2711}\ (0.0132)$ \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table}[!ht]
+\renewcommand{\arraystretch}{0.6}
+\footnotesize
+\centerfloat
+\caption{The $l_1$ norm errors of different methods across various dimensions $p$.}
+\label{table:l1_norm_p_sd}
+\begin{tabular}{cccccc}
+        \toprule
+        \multirow{2}{*}{$\bm{p}$} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{2}{c}{\textbf{single-source}} & \multicolumn{2}{c}{\textbf{multi-source}}\\
+        \cmidrule(lr){3-4} \cmidrule(lr){5-6} 
+        & & $\eta$ & $\beta_{t}$ & $\eta$& $\beta_{t}$ \\
+        \midrule
+        \multicolumn{6}{c}{\textbf{Scenario 1 (linear)}}\\
+        \hline
+        \multirow{5}{*}{500}
+& SingleTrim  & $1.8195\ (0.0760)$ & $2.1458\ (0.0845)$ & $1.6540\ (0.0687)$ & $1.9932\ (0.0719)$ \\
+& TransTrim   & $0.9743\ (0.0440)$ & $1.3645\ (0.0522)$ & $0.9516\ (0.0480)$ & $1.3527\ (0.0496)$ \\
+& SingleFarm  & $2.6029\ (0.0836)$ & $3.0369\ (0.0832)$ & $2.6500\ (0.0997)$ & $3.1352\ (0.0963)$ \\
+& TransFarm   & $0.6023\ (0.0515)$ & $1.1654\ (0.0527)$ & $0.8129\ (0.0852)$ & $1.4081\ (0.0842)$ \\
+& ProTrans    & $\bm{0.7323}\ (0.0302)$ & $\bm{1.1414}\ (0.0396)$ & $\bm{0.6824}\ (0.0244)$ & $\bm{1.1273}\ (0.0318)$ \\
+\hline
+\multirow{5}{*}{1000}
+& SingleTrim  & $2.1605\ (0.0795)$ & $2.4789\ (0.0825)$ & $1.9753\ (0.0769)$ & $2.3055\ (0.0788)$ \\
+& TransTrim   & $0.9696\ (0.0311)$ & $1.3574\ (0.0381)$ & $0.9115\ (0.0296)$ & $1.2970\ (0.0295)$ \\
+& SingleFarm  & $2.7750\ (0.0759)$ & $3.2662\ (0.0783)$ & $2.8200\ (0.0954)$ & $3.3460\ (0.0964)$ \\
+& TransFarm   & $0.7553\ (0.0521)$ & $1.2817\ (0.0523)$ & $0.7364\ (0.0449)$ & $1.2742\ (0.0414)$ \\
+& ProTrans    & $\bm{0.7811}\ (0.0230)$ & $\bm{1.1831}\ (0.0322)$ & $\bm{0.7450}\ (0.0297)$ & $\bm{1.1530}\ (0.0320)$ \\
+        \hline
+         \multicolumn{6}{c}{\textbf{Scenario 2 (nonlinear)}}\\
+         \hline
+        \multirow{5}{*}{500}
+& SingleTrim  & $5.4301\ (0.2968)$ & $5.9343\ (0.3099)$ & $3.5403\ (0.1891)$ & $4.1391\ (0.2056)$ \\
+& TransTrim   & $2.4838\ (0.1591)$ & $3.3413\ (0.1959)$ & $1.8937\ (0.1084)$ & $2.5522\ (0.1208)$ \\
+& SingleFarm  & $8.4803\ (0.2771)$ & $8.1500\ (0.2363)$ & $8.5488\ (0.2754)$ & $8.8189\ (0.2241)$ \\
+& TransFarm   & $2.0412\ (0.1235)$ & $3.6249\ (0.1792)$ & $2.5111\ (0.1922)$ & $3.7706\ (0.2546)$ \\
+& ProTrans    & $\bm{1.2316}\ (0.0764)$ & $\bm{2.0804}\ (0.1216)$ & $\bm{1.0156}\ (0.0416)$ & $\bm{1.7158}\ (0.0573)$ \\
+\hline
+\multirow{5}{*}{1000}
+& SingleTrim  & $5.5720\ (0.2344)$ & $6.0550\ (0.2440)$ & $3.6734\ (0.1471)$ & $4.2793\ (0.1608)$ \\
+& TransTrim   & $2.3638\ (0.1345)$ & $3.0491\ (0.1607)$ & $1.8010\ (0.0782)$ & $2.4194\ (0.0880)$ \\
+& SingleFarm  & $7.7187\ (0.2203)$ & $8.3268\ (0.2189)$ & $8.4242\ (0.2040)$ & $9.1910\ (0.2050)$ \\
+& TransFarm   & $2.3127\ (0.1113)$ & $3.0816\ (0.1125)$ & $2.5887\ (0.1005)$ & $3.3723\ (0.1056)$ \\
+& ProTrans    & $\bm{1.3256}\ (0.0549)$ & $\bm{2.0054}\ (0.0810)$ & $\bm{1.1863}\ (0.0424)$ & $\bm{1.7965}\ (0.0502)$ \\
+        \hline
+         \multicolumn{6}{c}{\textbf{Scenario 3 (nonlinear)}}\\
+        \hline
+        \multirow{5}{*}{500}
+& SingleTrim  & $6.5854\ (0.3279)$  & $7.2482\ (0.3453)$ & $4.6464\ (0.2542)$ & $5.3890\ (0.2768)$ \\
+& TransTrim   & $2.9871\ (0.1730)$  & $4.0056\ (0.2109)$  & $2.3197\ (0.1332)$ & $3.1194\ (0.1529)$ \\
+& SingleFarm  & $5.8293\ (0.2610)$ & $6.0358\ (0.2333)$ & $5.8078\ (0.2357)$& $6.5672\ (0.2471)$  \\
+& TransFarm   & $1.6083\ (0.1110)$ & $3.1416\ (0.1606)$ & $1.9433\ (0.1977)$ & $2.9370\ (0.1982)$  \\
+& ProTrans    & $\bm{1.5494}\ (0.1107)$ & $\bm{2.6031}\ (0.1526)$  & $\bm{1.2525}\ (0.0601)$  & $\bm{2.0885}\ (0.0828)$  \\
+\hline
+\multirow{5}{*}{1000}
+& SingleTrim  & $6.8711\ (0.2805)$ & $7.5761\ (0.3010)$ & $4.9216\ (0.2109)$ & $5.6592\ (0.2298)$  \\
+& TransTrim   & $2.8971\ (0.1653)$ & $3.8045\ (0.2087)$ & $2.2496\ (0.1084)$ & $2.9897\ (0.1257)$ \\
+& SingleFarm  & $5.1877\ (0.2062)$  & $5.9738\ (0.2051)$  & $5.9599\ (0.2371)$ & $6.8234\ (0.2384)$ \\
+& TransFarm   & $1.6692\ (0.0771)$  & $2.6243\ (0.0997)$ & $1.8514\ (0.0827)$  & $2.7316\ (0.0902)$  \\
+& ProTrans    & $\bm{1.3993}\ (0.0621)$  & $\bm{2.2363}\ (0.0907)$ & $\bm{1.2847}\ (0.0638)$ & $\bm{2.0212}\ (0.0773)$ \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table}[!ht]
+\renewcommand{\arraystretch}{0.6}
+\footnotesize
+\centerfloat
+\caption{The $l_1$ norm errors of different methods across various dimensions $p$ (continued).}
+\label{table:l1_norm_p_sd_continued}
+\begin{tabular}{cccccc}
+        \toprule
+        \multirow{2}{*}{$\bm{p}$} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{2}{c}{\textbf{single-source}} & \multicolumn{2}{c}{\textbf{multi-source}}\\
+        \cmidrule(lr){3-4} \cmidrule(lr){5-6} 
+        & & $\eta$ & $\beta_{t}$ & $\eta$& $\beta_{t}$ \\
+        \midrule
+        \multicolumn{6}{c}{\textbf{Scenario 1 (linear)}}\\
+        \hline
+       \multirow{5}{*}{1500}
+& SingleTrim  & $2.3097\ (0.0907)$ & $2.6143\ (0.0942)$ & $2.0223\ (0.0736)$ & $2.3402\ (0.0768)$ \\
+& TransTrim   & $0.9943\ (0.0407)$ & $1.3520\ (0.0449)$ & $0.9494\ (0.0457)$ & $1.3134\ (0.0497)$ \\
+& SingleFarm  & $2.6162\ (0.0863)$ & $3.0241\ (0.0870)$ & $2.5491\ (0.0877)$ & $2.9786\ (0.0866)$ \\
+& TransFarm   & $0.7665\ (0.0311)$ & $1.2127\ (0.0336)$ & $0.7505\ (0.0374)$ & $1.2175\ (0.0382)$ \\
+& ProTrans    & $\bm{0.8181}\ (0.0366)$ & $\bm{1.1786}\ (0.0400)$ & $\bm{0.7390}\ (0.0273)$ & $\bm{1.1138}\ (0.0306)$ \\
+\hline
+\multirow{5}{*}{2000}
+& SingleTrim  & $2.5860\ (0.1098)$ & $2.8727\ (0.1111)$ & $2.2090\ (0.0898)$ & $2.5573\ (0.0907)$ \\
+& TransTrim   & $1.0220\ (0.0354)$ & $1.4569\ (0.0475)$ & $0.9604\ (0.0305)$ & $1.3573\ (0.0362)$ \\
+& SingleFarm  & $2.7064\ (0.0880)$ & $3.0435\ (0.0816)$ & $2.5504\ (0.0861)$ & $2.9596\ (0.0847)$ \\
+& TransFarm   & $0.8862\ (0.0412)$ & $1.3660\ (0.0611)$ & $0.8225\ (0.0260)$ & $1.2751\ (0.0271)$ \\
+& ProTrans    & $\bm{0.8555}\ (0.0285)$ & $\bm{1.2593}\ (0.0337)$ & $\bm{0.7716}\ (0.0183)$ & $\bm{1.1731}\ (0.0235)$ \\
+        \hline
+         \multicolumn{6}{c}{\textbf{Scenario 2 (nonlinear)}}\\
+         \hline
+        \multirow{5}{*}{1500}
+& SingleTrim  & $5.9946\ (0.2966)$ & $6.3513\ (0.2872)$ & $3.8495\ (0.1569)$ & $4.3813\ (0.1711)$ \\
+& TransTrim   & $2.4263\ (0.1410)$ & $3.0659\ (0.1604)$ & $1.7852\ (0.0803)$ & $2.3472\ (0.0961)$ \\
+& SingleFarm  & $7.9122\ (0.2061)$ & $8.4375\ (0.2077)$ & $8.4092\ (0.2205)$ & $9.0614\ (0.2231)$ \\
+& TransFarm   & $2.5724\ (0.1246)$ & $3.2393\ (0.1318)$ & $2.5827\ (0.1114)$ & $3.2693\ (0.1113)$ \\
+& ProTrans    & $\bm{1.3296}\ (0.0616)$ & $\bm{1.9504}\ (0.0813)$ & $\bm{1.2620}\ (0.0567)$ & $\bm{1.8184}\ (0.0653)$ \\
+\hline
+\multirow{5}{*}{2000}
+& SingleTrim  & $6.7726\ (0.3288)$ & $7.0187\ (0.2791)$ & $4.4771\ (0.2073)$ & $5.0657\ (0.2198)$ \\
+& TransTrim   & $2.4105\ (0.1118)$ & $3.2059\ (0.1783)$ & $1.8519\ (0.0727)$ & $2.4771\ (0.0880)$ \\
+& SingleFarm  & $8.1257\ (0.2411)$ & $8.6057\ (0.2323)$ & $9.1359\ (0.2702)$ & $9.8391\ (0.2682)$ \\
+& TransFarm   & $2.6521\ (0.2081)$ & $3.3874\ (0.2075)$ & $3.1329\ (0.1681)$ & $3.8588\ (0.1690)$ \\
+& ProTrans    & $\bm{1.3190}\ (0.0449)$ & $\bm{2.2082}\ (0.1429)$ & $\bm{1.2690}\ (0.0394)$ & $\bm{1.8669}\ (0.0512)$ \\
+        \hline
+         \multicolumn{6}{c}{\textbf{Scenario 3 (nonlinear)}}\\
+        \hline
+        \multirow{5}{*}{1500}
+& SingleTrim  & $7.3034\ (0.3405)$& $7.7163\ (0.3126)$& $5.0637\ (0.2061)$  & $5.7136\ (0.2264)$\\
+& TransTrim   & $2.9041\ (0.1225)$  & $3.6870\ (0.1457)$ & $2.2195\ (0.0867)$  & $2.8957\ (0.1079)$  \\
+& SingleFarm  & $5.1953\ (0.2089)$ & $5.8374\ (0.2096)$ & $5.8308\ (0.2621)$ & $6.5458\ (0.2635)$ \\
+& TransFarm   & $1.9394\ (0.1180)$  & $2.7472\ (0.1281)$  & $1.9292\ (0.1017)$  & $2.6916\ (0.1029)$ \\
+& ProTrans    & $\bm{1.4337}\ (0.0781)$ & $\bm{2.2278}\ (0.1074)$ & $\bm{1.2024}\ (0.0520)$  & $\bm{1.8801}\ (0.0694)$ \\
+\hline
+\multirow{5}{*}{2000}
+& SingleTrim  & $7.9291\ (0.3461)$  & $8.4003\ (0.3109)$  & $5.7839\ (0.2588)$  & $6.5066\ (0.2791)$ \\
+& TransTrim   & $3.0132\ (0.1282)$  & $3.9696\ (0.1976)$& $2.3438\ (0.0953)$ & $3.0940\ (0.1175)$  \\
+& SingleFarm  & $5.5249\ (0.2224)$ & $6.1933\ (0.2221)$  & $6.2591\ (0.2416)$  & $7.0178\ (0.2403)$  \\
+& TransFarm   & $1.8790\ (0.0731)$ & $2.7432\ (0.0882)$  & $2.2212\ (0.0938)$  & $3.0268\ (0.0960)$\\
+& ProTrans    & $\bm{1.3983}\ (0.0547)$ & $\bm{2.3879}\ (0.1489)$ &$\bm{1.3113}\ (0.0521)$ & $\bm{2.0372}\ (0.0683)$ \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% \begin{table}[!ht]
+% \renewcommand{\arraystretch}{0.6}
+% \footnotesize
+% \centerfloat
+% \caption{The $l_1$ norm errors of different methods across various dimensions $p$.}
+% \label{table:l1_norm_p_sd_sce1}
+% \begin{tabular}{cccccc}
+% \toprule
+% \multirow{2}{*}{$\bm{p}$} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{2}{c}{\textbf{single-source}} & \multicolumn{2}{c}{\textbf{multi-source}}\\
+% \cmidrule(lr){3-4} \cmidrule(lr){5-6}
+% & & $\eta$ & $\beta_{t}$ & $\eta$ & $\beta_{t}$ \\
+% \midrule
+% \multicolumn{6}{c}{\textbf{Scenario 1 (linear)}}\\
+% \hline
+% \multirow{5}{*}{500}
+% & SingleTrim  & $1.8195\ (0.0760)$ & $2.1458\ (0.0845)$ & $1.6540\ (0.0687)$ & $1.9932\ (0.0719)$ \\
+% & TransTrim   & $0.9743\ (0.0440)$ & $1.3645\ (0.0522)$ & $0.9516\ (0.0480)$ & $1.3527\ (0.0496)$ \\
+% & SingleFarm  & $2.6029\ (0.0836)$ & $3.0369\ (0.0832)$ & $2.6500\ (0.0997)$ & $3.1352\ (0.0963)$ \\
+% & TransFarm   & $0.6023\ (0.0515)$ & $1.1654\ (0.0527)$ & $0.8129\ (0.0852)$ & $1.4081\ (0.0842)$ \\
+% & ProTrans    & $\bm{0.7323}\ (0.0302)$ & $\bm{1.1414}\ (0.0396)$ & $\bm{0.6824}\ (0.0244)$ & $\bm{1.1273}\ (0.0318)$ \\
+% \hline
+% \multirow{5}{*}{1000}
+% & SingleTrim  & $2.1605\ (0.0795)$ & $2.4789\ (0.0825)$ & $1.9753\ (0.0769)$ & $2.3055\ (0.0788)$ \\
+% & TransTrim   & $0.9696\ (0.0311)$ & $1.3574\ (0.0381)$ & $0.9115\ (0.0296)$ & $1.2970\ (0.0295)$ \\
+% & SingleFarm  & $2.7750\ (0.0759)$ & $3.2662\ (0.0783)$ & $2.8200\ (0.0954)$ & $3.3460\ (0.0964)$ \\
+% & TransFarm   & $0.7553\ (0.0521)$ & $1.2817\ (0.0523)$ & $0.7364\ (0.0449)$ & $1.2742\ (0.0414)$ \\
+% & ProTrans    & $\bm{0.7811}\ (0.0230)$ & $\bm{1.1831}\ (0.0322)$ & $\bm{0.7450}\ (0.0297)$ & $\bm{1.1530}\ (0.0320)$ \\
+% \hline
+% \multirow{5}{*}{1500}
+% & SingleTrim  & $2.3097\ (0.0907)$ & $2.6143\ (0.0942)$ & $2.0223\ (0.0736)$ & $2.3402\ (0.0768)$ \\
+% & TransTrim   & $0.9943\ (0.0407)$ & $1.3520\ (0.0449)$ & $0.9494\ (0.0457)$ & $1.3134\ (0.0497)$ \\
+% & SingleFarm  & $2.6162\ (0.0863)$ & $3.0241\ (0.0870)$ & $2.5491\ (0.0877)$ & $2.9786\ (0.0866)$ \\
+% & TransFarm   & $0.7665\ (0.0311)$ & $1.2127\ (0.0336)$ & $0.7505\ (0.0374)$ & $1.2175\ (0.0382)$ \\
+% & ProTrans    & $\bm{0.8181}\ (0.0366)$ & $\bm{1.1786}\ (0.0400)$ & $\bm{0.7390}\ (0.0273)$ & $\bm{1.1138}\ (0.0306)$ \\
+% \hline
+% \multirow{5}{*}{2000}
+% & SingleTrim  & $2.5860\ (0.1098)$ & $2.8727\ (0.1111)$ & $2.2090\ (0.0898)$ & $2.5573\ (0.0907)$ \\
+% & TransTrim   & $1.0220\ (0.0354)$ & $1.4569\ (0.0475)$ & $0.9604\ (0.0305)$ & $1.3573\ (0.0362)$ \\
+% & SingleFarm  & $2.7064\ (0.0880)$ & $3.0435\ (0.0816)$ & $2.5504\ (0.0861)$ & $2.9596\ (0.0847)$ \\
+% & TransFarm   & $0.8862\ (0.0412)$ & $1.3660\ (0.0611)$ & $0.8225\ (0.0260)$ & $1.2751\ (0.0271)$ \\
+% & ProTrans    & $\bm{0.8555}\ (0.0285)$ & $\bm{1.2593}\ (0.0337)$ & $\bm{0.7716}\ (0.0183)$ & $\bm{1.1731}\ (0.0235)$ \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+
+
+% \begin{table}[!ht]
+% \renewcommand{\arraystretch}{0.6}
+% \footnotesize
+% \centerfloat
+% \caption{The $l_1$ norm errors of different methods across various dimensions $p$.}
+% \label{table:l1_norm_p_sd_sce2}
+% \begin{tabular}{cccccc}
+% \toprule
+% \multirow{2}{*}{$\bm{p}$} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{2}{c}{\textbf{single-source}} & \multicolumn{2}{c}{\textbf{multi-source}}\\
+% \cmidrule(lr){3-4} \cmidrule(lr){5-6}
+% & & $\eta$ & $\beta_{t}$ & $\eta$ & $\beta_{t}$ \\
+% \midrule
+% \multicolumn{6}{c}{\textbf{Scenario 2 (nonlinear)}}\\
+% \hline
+% \multirow{5}{*}{500}
+% & SingleTrim  & $5.4301\ (0.2968)$ & $5.9343\ (0.3099)$ & $3.5403\ (0.1891)$ & $4.1391\ (0.2056)$ \\
+% & TransTrim   & $2.4838\ (0.1591)$ & $3.3413\ (0.1959)$ & $1.8937\ (0.1084)$ & $2.5522\ (0.1208)$ \\
+% & SingleFarm  & $8.4803\ (0.2771)$ & $8.1500\ (0.2363)$ & $8.5488\ (0.2754)$ & $8.8189\ (0.2241)$ \\
+% & TransFarm   & $2.0412\ (0.1235)$ & $3.6249\ (0.1792)$ & $2.5111\ (0.1922)$ & $3.7706\ (0.2546)$ \\
+% & ProTrans    & $\bm{1.2316}\ (0.0764)$ & $\bm{2.0804}\ (0.1216)$ & $\bm{1.0156}\ (0.0416)$ & $\bm{1.7158}\ (0.0573)$ \\
+% \hline
+% \multirow{5}{*}{1000}
+% & SingleTrim  & $5.5720\ (0.2344)$ & $6.0550\ (0.2440)$ & $3.6734\ (0.1471)$ & $4.2793\ (0.1608)$ \\
+% & TransTrim   & $2.3638\ (0.1345)$ & $3.0491\ (0.1607)$ & $1.8010\ (0.0782)$ & $2.4194\ (0.0880)$ \\
+% & SingleFarm  & $7.7187\ (0.2203)$ & $8.3268\ (0.2189)$ & $8.4242\ (0.2040)$ & $9.1910\ (0.2050)$ \\
+% & TransFarm   & $2.3127\ (0.1113)$ & $3.0816\ (0.1125)$ & $2.5887\ (0.1005)$ & $3.3723\ (0.1056)$ \\
+% & ProTrans    & $\bm{1.3256}\ (0.0549)$ & $\bm{2.0054}\ (0.0810)$ & $\bm{1.1863}\ (0.0424)$ & $\bm{1.7965}\ (0.0502)$ \\
+% \hline
+% \multirow{5}{*}{1500}
+% & SingleTrim  & $5.9946\ (0.2966)$ & $6.3513\ (0.2872)$ & $3.8495\ (0.1569)$ & $4.3813\ (0.1711)$ \\
+% & TransTrim   & $2.4263\ (0.1410)$ & $3.0659\ (0.1604)$ & $1.7852\ (0.0803)$ & $2.3472\ (0.0961)$ \\
+% & SingleFarm  & $7.9122\ (0.2061)$ & $8.4375\ (0.2077)$ & $8.4092\ (0.2205)$ & $9.0614\ (0.2231)$ \\
+% & TransFarm   & $2.5724\ (0.1246)$ & $3.2393\ (0.1318)$ & $2.5827\ (0.1114)$ & $3.2693\ (0.1113)$ \\
+% & ProTrans    & $\bm{1.3296}\ (0.0616)$ & $\bm{1.9504}\ (0.0813)$ & $\bm{1.2620}\ (0.0567)$ & $\bm{1.8184}\ (0.0653)$ \\
+% \hline
+% \multirow{5}{*}{2000}
+% & SingleTrim  & $6.7726\ (0.3288)$ & $7.0187\ (0.2791)$ & $4.4771\ (0.2073)$ & $5.0657\ (0.2198)$ \\
+% & TransTrim   & $2.4105\ (0.1118)$ & $3.2059\ (0.1783)$ & $1.8519\ (0.0727)$ & $2.4771\ (0.0880)$ \\
+% & SingleFarm  & $8.1257\ (0.2411)$ & $8.6057\ (0.2323)$ & $9.1359\ (0.2702)$ & $9.8391\ (0.2682)$ \\
+% & TransFarm   & $2.6521\ (0.2081)$ & $3.3874\ (0.2075)$ & $3.1329\ (0.1681)$ & $3.8588\ (0.1690)$ \\
+% & ProTrans    & $\bm{1.3190}\ (0.0449)$ & $\bm{2.2082}\ (0.1429)$ & $\bm{1.2690}\ (0.0394)$ & $\bm{1.8669}\ (0.0512)$ \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+
+
+% \begin{table}[!ht]
+% \renewcommand{\arraystretch}{0.6}
+% \footnotesize
+% \centerfloat
+% \caption{The $l_1$ norm errors of different methods across various dimensions $p$.}
+% \label{table:l1_norm_p_sd_sce3}
+% \begin{tabular}{cccccc}
+% \toprule
+% \multirow{2}{*}{$\bm{p}$} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{2}{c}{\textbf{single-source}} & \multicolumn{2}{c}{\textbf{multi-source}}\\
+% \cmidrule(lr){3-4} \cmidrule(lr){5-6}
+% & & $\eta$ & $\beta_{t}$ & $\eta$ & $\beta_{t}$ \\
+% \midrule
+% \multicolumn{6}{c}{\textbf{Scenario 3 (nonlinear)}}\\
+% \hline
+% \multirow{5}{*}{500}
+% & SingleTrim  & $6.5854\ (0.3279)$  & $7.2482\ (0.3453)$ & $4.6464\ (0.2542)$ & $5.3890\ (0.2768)$ \\
+% & TransTrim   & $2.9871\ (0.1730)$  & $4.0056\ (0.2109)$  & $2.3197\ (0.1332)$ & $3.1194\ (0.1529)$ \\
+% & SingleFarm  & $5.8293\ (0.2610)$ & $6.0358\ (0.2333)$ & $5.8078\ (0.2357)$& $6.5672\ (0.2471)$  \\
+% & TransFarm   & $1.6083\ (0.1110)$ & $3.1416\ (0.1606)$ & $1.9433\ (0.1977)$ & $2.9370\ (0.1982)$  \\
+% & ProTrans    & $\bm{1.5494}\ (0.1107)$ & $\bm{2.6031}\ (0.1526)$  & $\bm{1.2525}\ (0.0601)$  & $\bm{2.0885}\ (0.0828)$  \\
+% \hline
+% \multirow{5}{*}{1000}
+% & SingleTrim  & $6.8711\ (0.2805)$ & $7.5761\ (0.3010)$ & $4.9216\ (0.2109)$ & $5.6592\ (0.2298)$  \\
+% & TransTrim   & $2.8971\ (0.1653)$ & $3.8045\ (0.2087)$ & $2.2496\ (0.1084)$ & $2.9897\ (0.1257)$ \\
+% & SingleFarm  & $5.1877\ (0.2062)$  & $5.9738\ (0.2051)$  & $5.9599\ (0.2371)$ & $6.8234\ (0.2384)$ \\
+% & TransFarm   & $1.6692\ (0.0771)$  & $2.6243\ (0.0997)$ & $1.8514\ (0.0827)$  & $2.7316\ (0.0902)$  \\
+% & ProTrans    & $\bm{1.3993}\ (0.0621)$  & $\bm{2.2363}\ (0.0907)$ & $\bm{1.2847}\ (0.0638)$ & $\bm{2.0212}\ (0.0773)$ \\
+% \hline
+% \multirow{5}{*}{1500}
+% & SingleTrim  & $7.3034\ (0.3405)$& $7.7163\ (0.3126)$& $5.0637\ (0.2061)$  & $5.7136\ (0.2264)$\\
+% & TransTrim   & $2.9041\ (0.1225)$  & $3.6870\ (0.1457)$ & $2.2195\ (0.0867)$  & $2.8957\ (0.1079)$  \\
+% & SingleFarm  & $5.1953\ (0.2089)$ & $5.8374\ (0.2096)$ & $5.8308\ (0.2621)$ & $6.5458\ (0.2635)$ \\
+% & TransFarm   & $1.9394\ (0.1180)$  & $2.7472\ (0.1281)$  & $1.9292\ (0.1017)$  & $2.6916\ (0.1029)$ \\
+% & ProTrans    & $\bm{1.4337}\ (0.0781)$ & $\bm{2.2278}\ (0.1074)$ & $\bm{1.2024}\ (0.0520)$  & $\bm{1.8801}\ (0.0694)$ \\
+% \hline
+% \multirow{5}{*}{2000}
+% & SingleTrim  & $7.9291\ (0.3461)$  & $8.4003\ (0.3109)$  & $5.7839\ (0.2588)$  & $6.5066\ (0.2791)$ \\
+% & TransTrim   & $3.0132\ (0.1282)$  & $3.9696\ (0.1976)$& $2.3438\ (0.0953)$ & $3.0940\ (0.1175)$  \\
+% & SingleFarm  & $5.5249\ (0.2224)$ & $6.1933\ (0.2221)$  & $6.2591\ (0.2416)$  & $7.0178\ (0.2403)$  \\
+% & TransFarm   & $1.8790\ (0.0731)$ & $2.7432\ (0.0882)$  & $2.2212\ (0.0938)$  & $3.0268\ (0.0960)$\\
+% & ProTrans    & $\bm{1.3983}\ (0.0547)$ & $\bm{2.3879}\ (0.1489)$ &$\bm{1.3113}\ (0.0521)$ & $\bm{2.0372}\ (0.0683)$ \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+
+
+% \begin{table}[!ht]
+% \renewcommand{\arraystretch}{0.6}
+% \footnotesize
+% \centerfloat
+% \caption{The $l_1$ norm errors of different methods across various levels of confounding.}
+% \label{table:l1_confounding_sce1}
+% \begin{tabular}{cccccc}
+% \toprule
+% \multirow{2}{*}{\textbf{$\|\phi_t\|_2$}} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{2}{c}{\textbf{single-source}} & \multicolumn{2}{c}{\textbf{multi-source}}\\
+% \cmidrule(lr){3-4} \cmidrule(lr){5-6}
+% & & $\eta$ & $\beta_{t}$ & $\eta$ & $\beta_{t}$ \\
+% \midrule
+% \multicolumn{6}{c}{\textbf{Scenario 1 (linear)}}\\
+% \hline
+% \multirow{5}{*}{1}
+% & SingleTrim  & $2.3097\ (0.0906)$ & $2.6143\ (0.0942)$ & $2.0223\ (0.0736)$ & $2.3402\ (0.0768)$ \\
+% & TransTrim   & $0.9943\ (0.0407)$ & $1.3520\ (0.0449)$ & $0.9494\ (0.0457)$ & $1.3134\ (0.0496)$ \\
+% & SingleFarm  & $2.6162\ (0.0863)$ & $3.0241\ (0.0870)$ & $2.5491\ (0.0877)$ & $2.9786\ (0.0866)$ \\
+% & TransFarm   & $\bm{0.7665}\ (0.0311)$ & $1.2127\ (0.0336)$ & $0.7505\ (0.0374)$ & $1.2175\ (0.0382)$ \\
+% & ProTrans    & $0.8181\ (0.0366)$ & $\bm{1.1786}\ (0.0400)$ & $\bm{0.7390}\ (0.0273)$ & $\bm{1.1138}\ (0.0306)$ \\
+% \hline
+% \multirow{5}{*}{2}
+% & SingleTrim  & $4.3591\ (0.2045)$ & $4.6880\ (0.2096)$ & $3.6653\ (0.1655)$ & $4.0422\ (0.1694)$ \\
+% & TransTrim   & $1.7303\ (0.0947)$ & $2.3870\ (0.1141)$ & $1.4927\ (0.0752)$ & $2.0270\ (0.0889)$ \\
+% & SingleFarm  & $3.5150\ (0.1376)$ & $3.9653\ (0.1392)$ & $2.9595\ (0.0983)$ & $3.4302\ (0.0981)$ \\
+% & TransFarm   & $\bm{1.1390}\ (0.0614)$ & $\bm{1.8335}\ (0.0763)$ & $\bm{0.9754}\ (0.0469)$ & $1.5454\ (0.0516)$ \\
+% & ProTrans    & $1.3203\ (0.0689)$ & $1.9486\ (0.0817)$ & $0.9822\ (0.0400)$ & $\bm{1.4702}\ (0.0519)$ \\
+% \hline
+% \multirow{5}{*}{3}
+% & SingleTrim  & $6.5309\ (0.3030)$ & $6.6745\ (0.2814)$ & $5.4460\ (0.2483)$ & $5.7809\ (0.2522)$ \\
+% & TransTrim   & $2.4135\ (0.1283)$ & $3.4964\ (0.1711)$ & $2.1108\ (0.1117)$ & $2.9469\ (0.1431)$ \\
+% & SingleFarm  & $4.6487\ (0.1928)$ & $5.1329\ (0.1943)$ & $3.6416\ (0.1311)$ & $4.1364\ (0.1288)$ \\
+% & TransFarm   & $\bm{1.6853}\ (0.0943)$ & $\bm{2.6815}\ (0.1225)$ & $\bm{1.2502}\ (0.0559)$ & $\bm{1.9744}\ (0.0726)$ \\
+% & ProTrans    & $1.8291\ (0.1016)$ & $2.8361\ (0.1317)$ & $1.3233\ (0.0651)$ & $2.0187\ (0.0945)$ \\
+% \hline
+% \multirow{5}{*}{4}
+% & SingleTrim  & $8.3423\ (0.3818)$ & $8.3820\ (0.3232)$ & $7.1110\ (0.3115)$ & $7.3811\ (0.3084)$ \\
+% & TransTrim   & $3.1478\ (0.1682)$ & $4.6246\ (0.2297)$ & $2.7484\ (0.1487)$ & $3.9419\ (0.2010)$ \\
+% & SingleFarm  & $5.9089\ (0.2536)$ & $6.3974\ (0.2386)$ & $4.5217\ (0.1809)$ & $4.9902\ (0.1677)$ \\
+% & TransFarm   & $\bm{2.2717}\ (0.1269)$ & $\bm{3.6233}\ (0.1789)$ & $\bm{1.5905}\ (0.0817)$ & $\bm{2.5151}\ (0.1150)$ \\
+% & ProTrans    & $2.3206\ (0.1298)$ & $3.8045\ (0.1841)$ & $1.6963\ (0.0919)$ & $2.7348\ (0.1659)$ \\
+% \hline
+% \multicolumn{6}{c}{\textbf{Scenario 2: Nonlinear}}\\
+% \hline
+% \multirow{5}{*}{1}
+% & SingleTrim  & $1.3708\ (0.0396)$ & $1.6030\ (0.0410)$ & $1.5379\ (0.0211)$ & $3.2230\ (0.0229)$ \\
+% & TransTrim   & $0.6438\ (0.0231)$ & $0.8915\ (0.0230)$ & $0.7821\ (0.0129)$ & $2.5342\ (0.0097)$ \\
+% & SingleFarm  & $3.7394\ (0.0929)$ & $4.0293\ (0.0941)$ & $11.4066\ (0.0148)$ & $13.1693\ (0.0212)$ \\
+% & TransFarm   & $1.1853\ (0.0610)$ & $1.4886\ (0.0628)$ & $4.1694\ (0.0861)$ & $5.9098\ (0.0884)$ \\
+% & ProTrans    & $\bm{0.5473}\ (0.0136)$ & $\bm{0.8054}\ (0.0149)$ & $\bm{0.6434}\ (0.0215)$ & $\bm{2.4201}\ (0.0239)$ \\
+% \hline
+% \multirow{5}{*}{2}
+% & SingleTrim  & $1.8670\ (0.0673)$ & $2.1221\ (0.0692)$ & $1.8185\ (0.0437)$ & $3.5189\ (0.0481)$ \\
+% & TransTrim   & $0.8439\ (0.0404)$ & $1.1185\ (0.0421)$ & $0.7725\ (0.0166)$ & $2.5334\ (0.0192)$ \\
+% & SingleFarm  & $3.8145\ (0.0933)$ & $4.1184\ (0.0936)$ & $11.4579\ (0.0090)$ & $13.2163\ (0.0171)$ \\
+% & TransFarm   & $1.2250\ (0.0603)$ & $1.5448\ (0.0621)$ & $4.2192\ (0.0818)$ & $5.9553\ (0.0845)$ \\
+% & ProTrans    & $\bm{0.6268}\ (0.0195)$ & $\bm{0.9081}\ (0.0215)$ & $\bm{0.6746}\ (0.0168)$ & $\bm{2.4468}\ (0.0207)$ \\
+% \hline
+% \multirow{5}{*}{3}
+% & SingleTrim  & $2.4679\ (0.0996)$ & $2.7586\ (0.1043)$ & $2.1321\ (0.0648)$ & $3.8202\ (0.0706)$ \\
+% & TransTrim   & $1.0816\ (0.0597)$ & $1.3941\ (0.0630)$ & $0.8276\ (0.0124)$ & $2.6043\ (0.0173)$ \\
+% & SingleFarm  & $3.8923\ (0.0941)$ & $4.2200\ (0.0935)$ & $11.5210\ (0.0104)$ & $13.2648\ (0.0163)$ \\
+% & TransFarm   & $1.2782\ (0.0591)$ & $1.6262\ (0.0606)$ & $4.1951\ (0.0840)$ & $5.9268\ (0.0870)$ \\
+% & ProTrans    & $\bm{0.7194}\ (0.0265)$ & $\bm{1.0383}\ (0.0296)$ & $\bm{0.6753}\ (0.0135)$ & $\bm{2.4431}\ (0.0179)$ \\
+% \hline
+% \multirow{5}{*}{4}
+% & SingleTrim  & $3.0709\ (0.1285)$ & $3.4017\ (0.1355)$ & $2.5125\ (0.0973)$ & $4.2197\ (0.0997)$ \\
+% & TransTrim   & $1.3476\ (0.0800)$ & $1.7053\ (0.0843)$ & $0.9681\ (0.0067)$ & $2.7529\ (0.0106)$ \\
+% & SingleFarm  & $3.9919\ (0.0958)$ & $4.3549\ (0.0959)$ & $11.5049\ (0.0092)$ & $13.2444\ (0.0161)$ \\
+% & TransFarm   & $1.2816\ (0.0468)$ & $1.6702\ (0.0485)$ & $4.2451\ (0.0799)$ & $5.9724\ (0.0833)$ \\
+% & ProTrans    & $\bm{0.8304}\ (0.0328)$ & $\bm{1.1898}\ (0.0368)$ & $\bm{0.6692}\ (0.0076)$ & $\bm{2.4327}\ (0.0131)$ \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+
+
+
+\begin{table}[!ht]
+\renewcommand{\arraystretch}{0.6}
+\footnotesize
+\centerfloat
+\caption{The $l_1$ norm errors of different methods across various levels of confounding.}
+\label{table:l1_confounding}
+\begin{tabular}{cccccc}
+        \toprule
+        \multirow{2}{*}{\textbf{$\|\phi_t\|_2$}} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{2}{c}{\textbf{single-source}} & \multicolumn{2}{c}{\textbf{multi-source}}\\
+        \cmidrule(lr){3-4} \cmidrule(lr){5-6} 
+        & & $\eta$ & $\beta_{t}$ & $\eta$& $\beta_{t}$ \\
+        \midrule
+        \multicolumn{6}{c}{\textbf{Scenario 1 (linear)}}\\
+        \hline
+       \multirow{5}{*}{1}
+& SingleTrim  & $2.3097\ (0.0906)$ & $2.6143\ (0.0942)$ & $2.0223\ (0.0736)$ & $2.3402\ (0.0768)$ \\
+& TransTrim   & $0.9943\ (0.0407)$ & $1.3520\ (0.0449)$ & $0.9494\ (0.0457)$ & $1.3134\ (0.0496)$ \\
+& SingleFarm  & $2.6162\ (0.0863)$ & $3.0241\ (0.0870)$ & $2.5491\ (0.0877)$ & $2.9786\ (0.0866)$ \\
+& TransFarm   & $\bm{0.7665}\ (0.0311)$ & $1.2127\ (0.0336)$ & $0.7505\ (0.0374)$ & $1.2175\ (0.0382)$ \\
+& ProTrans    & $0.8181\ (0.0366)$ & $\bm{1.1786}\ (0.0400)$ & $\bm{0.7390}\ (0.0273)$ & $\bm{1.1138}\ (0.0306)$ \\
+\hline
+\multirow{5}{*}{2}
+& SingleTrim  & $4.3591\ (0.2045)$ & $4.6880\ (0.2096)$ & $3.6653\ (0.1655)$ & $4.0422\ (0.1694)$ \\
+& TransTrim   & $1.7303\ (0.0947)$ & $2.3870\ (0.1141)$ & $1.4927\ (0.0752)$ & $2.0270\ (0.0889)$ \\
+& SingleFarm  & $3.5150\ (0.1376)$ & $3.9653\ (0.1392)$ & $2.9595\ (0.0983)$ & $3.4302\ (0.0981)$ \\
+& TransFarm   & $\bm{1.1390}\ (0.0614)$ & $\bm{1.8335}\ (0.0763)$ & $\bm{0.9754}\ (0.0469)$ & $1.5454\ (0.0516)$ \\
+& ProTrans    & $1.3203\ (0.0689)$ & $1.9486\ (0.0817)$ & $0.9822\ (0.0400)$ & $\bm{1.4702}\ (0.0519)$ \\
+        \hline
+         \multicolumn{6}{c}{\textbf{Scenario 2 (nonlinear)}}\\
+         \hline
+        \multirow{5}{*}{1}
+& SingleTrim  & $1.3708\ (0.0396)$ & $1.6030\ (0.0410)$ & $1.1959\ (0.0355)$ & $1.4836\ (0.0362)$ \\
+& TransTrim   & $0.6438\ (0.0231)$ & $0.8915\ (0.0230)$ & $0.6710\ (0.0167)$ & $1.0053\ (0.0182)$ \\
+& SingleFarm  & $3.7394\ (0.0929)$ & $4.0293\ (0.0941)$ & $8.2207\ (0.1937)$ & $8.7239\ (0.1991)$ \\
+& TransFarm   & $1.1853\ (0.0610)$ & $1.4886\ (0.0628)$ & $2.4276\ (0.1224)$ & $2.9684\ (0.1247)$ \\
+& ProTrans    & $\bm{0.5473}\ (0.0136)$ & $\bm{0.8054}\ (0.0149)$ & $\bm{0.6539}\ (0.0191)$ & $\bm{1.0290}\ (0.0197)$ \\
+\hline
+\multirow{5}{*}{2}
+& SingleTrim  & $1.8670\ (0.0673)$ & $2.1221\ (0.0692)$ & $1.4633\ (0.0484)$ & $1.7720\ (0.0480)$ \\
+& TransTrim   & $0.8439\ (0.0404)$ & $1.1185\ (0.0421)$ & $0.7706\ (0.0242)$ & $1.1252\ (0.0261)$ \\
+& SingleFarm  & $3.8145\ (0.0933)$ & $4.1184\ (0.0936)$ & $8.2703\ (0.1975)$ & $8.7748\ (0.2027)$ \\
+& TransFarm   & $1.2250\ (0.0603)$ & $1.5448\ (0.0621)$ & $2.4370\ (0.1158)$ & $2.9850\ (0.1174)$ \\
+& ProTrans    & $\bm{0.6268}\ (0.0195)$ & $\bm{0.9081}\ (0.0215)$ & $\bm{0.7320}\ (0.0235)$ & $\bm{1.1097}\ (0.0241)$ \\
+        \hline
+         \multicolumn{6}{c}{\textbf{Scenario 3 (nonlinear)}}\\
+        \hline
+        \multirow{5}{*}{1}
+& SingleTrim  & $1.5015\ (0.0450)$ & $1.7433\ (0.0464)$  & $1.3010\ (0.0376)$ & $1.5960\ (0.0390)$ \\
+& TransTrim   & $0.6801\ (0.0269)$  & $0.9371\ (0.0274)$& $0.6784\ (0.0190)$ & $1.0114\ (0.0204)$ \\
+& SingleFarm  & $2.2170\ (0.0773)$ & $2.5115\ (0.0790)$& $5.0659\ (0.2112)$ & $5.5443\ (0.2158)$ \\
+& TransFarm   & $0.7293\ (0.0290)$& $1.0400\ (0.0297)$ & $1.4899\ (0.0958)$ & $1.9981\ (0.0971)$\\
+& ProTrans    & $\bm{0.5390}\ (0.0150)$ & $\bm{0.8042}\ (0.0164)$  & $\bm{0.5762}\ (0.0166)$ & $\bm{0.9370}\ (0.0179)$  \\
+\hline
+\multirow{5}{*}{2}
+& SingleTrim  & $2.2096\ (0.0809)$ & $2.4896\ (0.0839)$ & $1.7089\ (0.0561)$ & $2.0344\ (0.0591)$  \\
+& TransTrim   & $0.9707\ (0.0568)$ & $1.2694\ (0.0585)$ & $0.8359\ (0.0273)$  & $1.1931\ (0.0305)$  \\
+& SingleFarm  & $2.3528\ (0.0819)$ & $2.6774\ (0.0834)$ & $5.1147\ (0.2212)$  & $5.6023\ (0.2249)$  \\
+& TransFarm   & $0.7869\ (0.0275)$ & $1.1292\ (0.0291)$ & $1.5231\ (0.0884)$  & $2.0496\ (0.0903)$  \\
+& ProTrans    & $\bm{0.6292}\ (0.0213)$ & $\bm{0.9325}\ (0.0229)$ & $\bm{0.6455}\ (0.0202)$ & $\bm{1.0244}\ (0.0221)$ \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
+
+\begin{table}[!ht]
+\renewcommand{\arraystretch}{0.6}
+\footnotesize
+\centerfloat
+\caption{The $l_1$ norm errors of different methods across various levels of confounding (continued).}
+\label{table:l1_confounding_continued}
+\begin{tabular}{cccccc}
+        \toprule
+        \multirow{2}{*}{\textbf{$\|\phi_t\|_2$}} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{2}{c}{\textbf{single-source}} & \multicolumn{2}{c}{\textbf{multi-source}}\\
+        \cmidrule(lr){3-4} \cmidrule(lr){5-6} 
+        & & $\eta$ & $\beta_{t}$ & $\eta$& $\beta_{t}$ \\
+        \midrule
+        \multicolumn{6}{c}{\textbf{Scenario 1 (linear)}}\\
+        \hline
+       \multirow{5}{*}{3}
+& SingleTrim  & $6.5309\ (0.3030)$ & $6.6745\ (0.2814)$ & $5.4460\ (0.2483)$ & $5.7809\ (0.2522)$ \\
+& TransTrim   & $2.4135\ (0.1283)$ & $3.4964\ (0.1711)$ & $2.1108\ (0.1117)$ & $2.9469\ (0.1431)$ \\
+& SingleFarm  & $4.6487\ (0.1928)$ & $5.1329\ (0.1943)$ & $3.6416\ (0.1311)$ & $4.1364\ (0.1288)$ \\
+& TransFarm   & $\bm{1.6853}\ (0.0943)$ & $\bm{2.6815}\ (0.1225)$ & $\bm{1.2502}\ (0.0559)$ & $\bm{1.9744}\ (0.0726)$ \\
+& ProTrans    & $1.8291\ (0.1016)$ & $2.8361\ (0.1317)$ & $1.3233\ (0.0651)$ & $2.0187\ (0.0945)$ \\
+\hline
+\multirow{5}{*}{4}
+& SingleTrim  & $8.3423\ (0.3818)$ & $8.3820\ (0.3232)$ & $7.1110\ (0.3115)$ & $7.3811\ (0.3084)$ \\
+& TransTrim   & $3.1478\ (0.1682)$ & $4.6246\ (0.2297)$ & $2.7484\ (0.1487)$ & $3.9419\ (0.2010)$ \\
+& SingleFarm  & $5.9089\ (0.2536)$ & $6.3974\ (0.2386)$ & $4.5217\ (0.1809)$ & $4.9902\ (0.1677)$ \\
+& TransFarm   & $\bm{2.2717}\ (0.1269)$ & $\bm{3.6233}\ (0.1789)$ & $\bm{1.5905}\ (0.0817)$ & $\bm{2.5151}\ (0.1150)$ \\
+& ProTrans    & $2.3206\ (0.1298)$ & $3.8045\ (0.1841)$ & $1.6963\ (0.0919)$ & $2.7348\ (0.1659)$ \\
+        \hline
+         \multicolumn{6}{c}{\textbf{Scenario 2 (nonlinear)}}\\
+         \hline
+        \multirow{5}{*}{3}
+& SingleTrim  & $2.4679\ (0.0996)$ & $2.7586\ (0.1043)$ & $1.7907\ (0.0647)$ & $2.1289\ (0.0677)$ \\
+& TransTrim   & $1.0816\ (0.0597)$ & $1.3941\ (0.0630)$ & $0.9154\ (0.0353)$ & $1.2941\ (0.0397)$ \\
+& SingleFarm  & $3.8923\ (0.0941)$ & $4.2200\ (0.0935)$ & $8.3001\ (0.2020)$ & $8.8153\ (0.2062)$ \\
+& TransFarm   & $1.2782\ (0.0591)$ & $1.6262\ (0.0606)$ & $2.4848\ (0.1229)$ & $3.0428\ (0.1243)$ \\
+& ProTrans    & $\bm{0.7194}\ (0.0265)$ & $\bm{1.0383}\ (0.0296)$ & $\bm{0.8021}\ (0.0273)$ & $\bm{1.1963}\ (0.0286)$ \\
+\hline
+\multirow{5}{*}{4}
+& SingleTrim  & $3.0709\ (0.1285)$ & $3.4017\ (0.1355)$ & $2.1902\ (0.0853)$ & $2.5572\ (0.0898)$ \\
+& TransTrim   & $1.3476\ (0.0800)$ & $1.7053\ (0.0843)$ & $1.0811\ (0.0482)$ & $1.4910\ (0.0543)$ \\
+& SingleFarm  & $3.9919\ (0.0958)$ & $4.3549\ (0.0959)$ & $8.2977\ (0.2078)$ & $8.8288\ (0.2117)$ \\
+& TransFarm   & $1.2816\ (0.0468)$ & $1.6702\ (0.0485)$ & $2.4937\ (0.1182)$ & $3.0695\ (0.1196)$ \\
+& ProTrans    & $\bm{0.8304}\ (0.0328)$ & $\bm{1.1898}\ (0.0368)$ & $\bm{0.8735}\ (0.0288)$ & $\bm{1.2914}\ (0.0319)$ \\
+        \hline
+         \multicolumn{6}{c}{\textbf{Scenario 3 (nonlinear)}}\\
+        \hline
+\multirow{5}{*}{3}
+& SingleTrim  & $2.9733\ (0.1154)$  & $3.3088\ (0.1219)$  & $2.2306\ (0.0838)$  & $2.5937\ (0.0886)$ \\
+& TransTrim   & $1.2412\ (0.0615)$ & $1.6002\ (0.0668)$  & $1.0322\ (0.0368)$ & $1.4283\ (0.0429)$ \\
+& SingleFarm  & $2.5463\ (0.0896)$ & $2.9172\ (0.0918)$ & $5.1915\ (0.2247)$ & $5.7027\ (0.2271)$ \\
+& TransFarm   & $0.9096\ (0.0396)$  & $1.2972\ (0.0432)$ & $1.5191\ (0.0815)$ & $2.0693\ (0.0835)$  \\
+& ProTrans  & $\bm{0.7539}\ (0.0337)$ & $\bm{1.1154}\ (0.0379)$ & $\bm{0.7261}\ (0.0271)$ & $\bm{1.1361}\ (0.0302)$ \\
+\hline
+\multirow{5}{*}{4}
+& SingleTrim  & $3.6797\ (0.1406)$ & $4.0797\ (0.1503)$ & $2.7830\ (0.1090)$  & $3.1936\ (0.1169)$  \\
+& TransTrim   & $1.5749\ (0.0782)$  & $2.0035\ (0.0855)$ & $1.2410\ (0.0455)$& $1.6844\ (0.0544)$  \\
+& SingleFarm  & $2.7717\ (0.0981)$  & $3.1919\ (0.1022)$ & $5.3336\ (0.2366)$ & $5.8735\ (0.2381)$ \\
+& TransFarm   & $1.0428\ (0.0564)$ & $1.4960\ (0.0626)$& $1.5691\ (0.0794)$ & $2.1503\ (0.0809)$  \\
+& ProTrans    & $\bm{0.8445}\ (0.0354)$ & $\bm{1.2770}\ (0.0426)$ & $\bm{0.8008}\ (0.0290)$  & $\bm{1.2549}\ (0.0348)$ \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+% \begin{table}[!ht]
+% \renewcommand{\arraystretch}{0.6}
+% \footnotesize
+% \centerfloat
+% \caption{The $l_1$ norm errors of different methods across various levels of confounding.}
+% \label{table:l1_confounding_sce1}
+% \begin{tabular}{cccccc}
+% \toprule
+% \multirow{2}{*}{\textbf{$\|\phi_t\|_2$}} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{2}{c}{\textbf{single-source}} & \multicolumn{2}{c}{\textbf{multi-source}}\\
+% \cmidrule(lr){3-4} \cmidrule(lr){5-6}
+% & & $\eta$ & $\beta_{t}$ & $\eta$ & $\beta_{t}$ \\
+% \midrule
+% \multicolumn{6}{c}{\textbf{Scenario 1 (linear)}}\\
+% \hline
+% \multirow{5}{*}{1}
+% & SingleTrim  & $2.3097\ (0.0906)$ & $2.6143\ (0.0942)$ & $2.0223\ (0.0736)$ & $2.3402\ (0.0768)$ \\
+% & TransTrim   & $0.9943\ (0.0407)$ & $1.3520\ (0.0449)$ & $0.9494\ (0.0457)$ & $1.3134\ (0.0496)$ \\
+% & SingleFarm  & $2.6162\ (0.0863)$ & $3.0241\ (0.0870)$ & $2.5491\ (0.0877)$ & $2.9786\ (0.0866)$ \\
+% & TransFarm   & $\bm{0.7665}\ (0.0311)$ & $1.2127\ (0.0336)$ & $0.7505\ (0.0374)$ & $1.2175\ (0.0382)$ \\
+% & ProTrans    & $0.8181\ (0.0366)$ & $\bm{1.1786}\ (0.0400)$ & $\bm{0.7390}\ (0.0273)$ & $\bm{1.1138}\ (0.0306)$ \\
+% \hline
+% \multirow{5}{*}{2}
+% & SingleTrim  & $4.3591\ (0.2045)$ & $4.6880\ (0.2096)$ & $3.6653\ (0.1655)$ & $4.0422\ (0.1694)$ \\
+% & TransTrim   & $1.7303\ (0.0947)$ & $2.3870\ (0.1141)$ & $1.4927\ (0.0752)$ & $2.0270\ (0.0889)$ \\
+% & SingleFarm  & $3.5150\ (0.1376)$ & $3.9653\ (0.1392)$ & $2.9595\ (0.0983)$ & $3.4302\ (0.0981)$ \\
+% & TransFarm   & $\bm{1.1390}\ (0.0614)$ & $\bm{1.8335}\ (0.0763)$ & $\bm{0.9754}\ (0.0469)$ & $1.5454\ (0.0516)$ \\
+% & ProTrans    & $1.3203\ (0.0689)$ & $1.9486\ (0.0817)$ & $0.9822\ (0.0400)$ & $\bm{1.4702}\ (0.0519)$ \\
+% \hline
+% \multirow{5}{*}{3}
+% & SingleTrim  & $6.5309\ (0.3030)$ & $6.6745\ (0.2814)$ & $5.4460\ (0.2483)$ & $5.7809\ (0.2522)$ \\
+% & TransTrim   & $2.4135\ (0.1283)$ & $3.4964\ (0.1711)$ & $2.1108\ (0.1117)$ & $2.9469\ (0.1431)$ \\
+% & SingleFarm  & $4.6487\ (0.1928)$ & $5.1329\ (0.1943)$ & $3.6416\ (0.1311)$ & $4.1364\ (0.1288)$ \\
+% & TransFarm   & $\bm{1.6853}\ (0.0943)$ & $\bm{2.6815}\ (0.1225)$ & $\bm{1.2502}\ (0.0559)$ & $\bm{1.9744}\ (0.0726)$ \\
+% & ProTrans    & $1.8291\ (0.1016)$ & $2.8361\ (0.1317)$ & $1.3233\ (0.0651)$ & $2.0187\ (0.0945)$ \\
+% \hline
+% \multirow{5}{*}{4}
+% & SingleTrim  & $8.3423\ (0.3818)$ & $8.3820\ (0.3232)$ & $7.1110\ (0.3115)$ & $7.3811\ (0.3084)$ \\
+% & TransTrim   & $3.1478\ (0.1682)$ & $4.6246\ (0.2297)$ & $2.7484\ (0.1487)$ & $3.9419\ (0.2010)$ \\
+% & SingleFarm  & $5.9089\ (0.2536)$ & $6.3974\ (0.2386)$ & $4.5217\ (0.1809)$ & $4.9902\ (0.1677)$ \\
+% & TransFarm   & $\bm{2.2717}\ (0.1269)$ & $\bm{3.6233}\ (0.1789)$ & $\bm{1.5905}\ (0.0817)$ & $\bm{2.5151}\ (0.1150)$ \\
+% & ProTrans    & $2.3206\ (0.1298)$ & $3.8045\ (0.1841)$ & $1.6963\ (0.0919)$ & $2.7348\ (0.1659)$ \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+
+
+% \begin{table}[!ht]
+% \renewcommand{\arraystretch}{0.6}
+% \footnotesize
+% \centerfloat
+% \caption{The $l_1$ norm errors of different methods across various levels of confounding.}
+% \label{table:l1_confounding_sce2}
+% \begin{tabular}{cccccc}
+% \toprule
+% \multirow{2}{*}{\textbf{$\|\phi_t\|_2$}} & \multirow{2}{*}{\textbf{Method}} & 
+% \multicolumn{2}{c}{\textbf{single-source}} & \multicolumn{2}{c}{\textbf{multi-source}}\\
+% \cmidrule(lr){3-4} \cmidrule(lr){5-6}
+% & & $\eta$ & $\beta_{t}$ & $\eta$ & $\beta_{t}$ \\
+% \midrule
+% \multicolumn{6}{c}{\textbf{Scenario 2 (nonlinear)}}\\
+% \hline
+% \multirow{5}{*}{1}
+% & SingleTrim  & $1.3708\ (0.0396)$ & $1.6030\ (0.0410)$ & $1.1959\ (0.0355)$ & $1.4836\ (0.0362)$ \\
+% & TransTrim   & $0.6438\ (0.0231)$ & $0.8915\ (0.0230)$ & $0.6710\ (0.0167)$ & $1.0053\ (0.0182)$ \\
+% & SingleFarm  & $3.7394\ (0.0929)$ & $4.0293\ (0.0941)$ & $8.2207\ (0.1937)$ & $8.7239\ (0.1991)$ \\
+% & TransFarm   & $1.1853\ (0.0610)$ & $1.4886\ (0.0628)$ & $2.4276\ (0.1224)$ & $2.9684\ (0.1247)$ \\
+% & ProTrans    & $\bm{0.5473}\ (0.0136)$ & $\bm{0.8054}\ (0.0149)$ & $\bm{0.6539}\ (0.0191)$ & $\bm{1.0290}\ (0.0197)$ \\
+% \hline
+% \multirow{5}{*}{2}
+% & SingleTrim  & $1.8670\ (0.0673)$ & $2.1221\ (0.0692)$ & $1.4633\ (0.0484)$ & $1.7720\ (0.0480)$ \\
+% & TransTrim   & $0.8439\ (0.0404)$ & $1.1185\ (0.0421)$ & $0.7706\ (0.0242)$ & $1.1252\ (0.0261)$ \\
+% & SingleFarm  & $3.8145\ (0.0933)$ & $4.1184\ (0.0936)$ & $8.2703\ (0.1975)$ & $8.7748\ (0.2027)$ \\
+% & TransFarm   & $1.2250\ (0.0603)$ & $1.5448\ (0.0621)$ & $2.4370\ (0.1158)$ & $2.9850\ (0.1174)$ \\
+% & ProTrans    & $\bm{0.6268}\ (0.0195)$ & $\bm{0.9081}\ (0.0215)$ & $\bm{0.7320}\ (0.0235)$ & $\bm{1.1097}\ (0.0241)$ \\
+% \hline
+% \multirow{5}{*}{3}
+% & SingleTrim  & $2.4679\ (0.0996)$ & $2.7586\ (0.1043)$ & $1.7907\ (0.0647)$ & $2.1289\ (0.0677)$ \\
+% & TransTrim   & $1.0816\ (0.0597)$ & $1.3941\ (0.0630)$ & $0.9154\ (0.0353)$ & $1.2941\ (0.0397)$ \\
+% & SingleFarm  & $3.8923\ (0.0941)$ & $4.2200\ (0.0935)$ & $8.3001\ (0.2020)$ & $8.8153\ (0.2062)$ \\
+% & TransFarm   & $1.2782\ (0.0591)$ & $1.6262\ (0.0606)$ & $2.4848\ (0.1229)$ & $3.0428\ (0.1243)$ \\
+% & ProTrans    & $\bm{0.7194}\ (0.0265)$ & $\bm{1.0383}\ (0.0296)$ & $\bm{0.8021}\ (0.0273)$ & $\bm{1.1963}\ (0.0286)$ \\
+% \hline
+% \multirow{5}{*}{4}
+% & SingleTrim  & $3.0709\ (0.1285)$ & $3.4017\ (0.1355)$ & $2.1902\ (0.0853)$ & $2.5572\ (0.0898)$ \\
+% & TransTrim   & $1.3476\ (0.0800)$ & $1.7053\ (0.0843)$ & $1.0811\ (0.0482)$ & $1.4910\ (0.0543)$ \\
+% & SingleFarm  & $3.9919\ (0.0958)$ & $4.3549\ (0.0959)$ & $8.2977\ (0.2078)$ & $8.8288\ (0.2117)$ \\
+% & TransFarm   & $1.2816\ (0.0468)$ & $1.6702\ (0.0485)$ & $2.4937\ (0.1182)$ & $3.0695\ (0.1196)$ \\
+% & ProTrans    & $\bm{0.8304}\ (0.0328)$ & $\bm{1.1898}\ (0.0368)$ & $\bm{0.8735}\ (0.0288)$ & $\bm{1.2914}\ (0.0319)$ \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+
+
+
+% \begin{table}[!ht]
+% \renewcommand{\arraystretch}{0.6}
+% \footnotesize
+% \centerfloat
+% \caption{The $l_1$ norm errors of different methods across various levels of confounding.}
+% \label{table:l1_confounding_sce3}
+% \begin{tabular}{cccccc}
+% \toprule
+% \multirow{2}{*}{\textbf{$\|\phi_t\|_2$}} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{2}{c}{\textbf{single-source}} & \multicolumn{2}{c}{\textbf{multi-source}}\\
+% \cmidrule(lr){3-4} \cmidrule(lr){5-6}
+% & & $\eta$ & $\beta_{t}$ & $\eta$ & $\beta_{t}$ \\
+% \midrule
+% \multicolumn{6}{c}{\textbf{Scenario 3 (nonlinear)}}\\
+% \hline
+% \multirow{5}{*}{1}
+% & SingleTrim  & $1.5015\ (0.0450)$ & $1.7433\ (0.0464)$  & $1.3010\ (0.0376)$ & $1.5960\ (0.0390)$ \\
+% & TransTrim   & $0.6801\ (0.0269)$  & $0.9371\ (0.0274)$& $0.6784\ (0.0190)$ & $1.0114\ (0.0204)$ \\
+% & SingleFarm  & $2.2170\ (0.0773)$ & $2.5115\ (0.0790)$& $5.0659\ (0.2112)$ & $5.5443\ (0.2158)$ \\
+% & TransFarm   & $0.7293\ (0.0290)$& $1.0400\ (0.0297)$ & $1.4899\ (0.0958)$ & $1.9981\ (0.0971)$\\
+% & ProTrans    & $\bm{0.5390}\ (0.0150)$ & $\bm{0.8042}\ (0.0164)$  & $\bm{0.5762}\ (0.0166)$ & $\bm{0.9370}\ (0.0179)$  \\
+% \hline
+% \multirow{5}{*}{2}
+% & SingleTrim  & $2.2096\ (0.0809)$ & $2.4896\ (0.0839)$ & $1.7089\ (0.0561)$ & $2.0344\ (0.0591)$  \\
+% & TransTrim   & $0.9707\ (0.0568)$ & $1.2694\ (0.0585)$ & $0.8359\ (0.0273)$  & $1.1931\ (0.0305)$  \\
+% & SingleFarm  & $2.3528\ (0.0819)$ & $2.6774\ (0.0834)$ & $5.1147\ (0.2212)$  & $5.6023\ (0.2249)$  \\
+% & TransFarm   & $0.7869\ (0.0275)$ & $1.1292\ (0.0291)$ & $1.5231\ (0.0884)$  & $2.0496\ (0.0903)$  \\
+% & ProTrans    & $\bm{0.6292}\ (0.0213)$ & $\bm{0.9325}\ (0.0229)$ & $\bm{0.6455}\ (0.0202)$ & $\bm{1.0244}\ (0.0221)$ \\
+% \hline
+% \multirow{5}{*}{3}
+% & SingleTrim  & $2.9733\ (0.1154)$  & $3.3088\ (0.1219)$  & $2.2306\ (0.0838)$  & $2.5937\ (0.0886)$ \\
+% & TransTrim   & $1.2412\ (0.0615)$ & $1.6002\ (0.0668)$  & $1.0322\ (0.0368)$ & $1.4283\ (0.0429)$ \\
+% & SingleFarm  & $2.5463\ (0.0896)$ & $2.9172\ (0.0918)$ & $5.1915\ (0.2247)$ & $5.7027\ (0.2271)$ \\
+% & TransFarm   & $0.9096\ (0.0396)$  & $1.2972\ (0.0432)$ & $1.5191\ (0.0815)$ & $2.0693\ (0.0835)$  \\
+% & ProTrans  & $\bm{0.7539}\ (0.0337)$ & $\bm{1.1154}\ (0.0379)$ & $\bm{0.7261}\ (0.0271)$ & $\bm{1.1361}\ (0.0302)$ \\
+% \hline
+% \multirow{5}{*}{4}
+% & SingleTrim  & $3.6797\ (0.1406)$ & $4.0797\ (0.1503)$ & $2.7830\ (0.1090)$  & $3.1936\ (0.1169)$  \\
+% & TransTrim   & $1.5749\ (0.0782)$  & $2.0035\ (0.0855)$ & $1.2410\ (0.0455)$& $1.6844\ (0.0544)$  \\
+% & SingleFarm  & $2.7717\ (0.0981)$  & $3.1919\ (0.1022)$ & $5.3336\ (0.2366)$ & $5.8735\ (0.2381)$ \\
+% & TransFarm   & $1.0428\ (0.0564)$ & $1.4960\ (0.0626)$& $1.5691\ (0.0794)$ & $2.1503\ (0.0809)$  \\
+% & ProTrans    & $\bm{0.8445}\ (0.0354)$ & $\bm{1.2770}\ (0.0426)$ & $\bm{0.8008}\ (0.0290)$  & $\bm{1.2549}\ (0.0348)$ \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+
+
+\begin{table}[htbp]
+\renewcommand{\arraystretch}{0.65}
+    \centerfloat
+    \caption{The $l_1$ norm errors of source selected methods under different selection level $\rho$.}
+     \label{table:l1_norm_select}
+    \begin{tabular}{cccccccccc}
+    \toprule
+    \textbf{Scenario} & $\bm{p}$ & $\rho = 1$ & $\rho = 1.2$& $\rho = 1.4$ & $\rho = 1.6$ & $\rho = 2$ & $\rho = 2.5$ & $\rho = 3$ & $\rho=\infty$ \\
+    \midrule
+       \multirow{4}{*}{\textbf{Scenario 1}}  & 500 &  $0.8944$ &$0.8350$ & $0.7887$& $0.7895$& $0.8091$& $0.8437$& $0.8671$& $0.9048$  \\
+                                        & 1000 &  $0.9846$& $0.9033$& $0.8629$& $0.8224$& $0.8441$& $0.8976$& $0.9124$& $0.9862$    \\ 
+                                         & 1500 &  $1.0281$ &$0.9350$& $0.8639$ &$0.8665$& $0.8779$ &$0.9083$& $0.9483$ &$1.0364$   \\ 
+                                          & 2000 & $1.0357$ &$0.9371$ &$0.8674$&$0.8560$ &$0.8847$& $0.9521$&$0.9923$& $1.0329 $    \\ 
+                                          \hline
+       \multirow{4}{*}{\textbf{Scenario 2}}  & 500 &  $3.9340$ &$3.5863$& $3.5848$ &$3.6725$ &$4.0116$ &$3.8292$ &$4.3169$ & $6.2596$    \\
+                                & 1000 &   $3.6200$ &$3.5017$ &$3.4292$ &$3.5948$ &$3.5111$& $3.6850$ &$3.9392$& $6.5671$   \\ 
+                                 & 1500 &   $3.5815$& $3.4722$ &$3.3414$& $3.3652$ &$3.3568$ &$3.5381$& $3.9280$& $6.5039$  \\ 
+                                  & 2000 &   $3.7953$ &$3.6762$& $3.4330$& $3.4883$& $3.6191$ &$3.9827$ &$4.2696$ &$6.6199$   \\    
+                                   \hline
+       \multirow{4}{*}{\textbf{Scenario 3}}  & 500 &  $5.1863$ &$4.8025$& $4.5209$ &$4.5675$ &$4.3928$ &$4.7071$ &$4.9702$ & $6.0026$    \\
+                                & 1000 &   $4.6869$ &$4.5383$ &$4.0640$ &$3.9247$ &$4.2190$& $4.0945$ &$4.6076$& $6.1151$   \\ 
+                                 & 1500 &   $4.1760$& $4.0700$ &$4.0169$& $3.9059$ &$3.9513$ &$4.1056$& $4.1599$& $6.0418$  \\ 
+                                  & 2000 &   $4.4679$ &$3.9434$& $3.7892$& $3.5979$& $3.5911$ &$3.9393$ &$3.9653$ &$6.1384$   \\              
+    \bottomrule
+    \end{tabular}
+\end{table}
+
+
+
+\begin{table}[ht]
+\renewcommand{\arraystretch}{0.85}
+    \centerfloat
+    \caption{The $l_2$ norm errors for estimating $\beta_t$ using the proposed methods with source selection $\rho=1$ to $3$ for different target tissues.}
+    \label{table:diff_rho}
+    \begin{tabular}{ccccccccc}
+        \toprule
+        \textbf{Tissue} & Adipose  &Artery & Blood &Heart &  Lung & Muscle & Spleen&  Testis\\
+        \midrule
+        $\rho=1$ & 0.1393& 0.0975 & 0.2035& 0.1041& 0.2641 & 0.1180 &0.1098& 0.0844\\
+        {$\rho=1.02$} & 0.1393& 0.0975 & 0.2035& 0.1041& 0.2641 & 0.1180 &0.1098& 0.0844\\
+        {$\rho=1.1$} & 0.1393 & 0.1179 & 0.2023 & 0.1134 & 0.2641 & 0.1180 & 0.1098 & 0.0902\\
+        {$\rho=1.5$} & 0.4580&0.1179  & 0.2023& 0.1219& 0.2916 & 0.1176 & 0.1076& 0.2741\\
+        {$\rho=3$}  &0.1681 &  0.2143&0.2036 & 0.1086&0.2916 &  0.2866& 0.2835 & 0.2072\\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+
+% \begin{table}[!ht]
+% \renewcommand{\arraystretch}{0.65}
+%     \centerfloat
+%     \caption{Comparison of ProTrans vs. Baseline Methods for $L_1$ and $L_2$ Errors (Single-source vs Multi-source Linear cases)}
+%     \label{tab:l1_norm_p}
+%     \begin{tabular}{cclllllllll}
+%         \toprule
+%         \multirow{2}{*}{\textbf{p}} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{4}{c}{\textbf{Single-source}} & \multicolumn{4}{c}{\textbf{Multi-source}} \\
+%         \cmidrule(lr){3-6} \cmidrule(lr){7-10}
+%         & & $\beta_{L_1}$ & $\beta_{L_2}$ & $\eta_{L_1}$ & $\eta_{L_2}$ 
+%         & $\beta_{L_1}$ & $\beta_{L_2}$ & $\eta_{L_1}$ & $\eta_{L_2}$ \\
+%         \midrule
+% \multirow{5}{*}{500} & SingleTrim & $2.1458$ & $0.6848$ & $1.8195$ & $0.5487$ & $1.9932$ & $0.5504$ & $1.6540$ & $0.4317$ \\
+% & TransTrim & $1.3645$ & $0.3932$ & $0.9743$ & $0.4336$ & $1.3527$ & $0.3407$ & $0.9516$ & $0.3640$ \\
+% & SingleFarm & $3.0369$ & $1.2055$ & $2.6029$ & $0.8095$ & $3.1352$ & $1.2223$ & $2.6500$ & $0.8065$ \\
+% & TransFarm & $1.1654$ & $0.2493$ & $0.6023$ & $0.1712$ & $1.4081$ & $0.2890$ & $0.8129$ & $0.2016$ \\
+% & ProTrans & $1.1414$ & $0.2502$ & $0.7323$ & $0.2460$ & $1.1273$ & $0.2167$ & $0.6824$ & $0.1965$ \\
+% \hline
+% \multirow{5}{*}{1000} & SingleTrim & $2.4789$ & $0.7685$ & $2.1605$ & $0.6095$ & $2.3055$ & $0.6057$ & $1.9753$ & $0.4756$ \\
+% & TransTrim & $1.3574$ & $0.3843$ & $0.9696$ & $0.4246$ & $1.2970$ & $0.3212$ & $0.9115$ & $0.3538$ \\
+% & SingleFarm & $3.2662$ & $1.4586$ & $2.7750$ & $1.0009$ & $3.3460$ & $1.5430$ & $2.8200$ & $1.0485$ \\
+% & TransFarm & $1.2817$ & $0.3365$ & $0.7553$ & $0.2824$ & $1.2742$ & $0.3112$ & $0.7364$ & $0.2493$ \\
+% & ProTrans & $1.1831$ & $0.2422$ & $0.7811$ & $0.2480$ & $1.1530$ & $0.2160$ & $0.7450$ & $0.2143$ \\
+% \hline
+% \multirow{5}{*}{1500} & SingleTrim & $2.6143$ & $0.8852$ & $2.3097$ & $0.7046$ & $2.3402$ & $0.6990$ & $2.0223$ & $0.5500$ \\
+% & TransTrim & $1.3520$ & $0.3883$ & $0.9943$ & $0.4317$ & $1.3134$ & $0.3201$ & $0.9494$ & $0.3566$ \\
+% & SingleFarm & $3.0241$ & $1.2649$ & $2.6162$ & $0.9031$ & $2.9786$ & $1.2124$ & $2.5491$ & $0.8402$ \\
+% & TransFarm & $1.2127$ & $0.3106$ & $0.7665$ & $0.2876$ & $1.2175$ & $0.2870$ & $0.7505$ & $0.2525$ \\
+% & ProTrans & $1.1786$ & $0.2364$ & $0.8181$ & $0.2477$ & $1.1138$ & $0.1990$ & $0.7390$ & $0.1989$ \\
+% \hline
+% \multirow{5}{*}{2000} & SingleTrim & $2.8727$ & $1.0657$ & $2.5860$ & $0.8748$ & $2.5573$ & $0.8566$ & $2.2090$ & $0.6900$ \\
+% & TransTrim & $1.4569$ & $0.4270$ & $1.0220$ & $0.4725$ & $1.3573$ & $0.3738$ & $0.9604$ & $0.4105$ \\
+% & SingleFarm & $3.0435$ & $1.1931$ & $2.7064$ & $0.8936$ & $2.9596$ & $1.1614$ & $2.5504$ & $0.8374$ \\
+% & TransFarm & $1.3660$ & $0.3329$ & $0.8862$ & $0.3306$ & $1.2751$ & $0.3255$ & $0.8225$ & $0.3130$ \\
+% & ProTrans & $1.2593$ & $0.2706$ & $0.8555$ & $0.2894$ & $1.1731$ & $0.2185$ & $0.7716$ & $0.2213$ \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+
+
+% \begin{table}[!ht]
+% \renewcommand{\arraystretch}{0.65}
+%     \centerfloat
+%     \caption{Comparison of ProTrans vs. Baseline Methods for $L_1$ and $L_2$ Errors (Single-source vs Multi-source Non-linear cases)}
+%     \label{table:simulation_nonlinear_p}
+%     \begin{tabular}{cclllllllll}
+%         \toprule
+%         \multirow{2}{*}{\textbf{p}} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{4}{c}{\textbf{Single-source}} & \multicolumn{4}{c}{\textbf{Multi-source}} \\
+%         \cmidrule(lr){3-6} \cmidrule(lr){7-10}
+%         & & $\beta_{L_1}$ & $\beta_{L_2}$ & $\eta_{L_1}$ & $\eta_{L_2}$
+%         & $\beta_{L_1}$ & $\beta_{L_2}$ & $\eta_{L_1}$ & $\eta_{L_2}$ \\
+%         \midrule
+% \multirow{5}{*}{500} 
+% & SingleTrim & $5.9343$ & $4.1600$ & $5.4301$ & $3.4026$ & $4.1391$ & $2.4167$ & $3.5403$ & $1.9179$ \\
+% & TransTrim & $3.3413$ & $2.3104$ & $2.4838$ & $2.4928$ & $2.5522$ & $1.5379$ & $1.8937$ & $1.6905$ \\
+% & SingleFarm & $8.1500$ & $8.3018$ & $8.4803$ & $6.9808$ & $8.8189$ & $10.7573$ & $8.5488$ & $8.9792$ \\
+% & TransFarm & $3.6249$ & $2.0508$ & $2.0412$ & $1.9045$ & $3.7706$ & $2.5490$ & $2.5111$ & $2.3952$ \\
+% & ProTrans & $2.0804$ & $0.7037$ & $1.2316$ & $0.6301$ & $1.7158$ & $0.5159$ & $1.0156$ & $0.4209$ \\
+% \hline
+% \multirow{5}{*}{1000} 
+% & SingleTrim & $6.1525$ & $4.8133$ & $5.6496$ & $4.2649$ & $4.4885$ & $2.9588$ & $3.7591$ & $2.0970$ \\
+% & TransTrim & $3.3219$ & $2.2710$ & $2.4793$ & $2.5704$ & $2.4604$ & $1.4835$ & $1.8677$ & $1.6529$ \\
+% & SingleFarm & $8.3652$ & $8.9915$ & $8.7934$ & $7.5182$ & $8.6477$ & $10.7704$ & $8.3236$ & $8.7184$ \\
+% & TransFarm & $3.6404$ & $2.1317$ & $2.1183$ & $2.0083$ & $3.7510$ & $2.4452$ & $2.3724$ & $2.1646$ \\
+% & ProTrans & $2.0454$ & $0.6925$ & $1.2303$ & $0.6483$ & $1.6532$ & $0.4796$ & $1.0340$ & $0.4083$ \\
+% \hline
+% \multirow{5}{*}{1500} 
+% & SingleTrim & $6.4194$ & $5.0525$ & $5.9553$ & $4.4557$ & $4.7763$ & $3.1155$ & $3.9986$ & $2.1438$ \\
+% & TransTrim & $3.2965$ & $2.2360$ & $2.5057$ & $2.5676$ & $2.3792$ & $1.4380$ & $1.8430$ & $1.6261$ \\
+% & SingleFarm & $8.4643$ & $9.2005$ & $8.9227$ & $7.6537$ & $8.5614$ & $10.6789$ & $8.3713$ & $8.6617$ \\
+% & TransFarm & $3.6877$ & $2.1222$ & $2.1750$ & $2.0433$ & $3.7781$ & $2.4294$ & $2.4018$ & $2.1651$ \\
+% & ProTrans & $2.0780$ & $0.6963$ & $1.2657$ & $0.6751$ & $1.6914$ & $0.4865$ & $1.0684$ & $0.4307$ \\
+% \hline
+% \multirow{5}{*}{2000} 
+% & SingleTrim & $6.7505$ & $5.1505$ & $6.3413$ & $4.8327$ & $4.9686$ & $3.2191$ & $4.2237$ & $2.2125$ \\
+% & TransTrim & $3.3697$ & $2.2882$ & $2.6389$ & $2.6601$ & $2.4471$ & $1.4753$ & $1.9243$ & $1.6702$ \\
+% & SingleFarm & $8.5192$ & $9.3265$ & $9.1719$ & $7.8630$ & $8.4832$ & $10.6785$ & $8.4206$ & $8.7143$ \\
+% & TransFarm & $3.7501$ & $2.1983$ & $2.2655$ & $2.1534$ & $3.8443$ & $2.4994$ & $2.4704$ & $2.2193$ \\
+% & ProTrans & $2.1141$ & $0.7091$ & $1.3248$ & $0.7231$ & $1.7017$ & $0.5003$ & $1.1204$ & $0.4557$ \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+
+
+
+
+
+
+% \begin{table}[!ht]
+% \renewcommand{\arraystretch}{0.65}
+% \centerfloat
+% \caption{Comparison of ProTrans vs. Baseline Methods for $L_1$ and $L_2$ Errors (Single-source vs Multi-source Linear Cases with Varying $\phi$)}
+% \label{table:simulation_linear_phi}
+% \begin{tabular}{cclllllllll}
+% \toprule
+% \multirow{2}{*}{\boldmath$\phi$} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{4}{c}{\textbf{Single-source}} & \multicolumn{4}{c}{\textbf{Multi-source}} \\
+% \cmidrule(lr){3-6} \cmidrule(lr){7-10}
+% & & $\beta_{L_1}$ & $\beta_{L_2}$ & $\eta_{L_1}$ & $\eta_{L_2}$ & $\beta_{L_1}$ & $\beta_{L_2}$ & $\eta_{L_1}$ & $\eta_{L_2}$ \\
+% \midrule
+% \multirow{5}{*}{1.0} 
+% & SingleTrim & $2.6143$ & $0.8852$ & $2.3097$ & $0.7046$ & $2.3402$ & $0.6990$ & $2.0223$ & $0.5500$ \\
+% & TransTrim  & $1.3520$ & $0.3883$ & $0.9943$ & $0.4317$ & $1.3134$ & $0.3201$ & $0.9494$ & $0.3566$ \\
+% & SingleFarm & $3.0241$ & $1.2649$ & $2.6162$ & $0.9031$ & $2.9786$ & $1.2124$ & $2.5491$ & $0.8402$ \\
+% & TransFarm  & $1.2127$ & $0.3106$ & $0.7665$ & $0.2876$ & $1.2175$ & $0.2870$ & $0.7505$ & $0.2525$ \\
+% & ProTrans   & $1.1786$ & $0.2364$ & $0.8181$ & $0.2477$ & $1.1138$ & $0.1990$ & $0.7390$ & $0.1989$ \\
+% \hline
+% \multirow{5}{*}{2.0} 
+% & SingleTrim & $4.6880$ & $2.6549$ & $4.3591$ & $2.1710$ & $4.0422$ & $1.9357$ & $3.6653$ & $1.5831$ \\
+% & TransTrim  & $2.3870$ & $1.1359$ & $1.7303$ & $1.2523$ & $2.0270$ & $0.8151$ & $1.4927$ & $0.9060$ \\
+% & SingleFarm & $3.9653$ & $2.1868$ & $3.5150$ & $1.5738$ & $3.4302$ & $1.6664$ & $2.9595$ & $1.1739$ \\
+% & TransFarm  & $1.8335$ & $0.6869$ & $1.1390$ & $0.6719$ & $1.5454$ & $0.4494$ & $0.9754$ & $0.4152$ \\
+% & ProTrans   & $1.9486$ & $0.5682$ & $1.3203$ & $0.5908$ & $1.4702$ & $0.3612$ & $0.9822$ & $0.3678$ \\
+% \hline
+% \multirow{5}{*}{3.0} 
+% & SingleTrim & $6.6745$ & $5.6459$ & $6.5309$ & $4.6748$ & $5.7809$ & $4.0441$ & $5.4460$ & $3.3765$ \\
+% & TransTrim  & $3.4964$ & $2.3449$ & $2.4135$ & $2.5785$ & $2.9469$ & $1.5987$ & $2.1108$ & $1.7611$ \\
+% & SingleFarm & $5.1329$ & $3.8500$ & $4.6487$ & $2.8351$ & $4.1364$ & $2.4160$ & $3.6416$ & $1.7447$ \\
+% & TransFarm  & $2.6815$ & $1.3750$ & $1.6853$ & $1.3929$ & $1.9744$ & $0.7397$ & $1.2502$ & $0.7160$ \\
+% & ProTrans   & $2.8361$ & $1.1047$ & $1.8291$ & $1.1383$ & $2.0187$ & $0.6081$ & $1.3233$ & $0.6171$ \\
+% \hline
+% \multirow{5}{*}{4.0} 
+% & SingleTrim & $8.3820$ & $9.3499$ & $8.3423$ & $7.7609$ & $7.3811$ & $6.8857$ & $7.1110$ & $5.8085$ \\
+% & TransTrim  & $4.6246$ & $3.9669$ & $3.1478$ & $4.3785$ & $3.9419$ & $2.6616$ & $2.7484$ & $2.9219$ \\
+% & SingleFarm & $6.3974$ & $6.1206$ & $5.9089$ & $4.6142$ & $4.9902$ & $3.5476$ & $4.5217$ & $2.6300$ \\
+% & TransFarm  & $3.6233$ & $2.3621$ & $2.2717$ & $2.4432$ & $2.5151$ & $1.1701$ & $1.5905$ & $1.1707$ \\
+% & ProTrans   & $3.8045$ & $1.8653$ & $2.3206$ & $1.9081$ & $2.7348$ & $0.9452$ & $1.6963$ & $0.9478$ \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+
+
+% \begin{table}[!ht]
+% \renewcommand{\arraystretch}{0.65}
+% \centerfloat
+% \caption{Comparison of ProTrans vs. Baseline Methods for $L_1$ and $L_2$ Errors (Single-source vs Multi-source Nonlinear Cases with Varying $\phi$)}
+% \label{table:simulation_nonlinear_phi}
+% \begin{tabular}{cclllllllll}
+% \toprule
+% \multirow{2}{*}{\boldmath$\phi$} & \multirow{2}{*}{\textbf{Method}} & \multicolumn{4}{c}{\textbf{Single-source}} & \multicolumn{4}{c}{\textbf{Multi-source}} \\
+% \cmidrule(lr){3-6} \cmidrule(lr){7-10}
+% & & $\beta_{L_1}$ & $\beta_{L_2}$ & $\eta_{L_1}$ & $\eta_{L_2}$ & $\beta_{L_1}$ & $\beta_{L_2}$ & $\eta_{L_1}$ & $\eta_{L_2}$ \\
+% \midrule
+% \multirow{5}{*}{1.0} 
+% & SingleTrim & $1.6030$ & $0.3358$ & $1.3708$ & $0.2632$ & $1.4836$ & $0.2958$ & $1.1959$ & $0.2342$ \\
+% & TransTrim  & $0.8915$ & $0.1581$ & $0.6438$ & $0.1760$ & $1.0053$ & $0.1798$ & $0.6710$ & $0.1961$ \\
+% & SingleFarm & $4.0293$ & $2.1755$ & $3.7394$ & $1.8268$ & $8.7239$ & $10.9077$ & $8.2207$ & $9.5069$ \\
+% & TransFarm  & $1.4886$ & $0.5228$ & $1.1853$ & $0.5314$ & $2.9684$ & $2.5000$ & $2.4276$ & $2.5265$ \\
+% & ProTrans   & $0.8054$ & $0.1197$ & $0.5473$ & $0.1251$ & $1.0290$ & $0.1621$ & $0.6539$ & $0.1495$ \\
+% \hline
+% \multirow{5}{*}{2.0} 
+% & SingleTrim & $2.1221$ & $0.5641$ & $1.8670$ & $0.4518$ & $1.7720$ & $0.4182$ & $1.4633$ & $0.3297$ \\
+% & TransTrim  & $1.1185$ & $0.2560$ & $0.8439$ & $0.2852$ & $1.1252$ & $0.2346$ & $0.7706$ & $0.2595$ \\
+% & SingleFarm & $4.1184$ & $2.2608$ & $3.8145$ & $1.8901$ & $8.7748$ & $10.9435$ & $8.2703$ & $9.5360$ \\
+% & TransFarm  & $1.5448$ & $0.5551$ & $1.2250$ & $0.5665$ & $2.9850$ & $2.5279$ & $2.4370$ & $2.5589$ \\
+% & ProTrans   & $0.9081$ & $0.1446$ & $0.6268$ & $0.1522$ & $1.1097$ & $0.1861$ & $0.7320$ & $0.1802$ \\
+% \hline
+% \multirow{5}{*}{3.0} 
+% & SingleTrim & $2.7586$ & $0.9505$ & $2.4679$ & $0.7740$ & $2.1289$ & $0.6218$ & $1.7907$ & $0.4912$ \\
+% & TransTrim  & $1.3941$ & $0.4242$ & $1.0816$ & $0.4720$ & $1.2941$ & $0.3334$ & $0.9154$ & $0.3736$ \\
+% & SingleFarm & $4.2200$ & $2.3895$ & $3.8923$ & $1.9822$ & $8.8153$ & $11.0360$ & $8.3001$ & $9.5974$ \\
+% & TransFarm  & $1.6262$ & $0.6170$ & $1.2782$ & $0.6331$ & $3.0428$ & $2.5783$ & $2.4848$ & $2.6139$ \\
+% & ProTrans   & $1.0383$ & $0.1771$ & $0.7194$ & $0.1855$ & $1.1963$ & $0.2194$ & $0.8021$ & $0.2179$ \\
+% \hline
+% \multirow{5}{*}{4.0} 
+% & SingleTrim & $3.4017$ & $1.5130$ & $3.0709$ & $1.2471$ & $2.5572$ & $0.9103$ & $2.1902$ & $0.7252$ \\
+% & TransTrim  & $1.7053$ & $0.6730$ & $1.3476$ & $0.7497$ & $1.4910$ & $0.4757$ & $1.0811$ & $0.5359$ \\
+% & SingleFarm & $4.3549$ & $2.5547$ & $3.9919$ & $2.0977$ & $8.8288$ & $11.1246$ & $8.2977$ & $9.6475$ \\
+% & TransFarm  & $1.6701$ & $0.6853$ & $1.2816$ & $0.7074$ & $3.0695$ & $2.6287$ & $2.4937$ & $2.6714$ \\
+% & ProTrans   & $1.1898$ & $0.2219$ & $0.8304$ & $0.2315$ & $1.2914$ & $0.2596$ & $0.8735$ & $0.2618$ \\
+% \bottomrule
+% \end{tabular}
+% \end{table}
+
+\clearpage
+\newpage
+\newpage
+\bibliographystyle{agsm}
+\bibliography{paper-ref}
+\end{document}

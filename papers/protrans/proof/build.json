@@ -1,0 +1,843 @@
+{
+  "cases": [
+    {
+      "key": "papers/protrans/main",
+      "source": "src",
+      "modules": [
+        "ProverJobs.job_paper_106ef041a01147028d56a10b8f69010e.Base",
+        "ProverJobs.job_paper_106ef041a01147028d56a10b8f69010e.ExternalNodes.Node_5fcc0b8e12b9479c98ea",
+        "ProverJobs.job_paper_106ef041a01147028d56a10b8f69010e.ExternalNodes.Node_87ee2dee4bb04055bcd1",
+        "ProverJobs.job_paper_106ef041a01147028d56a10b8f69010e.ExternalNodes.Node_a63e0b3e27c74b69bca4",
+        "ProverJobs.job_paper_106ef041a01147028d56a10b8f69010e.ExternalNodes.Node_a6ef5db72938484aba23",
+        "ProverJobs.job_paper_106ef041a01147028d56a10b8f69010e.ExternalNodes.Node_e0c7bc723f0f457796b6",
+        "ProverJobs.job_paper_106ef041a01147028d56a10b8f69010e.ProvedNodes",
+        "ProverJobs.job_paper_106ef041a01147028d56a10b8f69010e.ProvedNodes.Node_1373677170_21fd32dd_a1924ebd",
+        "ProverJobs.job_paper_106ef041a01147028d56a10b8f69010e.ProvedNodes.Node_1900557282_1188bc25_b630f911",
+        "ProverJobs.job_paper_106ef041a01147028d56a10b8f69010e.ProvedNodes.Node_2082055502_c6d14abe_7483ec79",
+        "ProverJobs.job_paper_106ef041a01147028d56a10b8f69010e.ProvedNodes.Node_49985671_e6361ae3_5500dea7",
+        "ProverJobs.job_paper_106ef041a01147028d56a10b8f69010e.ProvedNodes.Node_750611871_04cdf965_6d486f30",
+        "ProverJobs.job_paper_106ef041a01147028d56a10b8f69010e.Vocabulary",
+        "ProverJobs.job_paper_110bb96e917848c19df0625891303d5c.Base",
+        "ProverJobs.job_paper_110bb96e917848c19df0625891303d5c.ExternalNodes.Node_db00c2de82804572b050",
+        "ProverJobs.job_paper_110bb96e917848c19df0625891303d5c.ExternalNodes.Node_e9c35d4af3284e03b008",
+        "ProverJobs.job_paper_110bb96e917848c19df0625891303d5c.ProvedNodes",
+        "ProverJobs.job_paper_110bb96e917848c19df0625891303d5c.ProvedNodes.Node_2085562850_a652be1c_3f839e4e",
+        "ProverJobs.job_paper_110bb96e917848c19df0625891303d5c.ProvedNodes.Node_3438139564_b75b36c2_666013da",
+        "ProverJobs.job_paper_110bb96e917848c19df0625891303d5c.Vocabulary",
+        "ProverJobs.job_paper_4a6904a098fa4fcebf3058bbb4e15c0e.Base",
+        "ProverJobs.job_paper_4a6904a098fa4fcebf3058bbb4e15c0e.ExternalNodes.Node_823fbb6926464c629003",
+        "ProverJobs.job_paper_4a6904a098fa4fcebf3058bbb4e15c0e.ExternalNodes.Node_cf7d724670d04d1cac6f",
+        "ProverJobs.job_paper_4a6904a098fa4fcebf3058bbb4e15c0e.ProvedNodes",
+        "ProverJobs.job_paper_4a6904a098fa4fcebf3058bbb4e15c0e.ProvedNodes.Node_1884859470_ed2c3864_8d28bb2b",
+        "ProverJobs.job_paper_4a6904a098fa4fcebf3058bbb4e15c0e.ProvedNodes.Node_2778848356_36628207_4a15a483",
+        "ProverJobs.job_paper_4a6904a098fa4fcebf3058bbb4e15c0e.ProvedNodes.Node_3331897167_3f7edc77_88546067",
+        "ProverJobs.job_paper_4a6904a098fa4fcebf3058bbb4e15c0e.Vocabulary",
+        "ProverJobs.job_paper_5bfd1842871e4bc6b291fb4a9624d4b1.Base",
+        "ProverJobs.job_paper_5bfd1842871e4bc6b291fb4a9624d4b1.ProvedNodes",
+        "ProverJobs.job_paper_5bfd1842871e4bc6b291fb4a9624d4b1.ProvedNodes.Node_1918606011_426b194d_9a97545e",
+        "ProverJobs.job_paper_5bfd1842871e4bc6b291fb4a9624d4b1.ProvedNodes.Node_2597002862_be175bfc_148a7a54",
+        "ProverJobs.job_paper_5bfd1842871e4bc6b291fb4a9624d4b1.Vocabulary",
+        "ProverJobs.job_paper_6881610d85e44b6089ed4cd810570574.Base",
+        "ProverJobs.job_paper_6881610d85e44b6089ed4cd810570574.ProvedNodes",
+        "ProverJobs.job_paper_6881610d85e44b6089ed4cd810570574.ProvedNodes.Node_1862877454_4eb96aa2_89cf4cac",
+        "ProverJobs.job_paper_6881610d85e44b6089ed4cd810570574.ProvedNodes.Node_1907643924_c0d46037_fb262db0",
+        "ProverJobs.job_paper_6881610d85e44b6089ed4cd810570574.ProvedNodes.Node_318020560_e6aa841c_ea8ebcaa",
+        "ProverJobs.job_paper_6881610d85e44b6089ed4cd810570574.ProvedNodes.Node_3902516804_05785fef_22a4df4a",
+        "ProverJobs.job_paper_6881610d85e44b6089ed4cd810570574.ProvedNodes.Node_576069795_77c22b31_d744004e",
+        "ProverJobs.job_paper_6881610d85e44b6089ed4cd810570574.Vocabulary",
+        "ProverJobs.job_paper_6ff987a9c5974b249aed2ac5c2c60b28.Base",
+        "ProverJobs.job_paper_6ff987a9c5974b249aed2ac5c2c60b28.ExternalNodes.Node_275509df3e7c4fc2b99f",
+        "ProverJobs.job_paper_6ff987a9c5974b249aed2ac5c2c60b28.ProvedNodes",
+        "ProverJobs.job_paper_6ff987a9c5974b249aed2ac5c2c60b28.ProvedNodes.Node_1640497675_b47064b9_a7a8da83",
+        "ProverJobs.job_paper_6ff987a9c5974b249aed2ac5c2c60b28.ProvedNodes.Node_2829730235_b80926fc_3bce968e",
+        "ProverJobs.job_paper_6ff987a9c5974b249aed2ac5c2c60b28.ProvedNodes.Node_3975489229_33218fe7_54fd77ae",
+        "ProverJobs.job_paper_6ff987a9c5974b249aed2ac5c2c60b28.Vocabulary",
+        "ProverJobs.job_paper_8d45c5e7199146b78778677b2fbc23cf.Base",
+        "ProverJobs.job_paper_8d45c5e7199146b78778677b2fbc23cf.ExternalNodes.Node_de0094f940d84552806c",
+        "ProverJobs.job_paper_8d45c5e7199146b78778677b2fbc23cf.ProvedNodes",
+        "ProverJobs.job_paper_8d45c5e7199146b78778677b2fbc23cf.ProvedNodes.Node_1593169820_e4fd9d72_633e9020",
+        "ProverJobs.job_paper_8d45c5e7199146b78778677b2fbc23cf.ProvedNodes.Node_1960382922_323e449f_398db0cd",
+        "ProverJobs.job_paper_8d45c5e7199146b78778677b2fbc23cf.ProvedNodes.Node_2099409397_a58c9b68_b08d7466",
+        "ProverJobs.job_paper_8d45c5e7199146b78778677b2fbc23cf.ProvedNodes.Node_3568007364_198afdaf_d4009630",
+        "ProverJobs.job_paper_8d45c5e7199146b78778677b2fbc23cf.ProvedNodes.Node_856880814_cb48915c_4063309f",
+        "ProverJobs.job_paper_8d45c5e7199146b78778677b2fbc23cf.Vocabulary",
+        "ProverJobs.job_paper_8ff73b3c73e04139840b7ba5205a04c8.Base",
+        "ProverJobs.job_paper_8ff73b3c73e04139840b7ba5205a04c8.ExternalNodes.Node_8d0d0baf9ab4437481f0",
+        "ProverJobs.job_paper_8ff73b3c73e04139840b7ba5205a04c8.ProvedNodes",
+        "ProverJobs.job_paper_8ff73b3c73e04139840b7ba5205a04c8.ProvedNodes.Node_1236363844_e5e8c8f5_4f5e0d5e",
+        "ProverJobs.job_paper_8ff73b3c73e04139840b7ba5205a04c8.ProvedNodes.Node_1647745287_d8e61bd0_4fcf24f2",
+        "ProverJobs.job_paper_8ff73b3c73e04139840b7ba5205a04c8.Vocabulary",
+        "ProverJobs.job_paper_ebad183ded244602a77f3710a9957efa.Base",
+        "ProverJobs.job_paper_ebad183ded244602a77f3710a9957efa.ProvedNodes",
+        "ProverJobs.job_paper_ebad183ded244602a77f3710a9957efa.ProvedNodes.Node_1375259586_446cfff9_56faac71",
+        "ProverJobs.job_paper_ebad183ded244602a77f3710a9957efa.ProvedNodes.Node_498541701_93d2db24_e9011487",
+        "ProverJobs.job_paper_ebad183ded244602a77f3710a9957efa.Vocabulary",
+        "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.Base",
+        "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.ExternalNodes.Node_ef1c67bde1d7453089df",
+        "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.PaperProofInterfaces.Result_r1_06560c0791fe45d694620add3dcdf414",
+        "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.PaperProofInterfaces.Result_r1_4c20b7b98d8b4deb93037d3bf57b6612",
+        "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.PaperProofInterfaces.Result_r1_b605a65c1a4f4314bf24e76c176cb5f5",
+        "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.PaperProofInterfaces.Result_r1_c78ef2b1a7b04addb1235360efc87b12",
+        "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.PaperProofInterfaces.Result_r2_6a9795530ac2493ab2d5d2297abd9bfa",
+        "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.PaperProofInterfaces.Result_r2_6defa74e9c844ff68b638ec8be62ff62",
+        "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.PaperProofInterfaces.Result_r2_6e79449348904d3687f01470dc38e7b3",
+        "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.PaperProofInterfaces.Result_r2_e24c3cb04d32496a93b7f37153f2a690",
+        "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.PaperProofInterfaces.Result_r2_f910a4d0bb8b49d3886c7ed362a9f427",
+        "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.PaperProofInterfaces.Result_r3_638efc8243244a249ba3f08616b7e29f",
+        "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.ProvedNodes",
+        "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.ProvedNodes.Node_127205983_b1e1c88b_2ae14d45",
+        "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.ProvedNodes.Node_1873299149_9a24b38e_0252975c",
+        "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.ProvedNodes.Node_2523946026_e3500c8d_8b1c82d6",
+        "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.ProvedNodes.Node_3081215765_b752b30e_1d4f57a7",
+        "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.ProvedNodes.Node_3817391059_5fc0230f_6ac3240f",
+        "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.ProvedNodes.Node_4155646722_fcf7a31c_ed655e09",
+        "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.Vocabulary"
+      ],
+      "targets": [
+        {
+          "module": "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.PaperProofInterfaces.Result_r2_6a9795530ac2493ab2d5d2297abd9bfa",
+          "declaration": "PaperProofTasks.paper_fresh_20261102t180245072z_profiled_transfer.ModelShiftLasso.thm_upper_bound_of_eta",
+          "allowedAxioms": []
+        },
+        {
+          "module": "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.PaperProofInterfaces.Result_r1_4c20b7b98d8b4deb93037d3bf57b6612",
+          "declaration": "PaperProofTasks.job_paper_106ef041a01147028d56a10b8f69010e.Statlib.Imported.paper_106ef041a01147028d56a10b8f69010e",
+          "allowedAxioms": []
+        },
+        {
+          "module": "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.PaperProofInterfaces.Result_r2_6e79449348904d3687f01470dc38e7b3",
+          "declaration": "PaperProofTasks.job_paper_8d45c5e7199146b78778677b2fbc23cf.Statlib.Imported.paper_8d45c5e7199146b78778677b2fbc23cf",
+          "allowedAxioms": []
+        },
+        {
+          "module": "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.PaperProofInterfaces.Result_r2_f910a4d0bb8b49d3886c7ed362a9f427",
+          "declaration": "PaperProofTasks.job_paper_110bb96e917848c19df0625891303d5c.Statlib.Imported.paper_110bb96e917848c19df0625891303d5c",
+          "allowedAxioms": []
+        },
+        {
+          "module": "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.PaperProofInterfaces.Result_r3_638efc8243244a249ba3f08616b7e29f",
+          "declaration": "PaperProofTasks.job_paper_6ff987a9c5974b249aed2ac5c2c60b28.Statlib.Imported.paper_6ff987a9c5974b249aed2ac5c2c60b28",
+          "allowedAxioms": []
+        },
+        {
+          "module": "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.PaperProofInterfaces.Result_r2_6defa74e9c844ff68b638ec8be62ff62",
+          "declaration": "PaperProofTasks.job_paper_5bfd1842871e4bc6b291fb4a9624d4b1.Statlib.Imported.paper_5bfd1842871e4bc6b291fb4a9624d4b1",
+          "allowedAxioms": []
+        },
+        {
+          "module": "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.PaperProofInterfaces.Result_r1_c78ef2b1a7b04addb1235360efc87b12",
+          "declaration": "PaperProofTasks.job_paper_ebad183ded244602a77f3710a9957efa.Statlib.Imported.paper_ebad183ded244602a77f3710a9957efa",
+          "allowedAxioms": []
+        },
+        {
+          "module": "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.PaperProofInterfaces.Result_r2_e24c3cb04d32496a93b7f37153f2a690",
+          "declaration": "PaperProofTasks.job_paper_6881610d85e44b6089ed4cd810570574.Statlib.Imported.paper_6881610d85e44b6089ed4cd810570574",
+          "allowedAxioms": []
+        },
+        {
+          "module": "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.PaperProofInterfaces.Result_r1_b605a65c1a4f4314bf24e76c176cb5f5",
+          "declaration": "PaperProofTasks.job_paper_4a6904a098fa4fcebf3058bbb4e15c0e.Statlib.Imported.paper_4a6904a098fa4fcebf3058bbb4e15c0e",
+          "allowedAxioms": []
+        },
+        {
+          "module": "ProverJobs.paper_fresh_20261102t180245072z_profiled_transfer.PaperProofInterfaces.Result_r1_06560c0791fe45d694620add3dcdf414",
+          "declaration": "PaperProofTasks.job_paper_8ff73b3c73e04139840b7ba5205a04c8.Statlib.Imported.paper_8ff73b3c73e04139840b7ba5205a04c8",
+          "allowedAxioms": []
+        }
+      ]
+    }
+  ],
+  "cache": {
+    "modules": [
+      {
+        "module": "Statlib.HighDim.Basic",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.HighDim.Vocabulary.Norms"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/HighDim/Basic.olean",
+            "sha256": "4deec78ec26ddd80b84e1cd6272512af89663bee4cd7418f0a816726ceced9c3",
+            "bytes": 43624
+          }
+        ]
+      },
+      {
+        "module": "Statlib.HighDim.CovarianceMatrix.SampleCovariance",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.HighDim.Vocabulary.RandomVector",
+          "Statlib.HighDim.Vocabulary.RandomMatrix",
+          "Statlib.HighDim.Basic",
+          "Statlib.StatFoundation.Concentration.ExponentialType.bernstein_sum_meas_abs_ge_le_two_exp",
+          "Statlib.StatFoundation.RandomVariable.SubExponential.subexp_of_mgf_finite",
+          "Statlib.StatFoundation.RandomVariable.SubExponential.subexp_mgf_le_of_sq_subgaussian",
+          "Statlib.StatFoundation.RandomVariable.SubExponential.scalar_sq_centered_exp_integrable",
+          "Statlib.StatFoundation.RandomVariable.SubExponential.scalar_sq_centered_subexponential_explicit"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/HighDim/CovarianceMatrix/SampleCovariance.olean",
+            "sha256": "f035cc274e3f1551a1a71b2cabda1abba5f2d6651739133ae5c51b94670e9a45",
+            "bytes": 2166016
+          }
+        ]
+      },
+      {
+        "module": "Statlib.HighDim.Regression.RandomDesignScore",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.HighDim.Vocabulary.RandomVector",
+          "Statlib.StatFoundation.RandomVariable.SubGaussian.subgaussian_even_moment_le",
+          "Statlib.StatFoundation.RandomVariable.SubGaussian.subgaussian_exp_sq_le",
+          "Statlib.StatFoundation.RandomVariable.SubGaussian.subgaussian_integral_eq_zero",
+          "Statlib.StatFoundation.BasicAnalysis.measure_le_ofReal_of_measureReal_le"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/HighDim/Regression/RandomDesignScore.olean",
+            "sha256": "5e3d0cc3226a507f7681c02c2d1bc184c5b917e69c059522be6cb561d594e019",
+            "bytes": 2226040
+          }
+        ]
+      },
+      {
+        "module": "Statlib.HighDim.Vocabulary.Norms",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/HighDim/Vocabulary/Norms.olean",
+            "sha256": "7061a9167f36dca984d6686f51303e53ed1ba6a1c1772f26c77490b5c275c8e3",
+            "bytes": 159432
+          }
+        ]
+      },
+      {
+        "module": "Statlib.HighDim.Vocabulary.RandomMatrix",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/HighDim/Vocabulary/RandomMatrix.olean",
+            "sha256": "9ebaccdcb737dc2b34c37a475fe68cefe9a8916e7a6403cc1423f1ff792d736f",
+            "bytes": 78512
+          }
+        ]
+      },
+      {
+        "module": "Statlib.HighDim.Vocabulary.RandomVector",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.Vocabulary.RandomVariable"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/HighDim/Vocabulary/RandomVector.olean",
+            "sha256": "e8625c7d5427eda6c792a83fe22774c78914510ef0f99d52186b28ad3e3979cf",
+            "bytes": 131792
+          }
+        ]
+      },
+      {
+        "module": "Statlib.Nonparametric.Spectral.Embedding",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.Nonparametric.Vocabulary.RKHS",
+          "Statlib.StatFoundation.Vocabulary.CoveringNumbers",
+          "Statlib.HighDim.Vocabulary.Norms",
+          "Statlib.StatFoundation.BasicAnalysis.CompactSelfAdjoint",
+          "Statlib.StatFoundation.EmpiricalProcess.RademacherSecondMoment",
+          "Statlib.StatFoundation.BasicAnalysis.SpectralEntropy"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/Nonparametric/Spectral/Embedding.olean",
+            "sha256": "38569b6a1233a98383c0eed4c25726788b068e8ac2d64d5f7b3edb11b7197eb4",
+            "bytes": 7431376
+          }
+        ]
+      },
+      {
+        "module": "Statlib.Nonparametric.Vocabulary.FunctionClasses",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/Nonparametric/Vocabulary/FunctionClasses.olean",
+            "sha256": "cea1c1db86546a599e0fcddfb3b3a2a64f65a40aed118e8ee5e72ee90f7eaeb6",
+            "bytes": 107864
+          }
+        ]
+      },
+      {
+        "module": "Statlib.Nonparametric.Vocabulary.KernelMethods",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/Nonparametric/Vocabulary/KernelMethods.olean",
+            "sha256": "4cc39395fd3b4dda8cefb74e2ea37db0239b942dc98cd79f52c8fdd344d2fa76",
+            "bytes": 107808
+          }
+        ]
+      },
+      {
+        "module": "Statlib.Nonparametric.Vocabulary.RKHS",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.Nonparametric.Vocabulary.FunctionClasses",
+          "Statlib.Nonparametric.Vocabulary.KernelMethods"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/Nonparametric/Vocabulary/RKHS.olean",
+            "sha256": "5f3f814d824bdbe212beb0eb3704677a02992b61a31ed1c67fd80fb53f3f5f20",
+            "bytes": 329432
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.BasicAnalysis.CompactSelfAdjoint",
+        "imports": [
+          "Init",
+          "Mathlib.Analysis.Normed.Operator.Compact",
+          "Mathlib.Analysis.InnerProductSpace.Rayleigh",
+          "Mathlib.Analysis.InnerProductSpace.Spectrum",
+          "Mathlib.Analysis.InnerProductSpace.Positive",
+          "Mathlib.Analysis.InnerProductSpace.Orthogonal",
+          "Mathlib.Analysis.InnerProductSpace.Orthonormal",
+          "Mathlib.Analysis.InnerProductSpace.PiL2",
+          "Mathlib.Analysis.InnerProductSpace.Continuous",
+          "Mathlib.Analysis.InnerProductSpace.Projection.Basic",
+          "Mathlib.Analysis.InnerProductSpace.l2Space",
+          "Mathlib.Topology.Algebra.InfiniteSum.Basic",
+          "Mathlib.Data.Set.Countable",
+          "Mathlib.Data.Real.Sqrt",
+          "Mathlib.LinearAlgebra.Dimension.Finrank",
+          "Mathlib.LinearAlgebra.Eigenspace.Basic",
+          "Mathlib.Topology.Algebra.Module.LinearMap",
+          "Mathlib.Topology.MetricSpace.Pseudo.Lemmas"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/BasicAnalysis/CompactSelfAdjoint.olean",
+            "sha256": "72953acdd7536bedd1bc3675a9c20402970886960ef2a2caf1ba4cb88f758800",
+            "bytes": 2827256
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.BasicAnalysis.ENNRealBridge",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/BasicAnalysis/ENNRealBridge.olean",
+            "sha256": "2bf229c669c32801e59cc74b64ed63634e80dd69601e1f3bfcb4be9dae49405b",
+            "bytes": 145880
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.BasicAnalysis.SpectralEntropy",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.BasicAnalysis.CompactSelfAdjoint",
+          "Statlib.StatFoundation.Vocabulary.CoveringNumbers"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/BasicAnalysis/SpectralEntropy.olean",
+            "sha256": "3c62786e8f1f4bb12d549b5bae8e5d49d829119ac4b66ed8e1e6290d93c91c4e",
+            "bytes": 4538256
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.BasicAnalysis.TailIntegral",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/BasicAnalysis/TailIntegral.olean",
+            "sha256": "f4407ce01cad7b16c817d43ecdb1ce151443ef0bfb9b96637b56f4699cb8f566",
+            "bytes": 100744
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.BasicAnalysis.measure_le_ofReal_of_measureReal_le",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/BasicAnalysis/measure_le_ofReal_of_measureReal_le.olean",
+            "sha256": "0f5b96d42672cb8cc18655fa91d22546aba8b76b246ed13ca5cace56e4a6da62",
+            "bytes": 55312
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Concentration.ExponentialType.bernstein_sum_meas_abs_ge_le_two_exp",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.Vocabulary"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Concentration/ExponentialType/bernstein_sum_meas_abs_ge_le_two_exp.olean",
+            "sha256": "274b7702278ede4dcbe4848800ea1a29a840c576dc074fb8f1686f4819278949",
+            "bytes": 629640
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.EmpiricalProcess.RademacherSecondMoment",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.Vocabulary",
+          "Statlib.StatFoundation.BasicAnalysis.SpectralEntropy"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/EmpiricalProcess/RademacherSecondMoment.olean",
+            "sha256": "0f832cce23f011fb45ad0195910c35e3378b5b9c41da1e8717a045e763c775db",
+            "bytes": 851192
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.RandomVariable.SubExponential.scalar_sq_centered_exp_integrable",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.RandomVariable.SubGaussian.subgaussian_exp_sq_le_at_one_third"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/RandomVariable/SubExponential/scalar_sq_centered_exp_integrable.olean",
+            "sha256": "dcfb80e5348c512f2b4b6ed045fae0c644876ab1a102636f50df4b47ee3a3145",
+            "bytes": 229296
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.RandomVariable.SubExponential.scalar_sq_centered_subexponential_explicit",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.Vocabulary",
+          "Statlib.StatFoundation.RandomVariable.SubExponential.scalar_sq_centered_exp_integrable",
+          "Statlib.StatFoundation.RandomVariable.SubExponential.subexp_mgf_le_of_sq_subgaussian"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/RandomVariable/SubExponential/scalar_sq_centered_subexponential_explicit.olean",
+            "sha256": "62c49521669ae004ac11cc284c27a1f31a29d9051c7423b4bf8a9510c34426c3",
+            "bytes": 121616
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.RandomVariable.SubExponential.subexp_mgf_le_of_sq_subgaussian",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.RandomVariable.SubGaussian.subgaussian_exp_sq_le_at_one_third",
+          "Statlib.StatFoundation.RandomVariable.SubGaussian.sq_le_two_mul_exp"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/RandomVariable/SubExponential/subexp_mgf_le_of_sq_subgaussian.olean",
+            "sha256": "0fc5829bcd76628ad47c64da8a3e7f48895a9352ea93e1566efc783587351745",
+            "bytes": 2566424
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.RandomVariable.SubExponential.subexp_of_mgf_finite",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.Vocabulary"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/RandomVariable/SubExponential/subexp_of_mgf_finite.olean",
+            "sha256": "8f87348750e3f8eb69384ecd0e83a3883602e654868792c2d5a08af92653dc01",
+            "bytes": 1927288
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.RandomVariable.SubGaussian.sq_le_two_mul_exp",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/RandomVariable/SubGaussian/sq_le_two_mul_exp.olean",
+            "sha256": "742ce81271a523710f53fcd58ddd0c5a20cae9681c2aab2e868fdf971bd9f5fd",
+            "bytes": 305232
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.RandomVariable.SubGaussian.subgaussian_even_moment_le",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.RandomVariable.SubGaussian.subgaussian_meas_abs_ge_le_two_exp"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/RandomVariable/SubGaussian/subgaussian_even_moment_le.olean",
+            "sha256": "30dcdd892d1782da719dbb98b0bd4acbf286068df468bee7d75130143e297c70",
+            "bytes": 292200
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.RandomVariable.SubGaussian.subgaussian_exp_sq_le",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.RandomVariable.SubGaussian.subgaussian_meas_abs_ge_le_two_exp"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/RandomVariable/SubGaussian/subgaussian_exp_sq_le.olean",
+            "sha256": "abe557f53e8104518db633b61d7c83a2910f8578ebb805629e0bd4235e447152",
+            "bytes": 800704
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.RandomVariable.SubGaussian.subgaussian_exp_sq_le_at_one_third",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.RandomVariable.SubGaussian.subgaussian_meas_abs_ge_le_two_exp"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/RandomVariable/SubGaussian/subgaussian_exp_sq_le_at_one_third.olean",
+            "sha256": "8e29233a3c624c455eeb0d79241c6f1f8f2e2170cf7aded9db69d964e26288b6",
+            "bytes": 315848
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.RandomVariable.SubGaussian.subgaussian_fourth_moment_le",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/RandomVariable/SubGaussian/subgaussian_fourth_moment_le.olean",
+            "sha256": "ac0f52ce4dd83bc7c869ab26e7c7490f230b76fa2170c3e259d9f3453c8b59e4",
+            "bytes": 902032
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.RandomVariable.SubGaussian.subgaussian_integral_eq_zero",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/RandomVariable/SubGaussian/subgaussian_integral_eq_zero.olean",
+            "sha256": "e0ca909def244d5824c9398abdb10fba076958f09b781009e271c0ce54a10ba5",
+            "bytes": 128416
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.RandomVariable.SubGaussian.subgaussian_meas_abs_ge_le_two_exp",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/RandomVariable/SubGaussian/subgaussian_meas_abs_ge_le_two_exp.olean",
+            "sha256": "c7d532a1124aa7263081dc614ae2940a4e97776965cfa0e348f17169645632b1",
+            "bytes": 137400
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.RandomVariable.SubGaussian.subgaussian_mgf_mono_param",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/RandomVariable/SubGaussian/subgaussian_mgf_mono_param.olean",
+            "sha256": "cd720c2e8efbcae19ee7a1c0c89ad6e287b5eecb47c0032699ab4b1ff1023826",
+            "bytes": 129488
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary",
+        "imports": [
+          "Init",
+          "Statlib.StatFoundation.Vocabulary.RandomVariable",
+          "Statlib.StatFoundation.Vocabulary.Independence",
+          "Statlib.StatFoundation.Vocabulary.ParametricFamily",
+          "Statlib.StatFoundation.Vocabulary.OrliczNorm",
+          "Statlib.StatFoundation.Vocabulary.EmpiricalProcess",
+          "Statlib.StatFoundation.Vocabulary.CoveringNumbers",
+          "Statlib.StatFoundation.Vocabulary.VCDimension",
+          "Statlib.StatFoundation.Vocabulary.StochasticOrder",
+          "Statlib.StatFoundation.Vocabulary.UniformIntegrability",
+          "Statlib.StatFoundation.Vocabulary.FiniteCoordinate",
+          "Statlib.StatFoundation.Vocabulary.Conformal",
+          "Statlib.StatFoundation.Vocabulary.GaussianCriticalValue",
+          "Statlib.StatFoundation.Vocabulary.MaxType",
+          "Statlib.StatFoundation.Vocabulary.Resampling"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary.olean",
+            "sha256": "0d75c2c1c664dda054e755c72b74b611f2af82d4d8c94829320ee63a263b8b6f",
+            "bytes": 44664
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.Conformal",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.Vocabulary.Independence"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/Conformal.olean",
+            "sha256": "28cc6440166ecd1c88908055f0ef53e67247b448c20f16a3cac2b941e14d57c0",
+            "bytes": 77104
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.CoveringNumbers",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.Vocabulary.EmpiricalProcess"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/CoveringNumbers.olean",
+            "sha256": "db620ec2aef8f590a21e65267299b0d97f63fc62be9bb18cc6df9d95472d2485",
+            "bytes": 245792
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.EmpiricalProcess",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/EmpiricalProcess.olean",
+            "sha256": "2c1847034cf0dd490f678cb7ca51fb8998e766c0c203333e23942c14e9336dbd",
+            "bytes": 108128
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.FiniteCoordinate",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.Vocabulary.StochasticOrder"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/FiniteCoordinate.olean",
+            "sha256": "949f65ab8d9922f3e9c505f54f34e997b5f27003a40163988f7dc72e4306814d",
+            "bytes": 90336
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.GaussianCriticalValue",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/GaussianCriticalValue.olean",
+            "sha256": "73fa1af6617c3c9c3dd50928447b0d942f8f81102e5416fc33af4cd7200a7531",
+            "bytes": 50576
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.Independence",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/Independence.olean",
+            "sha256": "1a77d0dd36c329f15895d1b66c52cc7d743d5c477e0939251b77f22493d6253c",
+            "bytes": 55216
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.MaxType",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/MaxType.olean",
+            "sha256": "99beb3f8b7bdd6492e6fc7f02888b524938e6031199d82a59963ba8265fb4756",
+            "bytes": 66920
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.OrliczNorm",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/OrliczNorm.olean",
+            "sha256": "e5c119153481c4786902366aea7c5bbab50f87ce2b3f644b0ca02651f4dcee62",
+            "bytes": 65328
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.ParametricFamily",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/ParametricFamily.olean",
+            "sha256": "370fcb132fa142cc0a193d8f83768d8ca7f42c9bbe863ee2c42b31754b302bc6",
+            "bytes": 88200
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.RandomVariable",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/RandomVariable.olean",
+            "sha256": "2ab20c5afa14d5b6c2d7b2305789c9ef26fbcda7166f77fbd55aaf4d424c943a",
+            "bytes": 124368
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.Resampling",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.Vocabulary.MaxType"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/Resampling.olean",
+            "sha256": "aef93a1291262e6084aeff2cf2d8b3b8bc00cf5bb97a9e9200b9d8a32a51670b",
+            "bytes": 99960
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.StochasticOrder",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/StochasticOrder.olean",
+            "sha256": "649da2c9101df8151746a78910fcb4b9f2e2d5624dd49effed56080170b32c13",
+            "bytes": 120816
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.UniformIntegrability",
+        "imports": [
+          "Init",
+          "Mathlib.MeasureTheory.Function.UniformIntegrable"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/UniformIntegrability.olean",
+            "sha256": "cfb6b0958f503d1e2d2cff4ec326b5c5fc5b9da8adee9791183fa02b64b64f35",
+            "bytes": 79504
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.VCDimension",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/VCDimension.olean",
+            "sha256": "30959e4a6f6a32d83ea76ec6cfe74153755351eb53b535f29eea12c1388fdd50",
+            "bytes": 420920
+          }
+        ]
+      }
+    ]
+  },
+  "leanVersion": "Lean (version 4.28.0-rc1, x86_64-unknown-linux-gnu, commit 3b0f2862196c6a8af9eb0025ee650252694013dd, Release)",
+  "mathlibRevision": "5352afccd6866369be9de43f5b7ec47203555f44"
+}

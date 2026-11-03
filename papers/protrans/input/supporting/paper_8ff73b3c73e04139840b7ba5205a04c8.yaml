@@ -1,0 +1,400 @@
+version: v1
+theorem_set: paper-proof-group
+source_tag: document-processing
+theorems:
+  - id: entry:selected:23129928-4aee-44cf-8169-948695975c25
+    title: paper_8ff73b3c73e04139840b7ba5205a04c8
+    kind: lemma
+    latex_statement: |-
+      Let \(N\) be a positive integer. For \(l=1,\dots,N\), let \(U_l\) be random variables. \(V>0\) is a common fixed moment-bound parameter. The scalar Bernstein moment condition is
+      \[
+      \mathbb E|U_l|^r\le r!V^r
+      \]
+      for all integers \(r\ge2\) and all \(l=1,\dots,N\). The variables need not have the same law; the same proof applies to independent variables with different laws and the same moment bound.
+
+      For the union-bound consequence, \(p,q\) are positive integers with \(q\) fixed. \(c>0\) is a fixed confidence exponent chosen before \(C,N_0\). \(C,N_0>0\) are constants allowed to depend on \(c\), the common \(V\), and the fixed \(q\), but not on \(N\) or \(p\) under the supplement's constant convention. There are at most \(p^2\), or at most \(pq\), scalar coordinates. For each coordinate the deviation is that of a scalar average \(\frac1N\sum_{l=1}^N U_l\) whose summands satisfy the scalar Bernstein setup. The base of \(\log p\) is not specified in the source and is absorbed into constants. The comparison \(N\ge N_0\log p\) is displayed without a separate rounding convention. The supplement's quantitative constant convention applies; constants and probability-decay exponents are positive unless explicitly assigned another range.
+
+      <!-- formalization-clarifications:v1:eaa27159b90546db24b9ebe066c04c709eb026294383b58cd0b81d943dd52a16 -->
+      Formalization clarifications from source and proof:
+      1. Constants and quantifiers. The intended order in the target union-bound result is: fix the common moment parameter \(V>0\), the fixed positive integer \(q\), and then the confidence exponent \(c>0\); the constants \(C,N_0>0\) are chosen after these and may depend only on \(c,V,q\) and absolute constants. They must not depend on \(p\), \(N\), the number \(m\) of coordinates, the coordinate index, the joint or marginal laws of the \(U_{j,l}\), or the particular finite collection of coordinates; this is explicit in the supplement’s “Quantitative constant convention” and in the proof’s uniformity list (“The constants … do not depend on \(p\), on \(N\), on \(m\), or on the laws”). The correct quantifier pattern is therefore “for every fixed \(c,V,q\) there exist \(C,N_0\) such that for every \(p\), every \(N\ge N_0\log p\), and every admissible coordinate family …”. An implicit Lean parameter for \(p\), a law, a random vector, or a coordinate set placed before \(C,N_0\) would wrongly permit dependence; the source’s proof treats those as universally quantified after the constants. \(q\) is explicitly fixed and no uniformity over growing \(q\) is asserted; \(q\) enters the proof through \(\delta=2+c+\log_2(40q)\), so \(C,N_0\) may grow with fixed \(q\), but the final probability exponent is still exactly \(c\), not \(c\) minus an absorbed \(q\)-factor. The proof’s explicit \(C=V\sqrt{8\delta}\), \(N_0=\max\{1,32\delta\}\) and \(b=1/8\) use a proof-level admissibility computation; source R1 itself states only that some absolute \(b>0\) exists, with no numerical value stated in the quoted passage. R1’s \(b\) is absolute and independent of \(N,t,V,p,q,c\), the variables and their laws; the target-specific \(C,N_0\) are the parameter-dependent constants. The deterministic \(D\) in the original uniform product-moment paragraph is an \(\ell_1\)-bound, \(\|u\|_1\le D\), for a deterministic coefficient vector \(u\); \(D=0\) is explicitly allowed and then the corresponding random variable is identically zero. The source does not state separate uniformity over \(D\); if a linear-combination argument is used, the proof replaces the scalar moment parameter by a fixed bound such as \(\max\{V,VD\}\), and the constants may depend on that resulting fixed moment-bound parameter, not on the particular coefficient vector or coordinate. The source also leaves a real ambiguity at \(p=1\): the main proof works for \(p\ge2\); under the literal reading \(\log1=0\) the source says the statement fails, while under the positive-logarithm convention \(\log p:=\log(p\vee2)\) it holds for all positive \(p\). Do not silently add one convention as if it were source-explicit.
+
+      2. Norms and mathematical objects. In the target result the basic objects are real scalar random variables \(U_{j,l}\) and scalar averages \(\overline U_j=N^{-1}\sum_{l=1}^N U_{j,l}\); the deviation is the scalar absolute value \(|\overline U_j|\). It is not an \(\ell^2\), operator, Frobenius, or matrix infinity norm over the whole coordinate list; the simultaneous event is the coordinatewise condition \(\forall j,\ |\overline U_j|\le t\) (equivalently the complement \(\exists j,\ |\overline U_j|>t\)). The original supplement does use \(\|\cdot\|_\infty\) for largest absolute entry of matrices/vectors and \(\|\cdot\|_{2,\infty}\) for maximum row Euclidean norm elsewhere, but those are not the norm in the scalar Bernstein/union-bound target; do not replace the scalar absolute value by one of those without a separate statement. The moment hypothesis is exactly \(\mathbb E|U_{j,l}|^r\le r!V^r\) for every integer \(r\ge2\), with the same fixed \(V>0\) for all sample indices \(l\) and coordinates \(j\); it is not merely a variance bound, not a sub-Gaussian norm convention, and not an \(L^r\)-norm inequality with a different power or factorial normalization. The variables are centered and, within each coordinate, independent; they may have different laws across \(l\) and across coordinates. No independence across distinct coordinates is assumed or used, and the coordinate families may be arbitrarily dependent. The sample size \(N\) is common to all coordinates in the displayed target theorem; the source does not state coordinate-specific \(N_j\). The threshold is \(C\sqrt{\log p/N}\), with \(N\) in the denominator, not \(p\) or a coordinate count. The number of coordinates \(m\) satisfies \(m\le p^2\) or \(m\le pq\); this is a disjunction in the statement. The proof derives the common consequence \(m\le q p^2\) (since \(q\ge1\) and \(p\ge1\)) and this derivation is proof-based, not an extra hypothesis. If \(m=0\), the proof says the event is empty and the estimates are trivial. For the auxiliary \(D\)-paragraph, the norm is the deterministic \(\ell_1\)-norm of the coefficient vector \(u\); the original product-moment paragraph uses the usual \(L^r\)-norm \((\mathbb E|\cdot|^r)^{1/r}\) and the triangle inequality in \(L^r\), and explicitly says no independence between the two factors in a product is required. The source does not specify the base of \(\log p\) in the definitions or in R1; the selected proof adopts natural logarithms and notes that another fixed base is absorbed by constants. The proof’s \(\log_2(40q)\) is a proof-level fixed quantity, not an additional source-level logarithm convention.
+
+      3. Asymptotics and probability. The target result is non-asymptotic and quantitative: it states an exact finite-sample probability bound \( \mathbb P(\exists j:|\overline U_j|>C\sqrt{\log p/N})\le p^{-c}/20\) whenever \(N\ge N_0\log p\), and equivalently a simultaneous lower bound \(1-p^{-c}/20\). There is no \(O\), \(o\), \(O_p\), \(o_p\), convergence-in-probability filter, or limiting variable in this target theorem; \(p\) and \(N\) may vary, but the inequality is uniform over all \(p\) (with the source’s \(p=1\) caveat) and over all \(N\) satisfying the displayed threshold. The source does not assert a limit as \(p\to\infty\); it only allows \(p\) to be a growing dimension parameter in applications. \(q\) is fixed, not growing; \(c\) is fixed before \(C,N_0\); \(V\) is fixed. The comparison \(N\ge N_0\log p\) is written without a separate rounding convention, so do not insert a ceiling or floor as source fact; treat the displayed inequality as the condition, with \(N\) an integer and \(N_0\) a positive real constant as in the proof. The proof handles \(p\ge2\) directly; for \(p=1\), the source distinguishes the positive-logarithm convention from the literal \(\log1=0\) reading. R1’s scalar Bernstein bound is a universal finite-sample inequality for every \(t>0\) and every admissible \(N\), with no separate range on \(t\) in the displayed source result; the intermediate condition \(|\theta|V\le1/2\) appears in the exponential-series argument, not as an extra hypothesis of the final probability inequality. The target’s “at most \(p^2\) or \(pq\)” union-bound statement is a corollary/application of R1 and does not restrict the universal R1 lemma.
+
+      4. Potentially omitted definitions and source ambiguities. The coordinates should be written as \(j=1,\dots,m\), with \(m\le p^2\) or \(m\le pq\), and \(U_{j,1},\dots,U_{j,N}\) independent and centered for each fixed \(j\); the joint law across different \(j\) is unrestricted except as required by the per-coordinate assumptions. The event in the failure form is \(\{\exists j\in\{1,\dots,m\}:|\overline U_j|>C\sqrt{\log p/N}\}\); the complement is the simultaneous event. The probability is over the joint law of all displayed random variables, but the proof uses only coordinatewise independence, centering and moments, plus the union bound; no independence across coordinates is needed. The source treats \(m=0\) as trivial in the proof. The common \(V>0\) is fixed and may be enlarged in the original uniform product-moment paragraph; it is not a parameter allowed to depend on \(N\), \(p\), \(m\), the coordinate index, or the laws. The auxiliary \(D\) paragraph’s \(D=0\) case is source-explicit: the corresponding random variable is identically zero and its deviation bound is deterministic; the proof additionally says such coordinates can be retained in the union bound because they contribute probability zero. The source leaves the numerical value of R1’s absolute \(b\) unspecified in the quoted R1 statement; the value \(1/8\) appears only in the selected proof’s verification. The source leaves the logarithm base unspecified, though the target proof fixes natural logs for convenience. The source leaves the \(p=1\) convention unresolved in the literal statement: the selected proof records failure under \(\log1=0\) and validity under \(\log(p\vee2)\). The source does not state any rounding convention for \(N_0\log p\), and it does not state uniformity over growing \(q\). The external owner of the scalar Bernstein inequality and the different-laws extension is R1, “eq:profiled_scalar_bernstein”; the owner of the \(p^2\)/\(pq\) union-bound consequence and the fixed-\(q\) absorption is the target union-bound passage; the owner of the \(V\) and \(D\) product-moment facts is the supplement’s “Uniform concentration argument”; the owner of the \(D=0\) deterministic normalization is the supplement’s “Deterministic \(D=0\) normalization”; the \(p=1\) discussion is proof-level in the selected target proof.
+      <!-- /formalization-clarifications -->
+
+      Let \(p,q\) be positive integers with \(q\) fixed. Let \(c>0\) be a fixed confidence exponent. Suppose each coordinate among at most \(p^2\) or at most \(pq\) scalar coordinates is a scalar average of the form \(\frac1N\sum_{l=1}^N U_l\) of independent centered variables satisfying the moment bound of the scalar Bernstein result, with the same moment bound allowed for variables having different laws.
+
+      Then constants \(C,N_0>0\) can be chosen so that the event that any of these coordinates deviates by more than \(C\sqrt{\log p/N}\) has probability at most \(\frac{p^{-c}}{20}\), whenever \(N\ge N_0\log p\). Equivalently, all those coordinates satisfy the deviation bound \(C\sqrt{\log p/N}\) simultaneously with probability at least \(1-p^{-c}/20\).
+
+      Since \(q\) is fixed, its factor in the union bound is absorbed by the choice of \(C,N_0\), not by changing \(c\) silently. No uniformity over a growing \(q\) is asserted.
+    assumptions:
+      - |-
+        \(p,q\) are positive integers with \(q\) fixed. \(c>0\) is a fixed confidence exponent chosen before choosing \(C,N_0\). \(N\) is a positive integer sample size. Each of the at most \(p^2\) or at most \(pq\) scalar coordinates is a scalar average
+        \[
+        \frac1N\sum_{l=1}^N U_l
+        \]
+        of \(N\) independent centered variables satisfying the scalar Bernstein moment bound with a common fixed \(V>0\), possibly with different laws. The supplement's quantitative constant convention applies; constants and probability-decay exponents are positive unless explicitly assigned another range.
+    proof_body: |-
+      ### Definitions and notation used in Proof
+      \(b>0\) is an absolute constant. \(D\) is the deterministic \(\ell_1\)-bound from the uniform product-moment paragraph: a deterministic coefficient vector \(u\) for the corresponding linear combination satisfies \(\|u\|_1\le D\). The passage does not introduce a further symbol for the corresponding random variable.
+
+      ### Proof
+      #### Proof of the simultaneous deviation bound
+
+      #### 1. Setting, notation, and what is to be proved
+
+      Fix the confidence exponent \(c>0\) and the fixed positive integer \(q\). Let \(p\) and \(N\) be positive integers, and let \(m\) denote the number of scalar coordinates under consideration. By hypothesis
+      \[
+      m\le p^{2}\qquad\text{or}\qquad m\le pq .
+      \]
+      Since \(p\ge1\) and \(q\ge1\), in either case
+      \[
+      m\le q\,p^{2},
+      \tag{1.1}
+      \]
+      because \(p^{2}\le qp^{2}\) and \(pq\le qp^{2}\). (If \(m=0\) the event below is empty and has probability \(0\); the estimates to follow are then trivially valid, so nothing is lost by assuming \(m\ge1\).)
+
+      Enumerate the coordinates as \(j=1,\dots,m\) and write
+      \[
+      \overline U_{j}:=\frac1N\sum_{l=1}^{N}U_{j,l}.
+      \]
+      The assumptions state that for each \(j\) the variables \(U_{j,1},\dots,U_{j,N}\) are independent and centered, and that one common fixed \(V>0\) satisfies
+      \[
+      \mathbb E|U_{j,l}|^{r}\le r!\,V^{r}
+      \qquad\text{for all integers } r\ge2 \text{ and all } l=1,\dots,N .
+      \tag{1.2}
+      \]
+      The laws of the \(U_{j,l}\) may depend on \(j\) and on \(l\), and no relation whatsoever is assumed between the families belonging to different coordinates: the argument below uses (1.2) coordinatewise only, and requires no independence across distinct coordinates, since the union bound does not need it.
+
+      **Conventions.** All logarithms are natural; replacing the base multiplies \(\log p\) by a fixed positive factor, which is absorbed into the constant \(C\) below. The symbol \(\log_2\) denotes the base-\(2\) logarithm and appears only in the fixed number \(\log_2(40q)=\log(40q)/\log 2\) entering \(\delta\) in (3.1); it introduces no dependence on \(p\). The confidence exponent \(c\) is fixed first; the constants \(C,N_0\) constructed in Section 3 are functions of \(c\), of the fixed \(V\), of the fixed \(q\), and of absolute constants only. In particular they do not depend on \(p\), on \(N\), on \(m\), or on the laws of the \(U_{j,l}\), and no change of \(c\) is made at any point.
+
+      **Goal for \(p\ge2\).** Exhibit \(C=C(c,V,q)>0\) and \(N_0=N_0(c,V,q)\ge1\) such that, for every \(p\ge2\), every \(N\ge N_0\log p\), and every collection of coordinates satisfying (1.2),
+      \[
+      \mathbb P\Big(\exists\, j\in\{1,\dots,m\}:\ |\overline U_{j}|>C\sqrt{\tfrac{\log p}{N}}\Big)\le \frac{p^{-c}}{20}.
+      \tag{1.3}
+      \]
+      The boundary case \(p=1\), where the literal threshold \(C\sqrt{\log 1/N}\) vanishes, is treated separately in Section 8.
+
+      #### 2. The external scalar Bernstein bound and the value of its constant
+
+      We use the scalar Bernstein inequality established in the source (Reference R1), labeled `eq:profiled_scalar_bernstein`.
+
+      **Lemma 2.1 (R1, scalar Bernstein bound).** Let \(N\ge1\), and let \(U_1,\dots,U_N\) be independent centered random variables for which there is a common \(V>0\) with
+      \[
+      \mathbb E|U_l|^{r}\le r!\,V^{r}
+      \qquad\text{for all integers } r\ge2,\quad l=1,\dots,N .
+      \]
+      Then for every \(t>0\),
+      \[
+      \mathbb P\left(\left|\frac1N\sum_{l=1}^{N}U_l\right|>t\right)
+      \le 2\exp\left[-bN\min\left(\frac{t^{2}}{V^{2}},\frac{t}{V}\right)\right],
+      \tag{2.1}
+      \]
+      where \(b>0\) is an absolute constant. The variables need not have the same law: the same inequality holds for independent variables with different laws and the same moment bound.
+
+      **Applicability to the present objects.** Fix \(j\in\{1,\dots,m\}\) and apply Lemma 2.1 with \(U_l:=U_{j,l}\) and with the \(V\) of (1.2). Then \((U_{j,l})_{l=1}^{N}\) is independent, each \(U_{j,l}\) is centered, and (1.2) is exactly the required moment hypothesis, with the same \(V\) for all \(l\) and all \(j\); the laws may differ with \(j\) and \(l\), which Lemma 2.1 permits explicitly. Hence (2.1) holds for every \(j\le m\) and every \(t>0\):
+      \[
+      \mathbb P\big(|\overline U_{j}|>t\big)
+      \le 2\exp\left[-bN\min\left(\frac{t^{2}}{V^{2}},\frac{t}{V}\right)\right].
+      \tag{2.2}
+      \]
+
+      **Remark 2.2 (the absolute constant may be taken \(b=\tfrac18\)).** The source states only that \(b>0\) is absolute, but \(b\) enters the choice of \(C\) in Section 3, so we verify that the derivation quoted in R1 yields the explicit admissible value \(b=\tfrac18\). Fix \(j\) and \(l\), let \(Z:=U_{j,l}\), and suppose \(|\lambda|V\le\tfrac12\). By (1.2), together with \(\mathbb E|Z|\le(\mathbb E|Z|^{2})^{1/2}\le\sqrt2\,V\), the series \(\sum_{r\ge0}|\lambda|^{r}\mathbb E|Z|^{r}/r!\) is finite; hence the exponential series may be integrated termwise (Fubini for an absolutely convergent series), and since \(\mathbb E Z=0\),
+      \[
+      \mathbb E e^{\lambda Z}=1+\sum_{r\ge2}\frac{\lambda^{r}\mathbb E Z^{r}}{r!},
+      \qquad
+      \left|\sum_{r\ge2}\frac{\lambda^{r}\mathbb E Z^{r}}{r!}\right|
+      \le \sum_{r\ge2}\frac{|\lambda|^{r}\mathbb E|Z|^{r}}{r!}
+      \le\sum_{r\ge2}(|\lambda|V)^{r}
+      =\frac{(\lambda V)^{2}}{1-|\lambda|V},
+      \]
+      the last identity being the geometric series. In particular the remainder \(R:=\sum_{r\ge2}\lambda^{r}\mathbb E Z^{r}/r!\) satisfies \(|R|\le 2(\lambda V)^{2}\le\tfrac12\), so \(1+R>0\), and \(\log(1+x)\le x\) for \(x>-1\) gives
+      \[
+      \log\mathbb E e^{\lambda Z}=\log(1+R)\le R\le\frac{(\lambda V)^{2}}{1-|\lambda|V}
+      \le 2(\lambda V)^{2}=2\lambda^{2}V^{2},
+      \qquad |\lambda|V\le\tfrac12 .
+      \tag{2.3}
+      \]
+
+      Now let \(S_j:=\sum_{l=1}^{N}U_{j,l}=N\overline U_j\). By independence and (2.3),
+      \[
+      \mathbb E e^{\lambda S_j}=\prod_{l=1}^{N}\mathbb E e^{\lambda U_{j,l}}\le \exp\left(2NV^{2}\lambda^{2}\right),
+      \qquad 0<\lambda\le\frac1{2V}.
+      \]
+      By exponential Markov, for \(t>0\) and such \(\lambda\),
+      \[
+      \mathbb P(\overline U_j>t)=\mathbb P\left(e^{\lambda S_j}>e^{\lambda N t}\right)
+      \le\exp\left(-N\lambda t+2NV^{2}\lambda^{2}\right).
+      \tag{2.4}
+      \]
+      The variables \(-U_{j,l}\) are again independent, centered, and satisfy (1.2), so the same computation gives \(\mathbb P(-\overline U_j>t)\le\exp(-N\lambda t+2NV^{2}\lambda^{2})\) as well, and therefore
+      \[
+      \mathbb P\big(|\overline U_j|>t\big)\le 2\exp\left(-N\lambda t+2NV^{2}\lambda^{2}\right),
+      \qquad 0<\lambda\le\frac1{2V}.
+      \tag{2.5}
+      \]
+
+      Set \(s:=t/V>0\) and \(\varphi(\lambda):=-N\lambda t+2NV^{2}\lambda^{2}\). This convex quadratic is minimized on \((0,\tfrac1{2V}]\) at
+      \[
+      \lambda^{*}=\min\left\{\frac{t}{4V^{2}},\frac1{2V}\right\}
+      =\min\left\{\frac{s}{4V},\frac1{2V}\right\},
+      \]
+      the unconstrained minimizer \(\lambda=t/(4V^{2})\) being admissible exactly when \(s\le2\).
+
+      *If \(s\le2\):* \(\lambda^{*}=t/(4V^{2})\) and
+      \[
+      \varphi(\lambda^{*})=-N\frac{t^{2}}{4V^{2}}+2NV^{2}\frac{t^{2}}{16V^{4}}
+      =-\frac{Nt^{2}}{8V^{2}}=-\frac{N}{8}s^{2}.
+      \]
+      *If \(s\ge2\):* \(\lambda^{*}=1/(2V)\) and
+      \[
+      \varphi(\lambda^{*})=-\frac{Nt}{2V}+\frac{N}{2}=-\frac{N}{2}(s-1)\le-\frac{N}{4}s,
+      \]
+      because \(s\ge2\) gives \((s-1)/2\ge s/4\).
+
+      Consequently, in both regimes,
+      \[
+      \varphi(\lambda^{*})\le -N\min\left\{\frac{s^{2}}{8},\frac{s}{4}\right\}.
+      \]
+      Moreover, for every \(s>0\),
+      \[
+      \min\left\{\frac{s^{2}}{8},\frac{s}{4}\right\}\ge\frac18\min\{s^{2},s\},
+      \]
+      as is checked separately on the three ranges \(s\le1\), \(1\le s\le2\), \(s\ge2\) (there the two sides equal \(s^{2}/8\); then \(\min\{s^{2}/8,s/4\}=s^{2}/8\ge s/8\); then \(\min\{s^{2}/8,s/4\}=s/4\ge s/8\)). Substituting into (2.5) yields, for all \(t>0\),
+      \[
+      \mathbb P\big(|\overline U_j|>t\big)\le 2\exp\left[-\tfrac18 N\min\left(\frac{t^{2}}{V^{2}},\frac{t}{V}\right)\right],
+      \]
+      which is (2.1) with \(b=\tfrac18\). This is the numerical value used below; it depends only on absolute constants.
+      **Remark 2.3 (an unspecified absolute \(b\) would suffice).** The computation in Remark 2.2 is not an additional external input: Lemma 2.1 (R1) already guarantees the existence of an absolute constant \(b>0\), and by the host dependency convention its internal proof need not be reproduced. If \(b\) is kept as an unspecified absolute constant, every display below remains valid with \(\sqrt{8\delta}\) replaced by \(\sqrt{\delta/b}\) and \(32\delta\) replaced by \(4\delta/b\); since \(b\) is absolute, the resulting \(C\) and \(N_0\) still depend only on \(c\), \(V\), \(q\), and absolute quantities. The explicit value \(b=\tfrac18\) is retained in Section 3 only because it makes \(C\) and \(N_0\) explicit.
+
+
+      #### 3. Choice of \(C\) and \(N_0\), and the quadratic regime
+
+      Define
+      \[
+      \delta:=2+c+\log_2(40q)>0,
+      \qquad
+      b:=\tfrac18,
+      \qquad
+      C:=V\sqrt{\frac{\delta}{b}}=V\sqrt{8\delta},
+      \qquad
+      N_0:=\max\left\{1,\frac{4\delta}{b}\right\}=\max\{1,32\delta\}.
+      \tag{3.1}
+      \]
+      Since \(q\ge1\) we have \(\log_2(40q)>0\), so \(\delta>0\), hence \(C>0\) and \(N_0\ge1\). The quantities \(\delta\), \(C\), \(N_0\) are determined by \(c\), \(q\), \(V\) and absolute constants; they are independent of \(p\), of \(N\), of \(m\), and of the laws of the coordinates. Note that \(C^{2}/V^{2}=\delta/b\) and \(bN_0\ge4\delta\). In (3.1), \(b=\tfrac18\) is the admissible absolute constant verified in Remark 2.2. If instead the abstract constant \(b>0\) of Lemma 2.1 is used, the only changes are \(C=V\sqrt{\delta/b}\) and \(N_0=\max\{1,4\delta/b\}\); the same argument then gives the analogues of (3.2), (4.1) and (5.2) with \(8\delta\) replaced by \(\delta/b\) and \(32\delta\) replaced by \(4\delta/b\) (Remark 2.3).
+
+      Let \(p\ge2\) and suppose \(N\ge N_0\log p\), so in particular \(\log p>0\) and \(N\ge1\). Put
+      \[
+      t:=C\sqrt{\frac{\log p}{N}}>0 .
+      \]
+      Then
+      \[
+      \frac{t}{V}=\frac{C}{V}\sqrt{\frac{\log p}{N}}
+      \le\frac{C}{V}\cdot\frac{1}{\sqrt{N_0}}
+      =\sqrt{\frac{\delta}{bN_0}}
+      \le\sqrt{\frac{\delta}{4\delta}}=\frac12,
+      \tag{3.2}
+      \]
+      where we used \(\log p/N\le1/N_0\) and \(bN_0\ge4\delta\). Since \(0<t/V\le\tfrac12<1\), the minimum in (2.2) is attained at the quadratic term:
+      \[
+      \min\left(\frac{t^{2}}{V^{2}},\frac{t}{V}\right)=\frac{t^{2}}{V^{2}} .
+      \tag{3.3}
+      \]
+
+      #### 4. The per-coordinate estimate
+
+      Fix \(j\le m\). Combining (2.2), (3.3), \(b=\tfrac18\), the definition of \(t\), and \(C^{2}/V^{2}=\delta/b\),
+      \[
+      \begin{aligned}
+      \mathbb P\big(|\overline U_j|>t\big)
+      &\le 2\exp\left[-bN\frac{t^{2}}{V^{2}}\right]
+      =2\exp\left[-bN\cdot\frac{C^{2}}{V^{2}}\cdot\frac{\log p}{N}\right]\\
+      &=2\exp\left[-\delta\log p\right]
+      =2p^{-\delta}.
+      \end{aligned}
+      \tag{4.1}
+      \]
+      The identity in the third line is exact: \(b\,C^{2}/V^{2}=\delta\) by (3.1). Note that \(N\) has cancelled, so (4.1) holds for every \(N\ge N_0\log p\).
+
+      #### 5. The union bound
+
+      Let
+      \[
+      \mathcal E:=\Big\{\exists\, j\in\{1,\dots,m\}:\ |\overline U_j|>t\Big\}
+      =\Big\{\exists\, j:\ |\overline U_j|>C\sqrt{\tfrac{\log p}{N}}\Big\}.
+      \]
+      By the union bound, the per-coordinate estimate (4.1), and (1.1),
+      \[
+      \mathbb P(\mathcal E)\le\sum_{j=1}^{m}\mathbb P\big(|\overline U_j|>t\big)
+      \le 2m\,p^{-\delta}
+      \le 2q\,p^{2}p^{-\delta}
+      =2q\,p^{2-\delta}.
+      \tag{5.1}
+      \]
+      Now \(\delta=2+c+\log_2(40q)\) gives \(2-\delta=-c-\log_2(40q)\), hence
+      \[
+      2q\,p^{2-\delta}
+      =2q\,p^{-c}\,p^{-\log_2(40q)}
+      =2q\,p^{-c}\,2^{-(\log_2 p)\log_2(40q)}.
+      \]
+      Since \(p\ge2\) we have \(\log_2 p\ge1\); as \(\log_2(40q)>0\) this gives
+      \[
+      2^{-(\log_2 p)\log_2(40q)}\le 2^{-\log_2(40q)}=\frac1{40q}.
+      \]
+      Therefore
+      \[
+      \mathbb P(\mathcal E)\le 2q\,p^{-c}\cdot\frac1{40q}=\frac{p^{-c}}{20},
+      \tag{5.2}
+      \]
+      which is (1.3). This completes the proof of the deviation estimate for every \(p\ge2\) and every \(N\ge N_0\log p\).
+
+      #### 6. Complement form and uniformity
+
+      Taking complements in (5.2),
+      \[
+      \mathbb P\Big(\forall\, j\in\{1,\dots,m\}:\ |\overline U_j|\le C\sqrt{\tfrac{\log p}{N}}\Big)
+      \ge 1-\frac{p^{-c}}{20},
+      \tag{6.1}
+      \]
+      which is the stated simultaneous bound.
+
+      We record the uniformity properties, which are part of the conclusion:
+
+      1. \(C\) and \(N_0\) from (3.1) depend only on \(c\), on the fixed \(V\), on the fixed \(q\), and on absolute constants; they do not depend on \(p\), \(N\), \(m\), or on the laws of the \(U_{j,l}\). Thus (6.1) holds uniformly over all configurations satisfying (1.2) with that \(V\).
+      2. The fixed \(q\) enters only through the additive term \(\log_2(40q)\) in \(\delta\) and hence through \(C\) and \(N_0\); the confidence exponent is untouched: the final exponent in (5.2) is exactly \(c\), not \(c\) minus an absorbed \(q\)-factor. No uniformity over a growing \(q\) is claimed or used.
+      3. The two alternatives "at most \(p^{2}\)" and "at most \(pq\)" are handled by the single bound (1.1), so the same \(C,N_0\) work in both cases.
+      4. No independence between different coordinates was used; only the coordinatewise independence, centering and moment bound (1.2) entered, through Lemma 2.1.
+
+      #### 7. The deterministic \(D=0\) normalization
+
+      In the source the coordinates are linear combinations \(\sum_{i}u_{i}Z_{i}\) of centered products with a deterministic coefficient vector \(u=(u_{i})\) satisfying \(\|u\|_{1}\le D\). If \(D=0\), then \(\|u\|_{1}=0\), hence \(u=0\), and such a coordinate is the identically zero random variable; the passage introducing \(D\) states this explicitly. Its average \(\overline U_{j}\) is then identically \(0\), so deterministically
+      \[
+      |\overline U_{j}|=0\le C\sqrt{\frac{\log p}{N}}\qquad\text{for every }N\ge1,
+      \]
+      and it contributes probability \(0\) to the union bound in (5.1) and belongs to the complement event in (6.1) with probability one. Such coordinates may therefore be retained among the \(m\) coordinates without affecting the estimate. (If instead \(D>0\), the uniform product-moment paragraph gives \(\mathbb E|\sum_{i}u_{i}Z_{i}|^{r}\le r!(VD)^{r}\) for all integers \(r\ge2\); hence Lemma 2.1, and with it every step above, applies with \(V\) replaced by the fixed constant \(\max\{V,VD\}\).)
+
+      #### 8. The case \(p=1\)
+
+      The proof of Sections 3–7 uses \(p\ge2\) in exactly two places: \(\log p>0\) (to define a positive threshold and to bound \(\log p/N\le1/N_0\)) and \(\log_2 p\ge1\) (in the final step of (5.2)). The letter \(p\) is a growing dimension parameter in the source, so \(p\ge2\) is the regime of the statement's content. We record both readings of the degenerate case.
+
+      **8.1 The positive-logarithm convention \(\log p:=\log(p\vee2)\).** Put \(L:=\log(p\vee2)\ge\log2\), \(t:=C\sqrt{L/N}\), and assume \(N\ge N_0\log(p\vee2)=N_0L\). Then (3.2) and (3.3) hold verbatim with \(L\) in place of \(\log p\), and (4.1) becomes \(\mathbb P(|\overline U_j|>t)\le 2(p\vee2)^{-\delta}\). Since \(m\le q(p\vee2)^{2}\) by (1.1), the union bound gives
+      \[
+      \mathbb P(\mathcal E)\le 2q\,(p\vee2)^{2-\delta}
+      =2q\,(p\vee2)^{-c}\,(p\vee2)^{-\log_2(40q)}
+      \le 2q\,p^{-c}\,2^{-\log_2(40q)}
+      =\frac{p^{-c}}{20},
+      \]
+      using \((p\vee2)^{-c}\le p^{-c}\) and \(p\vee2\ge2\). Thus under this convention the conclusion holds for every positive integer \(p\), with the same \(C,N_0\). This also covers \(q=1\).
+
+      **8.2 Literal reading \(\log1=0\).** Under the literal reading the statement over all positive integers \(p\) is false, as the following counterexample, satisfying every hypothesis of the task, shows. Take \(p=q=N=1\), \(m=1\), let \(U_{1,1}\) be uniform on \(\{-1,+1\}\), and let \(V=2\). Then \(U_{1,1}\) is centered, and \(\mathbb E|U_{1,1}|^{r}=1\le r!\,2^{r}\) for every integer \(r\ge2\), so (1.2) holds with the fixed \(V=2\); the single coordinate is the average of \(N=1\) independent centered variables. For every \(N_0>0\) we have \(N=1\ge N_0\log1=0\), so the hypothesis \(N\ge N_0\log p\) is satisfied. The asserted threshold, however, is
+      \[
+      C\sqrt{\frac{\log1}{1}}=0\quad\text{for every }C>0,
+      \]
+      so the failure event is \(\{|\overline U_{1}|>0\}\), which has probability \(1\); and \(p^{-c}/20=1/20\). Hence the first form of the conclusion fails. The complement form fails in exactly the same way: it would assert \(\mathbb P(|\overline U_{1}|\le0)\ge1-1/20\), whereas \(|\overline U_{1}|=1\) almost surely, so that probability is \(0<1-1/20\). The obstruction is structural (the threshold vanishes, not the constants \(C,N_0\)), and it disappears as soon as \(p\ge2\) or as soon as \(\log p\) is read as \(\log(p\vee2)\); in particular no difficulty arises in the growing-dimension regime \(p\to\infty\) that the result concerns.
+
+
+      **Conclusion.** With \(C=V\sqrt{8\delta}\), \(N_0=\max\{1,32\delta\}\), \(\delta=2+c+\log_2(40q)\), the simultaneous bound of the statement holds with probability at least \(1-p^{-c}/20\) for every \(p\ge2\) and every \(N\ge N_0\log p\), for all coordinate systems satisfying the stated moment and independence hypotheses; the constants depend only on \(c\), \(V\), \(q\), and absolute constants. For every positive integer \(p\) the same conclusion holds under the standard positive-logarithm convention, while under the literal reading \(\log1=0\) the case \(p=1\) fails and the statement is false there.
+
+      ### References
+      #### Reference R1
+      Target: Equation \eqref{eq:profiled_scalar_bernstein} (scalar Bernstein bound)
+      Citation: For \(N\) independent centered variables \(U_l\) with \(\mathbb E|U_l|^r\le r!V^r\), expanding the exponential series gives \(\log\mathbb E e^{\theta U_l}\le2V^2\theta^2\) for \(|\theta|V\le1/2\). Independence, exponential Markov, and optimization with \(\theta=\min(t/(4V^2),1/(2V))\) yield
+      \[
+       \mathbb P\left(\left|{1\over N}\sum_{l=1}^NU_l\right|>t\right)
+       \le2\exp[-bN\min(t^2/V^2,t/V)]
+       \label{eq:profiled_scalar_bernstein}
+      \]
+      for an absolute \(b>0\). The same proof applies to independent variables with different laws and the same moment bound. Consequently, for any fixed confidence exponent \(c>0\), constants \(C,N_0>0\) can be chosen so that deviations \(C\sqrt{\log p/N}\) in at most \(p^2\) or \(pq\) coordinates fail with probability at most \(p^{-c}/20\), whenever \(N\ge N_0\log p\). Since \(q\) is fixed, its factor in the union bound is absorbed by the choice of \(C,N_0\), not by changing \(c\) silently. For a normalization \(D=0\) the corresponding random variable is identically zero and its deviation bound is deterministic.
+      Bibliography: supp
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction. The cited material is in D1, `supp.tex`, subsection “Lemmas for Theorem 1,” paragraph “Uniform concentration argument” and the immediately following paragraph containing the displayed equation labeled `eq:profiled_scalar_bernstein`. D1 is the Supplementary Material for “Deconfounding via Profiled Transfer Learning” by Ziyuan Chen, Yifan Jiang, Jingyuan Liu, and Fang Yao.
+
+      The passage supplies: (a) a uniform product-moment bound giving the fixed \(V>0\) and the deterministic \(\ell_1\)-bound \(D\); (b) the displayed scalar Bernstein inequality `eq:profiled_scalar_bernstein`, together with its exponential-series step and the different-laws extension; (c) an unnamed “Consequently” union-bound statement for at most \(p^2\) or \(pq\) coordinates, with fixed \(q\) absorbed into the constants; and (d) the deterministic \(D=0\) sentence. The union-bound passage is the part directly matching the current target’s simultaneous-coordinate conclusion; this organization does not assert that the target’s specialized application conditions have been checked. No external article theorem number, page, or separate bibliography entry for the scalar inequality is supplied; the source presents it as an equation in the supplement. The numerical value of the absolute \(b\) and a separate range for \(t\) are not stated in the supplied passage.
+
+      ##### Uniform concentration argument (uniform product-moment bound)
+      ###### Definitions and notation
+      Let \(r\ge2\) be an integer. The source considers coordinates among \(E,H,f(H),X,\varepsilon\). A centered product of two coordinates means the product minus its expectation. \(V>0\) is a fixed constant depending only on the uniform sub-Gaussian bounds; it may be enlarged. \(D\) is a deterministic bound appearing in \(\|u\|_1\le D\) for a deterministic coefficient vector \(u\) of a linear combination of such centered products. The \(L^r\)-norm is the usual \((\mathbb E|\cdot|^r)^{1/r}\). The supplied passage does not restate the precise sub-Gaussian norm convention.
+
+      ###### Assumptions
+      The coordinates among \(E,H,f(H),X,\varepsilon\) have the uniform sub-Gaussian bounds used in the supplement. \(r\ge2\) is an integer. For the linear-combination assertion, \(u\) is deterministic and satisfies \(\|u\|_1\le D\). No independence between the two factors in a single product is required. Constants are positive under the supplement’s quantitative constant convention.
+
+      ###### Statement
+      There is a fixed \(V>0\), depending only on the uniform sub-Gaussian bounds, such that any centered product \(Z\) of two coordinates among \(E,H,f(H),X,\varepsilon\) has moments bounded by
+      \[
+      \mathbb E|Z|^r\le r!V^r
+      \]
+      for all integers \(r\ge2\) (enlarge \(V\) if necessary). For deterministic \(u\) with \(\|u\|_1\le D\), the same bound for a linear combination of such centered products is
+      \[
+      \mathbb E\left|\sum_j u_j Z_j\right|^r\le r!(VD)^r
+      \]
+      for all integers \(r\ge2\), by the triangle inequality in \(L^r\). This argument requires no independence between the two factors in a single product.
+
+      ##### Scalar Bernstein bound (eq:profiled_scalar_bernstein)
+      ###### Definitions and notation
+      Let \(N\) be a positive integer. Let \(U_1,\dots,U_N\) be independent centered random variables. Let \(V>0\) be a common fixed moment-bound parameter, and let \(b>0\) be an absolute constant. The intermediate exponential-series estimate is stated for \(\theta\) under the condition \(|\theta|V\le1/2\). The displayed probability inequality uses a parameter \(t\); no separate range for \(t\) is stated. The base of logarithms is not specified.
+
+      ###### Assumptions
+      \(N\) is a positive integer. \(U_1,\dots,U_N\) are independent and centered. There is a common fixed \(V>0\) such that
+      \[
+      \mathbb E|U_l|^r\le r!V^r
+      \]
+      for all integers \(r\ge2\) and all \(l=1,\dots,N\). The variables need not have the same law; the source explicitly says that the same proof applies to independent variables with different laws and the same moment bound. The quantitative constant convention of the supplement applies, and \(b>0\) is absolute.
+
+      ###### Statement
+      In the above setting, expanding the exponential series gives, for \(|\theta|V\le1/2\),
+      \[
+      \log\mathbb E e^{\theta U_l}\le2V^2\theta^2
+      \]
+      for each \(l\). Independence, exponential Markov, and optimization with
+      \[
+      \theta=\min\left(\frac{t}{4V^2},\frac{1}{2V}\right)
+      \]
+      yield the scalar Bernstein bound
+      \[
+      \mathbb P\left(\left|\frac1N\sum_{l=1}^N U_l\right|>t\right)
+      \le2\exp\left[-bN\min\left(\frac{t^2}{V^2},\frac{t}{V}\right)\right],
+      \tag{eq:profiled_scalar_bernstein}
+      \]
+      for an absolute \(b>0\). The same proof applies to independent variables with different laws and the same moment bound.
+
+      ##### Union-bound consequence of the scalar Bernstein bound
+      ###### Definitions and notation
+      \(p,q\) are positive integers, with \(q\) fixed. \(N\) is a positive integer sample size. \(c>0\) is a fixed confidence exponent chosen before \(C,N_0\). \(C,N_0>0\) are constants allowed to depend on \(c\), the common \(V\), and the fixed \(q\), but not on \(N\) or \(p\) under the supplement’s constant convention. There are at most \(p^2\), or at most \(pq\), scalar coordinates. For each coordinate the deviation is that of a scalar average \(\frac1N\sum_{l=1}^N U_l\) whose summands satisfy the scalar Bernstein setup. The base of \(\log p\) is not specified in the passage and is absorbed into constants. The comparison \(N\ge N_0\log p\) is displayed without a separate rounding convention.
+
+      ###### Assumptions
+      Each of the at most \(p^2\) or \(pq\) coordinates is a scalar average of \(N\) independent centered variables satisfying the scalar Bernstein moment bound with a common fixed \(V>0\), possibly with different laws. \(c>0\) is fixed before choosing \(C,N_0\). \(q\) is fixed. The supplement’s quantitative constant convention applies; constants and probability-decay exponents are positive unless explicitly assigned another range.
+
+      ###### Statement
+      Consequently, for any fixed confidence exponent \(c>0\), constants \(C,N_0>0\) can be chosen so that deviations \(C\sqrt{\log p/N}\) in at most \(p^2\) or \(pq\) coordinates fail with probability at most \(p^{-c}/20\), whenever \(N\ge N_0\log p\). In event form, for the coordinate averages,
+      \[
+      \mathbb P\left(\exists\text{ coordinate}:\left|\frac1N\sum_{l=1}^N U_l\right|>C\sqrt{\frac{\log p}{N}}\right)
+      \le\frac{p^{-c}}{20}
+      \]
+      whenever \(N\ge N_0\log p\). Since \(q\) is fixed, its factor in the union bound is absorbed by the choice of \(C,N_0\), not by changing \(c\) silently. The source explicitly treats \(q\) as fixed; it does not state a uniformity over growing \(q\).
+
+      ##### Deterministic D=0 normalization
+      ###### Definitions and notation
+      \(D\) is the deterministic \(\ell_1\)-bound from the uniform product-moment paragraph: a deterministic coefficient vector \(u\) for the corresponding linear combination satisfies \(\|u\|_1\le D\). The passage does not introduce a further symbol for the corresponding random variable.
+
+      ###### Assumptions
+      The normalization satisfies \(D=0\).
+
+      ###### Statement
+      For a normalization \(D=0\), the corresponding random variable is identically zero and its deviation bound is deterministic.
+    lean_name: paper_8ff73b3c73e04139840b7ba5205a04c8
+    lean_namespace: Statlib.Imported
+    layer: formalization
+    priority: 3
+    dependencies: []
+    notes: generated from a persisted ordinary goal; no attack-DAG dependency semantics
+source_document: supp.tex
