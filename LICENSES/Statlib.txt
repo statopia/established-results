@@ -1,0 +1,159 @@
+Statlib Noncommercial Source-Available License
+Version 1.0
+
+Copyright (c) 2026 Statlib contributors
+
+This license applies to the Statlib source code, documentation, examples,
+tests, build files, and other materials in this repository, except where a file
+or directory states a different license.
+
+Statlib is source-available software. It is not licensed as open source under
+the Open Source Initiative definition because commercial use is not permitted
+without a separate written license.
+
+1. Definitions
+
+"Statlib" means the software and materials made available under this license.
+
+"You" means the individual or legal entity exercising permissions under this
+license.
+
+"Use" means any act that would require permission from the copyright holder,
+including copying, modifying, preparing derivative works, distributing,
+running, importing, linking, invoking, hosting, or otherwise using Statlib.
+
+"Commercial Purpose" means any purpose intended for or directed toward
+commercial advantage, private monetary compensation, revenue generation,
+for-profit business activity, commercial research and development, or operation
+of a paid or revenue-supported product, service, platform, consulting
+deliverable, hosted service, internal tool, or workflow.
+
+"Noncommercial Purpose" means a purpose that is not a Commercial Purpose.
+
+"Extension" means a work that depends on, imports, invokes, or interoperates
+with Statlib and adds substantial original functionality, formalization,
+examples, documentation, or research content beyond Statlib itself.
+
+"Substitute" means a library, framework, package, service, hosted service, or
+tool whose value derives entirely or substantially from Statlib and that serves
+as a replacement for Statlib or for a material part of Statlib.
+
+2. Noncommercial License Grant
+
+Subject to this license, the copyright holders grant You a worldwide,
+non-exclusive, no-charge, royalty-free copyright license to Use Statlib for
+Noncommercial Purposes.
+
+This includes permission, for Noncommercial Purposes, to:
+
+- read, inspect, and study Statlib;
+- copy and run Statlib;
+- modify Statlib;
+- distribute copies of Statlib;
+- distribute modified versions of Statlib;
+- create, distribute, and publish Extensions.
+
+3. No Commercial Use
+
+You may not Use Statlib, in whole or in part, directly or indirectly, for any
+Commercial Purpose without a separate written commercial license from the
+copyright holders.
+
+Commercial Purpose includes, without limitation:
+
+- use in or for a paid product, paid service, SaaS offering, hosted service,
+  commercial platform, consulting deliverable, proprietary tool, or
+  revenue-generating activity;
+- use in company-internal commercial research and development, commercial proof
+  engineering, commercial model development, commercial data analysis, or other
+  business operations;
+- distribution or operation of software, libraries, proof systems, models,
+  datasets, services, or tools that include, modify, depend on, invoke, wrap,
+  or are derived from Statlib for a Commercial Purpose;
+- use by or for a for-profit legal entity, except for non-production evaluation
+  expressly permitted in writing by the copyright holders.
+
+4. No Repackaging or Substitute Libraries
+
+You may not distribute or operate a Substitute without a separate written
+commercial license from the copyright holders, even if the Substitute is
+offered without charge.
+
+This restriction includes substantially identical, renamed, repackaged,
+API-wrapped, translated, mechanically modified, or lightly reorganized versions
+of Statlib that act as separate libraries, frameworks, packages, services, or
+tools.
+
+5. Extensions
+
+You may create and distribute Extensions for Noncommercial Purposes if the
+Extension:
+
+- adds substantial original content or functionality;
+- does not act as a Substitute;
+- preserves the notices required by this license;
+- clearly identifies Statlib as the upstream project when distributed or
+  published.
+
+An Extension may be licensed under different terms for the Extension's original
+parts, but those terms must not grant any right to Use Statlib beyond this
+license.
+
+6. Notices
+
+You must preserve all copyright notices, license notices, attribution notices,
+and disclaimers in Statlib.
+
+Any distributed copy, modified version, or Extension that includes or depends
+on Statlib must include a copy of this license or a clear link to it.
+
+You may not use the Statlib name, logo, trademarks, service marks, or project
+identity to imply endorsement, sponsorship, or official status without written
+permission, except for reasonable descriptive references to Statlib.
+
+7. Contributions
+
+Contributions to Statlib are accepted only under the Statlib Contributor
+License Agreement, unless the maintainers expressly agree otherwise in writing.
+
+Submitting a contribution does not grant You any commercial-use right to
+Statlib.
+
+8. No Other Rights
+
+This license does not grant patent rights, trademark rights, rights to use
+third-party materials under different licenses, or any rights not expressly
+stated in this license.
+
+The copyright holders may offer Statlib under other licenses, including
+commercial licenses, to specific users or for specific uses.
+
+9. Termination
+
+If You violate this license, all permissions granted to You under this license
+terminate automatically.
+
+The first time You are notified in writing that You have violated this license,
+Your permissions may be reinstated if You come into full compliance and take
+reasonable steps to correct past violations within 30 days after receiving the
+notice.
+
+10. Disclaimer of Warranty
+
+Statlib is provided "as is", without warranty of any kind, express or implied,
+including without limitation warranties of merchantability, fitness for a
+particular purpose, title, and non-infringement.
+
+11. Limitation of Liability
+
+To the maximum extent permitted by law, the copyright holders and contributors
+will not be liable for any claim, damages, or other liability arising from or
+related to Statlib, this license, or any Use of Statlib, whether under contract,
+tort, or any other legal theory.
+
+12. Prior Versions
+
+This license applies only to versions, revisions, files, and contributions that
+are made available under this license. Versions or revisions previously released
+under another license remain available under the license that applied to those
+versions or revisions.

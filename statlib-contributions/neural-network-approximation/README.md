@@ -17,3 +17,7 @@ The seven implementation modules are published under [Statlib/](Statlib/). Root 
 | [Statlib/Nonparametric/Vocabulary/NeuralNetwork.lean](Statlib/Nonparametric/Vocabulary/NeuralNetwork.lean) | 447 |
 
 Total: 7 implementation source modules / 55,922 physical lines.
+
+## License scope
+
+The Statlib implementation modules and their compiled dependency caches are excluded from the paper-proof MIT grant. The implementation sources retain the license applicable to their upstream version; see the included [Statlib license](../../LICENSES/Statlib.txt). The supplied Statlib caches are limited to noncommercial verification of this archive under the [cache license](../../LICENSES/CACHE-VERIFICATION.txt), including its prohibition on reverse engineering to recover library content, subject to independent upstream rights and applicable law. The reference PDF and author TeX retain their original rights. See [repository license scope](../../LICENSE).

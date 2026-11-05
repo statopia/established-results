@@ -1,0 +1,73 @@
+# License scope
+
+This repository contains separately licensed proof sources, restricted library
+caches and third-party reference materials. It is not licensed as a whole under
+MIT. Licenses apply only to rights that the relevant copyright holders can grant.
+
+## Original paper proof sources
+
+The original Lean 4 formalization code in `papers/<paper>/proof/src/`, including
+its supporting proof modules, is licensed under [MIT](LICENSES/MIT.txt).
+Here `<paper>` means each paper directory; the grant covers its `.lean` files
+recursively, and only their original contributions. You may use, modify,
+redistribute and commercially reuse that code, subject to the MIT notice
+requirements. Existing third-party notices and rights remain in effect.
+
+This source-code grant does not cover imported libraries, compiled library
+caches, source articles, or other input materials. Importing Statlib does not
+make Statlib part of this MIT grant. Running or distributing a proof with Statlib
+still requires compliance with the applicable Statlib license; commercial use
+of the original proof source does not authorize commercial use of Statlib.
+
+## Compiled built-in library caches
+
+The Statlib `.olean` files supplied in task `proof/cache/` directories and in
+`verification/statlib-cache/` are compiled results of the built-in dependency
+library. They are separate from the paper authors' input materials and from the
+original paper proof sources licensed above.
+
+These supplied caches are available only for noncommercial reproduction and
+verification of the results in this repository under the
+[Cache Verification License](LICENSES/CACHE-VERIFICATION.txt). This license
+prohibits commercial use, extraction for reuse in other projects, and reverse
+engineering to recover or reconstruct library content. Ordinary use of Lean and
+the supplied verification tools to check the archived proofs is permitted.
+
+The restriction concerns the supplied library caches, not `.olean` files that
+you generate from the MIT-licensed original proof sources themselves.
+It does not remove rights independently granted by an applicable upstream
+license or rights that cannot lawfully be restricted.
+
+## Upstream dependencies and library sources
+
+Statlib remains a separately licensed upstream dependency. A copy of its
+[Noncommercial Source-Available License, version 1.0](LICENSES/Statlib.txt)
+is included. That upstream license permits qualifying noncommercial extensions
+and requires a separate written license for commercial use; it does not turn
+Statlib into MIT-licensed software. The Statlib implementation sources under
+`statlib-contributions/neural-network-approximation/Statlib/` are excluded from
+the paper-source MIT grant. The license applicable to the corresponding
+upstream version controls; this notice does not retroactively relicense
+previously released versions or replace independent upstream grants.
+
+Lean, Mathlib and other third-party dependencies retain their respective
+licenses. In particular, Mathlib is licensed under
+[Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0).
+Any independently granted upstream rights continue to apply to upstream
+material in source or compiled form; the cache restrictions do not override them.
+The AxiomMath input material retains the `LICENSE.AxiomMath` notices included
+in the relevant `imo-2026/problem*/input/` directories.
+
+## Papers and other input materials
+
+Paper PDFs, author TeX sources, figures and other input materials, including
+those in `input/` and `materials/`, are excluded from the paper-source MIT grant.
+Their authors, publishers and other rightsholders retain their rights under
+the applicable article or material license. The papers are cited as mathematical
+references and the inputs identify the statements being formalized. This
+repository grants no additional permission to redistribute, sell, commercially
+exploit or otherwise reuse those materials, and does not claim ownership of them.
+See each paper README for its bibliographic citation.
+
+Other repository files are not covered by the paper-source MIT grant unless
+separately stated. Preserve any applicable existing notices and licenses.

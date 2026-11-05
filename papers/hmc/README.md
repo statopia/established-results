@@ -45,3 +45,11 @@ The count is the number of distinct external citation axioms in the actual recur
 | Reference | Axiom declaration | Direct proof uses | Selected targets depending on it |
 | --- | --- | --- | --- |
 | Geometric ergodicity plus local retention implies an exponential moment | [`ext_model_1` (line 14)](proof/src/theorem-2.2/ProverJobs/paper_fresh_20261028t224543381z_hmc_22/ExternalNodes/Node_6515c10a3b2a6920f75d.lean#L14) | [Result_r2_efa8fa985bbe48fe90bebe042f1092ee.lean:152](proof/src/theorem-2.2/ProverJobs/paper_fresh_20261028t224543381z_hmc_22/PaperProofInterfaces/Result_r2_efa8fa985bbe48fe90bebe042f1092ee.lean#L152) | Theorem 2.2 (i–ii) |
+
+## License and permitted use
+
+The original Lean formalization contributions in [proof/src/](proof/src/) are [MIT-licensed](../../LICENSES/MIT.txt), including commercial reuse subject to the MIT notice requirements. Imported dependencies are separately licensed.
+
+The supplied Statlib `.olean` library caches are separate from the paper inputs and proof-source grant. They are limited to noncommercial reproduction and verification of this archive: no commercial use, extraction for other projects, or reverse engineering to recover or reconstruct library content, subject to independent upstream rights and applicable law. See the [cache license](../../LICENSES/CACHE-VERIFICATION.txt). Source reuse does not authorize commercial use of Statlib.
+
+The cited paper and input materials retain their original rights; this repository does not grant permission to commercially exploit or relicense them. See [license scope and upstream notices](../../LICENSE).

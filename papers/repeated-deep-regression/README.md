@@ -42,3 +42,11 @@ The main theorem uses the following two retained citation interfaces through its
 | Massart (2000), Theorem 4: countable-index bounded-process concentration | [massart_countable_average_tail:10](proof/src/ProverJobs/job_paper_383d12cb48d74c8f98648c6beef78bb3/ExternalNodes/Node_94432b52633046d7cf21.lean#L10) | [Lemma S.8:61](proof/src/ProverJobs/paper_fresh_20261030t103504286z_deep_regression/PaperProofInterfaces/Result_r4_ca83ae08893c497f9e70940ee4dba991.lean#L61) |
 
 The build checks every configured source module and each selected theorem's recursive axiom dependencies. The cache contains the recursive public Statlib dependencies of the source imports.
+
+## License and permitted use
+
+The original Lean formalization contributions in [proof/src/](proof/src/) are [MIT-licensed](../../LICENSES/MIT.txt), including commercial reuse subject to the MIT notice requirements. Imported dependencies are separately licensed.
+
+The supplied Statlib `.olean` library caches are separate from the paper inputs and proof-source grant. They are limited to noncommercial reproduction and verification of this archive: no commercial use, extraction for other projects, or reverse engineering to recover or reconstruct library content, subject to independent upstream rights and applicable law. See the [cache license](../../LICENSES/CACHE-VERIFICATION.txt). Source reuse does not authorize commercial use of Statlib.
+
+The cited paper and input materials retain their original rights; this repository does not grant permission to commercially exploit or relicense them. See [license scope and upstream notices](../../LICENSE).

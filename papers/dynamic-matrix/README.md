@@ -38,3 +38,11 @@ The main theorem has no external citation axiom in its recursive proof dependenc
 | Maximum-eigenvalue bilinear-form bound and condition-number identity | [ext_model_2:16](proof/src/ProverJobs/job_paper_c8b26067279b40ecab829c145c82445e/ExternalNodes/Node_4e38c0b212aeaf238af1.lean#L16) | [Lemma 1:26](proof/src/ProverJobs/paper_fresh_20261102t124951011390z_dynamic_matrix/PaperProofInterfaces/Result_r1_1b9b6482bf2841008c3df5c888f9d375.lean#L26) |
 
 The build configuration checks both exact theorem declarations and their permitted axiom dependencies. The cache contains the recursive public Statlib module dependencies of the source imports.
+
+## License and permitted use
+
+The original Lean formalization contributions in [proof/src/](proof/src/) are [MIT-licensed](../../LICENSES/MIT.txt), including commercial reuse subject to the MIT notice requirements. Imported dependencies are separately licensed.
+
+The supplied Statlib `.olean` library caches are separate from the paper inputs and proof-source grant. They are limited to noncommercial reproduction and verification of this archive: no commercial use, extraction for other projects, or reverse engineering to recover or reconstruct library content, subject to independent upstream rights and applicable law. See the [cache license](../../LICENSES/CACHE-VERIFICATION.txt). Source reuse does not authorize commercial use of Statlib.
+
+The cited paper and input materials retain their original rights; this repository does not grant permission to commercially exploit or relicense them. See [license scope and upstream notices](../../LICENSE).

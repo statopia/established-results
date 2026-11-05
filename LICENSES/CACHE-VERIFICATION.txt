@@ -1,0 +1,81 @@
+Established Results Cache Verification License
+Version 1.0
+
+Copyright (c) 2026 the respective library copyright holders
+
+1. Scope
+
+"Covered Caches" means the Statlib compiled dependency artifacts (.olean files
+and accompanying library cache artifacts) supplied in the task proof/cache/
+directories and verification/statlib-cache/ in this repository, to the extent
+the distributing copyright holders are entitled to grant the permissions below.
+This license does not apply to the original paper formalization source code,
+compilations of that original source, paper input materials, or third-party
+material governed by an independent upstream license.
+
+"Archived Results" means the specific formalization results distributed in this
+repository. "Noncommercial Verification" means reproducing and checking those
+results without a purpose intended for or directed toward commercial advantage,
+private monetary compensation, revenue generation, business operations,
+commercial research and development, or a paid or revenue-supported product,
+service or workflow.
+
+2. Limited permission
+
+Subject to these conditions, you may download, copy and retain the Covered
+Caches on your machines and load them with Lean solely for Noncommercial
+Verification of the Archived Results. Ordinary Lean import resolution,
+elaboration, type checking, kernel checking and target/axiom inspection through
+the supplied verification workflows are permitted for that purpose. This is a
+limited verification permission, not a general-purpose library license.
+
+3. Restrictions
+
+Unless separately authorized in writing by the relevant copyright holders,
+you may not:
+
+- use the Covered Caches, directly or indirectly, for any commercial purpose;
+- extract, reuse or incorporate them or their library content in another proof,
+  project, library, product, service or workflow beyond Noncommercial Verification
+  of the Archived Results;
+- redistribute, sublicense, sell or repackage the Covered Caches as standalone
+  artifacts, dependency bundles, substitute libraries or part of another project;
+- reverse engineer, decompile, disassemble, decode, dump, translate or otherwise
+  analyze the Covered Caches to recover, extract, reconstruct or reproduce the
+  underlying library's source code, proof bodies, definitions, algorithms or
+  implementation, or to build a replacement or derivative library from them.
+
+Ordinary operations expressly permitted in section 2 are not prohibited reverse
+engineering. They do not authorize bulk library extraction or reconstruction.
+Do not remove copyright, attribution or license notices from the Covered Caches
+or from any permitted copy.
+
+4. Independent rights and upstream licenses
+
+These conditions govern only permissions granted for the Covered Caches under
+this license and only rights controlled by the relevant copyright holders.
+They do not revoke or narrow permissions you already hold independently under
+an applicable upstream license, including rights in earlier versions released
+under another license. They do not restrict uses that applicable law does not
+allow a license to restrict. In particular, this license does not impose these
+restrictions on Lean, Mathlib or other independently licensed third-party
+material. No third-party rights, patent rights or trademark rights are granted.
+
+The source-code MIT grant in this repository does not extend to Statlib or to
+these caches. An upstream Statlib license, where independently applicable,
+continues to govern its own grant; a copy of version 1.0 is in Statlib.txt.
+
+5. Termination and reservation
+
+Permissions granted under this license terminate upon a breach of its terms.
+Rights not expressly granted here are reserved by their respective holders.
+A separate written license is required for uses of the Covered Caches beyond
+the permission in section 2, unless an independent right in section 4 applies.
+
+6. No warranty; limitation of liability
+
+The Covered Caches are provided "as is", without warranty of any kind, express
+or implied, including warranties of merchantability, fitness for a particular
+purpose, title or noninfringement. To the maximum extent permitted by law, the
+copyright holders and contributors are not liable for any claim, damages or
+other liability arising from the Covered Caches or their use.

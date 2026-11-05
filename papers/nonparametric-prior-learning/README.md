@@ -34,3 +34,11 @@ The selected task is Theorem 2.4. Its 38 internal lemma modules provide change o
 | Pinski, Simpson, Stuart and Weber (2015), [formula (A.1)](https://doi.org/10.1137/140962802): Donsker-Varadhan variational formula | [citation:11](proof/src/ProverJobs/jobea4701a9720de21f681f2da3/ExternalNodes/Node_a26b2b509ee15a62f52b.lean#L11) | [bounded-test-function bridge:57](proof/src/ProverJobs/jobea4701a9720de21f681f2da3/ProvedNodes/Node_35798353_6c7e7779_b4361b5f.lean#L57) |
 
 The citation states the variational formula for bounded continuous test functions on a Polish probability space. The Lean lemmas extend it to the measurable/integrable functions used by the proof. The build checks all configured source modules and the selected main theorem's recursive axiom dependencies.
+
+## License and permitted use
+
+The original Lean formalization contributions in [proof/src/](proof/src/) are [MIT-licensed](../../LICENSES/MIT.txt), including commercial reuse subject to the MIT notice requirements. Imported dependencies are separately licensed.
+
+The supplied Statlib `.olean` library caches are separate from the paper inputs and proof-source grant. They are limited to noncommercial reproduction and verification of this archive: no commercial use, extraction for other projects, or reverse engineering to recover or reconstruct library content, subject to independent upstream rights and applicable law. See the [cache license](../../LICENSES/CACHE-VERIFICATION.txt). Source reuse does not authorize commercial use of Statlib.
+
+The cited paper and input materials retain their original rights; this repository does not grant permission to commercially exploit or relicense them. See [license scope and upstream notices](../../LICENSE).

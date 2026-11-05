@@ -50,6 +50,14 @@ Used external references count distinct citation axioms in the actual recursive 
 - **Dobriban** — Edgar Dobriban (2026). [The Benjamini–Hochberg Procedure Can Fail to Control the FDR for Correlated Two-Sided Gaussian Tests](https://arxiv.org/abs/2607.12208v1). *arXiv preprint, 2607.12208v1*. [Archived result](papers/dobriban/README.md).
 - **Lei** — Lihua Lei (2026). [No Universal Multiplicative FDR Bound for the Benjamini–Hochberg Procedure with Correlated Two-Sided Gaussian Tests](https://arxiv.org/abs/2607.14812v1). *arXiv preprint, 2607.14812v1*. [Archived result](papers/lei/README.md).
 
+## License and permitted use
+
+- **Original paper proof code:** the original `.lean` contributions in each `papers/<paper>/proof/src/` are [MIT-licensed](LICENSES/MIT.txt), including commercial reuse subject to preserving the notice.
+- **Built-in library caches:** the supplied Statlib `.olean` caches are restricted to noncommercial reproduction and verification of this archive. Commercial use, extraction for other projects and reverse engineering to recover or reconstruct library content are prohibited under the [cache license](LICENSES/CACHE-VERIFICATION.txt), subject to independent upstream rights and applicable law.
+- **Paper inputs:** PDFs, TeX and other reference materials retain their original rights and are excluded from MIT. No additional permission to commercially exploit paper content is granted.
+
+The proof-source permission does not grant permission to commercially use Statlib. Dependencies retain their applicable licenses. See [license scope and upstream notices](LICENSE).
+
 To build a single task, enter its `proof/` directory:
 
 ```sh

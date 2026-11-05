@@ -41,3 +41,11 @@ The assumptions include independent sample rows, a common joint law for the resi
 None of the ten selected declarations depends on an external citation axiom.
 
 The build checks every configured source module and each selected theorem's recursive axiom dependencies. The cache contains the recursive public Statlib dependencies of the source imports.
+
+## License and permitted use
+
+The original Lean formalization contributions in [proof/src/](proof/src/) are [MIT-licensed](../../LICENSES/MIT.txt), including commercial reuse subject to the MIT notice requirements. Imported dependencies are separately licensed.
+
+The supplied Statlib `.olean` library caches are separate from the paper inputs and proof-source grant. They are limited to noncommercial reproduction and verification of this archive: no commercial use, extraction for other projects, or reverse engineering to recover or reconstruct library content, subject to independent upstream rights and applicable law. See the [cache license](../../LICENSES/CACHE-VERIFICATION.txt). Source reuse does not authorize commercial use of Statlib.
+
+The cited paper and input materials retain their original rights; this repository does not grant permission to commercially exploit or relicense them. See [license scope and upstream notices](../../LICENSE).
