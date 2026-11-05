@@ -1,0 +1,53 @@
+version: v1
+theorem_set: nonparametric-prior-learning
+source_document: main.pdf
+source_url: https://arxiv.org/abs/2310.12436v2
+theorems:
+- id: theorem_2_4
+  title: Theorem 2.4 — integrable PAC-Bayes transfer bound
+  kind: theorem
+  latex_statement: "Fix a measurable real loss ell on U x (X x Y), a model with normalized Gibbs base\
+    \ posteriors, a hyper-prior HP on Theta, an environment T on probability measures over X x Y paired\
+    \ with positive sample sizes, a positive integer n and lambda,gamma>0. Draw n independent tasks (D_i,m_i)\
+    \ from T, and conditional independent samples S_i from D_i^{m_i}. For every delta in (0,1], with probability\
+    \ at least 1-delta the following holds simultaneously for every hyper-posterior Q on Theta:\ntransferLoss(Q,T)\
+    \ <= empMulti(Q,S_1,...,S_n)\n  + (1/lambda+1/gamma)*KL(Q||HP)\n  + (1/gamma)*sum_i E_{theta~Q} KL(basePost(S_i,theta)||basePrior(S_i,theta))\n\
+    \  + (1/sqrt(n))*log E exp(sqrt(n)*Pi1(gamma)+sqrt(n)*Pi2(lambda))\n  + (1/sqrt(n))*log(1/delta).\n\
+    Pi1 is (1/gamma) times the log prior expectation of exp((gamma/n)*sum_i (1/m_i)*sum_j (E_{z~D_i} ell(u_i,z)-ell(u_i,z_ij))).\
+    \ Pi2 is (1/lambda) times the log hyper-prior expectation of exp((lambda/n)*sum_i (E_{(D,m)~T} E_{S~D^m}\
+    \ L(basePost(S,theta),D)-L(basePost(S_i,theta),D_i))). The second term in Pi2 is the true task loss.\
+    \ The KL terms are extended-valued and the base-KL sum is not divided by n. The probability event\
+    \ quantifies over all Q jointly."
+  assumptions:
+  - X,Y,U,Theta,V are separable real Banach spaces with their Borel sigma-algebras; ell is jointly measurable.
+  - For every sample size k, sample S and base prior P, exp(-sum_j Phi(u,y_j)) is P-integrable; its integral
+    Z_k is positive and the base posterior is P.withDensity(exp(-sum_j Phi(u,y_j))/Z_k).
+  - The base-prior and base-posterior maps are jointly measurable in each finite sample and theta. The
+    base-posterior/base-prior KL divergence is measurable in theta for every fixed sample.
+  - For every u and every data probability measure D on X x Y, ell(u,.) is D-integrable. This universal
+    condition is part of the selected Lean statement and is stronger than integrability only for the task
+    laws sampled from T.
+  - For every k,S,theta and every data law D, the true loss is integrable under the base posterior. The
+    empirical loss is integrable under the base posterior for every k,S,theta.
+  - For every theta, the inner transfer loss is T-integrable. For every hyper-posterior Q, its transfer-loss
+    integrand is Q-integrable. For every hyper-posterior Q and every n-task sample, its empirical multi-task-loss
+    integrand is Q-integrable.
+  - For every task block sample and theta, the Pi1 exponential is integrable under the product base prior.
+    Its inner integral is HP-integrable. The Pi2 exponential is HP-integrable for every task block sample.
+  - The outer exp(sqrt(n)*Pi1+sqrt(n)*Pi2) is integrable under the joint task-and-data law.
+  - n>0; lambda>0; gamma>0; 0<delta<=1. The hyper-prior is fixed before sampling. The theorem is uniform
+    over all hyper-posteriors on a common event.
+  lean_namespace: Statlib.Imported
+  lean_name: theorem_2_4
+  proof_body: Apply the Donsker-Varadhan change-of-measure inequality at the base and hyper-posterior
+    levels. Use the KL chain rule for product/conditional probability measures, then combine both deterministic
+    bounds. One common exponential-Markov event controls Pi1+Pi2 and implies the bound for every hyper-posterior
+    simultaneously. Infinite-KL cases are handled in the extended reals.
+  references:
+  - id: DV
+    citation: Pinski, Simpson, Stuart and Weber (2015), Kullback-Leibler Approximation for Probability
+      Measures on Infinite Dimensional Spaces, SIAM Journal on Mathematical Analysis 47(6), 4091-4122,
+      formula (A.1).
+    statement: For Borel probability measures nu,mu on a Polish space, KL(nu||mu) is the supremum over
+      bounded continuous real functions g of integral g dnu - log integral exp(g) dmu.
+    url: https://doi.org/10.1137/140962802
