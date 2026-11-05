@@ -1,6 +1,6 @@
 # Nonparametric Prior Learning — Theorem 2.4
 
-Junxiong Jia, Deyu Meng, Zongben Xu and Fang Yao (2026), [Nonparametric Prior Learning in Differential Equation Modeling](https://doi.org/10.1080/01621459.2026.2625449), Journal of the American Statistical Association. The input is [arXiv:2310.12436v2](https://arxiv.org/abs/2310.12436v2), including its supplementary material.
+Junxiong Jia, Deyu Meng, Zongben Xu and Fang Yao (2026). [Nonparametric Prior Learning in Differential Equation Modeling](https://doi.org/10.1080/01621459.2026.2625449). *Journal of the American Statistical Association*. Archived preprint: [arXiv:2310.12436v2](https://arxiv.org/abs/2310.12436v2). The input includes the supplementary material.
 
 This selection proves an integrable formulation of Theorem 2.4, the PAC-Bayes transfer bound. With probability at least `1-delta`, one common event bounds the transfer error for every hyper-posterior by the empirical multi-task error, `(1/lambda+1/gamma)*KL(Q||HP)`, the unnormalized base-KL sum multiplied by `1/gamma`, the joint log-MGF term, and `log(1/delta)/sqrt(n)`. The task distributions and positive sample sizes are sampled independently from the environment; each task's observations follow its conditional product law. KL terms can equal positive infinity.
 

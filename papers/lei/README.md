@@ -1,6 +1,6 @@
 # Lei — BH/FDR interfaces
 
-No Universal Multiplicative FDR Bound for the Benjamini–Hochberg Procedure with Correlated Two-Sided Gaussian Tests (arXiv:2607.14812v1)
+Lihua Lei (2026). [No Universal Multiplicative FDR Bound for the Benjamini–Hochberg Procedure with Correlated Two-Sided Gaussian Tests](https://arxiv.org/abs/2607.14812v1). *arXiv preprint, 2607.14812v1*.
 
 Selected result: Theorem 3.1 leave-one-out, tail-ratio and explicit-bound interfaces.
 

@@ -1,6 +1,6 @@
 # Deep Regression for Repeated Measurements — Theorem 2.1
 
-Deep Regression for Repeated Measurements — Shunxing Yan, Fang Yao and Hang Zhou, arXiv:2302.13908v2 (2025). This selection proves a formalized instance of Theorem 2.1 and Lemmas S.2, S.3 and S.8.
+Shunxing Yan, Fang Yao and Hang Zhou (2025). [Deep Regression for Repeated Measurements](https://doi.org/10.1080/01621459.2025.2458344). *Journal of the American Statistical Association, 120(552), 2461–2472*. Archived preprint: [arXiv:2302.13908v2](https://arxiv.org/abs/2302.13908v2). This selection proves a formalized instance of Theorem 2.1 and Lemmas S.2, S.3 and S.8.
 
 The main result gives a positive universal constant bounding the expected integrated squared prediction error by the approximation term, `(B1^2 + B2^2) / n`, and the localized-complexity term `(rstar + 1/(n*m)) * (B1^2 + B2^2 * log(n)^2 + B3^2 * log(n*m)^2)`.
 

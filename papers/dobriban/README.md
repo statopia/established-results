@@ -1,6 +1,6 @@
 # Dobriban — BH/FDR counterexample
 
-The Benjamini–Hochberg Procedure Can Fail to Control the FDR for Correlated Two-Sided Gaussian Tests (arXiv:2607.12208v1)
+Edgar Dobriban (2026). [The Benjamini–Hochberg Procedure Can Fail to Control the FDR for Correlated Two-Sided Gaussian Tests](https://arxiv.org/abs/2607.12208v1). *arXiv preprint, 2607.12208v1*.
 
 Selected result: Theorem 1 certificate endpoint.
 

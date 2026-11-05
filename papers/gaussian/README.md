@@ -1,6 +1,6 @@
 # Gaussian approximation — Theorem 3.1
 
-Bootstrapping Max Statistics in High Dimensions: Near-Parametric Rates Under Weak Variance Decay and Application to Functional and Multinomial Data
+Miles E. Lopes, Zhenhua Lin and Hans-Georg Müller (2020). [Bootstrapping Max Statistics in High Dimensions: Near-Parametric Rates Under Weak Variance Decay and Application to Functional and Multinomial Data](https://doi.org/10.1214/19-AOS1844). *The Annals of Statistics, 48(2), 1214–1229*. Archived preprint: [arXiv:1807.04429v2](https://arxiv.org/abs/1807.04429v2).
 
 Selected result: Theorem 3.1 (THM:G) and supporting lemmas.
 

@@ -1,6 +1,6 @@
 # DP clustering — Theorem 1
 
-Clustering consistency with Dirichlet process mixtures — Ascolani, Lijoi, Rebaudo and Zanella (2023), arXiv:2205.12924.
+Filippo Ascolani, Antonio Lijoi, Giovanni Rebaudo and Giacomo Zanella (2023). [Clustering consistency with Dirichlet process mixtures](https://doi.org/10.1093/biomet/asac051). *Biometrika, 110(2), 551–558*. Archived preprint: [arXiv:2205.12924v1](https://arxiv.org/abs/2205.12924v1).
 
 Selected result: posterior consistency for the number of completely separated clusters when the concentration parameter has a sufficiently fast-decaying prior, together with inconsistency for fixed positive concentration. The prior-rate threshold is chosen before the prior. Fifteen supporting task instances are also retained.
 

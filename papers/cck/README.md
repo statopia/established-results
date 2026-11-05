@@ -1,6 +1,6 @@
 # CCK — Gaussian comparison and anti-concentration
 
-Comparison and anti-concentration bounds for maxima of Gaussian random vectors (arXiv:1301.4807v4)
+Victor Chernozhukov, Denis Chetverikov and Kengo Kato (2015). [Comparison and anti-concentration bounds for maxima of Gaussian random vectors](https://doi.org/10.1007/s00440-014-0565-9). *Probability Theory and Related Fields, 162, 47–70*. Archived preprint: [arXiv:1301.4807v4](https://arxiv.org/abs/1301.4807v4).
 
 Selected result: Theorem 2, second covariance-only Kolmogorov bound; five supporting paper tasks: smooth comparison, the smooth-max bound, Gaussian anti-concentration, smooth-max derivatives and the composed second-derivative bound.
 

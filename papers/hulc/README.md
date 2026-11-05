@@ -1,6 +1,6 @@
 # HulC — Theorem 1
 
-The HulC: Confidence Regions from Convex Hulls (arXiv:2105.14577v2)
+Arun Kumar Kuchibhotla, Sivaraman Balakrishnan and Larry Wasserman (2024). [The HulC: Confidence Regions from Convex Hulls](https://doi.org/10.1093/jrsssb/qkad134). *Journal of the Royal Statistical Society Series B: Statistical Methodology, 86(3), 586–622*. Archived preprint: [arXiv:2105.14577v2](https://arxiv.org/abs/2105.14577v2).
 
 Selected result: Theorem 1, finite-sample coverage and the additional exact-coverage conclusion; fixed-batch coverage lemma.
 

@@ -1,6 +1,6 @@
 # Data thinning — Theorem 1
 
-Generalized data thinning
+Ameer Dharamshi, Anna Neufeld, Keshav Motwani, Lucy L. Gao, Daniela Witten and Jacob Bien (2025). [Generalized Data Thinning Using Sufficient Statistics](https://doi.org/10.1080/01621459.2024.2353948). *Journal of the American Statistical Association, 120(549), 511–523*. Archived preprint: [arXiv:2303.12931v3](https://arxiv.org/abs/2303.12931v3).
 
 Selected result: Theorem 1 (generalized thinning).
 

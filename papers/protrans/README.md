@@ -1,6 +1,6 @@
 # ProTrans — Theorem 1
 
-Deconfounding via Profiled Transfer Learning — Ziyuan Chen, Yifan Jiang, Jingyuan Liu and Fang Yao. This selection formalizes the supplied corrected model-shift Lasso theorem and nine supporting results.
+Ziyuan Chen, Yifan Jiang, Jingyuan Liu and Fang Yao (2026). [Deconfounding via Profiled Transfer Learning](https://doi.org/10.1080/01621459.2026.2686441). *Journal of the American Statistical Association*. Related preprint: [arXiv:2508.11622](https://arxiv.org/abs/2508.11622). This selection formalizes the supplied corrected model-shift Lasso theorem and nine supporting results.
 
 For a desired exponent `c > 0`, the theorem chooses strictly positive constants `N0`, `C1` and `C2` before the dimension, sample sizes and data distribution. With the stated sample-size and regularization bounds, it constructs a measurable event of probability at least `1 - p^(-c)`. On this event, whenever the restricted-eigenvalue and initial-estimator bounds hold, every profiling/Lasso minimizer satisfies the stated l1, l2 and prediction-error bounds. It also gives the probability bound after subtracting the probabilities of failure of those two conditions.
 

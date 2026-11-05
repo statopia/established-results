@@ -1,6 +1,6 @@
 # Dynamic Matrix Recovery — Theorem 1
 
-Dynamic Matrix Recovery — Ziyuan Chen, Ying Yang and Fang Yao. This selection formalizes Theorem 1 and Lemma 1 from the supplied corrected general positive-definite design version.
+Ziyuan Chen, Ying Yang and Fang Yao (2024). [Dynamic Matrix Recovery](https://doi.org/10.1080/01621459.2023.2297468). *Journal of the American Statistical Association, 119(548), 2996–3007*. Related preprint: [arXiv:2305.10524](https://arxiv.org/abs/2305.10524). This selection formalizes Theorem 1 and Lemma 1 from the supplied corrected general positive-definite design version.
 
 The main theorem bounds the Frobenius error of the local nuclear-norm penalized estimator. For `lambda >= 2 WDelta`, the bound is `kappa * bias + min {sqrt ((kappa * bias)^2 + (2 lambda / mu) * nuclearNorm M0), ((1 + sqrt 2) / 2) * (lambda / mu) * sqrt (rank M0)}`. It also proves the sharper displayed square-root bound for the data-dependent choice `lambda = 2 WDelta`. Here `mu` is the minimum eigenvalue of the design second-moment matrix and `kappa` is its condition number.
 

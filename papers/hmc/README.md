@@ -1,6 +1,6 @@
 # Hamiltonian Monte Carlo
 
-On the Geometric Ergodicity of Hamiltonian Monte Carlo (arXiv:1601.08057v5, including corrigendum)
+Samuel Livingstone, Michael Betancourt, Simon Byrne and Mark Girolami (2019). [On the Geometric Ergodicity of Hamiltonian Monte Carlo](https://doi.org/10.3150/18-BEJ1083). *Bernoulli, 25(4A), 3109–3138*. Archived preprint: [arXiv:1601.08057v5](https://arxiv.org/abs/1601.08057v5). The archived v5 includes the corrigendum.
 
 Selected result: Theorem 2.2 (i), (ii), and corrected Theorem 5.14.
 

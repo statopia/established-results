@@ -1,6 +1,6 @@
 # Conformalized quantile regression
 
-Conformalized Quantile Regression — Romano, Patterson and Candes
+Yaniv Romano, Evan Patterson and Emmanuel J. Candès (2019). [Conformalized Quantile Regression](https://proceedings.neurips.cc/paper/2019/hash/5103c3584b063c431bd1268e9b5e76fb-Abstract.html). *Advances in Neural Information Processing Systems, 32 (NeurIPS 2019)*. Archived preprint: [arXiv:1905.03222v1](https://arxiv.org/abs/1905.03222v1).
 
 Selected result: Theorem 1 lower-coverage core and five supporting statements.
 

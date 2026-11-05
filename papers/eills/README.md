@@ -1,6 +1,6 @@
 # EILLS — Theorem 4.2
 
-Environment Invariant Linear Least Squares
+Jianqing Fan, Cong Fang, Yihong Gu and Tong Zhang (2024). [Environment Invariant Linear Least Squares](https://doi.org/10.1214/24-AOS2435). *The Annals of Statistics, 52(5), 2268–2292*. Archived preprint: [arXiv:2303.03092v3](https://arxiv.org/abs/2303.03092v3).
 
 Selected result: Theorem 4.2, strong convexity with respect to beta-star.
 
