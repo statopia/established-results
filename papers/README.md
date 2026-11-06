@@ -8,6 +8,7 @@ One directory per paper. Each contains only input materials, Lean sources, requi
 | [Gaussian approximation — Theorem 3.1](gaussian/README.md) | 88 | 15,047 | 90 | 3 | 6/6 (1+5) |
 | [DP clustering — Theorem 1](dp-clustering/README.md) | 218 | 34,932 | 4 | 0 | 16/16 (1+15) |
 | [Dynamic Matrix Recovery — Theorem 1](dynamic-matrix/README.md) | 28 | 4,827 | 307 | 0 | 2/2 (1+1) |
+| [Residual spectral matching — first main theorem (Theorem 4.1)](residual-matching/README.md) | 329 | 71,973 | 348 | 5 | 5/5 (1+4) |
 | [ProTrans — Theorem 1 (corrected model-shift bound)](protrans/README.md) | 88 | 11,643 | 44 | 0 | 10/10 (1+9) |
 | [Deep Regression for Repeated Measurements — Theorem 2.1](repeated-deep-regression/README.md) | 44 | 8,774 | 17 | 2 | 4/4 (1+3) |
 | [Nonparametric Prior Learning — Theorem 2.4 (integrable formulation)](nonparametric-prior-learning/README.md) | 43 | 8,159 | 1 | 1 | 1/1 (1+0) |
@@ -19,7 +20,7 @@ One directory per paper. Each contains only input materials, Lean sources, requi
 | [Dobriban — BH/FDR counterexample](dobriban/README.md) | 6 | 1,789 | 1 | 0 | 1/1 (1+0) |
 | [Lei — BH/FDR interfaces](lei/README.md) | 17 | 2,786 | 1 | 0 | 3/3 (1+2) |
 
-Lines count the current Lean source files, including supporting modules. Used external references count distinct citation axioms in the actual recursive proof dependencies of the selected main theorem(s), counted once per paper. Citations used only by independent supporting tasks, unused declarations, library imports and explicit theorem hypotheses are excluded. Passed/tasks counts selected main and supporting tasks under their permitted external assumptions, excluding internal helper modules and fixed seed modules. Total: **67/67 tasks (15 main + 52 supporting), 8 used external references**.
+Lines count the current Lean source files, including supporting modules. Used external references count distinct citation axioms in the actual recursive proof dependencies of the selected main theorem(s), counted once per paper. Citations used only by independent supporting tasks, unused declarations, library imports and explicit theorem hypotheses are excluded. Passed/tasks counts selected main and supporting tasks under their permitted external assumptions, excluding internal helper modules and fixed seed modules. Total: **72/72 tasks (16 main + 56 supporting), 13 used external references**.
 
 DP counts selected task instances under the contracts stated in its summary; its two denom1 instances correspond to one source lemma.
 
@@ -39,6 +40,8 @@ DP counts selected task instances under the contracts stated in its summary; its
 - **Conformalized quantile regression** — Yaniv Romano, Evan Patterson and Emmanuel J. Candès (2019). [Conformalized Quantile Regression](https://proceedings.neurips.cc/paper/2019/hash/5103c3584b063c431bd1268e9b5e76fb-Abstract.html). *Advances in Neural Information Processing Systems, 32 (NeurIPS 2019)*. Archived preprint: [arXiv:1905.03222v1](https://arxiv.org/abs/1905.03222v1). [Archived result](cqr/README.md).
 - **Dobriban** — Edgar Dobriban (2026). [The Benjamini–Hochberg Procedure Can Fail to Control the FDR for Correlated Two-Sided Gaussian Tests](https://arxiv.org/abs/2607.12208v1). *arXiv preprint, 2607.12208v1*. [Archived result](dobriban/README.md).
 - **Lei** — Lihua Lei (2026). [No Universal Multiplicative FDR Bound for the Benjamini–Hochberg Procedure with Correlated Two-Sided Gaussian Tests](https://arxiv.org/abs/2607.14812v1). *arXiv preprint, 2607.14812v1*. [Archived result](lei/README.md).
+
+- **Residual spectral matching** — Ziyuan Chen and Fang Yao. [*Residual spectral matching: a new perspective for matrix completion*](residual-matching/input/main.tex). Supplied revised manuscript and supplement (undated), first main theorem (Theorem 4.1). Related public preprint: [*Matrix Completion via Residual Spectral Matching* (2024), arXiv:2412.10005v2](https://arxiv.org/abs/2412.10005v2). [Archived result](residual-matching/README.md).
 
 ## License and permitted use
 

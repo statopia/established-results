@@ -1,0 +1,369 @@
+version: v1
+theorem_set: paper-proof-group
+source_tag: document-processing
+theorems:
+  - id: entry:selected:b2039a5f-2288-4857-92ee-577d2cd64eb6
+    title: paper_45fc93d926fd4099b9973daee59eb529
+    kind: lemma
+    latex_statement: |-
+      For a matrix \(X\), \(\|X\|\) denotes the spectral norm, \(\|X\|_F\) the Frobenius norm, and \(\|X\|_{2,\infty}\) the largest \(L_2\) norm of the rows. \(X'\) denotes the transpose. For a binary mask \(\Omega\), \(P_\Omega\) preserves entries indexed by \(\Omega\) and zeroes the rest; \(J\) is the all-ones matrix and \(\operatorname{Id}\) is the identity operator. In the homogeneous model \(Y=P_\Omega(M_0+H)\), \(H\) denotes the noise. Define
+      \[
+      W_\Omega=p^{-1}\Omega-J,
+      \qquad
+      T_\Omega=p^{-1}P_\Omega-\operatorname{Id}.
+      \]
+      Let \(T_\star\) be the fixed tangent space at \(M_0\); when \(M_0=U_0\Sigma_0V_0'\) is a compact SVD, this is
+      \[
+      T_\star=\left\{ U_0A'+BV_0':\ A\in\mathbb R^{n\times r},\ B\in\mathbb R^{m\times r}\right\}.
+      \]
+      For conformable matrices, set
+      \[
+      b(A,C)=\min\left\{\|A\|_F\|C\|_{2,\infty},
+      \|A\|_{2,\infty}\|C\|_F\right\}.
+      \]
+
+      <!-- formalization-clarifications:v1:1090ecdd0043a33eb612c3bcc429acfbe9c59653f124c7612d0913fc536267fd -->
+      Formalization clarifications from source and proof:
+      1. Constants. The owner of the concrete bounds is the target “Uniform Bernoulli sampling bounds” lemma (supp.tex Lemma \ref{lem:mask_geometry}). Explicitly, the lemma says “The constants \(C,c\) are numerical and may depend on the fixed lower bound for \(n/m\).” Thus \(C\) in \(\Lambda=C\sqrt{m/p}\), \(C\) in \(\theta=C\sqrt{\mu_0r\log m/(np)}\), \(c\) in \(1-cn^{-4}\), and the \(C\) in the sampling hypotheses are generic numerical constants; the source does not state that occurrences of \(C\) across different displays are equal, and it does not specify their numerical values. It explicitly allows dependence on the fixed \(\rho_-\le n/m\); it does not specify further dependence on \(\alpha_0,K_H,\mu_0,r,p,m,n\) or on the realized mask. Do not silently make these constants depend on \(\Omega\), on the tested factors \(A,B,L,R\), or on \(H\). The source’s proof uses only \(\Omega,M_0\), so the displayed mask inequalities have no \(H\)-dependence (proof-based inference from the proof: “For the centered Bernoulli matrix divided by \(\sqrt{mp}}\)…” and the matrix Bernstein application to \(\Omega_{ij}/p-1\)). The intended order is: fix the fixed parameters, including the lower bound for \(n/m\) and \(\alpha_0>15\), take sufficiently large dimensions with \(m\ge n\), \(0<\rho_-\le n/m\le1\), \(12r\le n\), and the displayed sampling conditions, then choose numerical \(C,c\), allowed to depend on the fixed ratio lower bound, so that for every fixed \(M_0\) with the stated \(\mu_0\)-incoherence and every Bernoulli mask, the event has probability at least \(1-cn^{-4}\). The source is asymptotic (“sufficiently large dimensions”) and does not spell out a formal quantifier string for \(r,\mu_0\) as functions of \(m,n\); do not add uniformity assumptions not stated. The probability statement is over the mask \(\Omega\) only (“The probability statement is over the observation mask \(\Omega\)”), not over \(H\). On the event, the factor inequalities are uniform over all conformable factors, “including data-dependent factors”; this uniformity is pointwise on the event and requires no independence of those factors from \(\Omega\).
+
+      2. Norms and mathematical objects. Explicitly, \(\|X\|\) is the spectral/operator norm, \(\|X\|_F\) the unnormalized Frobenius norm \(\bigl(\sum_{ij}X_{ij}^2\bigr)^{1/2}\), and \(\|X\|_{2,\infty}\) is “the largest \(L_2\) norm of the rows,” i.e. \(\max_i(\sum_j X_{ij}^2)^{1/2}\), not a column norm, mixed \((2,1)\)-norm, or normalized norm. \(\Omega\) is a binary \(m\times n\) mask, \(P_\Omega\) preserves observed entries and zeroes the rest, \(J\) is the all-ones \(m\times n\) matrix, and \(\operatorname{Id}\) is the identity operator on the ambient matrix space. The target definitions are \(W_\Omega=p^{-1}\Omega-J\) and \(T_\Omega=p^{-1}P_\Omega-\operatorname{Id}\). The latter is a linear operator on matrices; in matrix-coordinate form it acts entrywise as \(T_\Omega(A)=W_\Omega\odot A\) with the Schur product (proof-based inference from the Schur identity “\(W_\Omega\odot(LR')=D_L'(W_\Omega\otimes I)D_R\)” and the definition of \(T_\Omega\)); do not replace \(T_\Omega\) by ordinary matrix multiplication by \(W_\Omega\). The angle bracket \(\langle\cdot,\cdot\rangle\) is not defined in the selected block itself, but the proof pairs matrices “through \(W_\Omega\)” and uses Frobenius norms, so the intended pairing is the unnormalized Frobenius/Hilbert–Schmidt inner product on real matrices; this is proof-based rather than explicitly declared in the target block. The tangent space is fixed at \(M_0\). For a compact SVD \(M_0=U_0\Sigma_0V_0'\), the source writes
+      \(T_\star=\{U_0A'+BV_0':A\in\mathbb R^{n\times r},B\in\mathbb R^{m\times r}\}\);
+      note the dimensions of \(A,B\), and do not swap them. \(P_{T_\star}\) is the orthogonal projection onto this subspace for the Frobenius pairing, and \(\mathcal I_{T_\star}\) is the identity operator on it. In the proof notation \(z_{ij}=P_{T_\star}(e_ie_j')\), the source suppresses that \(e_i\) must be an \(m\)-basis vector and \(e_j\) an \(n\)-basis vector for the product \(e_ie_j'\) to be \(m\times n\); this is proof-based/contextual, not spelled out in the selected definitions. The notation \(z_{ij}\otimes z_{ij}\) and the identity \(\sum_{ij}z_{ij}\otimes z_{ij}=\mathcal I_{T_\star}\) are also not expanded; in context this is a self-adjoint operator/tensor notation on \(T_\star\), not an ambient Kronecker matrix identity to be guessed. The target \(b(A,C)\) is exactly
+      \(\min\{\|A\|_F\|C\|_{2,\infty},\|A\|_{2,\infty}\|C\|_F\}\), with unsquared row and Frobenius norms; it is used for conformable factors with compatible row dimensions, and the source explicitly says the two factor pairs in the bilinear inequality may have different numbers of columns. No rank or incoherence restriction on \(A,B,C,D,L,R\) is imposed in these factor consequences beyond conformability. The norm bounds themselves are: \(\|W_\Omega\|\) is the spectral norm of the rectangular centered mask and \(\Lambda=C\sqrt{m/p}\), not a Frobenius or normalized \(1/\sqrt{mp}\) norm; the tangent bound is an operator-norm bound for \(T_\Omega\) restricted to \(T_\star\); and the Schur bound is a spectral norm of the matrix \(T_\Omega(LR')\).
+
+      3. Asymptotics and cited tools. The target statement uses no \(O,o\) notation; it asserts simultaneous inequalities on an event of probability at least \(1-cn^{-4}\), under the sampling conditions “\(mp\ge\log^{\alpha_0}m\)” for fixed \(\alpha_0>15\) and sufficiently large dimensions, and “\(np\ge C\mu_0r\log m\).” The exponent \(n^{-4}\) is literal in the statement; the proof says the bounds hold “on this event” and the bilinear/Schur conclusions are deterministic consequences of the \(W_\Omega\)-bound and the tangent bound. The source does not spell out the exact union-bound constants combining the two probabilistic ingredients; that detail is left implicit. For external R1, the owner is Corollary 2.7 of Brailovskaya et al., edge universality: for self-adjoint random matrices \(X\) and covariance-matched Gaussian \(G\), with universal \(C\), \( \mathbf P[|\lambda_{\max}(X)-\lambda_{\max}(G)|>C\varepsilon(t)]\le de^{-t}\), the analogous expectation statement, and the same bounds for \(\|X\|,\|G\|\); its constants are universal in that theorem, and its assumptions include independent zero-mean self-adjoint summands with bounded \(R(X)\). The target proof applies this “bounded-summand edge comparison” with \(t=C\log n\) after its own parameter calculation for the centered Bernoulli matrix. The specific Bernoulli norm estimate and the phrase “bounded-summand edge comparison” are downstream application/context, not part of the displayed Corollary 2.7 (source note under R1); do not restrict the cited universal theorem to the target’s Bernoulli application. For external R2, the owner is Tropp’s matrix Bernstein inequalities, with universal constants: the self-adjoint bounded statements Theorems 1.4/6.1 use dimension \(d\), uniform almost-sure eigenvalue bound \(R\), variance parameter \(\sigma^2\), and tail parameter \(t\); the rectangular statement Theorem 1.6 gives a two-sided operator norm bound with dimension factor \(d_1+d_2\). In the target proof the summands \((\Omega_{ij}/p-1)z_{ij}\otimes z_{ij}\) are self-adjoint operators on \(T_\star\), the dimension is “at most \(r(m+n)\)” (not \(mn\)), and the source supplies the summand/variance bounds \(C\mu_0r/(np)\). The proof leaves the exact matrix-Bernstein tail parameter and union-bound constants implicit; it only states that the resulting bound is the displayed \(\theta\) plus \(C\mu_0r\log m/(np)\), absorbed by \(\theta\) under the sampling condition. That absorption is proof-based and asymptotic in the allowed constants, not an additional equality.
+
+      4. Potentially omitted definitions and side conditions. The target block is stated under noise assumptions \(H_{ij}\) independent, mean zero, variance \(\sigma^2>0\), sub-exponential with fixed \(K_H\), and \(\Omega\) independent of \(H\). However, none of \(H,\sigma,K_H\) appears in the displayed mask inequalities or in the proof of the mask-geometry lemma; the probability is over \(\Omega\). If the target theorem is formalized with those hypotheses included for source fidelity, they should remain unused side hypotheses rather than entering the event or the constants. The standing assumptions give \(m,n>0\), \(m\ge n\), \(0<\rho_-\le n/m\le1\), \(M_0\) fixed rank \(r\), \(\mu_0\)-incoherence of \(U_0,V_0\), and \(12r\le n\). The source does not explicitly state a range for \(r\) (such as \(r>0\)) or for \(\mu_0\) beyond the incoherence inequalities; do not add \(\mu_0\ge1\) or \(r>0\) unless supplied by the main paper’s conventions. Bernoulli \(p\) is implicitly in \([0,1]\); the sampling condition forces \(p>0\) for large \(m\), and the proof explicitly notes the \(p=1\) case has zero centered matrix. “Sufficiently large dimensions” is not quantified. The high-probability event should be understood as the simultaneous event for the two displayed probabilistic bounds \( \|W_\Omega\|\le\Lambda\) and the \(T_\star\)-restricted tangent bound; the bilinear and Schur inequalities are additional pointwise conclusions on that same event, not independent probability claims. The source does not define the inner product explicitly, the tensor notation \(z\otimes z\), the ambient dimensions in \(e_i e_j'\), or the identity dimension \(I\) in the proof formula for the Schur product; these are proof-local/contextual and should be fixed consistently from the displayed dimensions rather than treated as source facts with supplied conventions. Finally, cited universal results R1 and R2 retain their own hypotheses and quantification; the target’s specialized Bernoulli/matrix-Bernstein applications do not narrow those theorems.
+      <!-- /formalization-clarifications -->
+
+      Under these assumptions, with probability at least \(1-cn^{-4}\), the following bounds hold simultaneously:
+      \[
+      \|W_\Omega\|\le \Lambda:=C\sqrt{\frac mp},
+      \]
+      and
+      \[
+      |\langle T_\Omega A,B\rangle|
+      \le \theta\|A\|_F\|B\|_F,
+      \qquad A,B\in T_\star,
+      \]
+      where
+      \[
+      \theta=C\sqrt{\frac{\mu_0r\log m}{np}}.
+      \]
+      On this event, the following hold for all conformable factors, including data-dependent factors:
+      \[
+      |\langle T_\Omega(AB'),CD'\rangle|
+      \le \Lambda\, b(A,C)b(B,D),
+      \]
+      where
+      \[
+      b(A,C)=\min\left\{\|A\|_F\|C\|_{2,\infty},
+      \|A\|_{2,\infty}\|C\|_F\right\},
+      \]
+      and
+      \[
+      \|T_\Omega(LR')\|
+      \le \Lambda\|L\|_{2,\infty}\|R\|_{2,\infty}.
+      \]
+      The two pairs of factors in the bilinear inequality may have different numbers of columns. The constants \(C,c\) are numerical and may depend on the fixed lower bound for \(n/m\). The probability statement is over the observation mask \(\Omega\).
+    assumptions:
+      - |-
+        Let \(m,n\) be positive integers with \(m\ge n\) and
+        \[
+        0<\rho_-\le \frac nm\le 1
+        \]
+        for a fixed constant \(\rho_->0\). Let \(M_0\in\mathbb R^{m\times n}\) be a fixed rank-\(r\) matrix, and let \(\Omega\in\mathbb R^{m\times n}\) be a binary observation mask. Suppose the singular spaces of \(M_0\) are \(\mu_0\)-incoherent, so that for a compact SVD \(M_0=U_0\Sigma_0V_0'\),
+        \[
+        \|U_0\|_{2,\infty}\le \sqrt{\frac{\mu_0r}{m}},
+        \qquad
+        \|V_0\|_{2,\infty}\le \sqrt{\frac{\mu_0r}{n}}.
+        \]
+        Assume \(12r\le n\). Let \(H\) be the noise in the homogeneous model \(Y=P_\Omega(M_0+H)\). The noise entries \(H_{ij}\) are independent, mean-zero, have variance \(\sigma^2>0\), and satisfy a uniform sub-exponential tail bound with fixed constant \(K_H\). The entries of \(\Omega\) are independent Bernoulli\((p)\) random variables and are independent of \(H\). The standing sparse sampling condition is
+        \[
+        mp\ge \log^{\alpha_0}m
+        \]
+        for a fixed \(\alpha_0>15\) and sufficiently large dimensions. In addition, assume
+        \[
+        np\ge C\mu_0r\log m.
+        \]
+    proof_body: |-
+      ### Definitions and notation used in Proof
+      Let \(e_i\) be the \(i\)th standard basis vector. Let \(P_{T_\star}\) denote the orthogonal projection onto \(T_\star\), and let \(\mathcal I_{T_\star}\) denote the identity operator on \(T_\star\). For \(i,j\), define \(z_{ij}=P_{T_\star}(e_ie_j')\). For matrices \(L\) and \(R\), define the block-diagonal maps
+      \[
+      D_Lx=(x_iL_{i,:})_i,
+      \qquad
+      D_Ry=(y_jR_{j,:})_j.
+      \]
+      Let \(I\) denote the identity matrix, and let \(\odot\) denote the entrywise (Schur) product.
+
+      ### Proof
+      Work under the displayed assumptions and on the high-probability event for the sampling mask. First, for the centered Bernoulli matrix divided by \(\sqrt{mp}\), the Hermitian summands have norm at most \((mp)^{-1/2}\), variance parameter at most one, and weak variance parameter at most \(Cm^{-1/2}\). Its covariance-matched Gaussian matrix has independent entries of variance \((1-p)/m\) and expected operator norm at most two. The bounded-summand edge comparison [ref:R1] used in Section~\ref{sec:supp_sparse_rmt}, with \(t=C\log n\), bounds its norm by
+      \[
+      2+C\left\{\sqrt{\log n/m}+(mp)^{-1/6}(\log n)^{2/3}
+                      +(mp)^{-1/2}\log n\right\}\le C.
+      \]
+      This proves
+      \[
+      \|W_\Omega\|\le \Lambda:=C\sqrt{m/p};
+      \]
+      for \(p=1\) the centered matrix is zero.
+
+      For the tangent-space bound, with \(z_{ij}\) as in the proof notation, we have
+      \[
+      \|z_{ij}\|_F^2\le \mu_0 r/m+\mu_0 r/n
+      \]
+      and
+      \[
+      \sum_{ij}z_{ij}\otimes z_{ij}=\mathcal I_{T_\star}.
+      \]
+      Apply the matrix Bernstein inequality [ref:R2] to
+      \[
+      \sum_{ij}(\Omega_{ij}/p-1)z_{ij}\otimes z_{ij}.
+      \]
+      Its summand and variance bounds are \(C\mu_0r/(np)\), and its dimension is at most \(r(m+n)\). The resulting bound is the displayed \(\theta\), plus \(C\mu_0r\log m/(np)\), which is absorbed by \(\theta\). Hence, for \(A,B\in T_\star\),
+      \[
+      |\langle T_\Omega A,B\rangle|
+      \le \theta\|A\|_F\|B\|_F,
+      \qquad
+      \theta=C\sqrt{\frac{\mu_0r\log m}{np}}.
+      \]
+
+      To prove the bilinear bound, form matrices whose \(i\)th and \(j\)th rows are \(A_{i,:}\otimes C_{i,:}\) and \(B_{j,:}\otimes D_{j,:}\). Their Frobenius norms are at most \(b(A,C)\) and \(b(B,D)\), respectively. Pairing them through \(W_\Omega\) and using its operator norm gives
+      \[
+      |\langle T_\Omega(AB'),CD'\rangle|
+      \le \Lambda\, b(A,C)b(B,D),
+      \]
+      with
+      \[
+      b(A,C)=\min\{\|A\|_F\|C\|_{2,\infty},\|A\|_{2,\infty}\|C\|_F\}.
+      \]
+
+      For the Schur bound, using the block-diagonal maps \(D_L\) and \(D_R\) from the proof notation, the Schur product \(W_\Omega\odot(LR')\) is
+      \[
+      D_L'(W_\Omega\otimes I)D_R.
+      \]
+      Since
+      \[
+      \|D_L\|=\max_i\|L_{i,:}\|_2,
+      \qquad
+      \|D_R\|=\max_j\|R_{j,:}\|_2,
+      \]
+      the claim follows:
+      \[
+      \|T_\Omega(LR')\|
+      \le \Lambda\|L\|_{2,\infty}\|R\|_{2,\infty}.
+      \]
+      The bilinear and Schur inequalities hold for all conformable factors on the same event, including data-dependent factors, and the two pairs of factors in the bilinear inequality may have different numbers of columns. Intersecting the finite collection of events gives the stated simultaneous bounds with probability at least \(1-cn^{-4}\).
+
+      ### References
+      #### Reference R1
+      Target: Corollary 2.7 of \cite{brailovskaya2024universality} (bounded-summand edge comparison)
+      Citation: For spectral edges we use the bounded-summand edge universality result, Corollary 2.7 of \cite{brailovskaya2024universality}, after logarithmic truncation. In the proof of Lemma~\ref{lem:mask_geometry}: “For the centered Bernoulli matrix divided by \(\sqrt{mp}\), the Hermitian summands have norm at most \((mp)^{-1/2}\), variance parameter at most one, and weak variance parameter at most \(Cm^{-1/2}\). Its covariance-matched Gaussian matrix has independent entries of variance \((1-p)/m\) and expected operator norm at most two. The bounded-summand edge comparison used in Section~\ref{sec:supp_sparse_rmt}, with \(t=C\log n\), bounds its norm by \[
+       2+C\left\{\sqrt{\log n/m}+(mp)^{-1/6}(\log n)^{2/3}
+                        +(mp)^{-1/2}\log n\right\}\le C.
+      \]
+      This proves \eqref{eq:sampling_mask_norm}; for \(p=1\) the centered matrix is zero.”
+      Bibliography: brailovskaya2024universality (full bibliographic entry not supplied in the provided source material).
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction: The supplied v3 source contains **Corollary 2.7 (Edge universality)** on physical PDF page 12, with the Section 2.1 model and parameters on pages 8–10 and the \(\varepsilon(t)\) formula from Theorem 2.6 on page 11. The statement below is the original Corollary 2.7. The phrase “bounded-summand edge comparison” and the Bernoulli-matrix norm estimate quoted in Reference R1’s Citation are downstream application/context material; they are not part of the displayed Corollary 2.7 in the supplied source. The supplied v2 material does not contain a visible Corollary 2.7. No alternate bounded-summand Corollary 2.7 was supplied.
+
+      ##### Definitions and notation
+      For a matrix or operator \(X\), \(\|X\|\) denotes its operator norm, and \(\operatorname{sp}(X)\) its spectrum. Let \(\mathbf E\) and \(\mathbf P\) denote expectation and probability. The general model is
+      \[
+      X:=Z_0+\sum_{i=1}^n Z_i. \tag{2.1}
+      \]
+      The covariance matrix of the entries of \(X\) is
+      \[
+      \operatorname{Cov}(X)_{ij,k\ell}
+      :=\mathbf E\bigl[(X-\mathbf E X)_{ij}\overline{(X-\mathbf E X)_{k\ell}}\bigr]. \tag{2.2}
+      \]
+      The Gaussian model \(G\) is the \(d\times d\) self-adjoint random matrix such that:
+      1. \(\{\operatorname{Re}G_{ij},\operatorname{Im}G_{ij}:i,j\in[d]\}\) are jointly Gaussian;
+      2. \(\mathbf E[G]=\mathbf E[X]\) and \(\operatorname{Cov}(G)=\operatorname{Cov}(X)\).
+
+      The matrix parameters used in the statement are
+      \[
+      \sigma(X):=\left\|\mathbf E[(X-\mathbf E X)^2]\right\|^{\frac12}, \tag{2.3}
+      \]
+      \[
+      \sigma_*(X):=\sup_{\|v\|=\|w\|=1}
+      \mathbf E\left[|\langle v,(X-\mathbf E X)w\rangle|^2\right]^{\frac12}, \tag{2.4}
+      \]
+      \[
+      R(X):=\left\|\max_{1\le i\le n}\|Z_i\|\right\|_\infty, \tag{2.6}
+      \]
+      where \(\|Y\|_\infty\) denotes the essential supremum of the random variable \(|Y|\).
+
+      The upper spectral edge is
+      \[
+      \lambda_{\max}(X):=\sup\operatorname{sp}(X).
+      \]
+      The function \(\varepsilon(t)\), as defined in Theorem 2.6 and referenced by Corollary 2.7, is
+      \[
+      \varepsilon(t)
+      =\sigma_*(X)t^{\frac12}
+      +R(X)^{\frac13}\sigma(X)^{\frac23}t^{\frac23}
+      +R(X)t.
+      \]
+      The order notation \(a\lesssim b\) denotes \(a\le Cb\) for a universal constant \(C\).
+
+      ##### Assumptions
+      Let \(d\ge2\) and \(n\in\mathbb N\). Let \(Z_0\in \mathrm M_d(\mathbb C)_{\mathrm{sa}}\) be a deterministic \(d\times d\) self-adjoint matrix. Let \(Z_1,\dots,Z_n\) be independent \(d\times d\) self-adjoint random matrices with zero mean \(\mathbf E[Z_i]=0\) and complex-valued entries. Define
+      \[
+      X:=Z_0+\sum_{i=1}^n Z_i. \tag{2.1}
+      \]
+      Let \(G\) be the covariance-matched Gaussian model with the same mean and covariance as \(X\), in the sense of (2.2). Assume \(R(X)<\infty\); the source states that the results are meaningful only when \(R(X)<\infty\), which requires that the matrices \(Z_i\) are uniformly bounded. Let \(t\ge0\).
+
+      ##### Statement
+      **Corollary 2.7 (Edge universality).** For any \(t\ge0\), we have
+      \[
+      \mathbf P\bigl[|\lambda_{\max}(X)-\lambda_{\max}(G)|>C\varepsilon(t)\bigr]\le de^{-t},
+      \]
+      as well as
+      \[
+      \mathbf P\bigl[|\lambda_{\max}(X)-\mathbf E\lambda_{\max}(G)|>C\varepsilon(t)\bigr]\le de^{-t},
+      \]
+      where \(C\) is a universal constant and \(\varepsilon(t)\) is as in Theorem 2.6. Moreover,
+      \[
+      |\mathbf E\lambda_{\max}(X)-\mathbf E\lambda_{\max}(G)|
+      \lesssim \sigma_*(X)(\log d)^{\frac12}
+      +R(X)^{\frac13}\sigma(X)^{\frac23}(\log d)^{\frac23}
+      +R(X)\log d.
+      \]
+      The same bounds hold if \(\lambda_{\max}(X),\lambda_{\max}(G)\) are replaced by \(\|X\|,\|G\|\), respectively.
+
+      #### Reference R2
+      Target: matrix Bernstein
+      Citation: For \eqref{eq:recovery_tangent-event}, let \(z_{ij}=P_{T_\star}(e_ie_j')\). Then \(\|z_{ij}\|_F^2\le\mu_0r/m+\mu_0r/n\) and \(\sum_{ij}z_{ij}\otimes z_{ij}=\mathcal I_{T_\star}\). Apply matrix Bernstein \citep{tropp2012userfriendly} to \(\sum_{ij}(\Omega_{ij}/p-1)z_{ij}\otimes z_{ij}\). Its summand and variance bounds are \(C\mu_0r/(np)\), and its dimension is at most \(r(m+n)\). The resulting bound is the displayed \(\theta\) plus \(C\mu_0r\log m/(np)\), which is absorbed by \(\theta\).
+      Bibliography: tropp2012userfriendly (full bibliographic entry not supplied in the provided source material).
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction from Tropp, arXiv:1004.4389v7 (`tropp2012userfriendly`), “User-friendly tail bounds for sums of random matrices.” The supplied material gives the self-adjoint bounded matrix Bernstein statement as Theorem 1.4 and again, with the expanded inequality chain, as Theorem 6.1; it also gives the rectangular two-sided norm version as Theorem 1.6. The R2 citation applies matrix Bernstein to the self-adjoint operators \(z_{ij}\otimes z_{ij}\); the self-adjoint bounded statements supply the required tail inequality, while the rectangular Theorem 1.6 supplies a directly two-sided operator-norm tail bound. The dimension factor and summand/variance bounds are used as in the Citation, with constants absorbed there. A full bibliographic entry for `tropp2012userfriendly` was not supplied; the source basis is the arXiv version above. No proof is reproduced.
+
+      ##### Theorem 1.4 (Matrix Bernstein)
+      ###### Definitions and notation
+      For a self-adjoint matrix, \(\lambda_{\max}\) denotes the algebraic maximum eigenvalue. The symbol \(\|\cdot\|\) denotes the spectral operator norm, i.e. the maximum singular value. “s.a.” abbreviates self-adjoint. \(\mathbb E\) denotes expectation, and “almost surely” means with probability one. For a finite sequence of random s.a. matrices, the variance parameter is
+      \[
+      \sigma^2:=\left\|\sum_k \mathbb E\,(X_k^2)\right\|.
+      \]
+      The dimension of the random s.a. matrices is \(d\); \(R\) is the uniform almost-sure eigenvalue bound; \(t\ge 0\) is the tail parameter.
+
+      ###### Assumptions
+      Let \(\{X_k\}\) be a finite sequence of independent, random, self-adjoint matrices with dimension \(d\). Assume that each random matrix satisfies
+      \[
+      \mathbb E\,X_k=\mathbf 0
+      \qquad\text{and}\qquad
+      \lambda_{\max}(X_k)\le R
+      \quad\text{almost surely.}
+      \]
+
+      ###### Statement
+      For all \(t\ge 0\),
+      \[
+      \mathbb P\left\{\lambda_{\max}\left(\sum_k X_k\right)\ge t\right\}
+      \le d\cdot \exp\left(\frac{-t^2/2}{\sigma^2+Rt/3}\right),
+      \]
+      where
+      \[
+      \sigma^2:=\left\|\sum_k \mathbb E\,(X_k^2)\right\|.
+      \]
+
+      ##### Theorem 6.1 (Matrix Bernstein: Bounded Case)
+      ###### Definitions and notation
+      For a self-adjoint matrix, \(\lambda_{\max}\) denotes the algebraic maximum eigenvalue. The symbol \(\|\cdot\|\) denotes the spectral operator norm. “s.a.” abbreviates self-adjoint. \(\mathbb E\) denotes expectation, and “almost surely” means with probability one. The function \(h\) is
+      \[
+      h(u):=(1+u)\log(1+u)-u
+      \qquad\text{for }u\ge 0.
+      \]
+      For a finite sequence of random s.a. matrices, the variance parameter is
+      \[
+      \sigma^2:=\left\|\sum_k \mathbb E\,(X_k^2)\right\|.
+      \]
+      The dimension is \(d\); \(R\) is the uniform almost-sure eigenvalue bound; \(t\ge 0\).
+
+      ###### Assumptions
+      Let \(\{X_k\}\) be a finite sequence of independent, random, self-adjoint matrices with dimension \(d\). Assume that
+      \[
+      \mathbb E\,X_k=\mathbf 0
+      \qquad\text{and}\qquad
+      \lambda_{\max}(X_k)\le R
+      \quad\text{almost surely}
+      \]
+      for each \(k\).
+
+      ###### Statement
+      Define
+      \[
+      \sigma^2:=\left\|\sum_k \mathbb E\,(X_k^2)\right\|.
+      \]
+      Then for all \(t\ge 0\),
+      \[
+      \begin{aligned}
+      \mathbb P\left\{\lambda_{\max}\left(\sum_k X_k\right)\ge t\right\}
+      &\le d\cdot \exp\left(-\frac{\sigma^2}{R^2}\cdot h\left(\frac{Rt}{\sigma^2}\right)\right)\\
+      &\le d\cdot \exp\left(\frac{-t^2/2}{\sigma^2+Rt/3}\right)\\
+      &\le
+      \begin{cases}
+      d\cdot \exp(-3t^2/8\sigma^2), & \text{for } t\le \sigma^2/R,\\[2pt]
+      d\cdot \exp(-3t/8R), & \text{for } t\ge \sigma^2/R,
+      \end{cases}
+      \end{aligned}
+      \]
+      where \(h(u):=(1+u)\log(1+u)-u\) for \(u\ge 0\).
+
+      ##### Theorem 1.6 (Matrix Bernstein: Rectangular Case)
+      ###### Definitions and notation
+      The symbol \(\|\cdot\|\) denotes the spectral operator norm. \(Z_k^*\) denotes the conjugate transpose of \(Z_k\). \(\mathbb E\) denotes expectation, and “almost surely” means with probability one. The random matrices have dimensions \(d_1\times d_2\). \(R\) is the uniform almost-sure norm bound. The variance parameter is
+      \[
+      \sigma^2:=
+      \max\left\{
+      \left\|\sum_k \mathbb E\,(Z_kZ_k^*)\right\|,
+      \left\|\sum_k \mathbb E\,(Z_k^*Z_k)\right\|
+      \right\}.
+      \]
+      The dimension factor is \(d_1+d_2\); \(t\ge 0\).
+
+      ###### Assumptions
+      Let \(\{Z_k\}\) be a finite sequence of independent, random matrices with dimensions \(d_1\times d_2\). Assume that each random matrix satisfies
+      \[
+      \mathbb E\,Z_k=\mathbf 0
+      \qquad\text{and}\qquad
+      \|Z_k\|\le R
+      \quad\text{almost surely.}
+      \]
+
+      ###### Statement
+      Define
+      \[
+      \sigma^2:=
+      \max\left\{
+      \left\|\sum_k \mathbb E\,(Z_kZ_k^*)\right\|,
+      \left\|\sum_k \mathbb E\,(Z_k^*Z_k)\right\|
+      \right\}.
+      \]
+      Then for all \(t\ge 0\),
+      \[
+      \mathbb P\left\{\left\|\sum_k Z_k\right\|\ge t\right\}
+      \le (d_1+d_2)\cdot
+      \exp\left(\frac{-t^2/2}{\sigma^2+Rt/3}\right).
+      \]
+    lean_name: paper_45fc93d926fd4099b9973daee59eb529
+    lean_namespace: Statlib.Imported
+    layer: formalization
+    priority: 3
+    dependencies: []
+    notes: generated from a persisted ordinary goal; no attack-DAG dependency semantics
+source_document: supp.tex

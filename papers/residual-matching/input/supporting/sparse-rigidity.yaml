@@ -1,0 +1,778 @@
+version: v1
+theorem_set: paper-proof-group
+source_tag: document-processing
+theorems:
+  - id: entry:selected:b985641f-5239-463e-ba9b-69b2d3d2e047
+    title: paper_9c2867f3965841d2b9fb42151e635ad9
+    kind: lemma
+    latex_statement: |-
+      The matrix is normalized as
+      \[
+      A=(mp)^{-1/2}P_\Omega(\Xi).
+      \]
+      The mask operator \(P_\Omega(A)\) keeps entries on the binary mask \(\Omega\) and zeroes others. The singular values are \(s_1(A)\ge\cdots\ge s_n(A)\) in decreasing order, and we write \(s_i(A)=\psi_i(A)\). The quantiles \(\gamma_i\) are the deterministic rooted Marchenko–Pastur quantiles for the aspect ratio \(\rho=n/m\); they do not depend on the random data. Let \(\delta_m=(\log m)^{-1}\).
+
+      <!-- formalization-clarifications:v1:7be3d8c92189abeea1a5882e9f09c48423112de86695a03d3a6ed462e9af530a -->
+      Formalization clarifications from source and proof:
+      1. Constants and quantifier order. The owner of the target statement is the sparse calibration lemma “Coarse rigidity for sparse rectangular matrices” in the source section “Sparse spectral calibration at the true matrix,” together with the preceding paragraph fixing \(0<\rho_-\le \rho=n/m\le1\). Read the source quantifier order as: first fix the absolute constants, including the tail constant \(K\) (written \(K'\) in the selected restatement), the lower aspect-ratio bound \(\rho_->0\), and a fixed exponent \(\alpha_0>15\); then take \(m,n,p\) with \(m\ge n\), \(\rho=n/m\in[\rho_-,1]\), and \(mp\ge \log^{\alpha_0}m\), for sufficiently large dimensions as stated in the notation section; the probability is over the independent \(\xi_{ij}\) and independent Bernoulli mask. The original lemma prints a threshold \(C\log^{-1}m\) and a bound \(c n^{-D}\) but does not spell out the exact allowed dependencies of \(C,c,D\) or the exact large-dimension threshold. Do not infer uniformity merely because a parameter is implicit in Lean; the source’s proof-based strengthening (the selected “prescribed-exponent” passage) says constants may depend on \(D_0,K',\rho_-,\alpha_0\) and not on \(m,n,p,\Xi,\Omega\), but that strengthening is not fully printed in the original lemma. The original lemma states only “for some constant \(D>0\),” while its proof repeatedly permits taking a prescribed polynomial exponent large by choosing truncation and union-bound constants and then taking \(m\) large; the exact “for every fixed \(D_0>0” formulation is proof-based/repaired, not a verbatim source lemma. In the target proof, \(\delta_m=(\log m)^{-1}\) and \(L=C_D\log(mn)\); \(C_D\) is chosen large after the desired probability exponent and fixed parameters, not as a function of the observed data.
+
+      For cited external results: Remark 6.13 of \cite{brailovskaya2024universality} (Reference R1) has a universal constant in its \(\lesssim\) bound under that source’s own definition, with no dimension or covariance dependence; the range \(\operatorname{Im}z>0\) is supplied by the resolvent/Stieltjes context, not explicitly printed in the remark. Corollary 2.7 (Reference R2) states a universal \(C\) in the probability bound \(de^{-t}\) and in the expectation bound; its \(d\) is the ambient matrix dimension, not the target’s Frobenius distance. Theorem 3.16 (Reference R3) also uses a universal \(C\), with parameter \(t\ge0\); however the supplied reading flags ambiguity in signs and the power of \(\sigma_*(Y)t^{1/2}\) versus \(\sigma_*(Y)t\), so do not repair those by convention. The Götze–Tikhomirov theorem (Reference R4, Theorem 1.1) has constants \(C,c\) depending on its \(\varkappa\), \(\alpha\), and limiting aspect ratio \(y\), and the probability exponent is in \(l_{n,\alpha}=\log n(\log\log n)^\alpha\). Reference R5, Bai’s smoothing inequality, is citation-reported only; its implicit constant, exact theorem number, and hypotheses are not supplied.
+
+      2. Norms and source objects. In the main notation section, \(\|M\|\) is the spectral/operator norm, \(\|M\|_F\) is Frobenius, \(\|M\|_*\) is nuclear, \(\|M\|_\infty\) is maximum entry norm, and \(\|M\|_{2,\infty}\) is the largest row Euclidean norm. In the random-matrix parameters from §2.1.4, inner \(\|Z_i\|\) is operator norm and \(\|Y\|_\infty\) in \(R(X)=\|\max_i\|Z_i\|\|_\infty\) is the essential supremum of the random variable; this \(\infty\) is not the matrix max-entry norm. The target matrix is exactly
+      \[
+      A=(mp)^{-1/2}P_\Omega(\Xi),
+      \]
+      with \(P_\Omega\) entrywise masking. The source uses \(A'\) for transpose in this real-matrix setting; do not replace it by conjugate transpose unless the complex Hermitian setup of Remark 6.13 is being used in its own setting. The Hermitian dilation is
+      \[
+      X=\begin{pmatrix}0&A\\A'&0\end{pmatrix}
+      =\sum_{i=1}^m\sum_{j=1}^n Z_{ij},\qquad
+      Z_{ij}=\frac{\Omega_{ij}\xi_{ij}}{\sqrt{mp}}(e_i e_{m+j}'+e_{m+j}e_i').
+      \]
+      The normalized trace is \(\operatorname{tr}M=d^{-1}\operatorname{Tr}M\) for a \(d\times d\) matrix; in the dilation \(d=m+n\). The definitions
+      \[
+      \sigma(X)=\|\mathbb E[(X-\mathbb E X)^2]\|^{1/2},\quad
+      \sigma_*(X)=\sup_{\|v\|=\|w\|=1}\mathbb E[|\langle v,(X-\mathbb E X)w\rangle|^2]^{1/2},
+      \]
+      \[
+      v(X)=\|\operatorname{Cov}(X)\|^{1/2},\quad
+      R(X)=\left\|\max_i\|Z_i\|\right\|_\infty
+      \]
+      use operator norm and the covariance operator as defined in the cited source, not entrywise variance or Frobenius norms. For rectangular \(Y\), the source defines
+      \[
+      \sigma(Y)=\max\{\|\mathbb E Y^*Y\|^{1/2},\|\mathbb E YY^*\|^{1/2}\},
+      \]
+      and defines \(\sigma_*,v,R\) via the self-adjoint dilation when applicable; do not silently substitute a rectangular matrix for a self-adjoint one.
+
+      The singular values are decreasing \(s_1(A)\ge\cdots\ge s_n(A)\), with \(s_i(A)=\psi_i(A)\). The rooted MP density is exactly
+      \[
+      \nu_\rho(x)=\frac1\pi\frac{\sqrt{(\lambda_+^2-x^2)(x^2-\lambda_-^2)}}{\rho x}
+      \mathbf1_{\{\lambda_-\le x\le\lambda_+\}},\quad
+      \lambda_\pm=1\pm\sqrt\rho,
+      \]
+      and \(\gamma_i\) are defined by \(\int_{\gamma_i}^{\lambda_+}\nu_\rho(x)\,dx=i-1/2\) over \(n\), \(1\le i\le n\); do not replace them by eigenvalues of a standard covariance MP law without the monotone transform recorded in the proof. The positive singular-value empirical CDF in the proof is
+      \[
+      F_A(x)=n^{-1}\sum_{i=1}^n 1_{\{s_i(A)\le x\}},
+      \]
+      while the symmetrized empirical measure is
+      \[
+      \bar\mu_A=(2n)^{-1}\sum_{i=1}^n(\delta_{s_i(A)}+\delta_{-s_i(A)}),
+      \]
+      with the source’s “common zero atom removed” caveat. The exact zero-atom convention is not fully spelled out; Reference R5 explicitly says its exact convention is not supplied. The Stieltjes transform is \(m_\mu(z)=\int (x-z)^{-1}d\mu(x)\) in the target proof; Reference R5 notes the sign convention is immaterial only for absolute differences, so consistency is required. The Gaussian comparator is \(G_0=m^{-1/2}(g_{ij})\) with iid \(N(0,1)\) entries; it is a proof object. The truncated matrix \(\widetilde A\), the recentered/renormalized \(\widetilde\Xi\), and the identities \(\mathbb E\widetilde A'\widetilde A=I_n\), \(\mathbb E\widetilde A\widetilde A'=\rho I_m\) are proof constructions/claims, not assumptions of the target lemma. Likewise, the displays \(\sigma(X)=1\), \(\sigma_*(X)\lesssim m^{-1/2}\), \(v(X)\lesssim m^{-1/2}\), the third-trace bound, and the grid event are proof-based calculations, not definitions or hypotheses. For Reference R1, \(L_p\)-norms are \((\mathbf E[\operatorname{tr}|M|^p])^{1/p}\) with normalized trace; this is not the same as the target’s operator/spectral norm.
+
+      3. Asymptotics and probability notation. The limiting regime intended by the sparse calibration source is \(m\to\infty\) with \(n/m\in[\rho_-,1]\), \(mp\ge\log^{\alpha_0}m\), and fixed \(\rho_-,K,\alpha_0\). The source uses \(\lesssim\) for “bounded by a universal constant times” in the sparse-calibration discussion; it does not authorize a constant depending on \(m\). The proof’s \(o(\delta_m^{3/2})\), \(o(\delta_m)\), and \(o(n^{-D-5})\) are asymptotic statements under that filter; the source does not separately formalize the exact little-o uniformity over all \(x\ge0\) or over all \(i\), although the displayed estimates are given uniformly in those variables. Do not reinterpret a proof-based \(o(\delta_m)\) as a quantitative finite-\(m\) hypothesis unless it is explicitly available. The target probability statements are ordinary high-probability bounds over the independent entries and mask; Reference R1 is an expectation comparison, References R2 and R3 have bounds \(de^{-t}\), Reference R4 has \(C\exp(-c\,l_{n,\alpha})\), and Reference R5 is a deterministic measure inequality. For Reference R2 and R3, \(t\) is an arbitrary nonnegative concentration parameter and \(C\) is universal; when the target proof sets \(t=C_D\log n\), that specialization is an application, not part of the external universal theorem. For Reference R4, the source orientation is an \(n\times p\) matrix with \(y=n/p\), so the target’s \(m,n\) must be mapped to the source variables; the theorem as supplied is a high-probability Kolmogorov-distance bound for \(\mathcal F_n\), not a separately displayed expected-CDF theorem. The target proof’s expected bound \(C m^{-1}\log^{C_0}m\) and its use via \(x\mapsto\sqrt x\) are proof-based; the exact \(C_0\) is not supplied by the cited theorem as extracted. Reference R5 is applied with \(B=4\) and \(0<\eta<1\); its exact admissible measure class and implicit constant are unspecified.
+
+      4. Omitted definitions and side conditions. The target sparse lemma has no rank, incoherence, or low-rank \(M_0\) assumption; those belong to the later main-paper statistical results and must not be imported into the sparse calibration lemma. The only data objects are the independent entries \(\xi_{ij}\), the independent Bernoulli mask, and the normalized sparse matrix \(A\); \(p\) may depend on \(m,n\), but the source fixes a Bernoulli\((p)\) mask common to all entries and independent of \(\Xi\). The entries are assumed real in the main-paper setting; Reference R1’s complex self-adjoint setup is external and should not force complex conjugation in the target matrix definitions. The event in the target lemma is the bad event \(\{\max_i|s_i(A)-\gamma_i|>C\log^{-1}m\}\); the “in particular, with the same probability” top-edge estimate is part of the lemma, while the common high-probability event assembled in the proof by intersecting the CDF grid, truncation, and edge events is a proof device. The index set \(I=\{\lceil n/3\rceil,\ldots,\lfloor2n/3\rfloor\}\), the Monte Carlo reference \(\widehat\lambda_i\), and the same-mask Gaussian reference \(\lambda_i^\circ(\Omega)\) occur in later main/supplementary calibration statements; they are not the deterministic MP quantiles \(\gamma_i\) of the target lemma. The notation \(\lambda_i\) is heavily overloaded: in the main methodology it denotes singular values of a sparse Gaussian matrix or their conditional mean, while in Reference R2 it denotes eigenvalues; preserve the local owner’s meaning. In Reference R3, the source uses \(d\ge m\) for a rectangular matrix \(Y\); the target’s \(m\ge n\) and its symbols must be remapped carefully. Reference R3’s printed theorem does not separately spell out boundedness of summands; the source’s parameter discussion says \(R(Y)\) is meaningful only when summands are uniformly bounded, and the unbounded variant is treated elsewhere. The signs and powers in the error bracket of Theorem 3.16 are explicitly flagged as transcription-ambiguous in the supplied material. The free lower bound (3.4) is attributed to [9, Lemma 3.15] and is stated only in the mean-zero case; its full source proof is not reproduced. Reference R5’s finite-interval smoothing inequality is not a verbatim retrieval from the original Bai text; exact hypotheses, zero-atom convention, and the implicit multiplicative constant remain to be verified against the original source.
+      <!-- /formalization-clarifications -->
+
+      Let \(0<\rho_-\le \rho=n/m\le 1\) for a fixed constant \(\rho_->0\); in particular \(m\ge n\). Let \(\gamma_1\ge\cdots\ge\gamma_n\) be the deterministic quantiles of the rooted Marchenko–Pastur law
+      \[
+      \lambda_\pm=1\pm\sqrt\rho,
+      \qquad
+      \nu_\rho(x)=
+      \frac{1}{\pi}\frac{\sqrt{(\lambda_+^2-x^2)(x^2-\lambda_-^2)}}{\rho x}
+      \mathbf 1_{\{\lambda_-\le x\le\lambda_+\}},
+      \]
+      defined by
+      \[
+      \int_{\gamma_i}^{\lambda_+}\nu_\rho(x)\,dx
+      =\frac{i-1/2}{n},\qquad 1\le i\le n.
+      \]
+      Here \(s_1(A)\ge\cdots\ge s_n(A)\) are the ordered singular values. Let \(\Xi=(\xi_{ij})\) be an \(m\times n\) random matrix whose entries are independent and satisfy, uniformly in \(i,j\), for a fixed constant \(K'>0\),
+      \[
+      \mathbb E\xi_{ij}=0,\qquad
+      \mathbb E\xi_{ij}^2=1,\qquad
+      \mathbb P(|\xi_{ij}|>t)\le 2e^{-t/K'},\quad t>0.
+      \]
+      Let \(\Omega_{ij}\sim\operatorname{Bernoulli}(p)\) be independent Bernoulli variables, independent of \(\Xi\), and put
+      \[
+      A=\frac{1}{\sqrt{mp}}P_\Omega(\Xi).
+      \]
+      Source-stated form: For every fixed \(\alpha_0>15\), if
+      \[
+      mp\ge \log^{\alpha_0}m,
+      \]
+      then for some constant \(D>0\),
+      \[
+      \mathbb P\left\{
+      \max_{1\le i\le n}|s_i(A)-\gamma_i|>C\log^{-1}m
+      \right\}
+      \le c n^{-D}.
+      \]
+      On the same high-probability event,
+      \[
+      s_1(A)\le 1+\sqrt\rho+C\log^{-1}m.
+      \]
+      The constants \(C,c>0\) and \(D>0\) are as in the source statement.
+
+      Prescribed-exponent form used as Reference R1: for every fixed \(D_0>0\) there exists
+      \[
+      \alpha_1=\alpha_1(D_0,K',\rho_-)>15
+      \]
+      such that, for every \(\alpha_0\ge\alpha_1\) with
+      \[
+      mp\ge \log^{\alpha_0}m,
+      \]
+      and for all \(m\) exceeding a threshold depending only on \(D_0,K',\rho_-,\alpha_0\),
+      \[
+      \mathbb P\left\{
+      \max_{1\le i\le n}|s_i(A)-\gamma_i|>C\delta_m
+      \right\}
+      \le c n^{-D_0},
+      \qquad \delta_m=(\log m)^{-1},
+      \]
+      and on the complement of that bad event,
+      \[
+      s_1(A)\le 1+\sqrt\rho+C\delta_m.
+      \]
+      The constants \(C,c\) may depend on \(D_0,K',\rho_-,\alpha_0\), but not on \(m,n,p\), on \(\Xi\), or on \(\Omega\).
+    assumptions: []
+    proof_body: |-
+      ### Definitions and notation used in Proof
+      \(A'\) denotes the transpose of \(A\). For a self-adjoint matrix \(X\) with summands \(Z_i\), define
+      \[
+      \sigma(X):=\|\mathbb E[(X-\mathbb E X)^2]\|^{1/2},
+      \]
+      \[
+      \sigma_*(X):=\sup_{\|v\|=\|w\|=1}
+      \mathbb E\!\left[|\langle v,(X-\mathbb E X)w\rangle|^2\right]^{1/2},
+      \]
+      \[
+      v(X):=\|\operatorname{Cov}(X)\|^{1/2},
+      \qquad
+      R(X):=\left\|\max_i\|Z_i\|\right\|_\infty,
+      \]
+      where \(\|Y\|_\infty\) denotes the essential supremum of \(|Y|\). For a rectangular matrix \(Y\),
+      \[
+      \sigma(Y):=\max\!\left(\|\mathbb E Y^*Y\|^{1/2},\|\mathbb E YY^*\|^{1/2}\right),
+      \]
+      while \(\sigma_*(Y),v(Y),R(Y)\) are defined as in §2.1.4 (via the self-adjoint dilation when applicable). The symbol \(\lesssim\) means inequality up to a universal constant. \(\operatorname{tr}\) denotes the normalized trace, \(\operatorname{tr}M=\frac{1}{d}\operatorname{Tr}M\) for a \(d\times d\) matrix. For a matrix \(X\),
+      \[
+      m_X(z)=\operatorname{tr}(zI-X)^{-1}
+      \]
+      is the normalized trace of the resolvent. The symmetrized empirical singular-value measure of \(A\) is
+      \[
+      \bar\mu_A=\frac{1}{2n}\sum_{i=1}^n\bigl(\delta_{s_i(A)}+\delta_{-s_i(A)}\bigr),
+      \]
+      with the common zero atom removed in the symmetrized formulation. The deterministic symmetrized rooted Marchenko–Pastur measure \(\bar\mu_\rho\) is the even extension of \(\nu_\rho\) about \(0\), normalized consistently with \(\bar\mu_A\). For a probability measure \(\mu\) on \(\mathbb R\),
+      \[
+      F_\mu(x)=\mu((-\infty,x]),
+      \qquad
+      m_\mu(z)=\int_{\mathbb R}\frac{1}{x-z}\,d\mu(x),
+      \]
+      and
+      \[
+      d_{\mathrm K}(\mu,\nu)=\sup_{x\in\mathbb R}|F_\mu(x)-F_\nu(x)|.
+      \]
+      In the proof,
+      \[
+      F_A(x)=\frac{1}{n}\sum_{i=1}^n 1_{\{s_i(A)\le x\}}
+      \]
+      denotes the empirical distribution function of the positive singular values, and
+      \[
+      F_\rho(x)=\int_{\lambda_-}^x \nu_\rho(u)\,du
+      \]
+      (with the obvious extension below \(\lambda_-\) and above \(\lambda_+\)) is the corresponding deterministic Marchenko–Pastur distribution function; in particular
+      \[
+      F_\rho(\gamma_i)=1-\frac{i-1/2}{n}.
+      \]
+      Also \(G_0=m^{-1/2}(g_{ij})_{m\times n}\) with \(g_{ij}\sim N(0,1)\). The matrices \(\widetilde A\) and \(\widetilde\Xi\) are the truncated, recentered, renormalized matrices defined in the proof, and \(L=C_D\log(mn)\) is the truncation level.
+
+      ### Proof
+      Let \(\delta_m=(\log m)^{-1}\). We prove the prescribed-exponent form; the source-stated form follows by taking \(D_0=D\). Set
+      \[
+      A=\frac{1}{\sqrt{mp}}P_\Omega(\Xi),\qquad
+      X=\begin{pmatrix}0&A\\A'&0\end{pmatrix}
+      =\sum_{i=1}^m\sum_{j=1}^n Z_{ij},
+      \]
+      where
+      \[
+      Z_{ij}=\frac{\Omega_{ij}\xi_{ij}}{\sqrt{mp}}
+      (e_i e_{m+j}'+e_{m+j}e_i').
+      \]
+      The positive eigenvalues of \(X\) are exactly the singular values of \(A\). From the entry assumptions, direct calculation gives
+      \[
+      \sigma(X)=1,\qquad \sigma_*(X)\lesssim m^{-1/2},\qquad v(X)\lesssim m^{-1/2},
+      \]
+      and, using the normalized trace on \(\mathbb R^{m+n}\),
+      \[
+      \sum_{i=1}^m\sum_{j=1}^n \mathbb E\operatorname{tr}|Z_{ij}|^3
+      \lesssim (mp)^{-1/2}.
+      \]
+      The covariance-matched Gaussian comparator is the Hermitian dilation of
+      \[
+      G_0=m^{-1/2}(g_{ij})_{m\times n},\qquad g_{ij}\sim N(0,1).
+      \]
+
+      By [ref:R1], for \(z=E+i\eta\),
+      \[
+      \left|\mathbb E m_X(z)-\mathbb E m_G(z)\right|
+      \lesssim \frac{1}{\sqrt{mp}\,\eta^4}.
+      \]
+      For the dense Gaussian comparator, the classical Marchenko–Pastur convergence theory for dense sample covariance matrices [ref:R4] gives an essentially \(m^{-1}\) Kolmogorov rate up to logarithmic factors:
+      \[
+      \sup_x\left|\mathbb E F_{G_0}(x)-F_\rho(x)\right|
+      \le C m^{-1}\log^{C_0}m.
+      \]
+      Transferring from the sample-covariance eigenvalue distribution to the rooted singular-value distribution by \(x\mapsto\sqrt x\), and using symmetrized singular-value measures to remove the common zero atom, a finite-interval version of Bai's smoothing inequality [ref:R5] yields
+      \[
+      d_{\mathrm K}(\mathbb E\bar\mu_A,\bar\mu_\rho)
+      \lesssim
+      \eta+\frac{1}{\sqrt{mp}\,\eta^4}
+      +\frac{m^{-1}\log^{C_0}m}{\eta}+n^{-D}.
+      \]
+      The tail integral in the smoothing inequality is negligible by the independent sparse edge bound and Cauchy–Schwarz. Choosing \(\eta=(mp)^{-1/10}\), if \(mp\ge\log^{\alpha_0}m\) with \(\alpha_0>15\), then
+      \[
+      \sup_{x\ge0}\left|\mathbb E F_A(x)-F_\rho(x)\right|
+      =o(\delta_m^{3/2}).
+      \]
+
+      Next, replacing one row of \(A\) changes \(A'A\) by a matrix of rank at most two, so \(F_A(x)\) changes by at most \(2/n\) under one-row replacement. The bounded-difference inequality gives, for each fixed \(x\),
+      \[
+      \mathbb P\left(|F_A(x)-\mathbb E F_A(x)|>u\right)
+      \le 2\exp(-cnu^2).
+      \]
+      Applying this at the \(O(n)\) deterministic points \(\gamma_i\pm C\delta_m\) with \(u=c_0\delta_m^{3/2}\), a union bound gives, with probability at least \(1-cn^{-D}\),
+      \[
+      \max_{1\le i\le n}\max_{\varsigma\in\{-1,1\}}
+      \left|
+      F_A(\gamma_i+\varsigma C\delta_m)
+      -F_\rho(\gamma_i+\varsigma C\delta_m)
+      \right|
+      \le 2c_0\delta_m^{3/2}.
+      \]
+
+      To exclude sparse spectral outliers, truncate the entries at \(L=C_D\log(mn)\), recenter and renormalize to obtain \(\widetilde\xi_{ij}\), and set
+      \[
+      \widetilde A=\frac{1}{\sqrt{mp}}P_\Omega(\widetilde\Xi).
+      \]
+      The sub-exponential tail gives
+      \[
+      \mathbb P\left(\max_{i,j}|\xi_{ij}|>L\right)
+      \le 2mn e^{-L/K}\le n^{-D-10}
+      \]
+      for \(C_D\) large, and on the complement the matrices constructed from \(\xi_{ij}\) and \(\widetilde\xi_{ij}\) differ in operator norm by \(o(n^{-D-5})\). For the Hermitian dilation of \(\widetilde A\),
+      \[
+      \sigma\le1+o(1),\qquad
+      \sigma_*\lesssim m^{-1/2},\qquad
+      R\lesssim \frac{L}{\sqrt{mp}}.
+      \]
+      [ref:R2], with \(t=C_D\log n\), gives
+      \[
+      s_1(\widetilde A)
+      \le \mathbb E s_1(G_0)
+      +C\left\{
+      \sqrt{\frac{\log n}{m}}
+      +\left(\frac{L}{\sqrt{mp}}\right)^{1/3}(\log n)^{2/3}
+      +\frac{L\log n}{\sqrt{mp}}
+      \right\}
+      \]
+      with probability at least \(1-cn^{-D}\). Since \(\mathbb E s_1(G_0)\le1+\sqrt\rho\) and \(mp\ge\log^{\alpha_0}m\) with \(\alpha_0>15\), the bracket is \(o(\delta_m)\), hence
+      \[
+      s_1(A)\le1+\sqrt\rho+C_e\delta_m.
+      \]
+      For the lower edge, when \(\rho<1\), apply [ref:R3] to \(\widetilde A\). In the present normalization,
+      \[
+      \sigma(\widetilde A)\le1+o(1),\quad
+      \sigma_*(\widetilde A)\lesssim m^{-1/2},\quad
+      v(\widetilde A)\lesssim m^{-1/2},\quad
+      R(\widetilde A)\lesssim\frac{L}{\sqrt{mp}},
+      \]
+      and
+      \[
+      \mathbb E\widetilde A'\widetilde A=I_n,\qquad
+      \mathbb E\widetilde A\widetilde A'=\rho I_m.
+      \]
+      The lower-edge remainder is
+      \[
+      C\left\{
+      m^{-1/4}(\log n)^{3/4}
+      +\frac{\log n}{\sqrt m}
+      +\left(\frac{L}{\sqrt{mp}}\right)^{1/3}(\log n)^{2/3}
+      +\frac{L\log n}{\sqrt{mp}}
+      \right\}
+      =o(\delta_m),
+      \]
+      so
+      \[
+      s_n(A)\ge1-\sqrt\rho-C\delta_m.
+      \]
+      When \(\rho=1\), the lower edge of the rooted Marchenko–Pastur law is zero, and \(s_n(A)\ge0\) suffices.
+
+      Finally, the rooted Marchenko–Pastur density satisfies the one-sided mass lower bounds
+      \[
+      \int_x^{x+t}\nu_\rho(u)\,du\ge c_\rho t^{3/2},
+      \qquad
+      \int_{x-t}^{x}\nu_\rho(u)\,du\ge c_\rho t^{3/2}
+      \]
+      for \(0<t\le t_\rho\) and \(x\) near the edges, uniformly in \(\rho\in[\rho_-,1]\). Since
+      \[
+      F_\rho(\gamma_i)=1-\frac{i-1/2}{n},
+      \]
+      suppose first that \(s_i(A)>\gamma_i+C\delta_m\) and \(\gamma_i+C\delta_m\le\lambda_+\). At \(x_i^+=\gamma_i+C\delta_m\),
+      \[
+      F_A(x_i^+)\le1-\frac{i}{n},
+      \]
+      whereas
+      \[
+      F_\rho(x_i^+)
+      \ge1-\frac{i}{n}+\frac{1}{2n}
+      +c_\rho C^{3/2}\delta_m^{3/2}.
+      \]
+      This contradicts the grid bound for \(C\) large. If \(\gamma_i+C\delta_m>\lambda_+\), then the top edge bound gives \(s_i(A)-\gamma_i\le(C+C_e)\delta_m\). The lower-side estimate is analogous: if \(s_i(A)<\gamma_i-C\delta_m\) and \(\gamma_i-C\delta_m\ge\lambda_-\), the mass lower bound contradicts the grid bound; if \(\gamma_i-C\delta_m<\lambda_-\), the lower edge bound and, when \(\rho=1\), nonnegativity of \(s_i(A)\) give the same \(O(\delta_m)\) conclusion after enlarging the universal constant. Hence
+      \[
+      \max_{1\le i\le n}|s_i(A)-\gamma_i|\le C\delta_m
+      \]
+      with probability at least \(1-cn^{-D_0}\), and on the same event
+      \[
+      s_1(A)\le1+\sqrt\rho+C\delta_m.
+      \]
+      Choosing the truncation and union-bound constants in terms of \(D_0\), and then taking \(\alpha_0\) sufficiently large, gives the prescribed-exponent form. The constants depend only on \(D_0,K',\rho_-,\alpha_0\), not on \(m,n,p,\Xi,\Omega\).
+
+      ### References
+      #### Reference R1
+      Target: Remark 6.13  
+      Citation: Remark 6.13 of \cite{brailovskaya2024universality} implies, whenever the third moments on the right-hand side are finite,
+      \[
+      \left|
+      \mathbb E\operatorname{tr}(zI-X)^{-1}
+      -\mathbb E\operatorname{tr}(zI-G)^{-1}
+      \right|
+      \lesssim
+      \frac{1}{(\operatorname{Im}z)^4}
+      \sum_{a=1}^N\mathbb E\operatorname{tr}|Z_a|^3,
+      \qquad \operatorname{Im}z>0.
+      \]
+      Bibliography: Citation key \texttt{brailovskaya2024universality}; full bibliography entry not supplied in the supplied material.
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction. The displayed result is Remark 6.13, “An improved inequality for Stieltjes transforms,” from the retrieved PDF reading of arXiv:2201.05142v3, physical PDF pages 55–56 (journal pages 55–56), at the end of §6.4 “Resolvent matrix,” attributed by citation key \texttt{brailovskaya2024universality}. The remark has no separate proof in the source. The source supplies the model (2.1), Gaussian comparator, normalized trace, interpolation and derivative notation used in the remark. The cited inequality is the second display of the remark, with source indexing \(i=1,\dots,n\); the citation’s \(a=1,\dots,N\) is the same summand index in different notation. The full bibliography entry for \texttt{brailovskaya2024universality} was not supplied. The source remark does not explicitly print \(\operatorname{Im}z>0\); that range is supplied by the citation and by the source’s resolvent/Stieltjes-transform context. The current proof’s use of this remark for a trace-resolvent comparison, including its substitutions, is not part of this source statement.
+
+      ##### Definitions and notation
+      - **Model (2.1).** Fix \(d\ge 2\), \(n\in\mathbb N\), a deterministic \(Z_0\in \mathrm M_d(\mathbb C)_{\mathrm{sa}}\), and independent \(d\times d\) self-adjoint random matrices \(Z_1,\dots,Z_n\) with zero mean \(\mathbf E[Z_i]=0\) and complex-valued entries. Set
+        \[
+        X:=Z_0+\sum_{i=1}^n Z_i. \tag{2.1}
+        \]
+      - **Gaussian model \(G\).** \(G\) is the \(d\times d\) self-adjoint random matrix with \(\{\operatorname{Re}G_{ij},\operatorname{Im}G_{ij}:i,j\in[d]\}\) jointly Gaussian, \(\mathbf E[G]=\mathbf E[X]\), and \(\operatorname{Cov}(G)=\operatorname{Cov}(X)\), where
+        \[
+        \operatorname{Cov}(X)_{ij,kl}:=\mathbf E[(X-\mathbf E X)_{ij}\overline{(X-\mathbf E X)_{kl}}]. \tag{2.2}
+        \]
+        In §6 the source fixes \(X\) as in (2.1) and lets \(G\) be its Gaussian model, with \(X\) and \(G\) independent.
+      - **Trace.** \(\operatorname{Tr}M:=\sum_{i=1}^d M_{ii}\) is the unnormalized trace and \(\operatorname{tr}M:=\frac1d\operatorname{Tr}M\) is the normalized trace. For a matrix \(X\), \(|X|:=(X^*X)^{1/2}\). Thus \(\operatorname{tr}|Z_i|^3\) is the normalized trace of \(|Z_i|^3\).
+      - **Resolvent and \(z\).** The resolvent is \((z\mathbf 1-X)^{-1}\), where \(\mathbf 1\) is the identity matrix/operator. The parameter \(z\) is complex and \(\operatorname{Im}z\) is its imaginary part. The source’s resolvent/Stieltjes-transform context uses \(\operatorname{Im}z>0\).
+      - **The symbol \(\lesssim\).** In the source, \(a\lesssim b\) means \(a\le Cb\) for a universal constant \(C\).
+      - **Interpolation \(X(t)\).** For \(t\in[0,1]\),
+        \[
+        X(t):=\mathbf E X+\sqrt t\,(X-\mathbf E X)+\sqrt{1-t}\,(G-\mathbf E G).
+        \]
+      - **The matrix \(X(t,i,s)\).** For \(t\in[0,1]\) and \(s\in[0,1]\),
+        \[
+        X(t,i,s):=X(t)-(1-s)\sqrt t\,Z_i.
+        \]
+        The proof of Lemma 6.11 writes \(R_{tis}=(z\mathbf 1-X(t,i,s))^{-1}\) with the same \(X(t,i,s)\).
+      - **Directional derivatives.** For \(B\in \mathrm M_d(\mathbb C)_{\mathrm{sa}}\), \(\partial_B f\) denotes the directional derivative of \(f\) in the direction \(B\).
+      - **\(L_p\)-norms for random matrices.** For \(1\le p<\infty\),
+        \[
+        \|M\|_p:=(\mathbf E[\operatorname{tr}|M|^p])^{1/p},
+        \]
+        with \(\|M\|_\infty\) in the \(p=\infty\) case. In the remark, \(\|\cdot\|_3\) is this \(L_3\)-norm with the normalized trace.
+      - **References inside the remark.** The remark invokes the first equation display of the proof of Lemma 6.11 and the \(p=3\) case of Corollary 6.2. These remain source references; their proofs are not transcribed.
+
+      ##### Assumptions
+      - \(d\ge2\) is fixed and \(n\in\mathbb N\).
+      - \(Z_0\in \mathrm M_d(\mathbb C)_{\mathrm{sa}}\) is deterministic.
+      - \(Z_1,\dots,Z_n\) are independent \(d\times d\) self-adjoint random matrices with zero mean and complex-valued entries, so \(X\) is as in model (2.1).
+      - \(G\) is the Gaussian model with \(\mathbf E[G]=\mathbf E[X]\) and \(\operatorname{Cov}(G)=\operatorname{Cov}(X)\), and \(X\) and \(G\) are independent.
+      - The third moments on the right-hand side are finite: \(\mathbf E[\operatorname{tr}|Z_i|^3]<\infty\) for each \(i\), equivalently the sum \(\sum_{i=1}^n \mathbf E[\operatorname{tr}|Z_i|^3]\) is finite. The source states no further finiteness hypothesis beyond being able to form these expectations.
+      - The citation and the source’s resolvent/Stieltjes-transform context impose \(\operatorname{Im}z>0\). The printed remark itself omits an explicit range for \(z\).
+      - The intermediate derivative display is stated for any random matrices \(Y_1,Y_2,Y_3\), with the derivative and \(\|\cdot\|_3\) notation defined above.
+
+      ##### Statement
+      **Remark 6.13 (An improved inequality for Stieltjes transforms).** The main complication in the proof of Theorem 2.10 arises from the fact that we aim to achieve a norm estimate. If we are only interested in establishing universality of the trace of the resolvent (that is, of the Stieltjes transform of the empirical spectral distribution), the proof simplifies greatly and yields a better bound. Indeed, the first equation display of the proof of Lemma 6.11 and Hölder’s inequality readily yield
+      \[
+      |\mathbf E[\partial_{Y_1}\partial_{Y_2}\partial_{Y_3}\operatorname{tr}(z\mathbf 1-X(t,i,s))^{-1}]|
+      \le
+      \frac{6\|Y_1\|_3\|Y_2\|_3\|Y_3\|_3}{(\operatorname{Im}z)^4}
+      \]
+      for any random matrices \(Y_1,Y_2,Y_3\). Combining this inequality with the \(p=3\) case of Corollary 6.2 immediately yields the estimate
+      \[
+      |\mathbf E[\operatorname{tr}(z\mathbf 1-X)^{-1}]-\mathbf E[\operatorname{tr}(z\mathbf 1-G)^{-1}]|
+      \lesssim
+      \frac{1}{(\operatorname{Im}z)^4}\sum_{i=1}^n\mathbf E[\operatorname{tr}|Z_i|^3].
+      \]
+      In particular, in this case the logarithmic dimension dependence is eliminated.
+
+      #### Reference R2
+      Target: Corollary 2.7  
+      Citation: Use 1: For spectral edges we use the bounded-summand edge universality result, Corollary 2.7 of \cite{brailovskaya2024universality}, after logarithmic truncation.
+      Use 2: Corollary 2.7 of \cite{brailovskaya2024universality}, with \(t=C_D\log n\), therefore gives
+      \[
+      s_1(\widetilde A)
+      \le \mathbb E s_1(G_0)
+      +C\left\{
+      \sqrt{\frac{\log n}{m}}
+      +\left(\frac{L}{\sqrt{mp}}\right)^{1/3}(\log n)^{2/3}
+      +\frac{L\log n}{\sqrt{mp}}
+      \right\}
+      \]
+      with probability at least \(1-cn^{-D}\).  
+      Bibliography: Citation key \texttt{brailovskaya2024universality}; full bibliography entry not supplied in the supplied material.
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction. The result below is Corollary 2.7 (Edge universality) from the supplied arXiv source, located on physical PDF page 12 (printed page 12) and attributed in the citation key to \cite{brailovskaya2024universality}; the full bibliography entry was not supplied. The source says Corollary 2.7 is stated without proof there and that its proof appears in section 7. The definitions are taken from §2.1, equations (2.1)–(2.6), pp. 8–10, and the formula for \(\varepsilon(t)\) is taken from Theorem 2.6, p. 11. This source result supplies the spectral-edge/edge-universality input cited in the current proof, including the applications using \(t=C_D\log n\). The specialized bound for \(s_1(\widetilde A)\) displayed in the current proof is not part of the source statement and is not reproduced here as source material.
+
+      ##### Definitions and notation
+      In this result, \(d\ge 2\) and \(n\in\mathbb N\) are parameters: \(d\) is the matrix dimension and \(n\) is the number of summands in the matrix decomposition. Let \(Z_0\in \mathrm M_d(\mathbb C)_{\mathrm{sa}}\) be a deterministic \(d\times d\) self-adjoint matrix, and let \(Z_1,\dots,Z_n\) be independent \(d\times d\) self-adjoint random matrices with zero mean, \(\mathbf E[Z_i]=0\), and complex-valued entries. Define
+      \[
+      X:=Z_0+\sum_{i=1}^n Z_i. \tag{2.1}
+      \]
+      Let \(G\) denote the covariance-matched Gaussian model: the \(d\times d\) self-adjoint random matrix such that \(\{\operatorname{Re}G_{ij},\operatorname{Im}G_{ij}:i,j\in[d]\}\) are jointly Gaussian, with
+      \[
+      \mathbf E[G]=\mathbf E[X],\qquad \operatorname{Cov}(G)=\operatorname{Cov}(X),
+      \]
+      where
+      \[
+      \operatorname{Cov}(X)_{ij,kl}
+      :=\mathbf E[(X-\mathbf E X)_{ij}\overline{(X-\mathbf E X)_{kl}}]. \tag{2.2}
+      \]
+      The displayed parameters used by the corollary are
+      \[
+      \sigma(X):=\|\mathbf E[(X-\mathbf E X)^2]\|^{\frac12}, \tag{2.3}
+      \]
+      \[
+      \sigma_*(X):=\sup_{\|v\|=\|w\|=1}
+      \mathbf E\!\left[|\langle v,(X-\mathbf E X)w\rangle|^2\right]^{\frac12}, \tag{2.4}
+      \]
+      and
+      \[
+      R(X):=\left\|\max_{1\le i\le n}\|Z_i\|\right\|_\infty, \tag{2.6}
+      \]
+      where \(\|Y\|_\infty\) denotes the essential supremum of the random variable \(|Y|\). The norm \(\|\cdot\|\) in these matrix parameters and in the last line below is the matrix operator norm.
+
+      For a self-adjoint matrix \(X\),
+      \[
+      \lambda_{\max}(X):=\sup \operatorname{sp}(X).
+      \]
+      The quantity \(\varepsilon(t)\) referenced in Corollary 2.7 is defined in Theorem 2.6 for \(t\ge0\) by
+      \[
+      \varepsilon(t)=\sigma_*(X)t^{\frac12}
+      +R(X)^{\frac13}\sigma(X)^{\frac23}t^{\frac23}
+      +R(X)t.
+      \]
+      The symbol \(\lesssim\) denotes an inequality up to a universal constant.
+
+      ##### Assumptions
+      Let \(d\ge 2\) and \(n\in\mathbb N\). Let \(Z_0\in \mathrm M_d(\mathbb C)_{\mathrm{sa}}\) be deterministic and let \(Z_1,\dots,Z_n\) be independent \(d\times d\) self-adjoint random matrices with zero mean, \(\mathbf E[Z_i]=0\), and complex-valued entries. Define \(X\) by (2.1). Let \(G\) be the covariance-matched Gaussian model satisfying \(\mathbf E[G]=\mathbf E[X]\) and \(\operatorname{Cov}(G)=\operatorname{Cov}(X)\) as in (2.2).
+
+      The result is meaningful only when \(R(X)<\infty\), which requires the matrices \(Z_i\) to be uniformly bounded in the sense of (2.6). The unbounded case treated by Theorem 2.8 is not part of this citation. The parameter \(t\) in the statement is any \(t\ge0\), and \(C\) is a universal constant.
+
+      ##### Statement
+      For any \(t\ge 0\),
+      \[
+      \mathbf P\left[|\lambda_{\max}(X)-\lambda_{\max}(G)|>C\varepsilon(t)\right]\le de^{-t},
+      \]
+      as well as
+      \[
+      \mathbf P\left[|\lambda_{\max}(X)-\mathbf E\lambda_{\max}(G)|>C\varepsilon(t)\right]\le de^{-t},
+      \]
+      where \(C\) is a universal constant and \(\varepsilon(t)\) is as defined above. Moreover,
+      \[
+      |\mathbf E\lambda_{\max}(X)-\mathbf E\lambda_{\max}(G)|
+      \lesssim
+      \sigma_*(X)(\log d)^{\frac12}
+      +R(X)^{\frac13}\sigma(X)^{\frac23}(\log d)^{\frac23}
+      +R(X)\log d.
+      \]
+      The same bounds hold if \(\lambda_{\max}(X),\lambda_{\max}(G)\) are replaced by \(\|X\|,\|G\|\), respectively.
+
+      #### Reference R3
+      Target: Theorem 3.16  
+      Citation: Use 1: For the lower singular-value edge we use Theorem 3.16 of the same paper.
+      Use 2: When \(\rho<1\), apply Theorem 3.16 of \cite{brailovskaya2024universality} directly to the rectangular matrix \(\widetilde A\). In the present normalization,
+      \[
+      \sigma(\widetilde A)\le1+o(1),\quad
+      \sigma_*(\widetilde A)\lesssim m^{-1/2},\quad
+      v(\widetilde A)\lesssim m^{-1/2},\quad
+      R(\widetilde A)\lesssim\frac{L}{\sqrt{mp}},
+      \]
+      and
+      \[
+      \mathbb E\widetilde A'\widetilde A=I_n,\qquad
+      \mathbb E\widetilde A\widetilde A'=\rho I_m.
+      \]
+      Hence the user-friendly free lower bound accompanying Theorem 3.16 gives \(1-\sqrt\rho\) as the leading lower-edge term. With \(t=C_D\log n\), the remainder in that theorem is bounded by
+      \[
+      C\left\{
+      m^{-1/4}(\log n)^{3/4}
+      +\frac{\log n}{\sqrt m}
+      +\left(\frac{L}{\sqrt{mp}}\right)^{1/3}(\log n)^{2/3}
+      +\frac{L\log n}{\sqrt{mp}}
+      \right\}
+      =o(\delta_m).
+      \]
+      Bibliography: Citation key \texttt{brailovskaya2024universality}; full bibliography entry not supplied in the supplied material.
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction. The named result is Theorem 3.16 from the supplied paper identified by citation key `brailovskaya2024universality` (arXiv:2201.05142), printed page 23, §3.3. The source states that its proof is deferred to §9.2 and does not reproduce that proof in the supplied pages. Theorem 3.16 supports the lower singular-value edge in the current target. The same page supplies the additional “user-friendly” free lower bound (3.4), attributed in the source to [9, Lemma 3.15], which supports the leading lower-edge term \(1-\sqrt{\rho}\) when the covariance assumptions from the current proof are substituted. The source also supplies the definitions of \(\sigma,\sigma_*,v,R\) from §2.1.4 and the non-self-adjoint convention from Corollary 2.17.
+
+      Transcription qualification: the supplied readings of Theorem 3.16 explicitly flag ambiguity in the displayed signs and powers of the error terms. The final page reading uses \(-\sigma_*(Y)t^{1/2}\) and minus signs before the last three terms in the braces; an earlier transcription in the supplied material wrote \(-\sigma_*(Y)t\). The statement below follows the final supplied page reading and does not silently correct it. Full bibliography entries for `brailovskaya2024universality`, [9], [54], and [64] were not supplied.
+
+      ##### Theorem 3.16
+      ###### Definitions and notation
+      Immediately before Theorem 3.16, the source defines the smallest singular value by
+      \[
+      s_{\min}(Y):=\inf\operatorname{sp}(|Y|),
+      \]
+      where \(|Y|=(Y^*Y)^{1/2}\).
+
+      In Theorem 3.16, \(Y_{\mathrm{free}}\) is the \(d\times m\) matrix such that the real and imaginary parts of its entries form a semicircular family with the same mean and covariance as the real and imaginary parts of the entries of \(Y\).
+
+      For a self-adjoint random matrix \(X\) as in §2.1.4, the source defines the matrix parameters
+      \[
+      \sigma(X):=\left\|\mathbb E[(X-\mathbb E X)^2]\right\|^{1/2}, \tag{2.3}
+      \]
+      \[
+      \sigma_*(X):=\sup_{\|v\|=\|w\|=1}\mathbb E\!\left[|\langle v,(X-\mathbb E X)w\rangle|^2\right]^{1/2}, \tag{2.4}
+      \]
+      \[
+      v(X):=\|\operatorname{Cov}(X)\|^{1/2}, \tag{2.5}
+      \]
+      \[
+      R(X):=\left\|\max_{1\le i\le n}\|Z_i\|\right\|_\infty, \tag{2.6}
+      \]
+      where \(\|Y\|_\infty\) denotes the essential supremum of the random variable \(|Y|\), and \(Z_i\) are the summands in the source’s sum representation. The source notes that \(R(X)\) is meaningful only when the summands \(Z_i\) are uniformly bounded.
+
+      For the non-self-adjoint rectangular setting, Theorem 3.16 refers to Corollary 2.17: in the non-self-adjoint case,
+      \[
+      \sigma(Y):=\max\!\left(\|\mathbb E Y^*Y\|^{1/2},\|\mathbb E YY^*\|^{1/2}\right),
+      \]
+      while \(\sigma_*(Y),v(Y),R(Y)\) are defined as in §2.1.4. The rectangular non-self-adjoint case is reduced to the self-adjoint case by the dilation
+      \[
+      \check M:=\begin{bmatrix}0&M\\ M^*&0\end{bmatrix},
+      \]
+      whose eigenvalues are \(\{\pm\sigma_i(M)\}\) including multiplicities; rectangular singular values are further reduced to square matrices by adding zero rows or columns.
+
+      ###### Assumptions
+      Let
+      \[
+      Y=Z_0+\sum_{i=1}^n Z_i,
+      \]
+      where \(Z_0\) is a nonrandom \(d\times m\) matrix and \(Z_1,\dots,Z_n\) are independent centered \(d\times m\) random matrices, with
+      \[
+      d\ge m.
+      \]
+      Let \(t\ge0\), and let \(C\) be a universal constant.
+
+      The printed theorem statement does not separately spell out a boundedness hypothesis on the summands. The source’s parameter discussion states that \(R(X)\) is meaningful only when the summands are uniformly bounded, and the source mentions that a variant for unbounded random matrices can be deduced by using Theorem 2.8 instead of Theorem 2.6 in the proof.
+
+      ###### Statement
+      For all \(t\ge0\),
+      \[
+      \mathbf P\Big[s_{\min}(Y)\le s_{\min}(Y_{\mathrm{free}})-C\Big\{v(Y)^{1/2}\sigma(Y)^{1/2}(\log d)^{3/4}
+      -\sigma_*(Y)t^{1/2}-R(Y)^{1/3}\sigma(Y)^{2/3}t^{2/3}-R(Y)t\Big\}\Big]\le de^{-t},
+      \]
+      where \(C\) is a universal constant, and \(\sigma(Y),\sigma_*(Y),v(Y),R(Y)\) are defined as above.
+
+      ##### User-friendly free lower bound (3.4)
+      ###### Definitions and notation
+      Use the same rectangular setting and the same definitions of \(s_{\min}\) and \(Y_{\mathrm{free}}\) as in Theorem 3.16:
+      \[
+      s_{\min}(Y):=\inf\operatorname{sp}(|Y|),
+      \]
+      and \(Y_{\mathrm{free}}\) is the \(d\times m\) matrix whose entry real and imaginary parts form a semicircular family with the same mean and covariance as those of \(Y\).
+
+      ###### Assumptions
+      The bound is stated in the case
+      \[
+      \mathbb E[Y]=0.
+      \]
+      The source attributes the bound to [9, Lemma 3.15]; the full statement of that lemma is not reproduced in the supplied material.
+
+      ###### Statement
+      In the case that \(\mathbb E[Y]=0\), a simple “user-friendly” bound is
+      \[
+      s_{\min}(Y_{\mathrm{free}})\ge s_{\min}(\mathbb E Y^*Y)^{1/2}-\|\mathbb E YY^*\|^{1/2}. \tag{3.4}
+      \]
+
+      #### Reference R4
+      Target: Classical Marchenko–Pastur convergence theory for dense sample covariance matrices (Kolmogorov rate)  
+      Citation: The classical Marchenko–Pastur convergence theory for dense sample covariance matrices gives that in the Gaussian case, an essentially \(m^{-1}\) Kolmogorov rate up to logarithmic factors \citep{gotze2011rate}.  
+      Bibliography: Citation key \texttt{gotze2011rate}; full bibliography entry not supplied in the supplied material.
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction from the supplied original PDF, Götze–Tikhomirov, *On the Rate of Convergence to the Marchenko–Pastur Distribution*, arXiv:1110.1284, setup on pp. 1–2 and Theorem 1.1 on p. 2; supplied citation key \texttt{gotze2011rate}. The supplied material does not contain a separately stated “Gaussian-entry” theorem; the Gaussian/sub-Gaussian regime is covered through condition (1.1) in the source’s parametrization, and the supplied reading identifies the \(\varkappa=2\)-type sub-Gaussian case only as a specialization of the general condition. The source theorem is a high-probability Kolmogorov-distance bound for the empirical spectral distribution \(\mathcal F_n\) of \(W=p^{-1}XX^*\). The source also defines the expected distribution \(F_n=\mathbf E\mathcal F_n\), but the displayed expectation bound used elsewhere is not a separately displayed theorem in the supplied pages. The source orientation is \(n\times p\) with aspect ratio \(y=n/p\), so its rate variable is the row count \(n\), not the target’s \(m\). The full bibliography entry for \texttt{gotze2011rate} was not supplied.
+
+      ##### Theorem 1.1 (Götze–Tikhomirov Marchenko–Pastur Kolmogorov rate)
+      ###### Definitions and notation
+      Let \(X=(X_{jk})\) be an \(n\times p\) random matrix. Set
+      \[
+      W=\frac1p XX^*.
+      \]
+      Denote by \(\{s_1^2,\dots,s_n^2\}\) the eigenvalues of \(W\), and define the empirical spectral distribution function
+      \[
+      \mathcal F_n(x)=\frac1n\operatorname{card}\{j\le n:\ s_j^2\le x\},
+      \qquad x\in\mathbb R.
+      \]
+      Define the expected distribution function
+      \[
+      F_n(x)=\mathbf E\,\mathcal F_n(x).
+      \]
+      Let
+      \[
+      y=\frac np.
+      \]
+      Let \(G_y\) denote the Marchenko–Pastur distribution function with density
+      \[
+      g_y(x)=G_y'(x)
+      =\frac{1}{2\pi yx}\sqrt{(x-a)(b-x)}\,I_{[a,b]}(x),
+      \]
+      where \(I_{[a,b]}(x)\) denotes the indicator function of \([a,b]\), and
+      \[
+      a=(1-\sqrt y)^2,\qquad b=(1+\sqrt y)^2.
+      \]
+      For \(\alpha>0\) and \(\varkappa>0\), define
+      \[
+      l_{n,\alpha}:=\log n(\log\log n)^\alpha,
+      \qquad
+      \beta_n:=(l_{n,\alpha})^{\frac1{\varkappa}+1}. \tag{1.2}
+      \]
+      The supremum \(\sup_x|\mathcal F_n(x)-G_y(x)|\) is the Kolmogorov distance between \(\mathcal F_n\) and \(G_y\).
+
+      ###### Assumptions
+      The entries \(X_{jk}\), \(1\le j\le n\), \(1\le k\le p\), are independent. Assume
+      \[
+      \mathbf E X_{jk}=0,\qquad \mathbf E X_{jk}^2=1
+      \]
+      for all \(j,k\). There exists a constant \(\varkappa>0\) such that, for all \(n,p\ge1\), all \(1\le j\le n\), all \(1\le k\le p\), and all \(t\ge1\),
+      \[
+      \Pr\{|X_{jk}|>t\}\le \varkappa^{-1}\exp\{-t^{\varkappa}\}. \tag{1.1}
+      \]
+      Assume \(y\in(0,1]\). Let \(p=p(n)\) and assume
+      \[
+      \lim_{n\to\infty}\frac np=y\in(0,\infty),
+      \]
+      and, without loss of generality in the source, \(y\in(0,1]\). The constants in the result may depend on \(\varkappa\), \(\alpha\), and \(y\).
+
+      ###### Statement
+      For every \(\alpha>0\) there exist positive constants \(C\) and \(c\), depending on \(\varkappa\), \(\alpha\), and \(y\), such that
+      \[
+      \Pr\left\{\sup_x\big|\mathcal F_n(x)-G_y(x)\big|>n^{-1}\beta_n^4\right\}
+      \le C\exp\{-c\,l_{n,\alpha}\}, \tag{1.3}
+      \]
+      where
+      \[
+      l_{n,\alpha}=\log n(\log\log n)^\alpha
+      \quad\text{and}\quad
+      \beta_n=(l_{n,\alpha})^{\frac1{\varkappa}+1}
+      \]
+      as in (1.2).
+
+      #### Reference R5
+      Target: Bai's smoothing inequality, Chapter 8 (finite-interval version)  
+      Citation: A finite-interval version of Bai's smoothing inequality \citep[Chapter 8]{bai2010spectral}, applied directly against the deterministic measure \(\bar\mu_\rho\), yields for \(B=4\) and \(0<\eta<1\),
+      \[
+      d_{\mathrm K}(\mathbb E\bar\mu_A,\bar\mu_\rho)
+      \lesssim
+      \int_{-B}^{B}
+      \left|
+      \mathbb E m_{\bar\mu_A}(u+i\eta)
+      -m_{\bar\mu_\rho}(u+i\eta)
+      \right|\,du
+      +\eta
+      +\eta^{-1}\int_{|x|>B}
+      |F_{\mathbb E\bar\mu_A}(x)-F_{\bar\mu_\rho}(x)|\,dx.
+      \]
+      Bibliography: Citation key \texttt{bai2010spectral}; full bibliography entry not supplied in the supplied material.
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      model-supplemented
+
+      ##### Content basis
+      Model organization, with source qualification. No original source text or original PDF for \citep[Chapter 8]{bai2010spectral} was obtained. The finite-interval inequality below is the citation-reported consequence used in the current proof; it is not presented as a verbatim retrieval of the original theorem. The chapter theorem number, exact hypotheses, normalization conventions, and numerical implicit constant are not available in the supplied material. The cited result supports the current target’s step bounding \(d_{\mathrm K}(\mathbb E\bar\mu_A,\bar\mu_\rho)\) by an \(L^1\) Stieltjes-transform discrepancy on a finite interval, an \(\eta\) smoothing error, and a finite-interval tail term. Definitions of Kolmogorov distance, Stieltjes transform, and symmetrized measures are supplied here from standard notation and the current proof context.
+
+      ##### Definitions and notation
+      Let \(A\) be an \(m\times n\) real matrix, with ordered singular values \(s_1(A)\ge\cdots\ge s_n(A)\). In the current proof, \(\bar\mu_A\) denotes the symmetrized empirical singular-value measure of \(A\), and \(\bar\mu_\rho\) denotes the deterministic symmetrized rooted Marchenko–Pastur measure associated with the aspect ratio \(\rho\). The exact zero-atom and normalization convention of the cited source is not supplied; the displayed inequality uses the same convention for both measures. A standard representation of the symmetrized singular-value measure is
+      \[
+      \bar\mu_A=\frac1{2n}\sum_{i=1}^n\bigl(\delta_{s_i(A)}+\delta_{-s_i(A)}\bigr),
+      \]
+      when the common zero atom is removed in the symmetrized formulation.
+
+      For a probability measure \(\mu\) on \(\mathbb R\), its distribution function is
+      \[
+      F_\mu(x)=\mu((-\infty,x]).
+      \]
+      The expected measure \(\mathbb E\bar\mu_A\) is the measure-valued expectation of \(\bar\mu_A\), and \(F_{\mathbb E\bar\mu_A}\) is its distribution function. The Kolmogorov distance is
+      \[
+      d_{\mathrm K}(\mu,\nu)=\sup_{x\in\mathbb R}|F_\mu(x)-F_\nu(x)|.
+      \]
+      For \(z=u+i\eta\) with \(\eta>0\), the Stieltjes transform is written
+      \[
+      m_\mu(z)=\int_{\mathbb R}\frac{1}{x-z}\,d\mu(x),
+      \]
+      with the sign convention irrelevant for the absolute differences in the displayed bound. The deterministic measure \(\bar\mu_\rho\) is the symmetrized version of the rooted Marchenko–Pastur measure. In the notation of the current theorem, the positive rooted Marchenko–Pastur density is
+      \[
+      \nu_\rho(x)=
+      \frac{1}{\pi}\frac{\sqrt{(\lambda_+^2-x^2)(x^2-\lambda_-^2)}}{\rho x}
+      \mathbf 1_{\{\lambda_-\le x\le\lambda_+\}},
+      \qquad
+      \lambda_\pm=1\pm\sqrt\rho .
+      \]
+      The symmetrized deterministic measure is the corresponding even extension about \(0\), with the same normalization as used for \(\bar\mu_A\).
+
+      ##### Assumptions
+      The estimate is invoked with
+      \[
+      B=4,\qquad 0<\eta<1.
+      \]
+      The real variable \(u\) ranges over the interval \([-B,B]\), and \(|x|>B\) is the region of the tail integral.
+
+      The cited finite-interval smoothing inequality is applied to the symmetrized empirical measure \(\mathbb E\bar\mu_A\) and the deterministic symmetrized measure \(\bar\mu_\rho\). The exact source hypotheses of the Chapter 8 finite-interval version—such as any support, moment, regularity, or tail-integrability conditions on the measures, as well as the precise normalization and admissibility class—are not available in the supplied material and remain subject to verification against \cite{bai2010spectral}. The current theorem’s random-matrix model is part of the application context; the smoothing inequality itself is a measure-theoretic comparison between the expected empirical measure and the deterministic reference measure.
+
+      ##### Statement
+      Subject to the unresolved source hypotheses in Assumptions, the citation-reported finite-interval form of Bai’s smoothing inequality gives, for \(B=4\) and \(0<\eta<1\),
+      \[
+      d_{\mathrm K}(\mathbb E\bar\mu_A,\bar\mu_\rho)
+      \lesssim
+      \int_{-B}^{B}
+      \left|
+      \mathbb E m_{\bar\mu_A}(u+i\eta)
+      -m_{\bar\mu_\rho}(u+i\eta)
+      \right|\,du
+      +\eta
+      +\eta^{-1}\int_{|x|>B}
+      \left|F_{\mathbb E\bar\mu_A}(x)-F_{\bar\mu_\rho}(x)\right|\,dx.
+      \]
+      The implicit multiplicative constant and the exact source conditions are not specified in the supplied material.
+    lean_name: paper_9c2867f3965841d2b9fb42151e635ad9
+    lean_namespace: Statlib.Imported
+    layer: formalization
+    priority: 3
+    dependencies: []
+    notes: generated from a persisted ordinary goal; no attack-DAG dependency semantics
+source_document: supp.tex

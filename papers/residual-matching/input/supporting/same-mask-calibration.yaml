@@ -1,0 +1,818 @@
+version: v1
+theorem_set: paper-proof-group
+source_tag: document-processing
+theorems:
+  - id: entry:selected:a80dcbdb-0839-4ea1-8809-f75eced70e2d
+    title: paper_951aae9227d84800bf9113306ae458aa
+    kind: lemma
+    latex_statement: |-
+      For an \(m\times n\) matrix \(A\), \(A'\) denotes the transpose; \(s_i(A)=\psi_i(A)\) is the \(i\)-th singular value in decreasing order,
+      \[
+      s_1(A)\ge\cdots\ge s_n(A).
+      \]
+      \(\|A\|\) is the spectral norm, the largest singular value; \(\|A\|_F\) is the Frobenius norm; and \(\|A\|_{2,\infty}\) is the largest \(L^2\) norm of the rows.
+
+      For a binary mask \(\Omega\), \(P_\Omega(A)\) keeps the entries of \(A\) on \(\Omega\) and sets the remaining entries to zero.
+
+      Let \(\rho=n/m\), \(\lambda_\pm=1\pm\sqrt\rho\), and define the rooted Marchenko--Pastur density
+      \[
+      \nu_{\rho}(x)= \frac{1}{\pi}\frac{
+      \sqrt{(\lambda_+^2-x^2)(x^2-\lambda_-^2)}}{\rho x}
+      \mathbf 1_{\{\lambda_-\le x\le\lambda_+\}}.
+      \]
+      The deterministic quantiles \(\gamma_1\ge\cdots\ge\gamma_n\) are defined by
+      \[
+      \int_{\gamma_i}^{\lambda_+}\nu_{\rho}(x)\,dx
+      =\frac{i-1/2}{n},\qquad 1\le i\le n.
+      \]
+      Write \(\delta_m=(\log m)^{-1}\).
+
+      The index set is
+      \[
+      I=\left\{\left\lceil\frac n3\right\rceil,\ldots,\left\lfloor\frac{2n}3\right\rfloor\right\}.
+      \]
+      Weights \(\omega_i\) are nonnegative, sum to \(1\), and are fixed during optimization.
+
+      The ideal same-mask reference is
+      \[
+      \lambda_i^{\circ}(\Omega)=E_G[s_i(P_\Omega(G)/\sqrt m)\mid \Omega].
+      \]
+      For \(T\ge1\), the Monte Carlo approximation is
+      \[
+      \widehat\lambda_i
+      = \frac1T\sum_{t=1}^T s_i(P_\Omega(G^{(t)})/\sqrt m),
+      \]
+      where \(G^{(t)}\) are independent standard Gaussian matrices independent of \((\Omega,H)\).
+
+      The criterion is
+      \[
+      l(N;\omega)=\sum_{i=1}^n \omega_i(\psi_i(N)-\widehat\lambda_i)^2.
+      \]
+      The working scale is
+      \[
+      \widehat\sigma(M)
+      =
+      \frac{\sum_{i\in I}\psi_i(Y-P_\Omega(M))}
+      {\sqrt m \sum_{i\in I}\widehat\lambda_i}.
+      \]
+      The normalized loss is
+      \[
+      \mathcal L(M;Y,\Omega)
+      =p^{-1}l\!\left(
+      \frac{Y-P_\Omega(M)}{\sqrt m\,\widehat\sigma(M)};\omega
+      \right).
+      \]
+      Candidates with zero bulk scale are assigned infinite loss. The reference middle sum \(\sum_{i\in I}\widehat\lambda_i\) is positive on the stated events.
+
+      <!-- formalization-clarifications:v1:cb99c85dd58bea9467d0b723d85fd8a17f21e16aa02be6b0cc655288b551ef62 -->
+      Formalization clarifications from source and proof:
+      1. Constants and quantifier order. For the selected target (“Same-mask spectral and scale calibration,” lemma `lem:loss_for_true`), the theorem statement does not spell out constant dependencies, but its proof §0, “Constants and notation,” states that \(C,c,c_0,C_0,C_1,\dots>0\) may depend only on the fixed parameters \(K,\rho_-,\alpha_0\) and, in a statement with prescribed polynomial exponent \(D\), also on \(D\); after taking \(D=4\) for the simultaneous event, the constants in the six displays depend only on the fixed data \(K,\rho_-,\alpha_0\) (with the fixed numerical choice of \(D\)), and are uniform in \(m,n,p,T\), in \(\Omega,H,G^{(t)}\), and—where the display says “simultaneously for every \(M\)”—in the candidate \(M\). The threshold \(m_0\) likewise depends only on the fixed parameters, and “sufficiently large dimensions” means \(m\ge m_0\). The intended order is: fix the fixed parameters and, for the conditional per-\(D\) statements, fix \(D>0\) first; choose \(\alpha_0\) sufficiently large, then take dimensions large with \(m\ge n\), \(0<\rho_-\le \rho=n/m\le1\), \(mp\ge\log^{\alpha_0}m\), and \(T\ge1\); finally take probability over the indicated random objects. The source does not give explicit numerical values for the generic \(C,c,C_0\), nor the exact threshold \(\alpha_0(D)\); it does explicitly suggest \(c_0(\rho_-)=\pi\rho_-/12\) and a lower-sum constant of order \(c_0/8\) in the proof of §4, but the theorem’s \(c\) is generic and may be smaller. The proof §0 also asserts that the final calibration constants do not depend on \(M_0,r,\mu_0\), even though those appear in the standing assumptions; this is a proof-based clarification, not something the bare theorem display states. The cited input has owner “Coarse rigidity for sparse rectangular matrices” (`lem:sparse_coarse_rigidity`). Its printed statement says: for every fixed \(\alpha_0>15\), if \(mp\ge\log^{\alpha_0}m\), then “for some constant \(D>0\)” the bad event has probability at most \(cn^{-D}\), with constants as in that lemma; it does not display the relation between \(D\) and \(\alpha_0\). The target proof uses the stronger prescribed-exponent form: for every fixed \(D_0>0\) there is \(\alpha_1=\alpha_1(D_0,K',\rho_-)>15\) such that, if \(\alpha_0\ge\alpha_1\), then the bad event is \(O(n^{-D_0})\), with constants depending on \(D_0,K',\rho_-,\alpha_0\) but not on \(m,n,p,\Xi,\Omega\). That stronger form is what the proof’s use “for an arbitrarily large \(D_1\)” invokes, but the source leaves the exact \(\alpha_1\) and the precise original-vs-strengthened quantifier status ambiguous. Target-specific applications of this lemma to standard Gaussian entries (\(K'=2\)) and to \(H/\sigma\) (tail constant \(K\)) do not restrict the universal cited lemma; they only substitute particular centered, unit-variance, sub-exponential matrices.
+
+      2. Norms, spaces, and named objects. In the target Definitions, \(A\) is an \(m\times n\) real matrix with \(m\ge n\); \(s_i(A)=\psi_i(A)\) are the singular values in decreasing order \(s_1(A)\ge\cdots\ge s_n(A)\); \(\|A\|\) is the spectral norm, i.e. \(s_1(A)\), not the Frobenius norm; \(\|A\|_F\) is the Frobenius norm; and \(\|A\|_{2,\infty}\) is the largest row Euclidean \(L^2\) norm, i.e. \(\max_i\|A_{i,\cdot}\|_2\), with the square root included as written in the assumptions \(\|U_0\|_{2,\infty}\le\sqrt{\mu_0r/m}\). In the second target display, \(\|P_\Omega H\|\) is the spectral norm, and the symbol \(\vee\) is maximum; in the candidate-dependent display, \(\|P_\Omega(M-M_0)\|_F\) is the Frobenius norm and the denominator is exactly \(\sigma\sqrt{mnp}\), not \(\sigma\sqrt{mp}\) or \(\sigma\sqrt{np}\). In the Monte Carlo proof, \(\|G\|_2^2=\sum_t\|G^{(t)}\|_F^2\) denotes the Euclidean norm of the stacked Gaussian vector, not a matrix spectral norm. The mask \(P_\Omega(A)\) is entrywise preservation on the binary mask \(\Omega\) and zero elsewhere. The deterministic quantiles \(\gamma_i\) are those of the rooted Marchenko–Pastur density \(\nu_\rho(x)=\pi^{-1}\{\sqrt{(\lambda_+^2-x^2)(x^2-\lambda_-^2)}\}/(\rho x)\) on \([\lambda_-,\lambda_+]\), \(\lambda_\pm=1\pm\sqrt\rho\), defined by \(\int_{\gamma_i}^{\lambda_+}\nu_\rho(x)\,dx=(i-1/2)/n\); they are not data-dependent and depend on the aspect ratio. The ideal same-mask reference is \(\lambda_i^\circ(\Omega)=E_G[s_i(P_\Omega(G)/\sqrt m)\mid\Omega]\), and the Monte Carlo object is \(\widehat\lambda_i=T^{-1}\sum_{t=1}^T s_i(P_\Omega(G^{(t)})/\sqrt m)\); these use the \(\sqrt m\) normalization and Gaussian entries of variance one. In the cited rigidity input, by contrast, the matrix is \(A=P_\Omega(\Xi)/\sqrt{mp}\); the proof records the identity \(\lambda_i^\circ(\Omega)=\sqrt p\,E_G s_i(P_\Omega(G)/\sqrt{mp}\mid\Omega)\). Thus one must not identify \(\widehat\lambda_i\) with \(\gamma_i\) without the factor \(\sqrt p\), nor replace \(\widehat\lambda_i\) by singular values of \(P_\Omega(G)/\sqrt{mp}\). The working scale is exactly
+      \[
+      \widehat\sigma(M)=\frac{\sum_{i\in I}\psi_i(Y-P_\Omega(M))}{\sqrt m\,\sum_{i\in I}\widehat\lambda_i},
+      \quad I=\{\lceil n/3\rceil,\dots,\lfloor2n/3\rfloor\},
+      \]
+      and the normalized loss is exactly
+      \[
+      \mathcal L(M;Y,\Omega)=p^{-1}l\!\left(\frac{Y-P_\Omega(M)}{\sqrt m\,\widehat\sigma(M)};\omega\right),
+      \quad l(N;\omega)=\sum_{i=1}^n\omega_i(\psi_i(N)-\widehat\lambda_i)^2,
+      \]
+      with nonnegative fixed weights summing to one; the source assigns infinite loss to candidates with zero bulk scale, and states that the reference middle sum \(\sum_{i\in I}\widehat\lambda_i\) is positive on the stated events.
+
+      3. Asymptotics and probability statements. The selected target is a finite-sample event statement, not an \(O_p/o_p\) theorem: it asserts inequalities on an event of probability at least \(1-cn^{-3}\) over the joint randomness \((\Omega,H,G^{(1)},\dots,G^{(T)})\), with \(\delta_m=(\log m)^{-1}\), and with all inequalities uniform in the indices \(i\) and—for the last display—in every \(M\in\mathbb R^{m\times n}\). The conditional reference bound is over the mask: “for every fixed \(D>0\), if \(mp\ge\log^{\alpha_0}m\) with \(\alpha_0\) sufficiently large, then with probability at least \(1-cn^{-D}\) over the mask”; conditionally on such a mask, the Monte Carlo bound is again \(1-cn^{-D}\) over the Gaussian reference matrices. The final simultaneous event proof takes \(D=4\) and \(D_1=16\) in §1. The source leaves unspecified the exact \(\alpha_0(D)\) threshold and the exact constants, and the printed coarse-rigidity lemma only states existence of some \(D>0\), as noted above. The target proof’s absorption of the Monte Carlo error uses \(T\ge1\), \(n\le m\), \(mp\ge\log^{\alpha_0}m\), and \(\alpha_0>15\) to obtain \(\sqrt{\log n/(mT)}\le \sqrt p\,\delta_m\); no \(T\to\infty\) limit is involved, and constants are uniform over \(T\ge1\). The source does not discuss random \(T\); the theorem treats \(T\) as a parameter.
+
+      4. Omitted definitions, events, and side conditions. The basic side conditions are \(m\ge n\), fixed \(0<\rho_-\le \rho=n/m\le1\), fixed \(K>0\) for the noise tail, fixed \(\sigma>0\), fixed \(\alpha_0>15\) (and sufficiently large when the statement says so), and sufficiently large \(m\). The entries of \(\Omega\) are independent Bernoulli\((p)\), the entries of \(H\) are independent, centered, of common variance \(\sigma^2>0\), with \(\mathbb P(|H_{ij}|>t\sigma)\le2e^{-t/K}\), and \(\Omega,H,G^{(t)}\) are independent as specified; \(H/\sigma\) satisfies the mean-zero, unit-variance, sub-exponential entry assumptions of the cited rigidity lemma with the same \(K\). The final event is the intersection \(\mathcal E=\mathcal E_{\text{noise}}\cap\mathcal E^{(1)}_4\cap\mathcal E^{(2)}_4=\mathcal E_{\text{spec},4}\): \(\mathcal E_{\text{noise}}\) is determined by \((\Omega,H)\) and comes from applying the cited rigidity lemma to \(H/\sigma\); \(\mathcal E^{(1)}_4\) is determined by the mask alone; and \(\mathcal E^{(2)}_4\) is measurable with respect to the mask and the Gaussian reference draws, with its conditional probability controlled uniformly for every fixed mask. The all-\(M\) bound is proved deterministically on this event, so it already allows data-dependent candidates \(M\) once the event holds. The source says \(M_0\) is a fixed rank-\(r\), \(\mu_0\)-incoherent matrix, but the selected calibration theorem does not use \(12r\le n\); the paired main paper imposes \(12r\le n\) for its rank-constrained estimation results, so one should not add that condition to this calibration lemma without checking the specific downstream result being invoked. Small-\(n\) behavior of \(I\), exact numerical constants, exact large-\(m\) thresholds, and the precise strengthening of the cited lemma from “some \(D\)” to “every fixed \(D\)” are left unspecified by the source; these should remain existential/parameterized in a formalization rather than being replaced by convenient numerical choices.
+      <!-- /formalization-clarifications -->
+
+      Under the preceding assumptions, with probability at least \(1-cn^{-3}\), the following bounds hold simultaneously:
+      \[
+      \max_i\left|\frac{s_i(P_{\Omega}H)}{\sigma\sqrt m}
+      -\widehat\lambda_i\right|
+      \le C\sqrt p\,\log^{-1}m,
+      \]
+      \[
+      \frac{\|P_{\Omega}H\|}{\sigma\sqrt m}
+      \vee \widehat\lambda_1
+      \le \sqrt p\bigl(1+\sqrt\rho+C\log^{-1}m\bigr),
+      \]
+      \[
+      \sum_{i\in I}\widehat\lambda_i\ge cn\sqrt p,
+      \]
+      \[
+      \left|\frac{\widehat\sigma(M_0)}{\sigma}-1\right|
+      \le C\log^{-1}m,
+      \]
+      and
+      \[
+      \mathcal L(M_0;Y,\Omega)\le C_0\log^{-2}m.
+      \]
+      On the same event, simultaneously for every \(M\in\mathbb R^{m\times n}\),
+      \[
+      \left|\frac{\widehat\sigma(M)}{\sigma}-1\right|
+      \le C\log^{-1}m+
+      \frac{C\|P_{\Omega}(M-M_0)\|_F}{\sigma\sqrt{mnp}}.
+      \]
+
+      The lemma also includes the following conditional reference and Monte Carlo bounds. For every fixed \(D>0\), if \(mp\ge\log^{\alpha_0}m\) with \(\alpha_0\) sufficiently large, then with probability at least \(1-cn^{-D}\) over the mask,
+      \[
+      \max_{1\le i\le n}
+      |\lambda_i^{\circ}(\Omega)-\sqrt p\,\gamma_i|
+      \le C\sqrt p\,\log^{-1}m.
+      \]
+      Conditionally on such a mask, with probability at least \(1-cn^{-D}\) over the Monte Carlo Gaussian matrices,
+      \[
+      \max_{1\le i\le n}
+      |\widehat\lambda_i-\lambda_i^{\circ}(\Omega)|
+      \le C\sqrt{\frac{\log n}{mT}}.
+      \]
+    assumptions:
+      - |-
+        Fix \(m,n\) with \(m\ge n\) and
+        \[
+        0<\rho_-\le \rho=\frac nm\le1
+        \]
+        for a fixed constant \(\rho_->0\). Let \(M_0\in\mathbb R^{m\times n}\) be a fixed rank-\(r\) matrix whose singular spaces are \(\mu_0\)-incoherent; equivalently, for a compact SVD \(M_0=U_0D_0V_0'\),
+        \[
+        \|U_0\|_{2,\infty}\le \sqrt{\frac{\mu_0 r}{m}},
+        \qquad
+        \|V_0\|_{2,\infty}\le \sqrt{\frac{\mu_0 r}{n}}.
+        \]
+        The entries of \(\Omega\) are independent Bernoulli\((p)\) variables and are independent of \(H\). The homogeneous model is
+        \[
+        Y=P_{\Omega}(M_0+H).
+        \]
+        The entries \(H_{ij}\) of \(H\) are independent, centered, have common variance \(\sigma^2>0\), and satisfy the uniform sub-exponential tail bound
+        \[
+        \mathbb P(|H_{ij}|>t\sigma)\le 2e^{-t/K}
+        \]
+        for all \(t>0\), uniformly, for a fixed \(K>0\). The Gaussian reference draws used below are independent of the observations.
+
+        Assume
+        \[
+        mp\ge \log^{\alpha_0}m
+        \]
+        for a fixed \(\alpha_0>15\) and sufficiently large dimensions, and assume the sampling condition of Lemma `lem:sparse_coarse_rigidity`, namely the same sparse polylogarithmic condition with fixed \(\alpha_0>15\) applied to the normalized entries \(H_{ij}/\sigma\); the normalized entries \(H_{ij}/\sigma\) thus satisfy the entry assumptions of that lemma (independence, zero mean, unit variance, and the uniform sub-exponential tail bound already stated).
+    proof_body: |-
+      #### Proof
+
+      #### 0. Constants, notation, and the external rigidity input
+
+      **Constants and notation.** Throughout the proof, \(C,c,c_0,C_0,C_1,\dots>0\) denote finite positive constants with the following dependence. In a statement proved for a prescribed polynomial exponent \(D\), they may depend only on the fixed parameters \(K,\rho_-,\alpha_0\) and on \(D\). In the final simultaneous event we take \(D=4\) (and correspondingly \(D_1=16\) in Section 1), so the constants in all six conclusions depend only on the fixed data \(K,\rho_-,\alpha_0\) of the task. They are always uniform in \(m,n,p,T\), in the mask \(\Omega\), in the noise \(H\), and in the Gaussian draws \(G^{(t)}\). We write
+      \[
+      \delta_m=(\log m)^{-1},\qquad
+      I=\left\{i\in\mathbb Z:\ \left\lceil \frac n3\right\rceil\le i\le \left\lfloor\frac{2n}3\right\rfloor\right\},\qquad
+      s_i(\cdot)=\psi_i(\cdot).
+      \]
+      Since \(0<\rho_-\le\rho=n/m\le1\) we have \(n\le m\) and \(n\ge\rho_-m\). Every statement below is asserted for \(m\ge m_0\), where the threshold \(m_0\) depends only on the fixed parameters of the problem. The finitely many thresholds arising in the proof can be met simultaneously by enlarging \(m_0\), and we always take \(m\ge m_0\).
+
+      **The external input.** Reference R1 is the coarse rigidity statement for sparse rectangular matrices (the source lemma `lem:sparse_coarse_rigidity`). Its hypotheses contain the standing aspect-ratio condition \(0<\rho_-\le\rho=n/m\le1\) with \(\rho_->0\) fixed (so \(m\ge n\)), and the quantiles \(\gamma_1\ge\cdots\ge\gamma_n\) occurring in it are those of the rooted Marchenko--Pastur law \(\nu_\rho\) for this same \(\rho\), defined as in the Definitions of the task. The quantitative form we use is the following.
+
+      > **Reference R1.** Let \(0<\rho_-\le\rho=n/m\le1\), and let \(\gamma_i=\gamma_i(\rho)\), \(1\le i\le n\), be the deterministic quantiles defined from \(\nu_\rho\). Let \(\{\xi_{ij}\}_{1\le i\le m,1\le j\le n}\) be independent random variables with
+      > \[
+      > \mathbb E\xi_{ij}=0,\qquad \mathbb E\xi_{ij}^2=1,\qquad
+      > \mathbb P(|\xi_{ij}|>t)\le 2e^{-t/K'},\quad t>0,
+      > \]
+      > uniformly in \(i,j\), for a fixed constant \(K'>0\). Let \(\Omega_{ij}\sim\operatorname{Bernoulli}(p)\) be i.i.d.\ and independent of the \(\xi_{ij}\), and put
+      > \[
+      > A=\frac{1}{\sqrt{mp}}P_\Omega(\Xi),\qquad \Xi=(\xi_{ij})_{m\times n}.
+      > \]
+      > Then: for every fixed \(D_0>0\) there is \(\alpha_1=\alpha_1(D_0,K',\rho_-)>15\) such that, for every \(\alpha_0\ge\alpha_1\) with \(mp\ge\log^{\alpha_0}m\), and for all \(m\) exceeding a threshold depending only on \(D_0,K',\rho_-,\alpha_0\),
+      > \[
+      > \mathbb P\left\{\max_{1\le i\le n}|s_i(A)-\gamma_i|>C\delta_m\right\}\le cn^{-D_0},
+      > \tag{R1}
+      > \]
+      > and on the complement of that event,
+      > \[
+      > s_1(A)\le 1+\sqrt\rho+C\delta_m .
+      > \tag{R1'}
+      > \]
+      > The constants \(C,c\) may depend on \(D_0,K',\rho_-,\alpha_0\) but not on \(m,n,p\), on \(\Xi\), or on \(\Omega\).
+
+      Below, (R1) and (R1') are applied only at fixed exponents. In Section 1, for each prescribed \(D>0\) we apply them with \(D_0=D_1=2D+8\); the requirement \(\alpha_0\ge\alpha_1(2D+8)\) is precisely the clause "\(\alpha_0\) sufficiently large" in the conditional reference bound asserted in the theorem. For the simultaneous event we use Sections 1--3 only at \(D=4\), hence only the exponents \(D_0=16\) (Section 1) and \(D_0=4\) (Section 3); the requirement \(\alpha_0\ge\max\{\alpha_1(4),\alpha_1(16)\}\) is part of the task's hypothesis that \(\alpha_0>15\) is sufficiently large, together with sufficiently large dimensions. The Monte Carlo bound of Section 2 uses no rigidity input and is valid for every fixed \(D>0\).
+
+      **Remark on the exponent in R1.** The printed source lemma is stated with "for some constant \(D>0\)", and its proof does not display an explicit formula for that exponent in terms of \(\alpha_0\). What the source proof does provide is: (i) a union bound over the \(O(n)\) deterministic quantile values \(\gamma_i\pm C\delta_m\) of a bounded-difference estimate for the empirical spectral distribution function, combined with a deterministic inversion of spectral counts, which is what converts a counting bound into \(|s_i(A)-\gamma_i|\le C\delta_m\); and (ii) the sparse edge bound \(\mathbb P\{s_1(A)>3\}\le cn^{-D_0}\) with \(D_0\) *arbitrarily large*, proved independently of the counting argument and used to discard the tail integral. Moreover, the source states the same-mask calibration lemma which is the object of the present theorem in exactly the quantifier order adopted in (R1): "for every fixed \(D>0\), if \(mp\ge\log^{\alpha_0}m\) with \(\alpha_0\) sufficiently large, then with probability at least \(1-cn^{-D}\) over the mask". The task's Statement repeats this formulation, and the task's sampling hypothesis has \(\alpha_0>15\) "sufficiently large". Hence (R1), with the polynomial exponent prescribed in advance, is the form of the coarse-rigidity input licensed by the source and required by the task; the proof below uses it only for \(D_0=16\) (Section 1) and \(D_0=4\) (Section 3), and uses no other property of R1 than (R1) and (R1').
+      In addition, the source's own proof of the present lemma applies R1 in the form "for an arbitrarily large \(D_1\)", i.e.\ directly in the \(D_0\)-first form (R1); this is also the quantifier order used in the conditional reference and Monte Carlo displays of the statement.
+
+
+      **Gaussian entries satisfy R1's entry hypothesis.** Let \(G\sim N(0,1)\). For every \(t>0\), the Chernoff bound gives \(\mathbb P(G>t)\le e^{-t^2/2}\), hence
+      \[
+      \mathbb P(|G|>t)\le 2e^{-t^2/2}.
+      \]
+      If \(t\ge1\), then \(t^2/2\ge t/2\), so \(\mathbb P(|G|>t)\le2e^{-t/2}\). If \(0<t<1\), then \(\mathbb P(|G|>t)\le1\le2e^{-t/2}\), because \(e^{-t/2}>e^{-1/2}>1/2\). Thus
+      \[
+      \mathbb P(|G|>t)\le 2e^{-t/2}\qquad\text{for all }t>0 .
+      \]
+
+      Thus the entry hypothesis of R1 holds for standard Gaussian entries with \(K'=2\). Consequently, when R1 is applied below to a matrix whose entries are standard Gaussians and to a Bernoulli mask independent of it, the constants may depend on \(\max(K,2)\), which is a fixed function of \(K\); this changes nothing in the stated dependence of the constants.
+
+      #### 1. Conditional reference rigidity
+
+      **Goal.** For every fixed \(D>0\) there is an event \(\mathcal E^{(1)}_D\) determined by the mask \(\Omega\) alone, with \(\mathbb P_\Omega(\mathcal E^{(1)}_D)\ge1-cn^{-D}\), on which
+      \[
+      \max_{1\le i\le n}\left|\lambda_i^{\circ}(\Omega)-\sqrt p\,\gamma_i\right|\le C\sqrt p\,\delta_m.
+      \tag{1.1}
+      \]
+
+      Fix \(D>0\) and set
+      \[
+      D_1:=2D+8,\qquad
+      B_\Omega(G):=\frac{P_\Omega(G)}{\sqrt{mp}}.
+      \]
+      The matrix \(B_\Omega(G)\) has exactly the form of R1's matrix \(A\) with \(\Xi=G\), the mask \(\Omega\) and the same \(p\); the Gaussian matrix \(G\) is independent of \(\Omega\), and by the preceding paragraph the entry hypothesis holds. Let \(C_0\) denote the constant called \(C\) in (R1) at exponent \(D_0=D_1\), and define
+      \[
+      \mathcal B(\Omega)=\Bigl\{\max_{1\le i\le n}|s_i(B_\Omega(G))-\gamma_i|>C_0\delta_m\Bigr\},
+      \qquad
+      q(\Omega)=\mathbb P_G\{\mathcal B(\Omega)\mid\Omega\}.
+      \]
+      By (R1) with exponent \(D_1\),
+      \[
+      \mathbb P_{\Omega,G}\{\mathcal B(\Omega)\}\le cn^{-D_1}.
+      \tag{1.2}
+      \]
+      Since \(q(\Omega)=\mathbb E_G[\mathbf 1_{\mathcal B(\Omega)}\mid\Omega]\) and \(q\) is a function of \(\Omega\), (1.2) says \(\mathbb E_\Omega q(\Omega)\le cn^{-D_1}\); Markov's inequality gives
+      \[
+      \mathbb P_\Omega\{q(\Omega)>n^{-D_1/2}\}\le cn^{-D_1}n^{D_1/2}=cn^{-D_1/2}=cn^{-(D+4)}\le cn^{-D}.
+      \tag{1.3}
+      \]
+      Next, \(|\Omega|\sim\operatorname{Binomial}(mn,p)\) with mean \(mnp\), so the multiplicative Chernoff bound gives
+      \[
+      \mathbb P_\Omega\{|\Omega|>2mnp\}\le e^{-cmnp}.
+      \tag{1.4}
+      \]
+      Because \(mnp\ge n\log^{\alpha_0}m\) and \(D\) is fixed, (1.4) is at most \(cn^{-D}\) for all large \(m\). Combining (1.3) and (1.4), the event
+      \[
+      \mathcal E^{(1)}_D:=\Bigl\{\Omega:\ q(\Omega)\le n^{-D_1/2}\ \text{and}\ |\Omega|\le 2mnp\Bigr\}
+      \]
+      satisfies \(\mathbb P_\Omega(\mathcal E^{(1)}_D)\ge1-cn^{-D}\).
+
+      Now fix a mask \(\Omega\in\mathcal E^{(1)}_D\). Conditional on \(\Omega\), the entries of \(B_\Omega(G)\) on \(\Omega\) are independent standard Gaussians scaled by \((mp)^{-1/2}\), and the remaining entries vanish. Hence
+      \[
+      \mathbb E_G\|B_\Omega(G)\|_F^2
+      =\frac{1}{mp}\sum_{(i,j)\in\Omega}\mathbb E\,G_{ij}^2
+      =\frac{|\Omega|}{mp}\le\frac{2mnp}{mp}=2n.
+      \tag{1.5}
+      \]
+      Also \(s_i(B_\Omega(G))\le s_1(B_\Omega(G))\le\|B_\Omega(G)\|_F\), and \(\gamma_i\le\gamma_1\le1+\sqrt\rho\le2\), since by the defining relation of the quantiles and the monotonicity of \(Q_\rho(x)=\int_x^{\lambda_+}\nu_\rho(t)\,dt\),
+      \[
+      Q_\rho(\gamma_1)=\frac{1}{2n}\ge0=Q_\rho(\lambda_+)\quad\Longrightarrow\quad \gamma_1\le\lambda_+=1+\sqrt\rho .
+      \tag{1.6}
+      \]
+      For each fixed \(i\), split the expectation according to the event \(\mathcal B(\Omega)\):
+      \[
+      \begin{aligned}
+      \left|\mathbb E_G s_i(B_\Omega(G))-\gamma_i\right|
+      &\le \mathbb E_G\bigl|s_i(B_\Omega(G))-\gamma_i\bigr|\\
+      &\le C_0\delta_m
+      +\mathbb E_G\Bigl[\mathbf 1_{\mathcal B(\Omega)}\bigl(\|B_\Omega(G)\|_F+\gamma_1\bigr)\Bigr],
+      \end{aligned}
+      \tag{1.7}
+      \]
+      where on \(\mathcal B(\Omega)^c\) we used the definition of \(\mathcal B(\Omega)\), and on \(\mathcal B(\Omega)\) we used \(|s_i-\gamma_i|\le s_i+\gamma_i\le\|B_\Omega(G)\|_F+\gamma_1\). Cauchy--Schwarz together with (1.5) and \(\gamma_1\le2\) gives
+      \[
+      \begin{aligned}
+      \mathbb E_G\Bigl[\mathbf 1_{\mathcal B(\Omega)}\bigl(\|B_\Omega(G)\|_F+\gamma_1\bigr)\Bigr]
+      &\le\Bigl\{\mathbb E_G(\|B_\Omega(G)\|_F+\gamma_1)^2\Bigr\}^{1/2}q(\Omega)^{1/2}\\
+      &\le\bigl(2\cdot2n+2\gamma_1^2\bigr)^{1/2}q(\Omega)^{1/2}
+      \le C\sqrt n\,q(\Omega)^{1/2}.
+      \end{aligned}
+      \tag{1.8}
+      \]
+      Because \(\Omega\in\mathcal E^{(1)}_D\), we have \(q(\Omega)^{1/2}\le n^{-D_1/4}=n^{-(D+4)/2}\), so with (1.7) and (1.8),
+      \[
+      \left|\mathbb E_G s_i(B_\Omega(G))-\gamma_i\right|
+      \le C_0\delta_m+C n^{1/2-(D+4)/2}.
+      \]
+      Since \(D>0\) we have \(1/2-(D+4)/2=-3/2-D/2<0\), hence \(n^{1/2-(D+4)/2}\le n^{-3/2}\le\delta_m\) for all large \(m\). Therefore, uniformly in \(i\),
+      \[
+      \max_{1\le i\le n}\left|\mathbb E_G s_i(B_\Omega(G))-\gamma_i\right|\le C\delta_m.
+      \tag{1.9}
+      \]
+      Finally, for \(c\ge0\) we have \(s_i(cA)=c\,s_i(A)\), hence
+      \[
+      \lambda_i^{\circ}(\Omega)
+      =\mathbb E_G\left[s_i\!\left(\frac{P_\Omega(G)}{\sqrt m}\right)\Big|\Omega\right]
+      =\sqrt p\;\mathbb E_G\left[s_i\!\left(\frac{P_\Omega(G)}{\sqrt{mp}}\right)\Big|\Omega\right]
+      =\sqrt p\,\mathbb E_G s_i(B_\Omega(G)).
+      \tag{1.10}
+      \]
+      Combining (1.9) and (1.10) yields (1.1) on \(\mathcal E^{(1)}_D\), and \(\mathbb P_\Omega(\mathcal E^{(1)}_D)\ge1-cn^{-D}\). This is the required conditional reference rigidity bound.
+
+      #### 2. Monte Carlo error
+
+      **Goal.** For every fixed \(D>0\) there is an event \(\mathcal E^{(2)}_D\), measurable with respect to \((\Omega,G^{(1)},\dots,G^{(T)})\), with \(\mathbb P(\mathcal E^{(2)}_D)\ge1-cn^{-D}\), on which
+      \[
+      \max_{1\le i\le n}\bigl|\widehat\lambda_i-\lambda_i^{\circ}(\Omega)\bigr|
+      \le C\sqrt{\frac{\log n}{mT}}.
+      \tag{2.1}
+      \]
+      In fact we prove the conditional version for every fixed mask.
+
+      Condition on an arbitrary mask \(\Omega\); this fixes \(\lambda_i^{\circ}(\Omega)\) and the matrices \(P_\Omega(G^{(t)})\). For matrices \(G_1,G_2\in\mathbb R^{m\times n}\), the singular values are Lipschitz for the Frobenius norm (Weyl's inequality),
+      \[
+      \bigl|s_i(P_\Omega G_1)-s_i(P_\Omega G_2)\bigr|\le \|P_\Omega(G_1-G_2)\|_F\le\|G_1-G_2\|_F,
+      \]
+      hence
+      \[
+      \left|s_i\!\left(\frac{P_\Omega G_1}{\sqrt m}\right)-s_i\!\left(\frac{P_\Omega G_2}{\sqrt m}\right)\right|
+      \le\frac{1}{\sqrt m}\|G_1-G_2\|_F.
+      \tag{2.2}
+      \]
+      Write \(G=(G^{(1)},\dots,G^{(T)})\in\mathbb R^{Tmn}\), regarded as a standard Gaussian vector with the Euclidean norm \(\|G\|_2^2=\sum_t\|G^{(t)}\|_F^2\). By the triangle inequality and Cauchy--Schwarz,
+      \[
+      \left|\widehat\lambda_i(G)-\widehat\lambda_i(G')\right|
+      \le\frac1T\sum_{t=1}^T\frac1{\sqrt m}\|G^{(t)}-G'^{(t)}\|_F
+      \le\frac{1}{\sqrt{mT}}\|G-G'\|_2 .
+      \tag{2.3}
+      \]
+      Thus \(\widehat\lambda_i\) is \((mT)^{-1/2}\)-Lipschitz on \(\mathbb R^{Tmn}\), and by (1.10) its mean is \(\lambda_i^{\circ}(\Omega)\). Gaussian concentration for Lipschitz functions (with the standard constant) therefore gives, for every \(t>0\),
+      \[
+      \mathbb P_G\Bigl\{\bigl|\widehat\lambda_i-\lambda_i^{\circ}(\Omega)\bigr|>t\ \Big|\ \Omega\Bigr\}
+      \le 2e^{-mTt^2/2}.
+      \tag{2.4}
+      \]
+      Choose
+      \[
+      C_D:=4\sqrt{D+3},
+      \qquad
+      t_D:=C_D\sqrt{\frac{\log n}{mT}} .
+      \]
+      Then \(mTt_D^2/2=8(D+3)\log n\), so \(2e^{-mTt_D^2/2}=2n^{-8(D+3)}\le cn^{-D-1}\), and the union bound over \(i=1,\dots,n\) in (2.4) yields
+      \[
+      \mathbb P_G\Bigl\{\max_{1\le i\le n}\bigl|\widehat\lambda_i-\lambda_i^{\circ}(\Omega)\bigr|>t_D\ \Big|\ \Omega\Bigr\}\le cn^{-D}.
+      \tag{2.5}
+      \]
+      The bound (2.5) is uniform in the fixed mask \(\Omega\). Define, for the fixed \(\Omega\), the event
+      \[
+      \mathcal E^{(2)}_D:=\Bigl\{\max_{1\le i\le n}\bigl|\widehat\lambda_i-\lambda_i^{\circ}(\Omega)\bigr|\le t_D\Bigr\}.
+      \tag{2.5'}
+      \]
+      By (2.5), \(\mathbb P_G(\mathcal E^{(2)}_D\mid\Omega)\ge1-cn^{-D}\) for every \(\Omega\); integrating over \(\Omega\) gives \(\mathbb P(\mathcal E^{(2)}_D)\ge1-cn^{-D}\), and (2.1) holds on \(\mathcal E^{(2)}_D\). In particular (2.1) holds conditionally on \(\mathcal E^{(1)}_D\) as well.
+
+      **Absorption of the Monte Carlo error.** Because \(T\ge1\) and \(n\le m\),
+      \[
+      \sqrt{\frac{\log n}{mT}}\le\sqrt{\frac{\log m}{mT}} ,
+      \]
+      while \(p^{-1/2}=m^{1/2}(mp)^{-1/2}\). Hence
+      \[
+      \frac{1}{\sqrt p\,\delta_m}\sqrt{\frac{\log n}{mT}}
+      \le\frac{(\log m)^{3/2}}{(mpT)^{1/2}}
+      \le(\log m)^{3/2-\alpha_0/2}\le1
+      \tag{2.6}
+      \]
+      for all large \(m\), because \(mp\ge\log^{\alpha_0}m\) and \(\alpha_0>15\) gives \(3/2-\alpha_0/2<0\). Therefore, for all large \(m\),
+      \[
+      \sqrt{\frac{\log n}{mT}}\le\sqrt p\,\delta_m .
+      \tag{2.7}
+      \]
+
+      **Combining Sections 1 and 2.** Let
+      \[
+      \mathcal E_{\mathrm{ref},D}:=\mathcal E^{(1)}_D\cap\mathcal E^{(2)}_D .
+      \]
+      On \(\mathcal E_{\mathrm{ref},D}\), for every \(i\),
+      \[
+      \left|\frac{\widehat\lambda_i}{\sqrt p}-\gamma_i\right|
+      \le\frac{\bigl|\widehat\lambda_i-\lambda_i^{\circ}(\Omega)\bigr|}{\sqrt p}
+      +\frac{\bigl|\lambda_i^{\circ}(\Omega)-\sqrt p\,\gamma_i\bigr|}{\sqrt p}
+      \le C\delta_m,
+      \]
+      where the first term is controlled by (2.1) and (2.7) and the second by (1.1). Thus, on \(\mathcal E_{\mathrm{ref},D}\),
+      \[
+      \max_{1\le i\le n}\left|\frac{\widehat\lambda_i}{\sqrt p}-\gamma_i\right|\le C\delta_m,
+      \tag{2.8}
+      \]
+      and \(\mathbb P(\mathcal E_{\mathrm{ref},D})\ge1-cn^{-D}\). This proves the conditional statement on the Monte Carlo error, and it converts the estimated reference into a perturbation of the deterministic Marchenko--Pastur quantiles.
+
+      #### 3. Noise spectrum, comparison with the reference, and the top singular value
+
+      Put
+      \[
+      \theta_i:=\frac{s_i(P_\Omega H)}{\sigma\sqrt m},
+      \qquad
+      \xi_{ij}:=\frac{H_{ij}}{\sigma}.
+      \]
+      By the standing assumption on \(H\), the variables \(\xi_{ij}\) are independent, centered, have unit variance, and satisfy, uniformly in \(i,j\),
+      \[
+      \mathbb P(|\xi_{ij}|>t)\le 2e^{-t/K},\qquad t>0,
+      \]
+      with the same fixed \(K\). They are independent of \(\Omega\). Hence R1 applies to
+      \[
+      A_H=\frac{P_\Omega(H/\sigma)}{\sqrt{mp}}=\frac{1}{\sqrt{mp}}P_\Omega(\Xi),\qquad \Xi=(\xi_{ij}),
+      \]
+      and, for \(c>0\),
+      \[
+      s_i(A_H)=\frac{s_i(P_\Omega H)}{\sigma\sqrt{mp}}=\frac{1}{\sqrt p}\cdot\frac{s_i(P_\Omega H)}{\sigma\sqrt m}=\frac{\theta_i}{\sqrt p}.
+      \tag{3.1}
+      \]
+      Applying (R1) with exponent \(D_0=4\) and (R1') gives an event \(\mathcal E_{\mathrm{noise}}\), determined by \((\Omega,H)\), of probability at least \(1-cn^{-4}\), on which
+      \[
+      \max_{1\le i\le n}\left|\frac{\theta_i}{\sqrt p}-\gamma_i\right|\le C\delta_m
+      \tag{3.2}
+      \]
+      and
+      \[
+      \frac{\|P_\Omega H\|}{\sigma\sqrt m}=\frac{s_1(P_\Omega H)}{\sigma\sqrt m}=\theta_1\le\sqrt p\,\bigl(1+\sqrt\rho+C\delta_m\bigr).
+      \tag{3.3}
+      \]
+      (The last identity uses \(s_1(P_\Omega H)=\|P_\Omega H\|\), the spectral norm being the top singular value.)
+
+      On
+      \[
+      \mathcal E_{\mathrm{spec},D}:=\mathcal E_{\mathrm{noise}}\cap\mathcal E_{\mathrm{ref},D}
+      \tag{3.4}
+      \]
+      we have, by (3.2) and (2.8) and the triangle inequality,
+      \[
+      \max_{1\le i\le n}\bigl|\theta_i-\widehat\lambda_i\bigr|
+      \le\max_i\bigl|\theta_i-\sqrt p\,\gamma_i\bigr|
+      +\max_i\bigl|\sqrt p\,\gamma_i-\widehat\lambda_i\bigr|
+      \le C\sqrt p\,\delta_m .
+      \tag{3.5}
+      \]
+      This is the first asserted display of the theorem.
+
+      Moreover, by (2.8) and (1.6),
+      \[
+      \widehat\lambda_1\le\sqrt p\,(\gamma_1+C\delta_m)\le\sqrt p\,\bigl(1+\sqrt\rho+C\delta_m\bigr).
+      \tag{3.6}
+      \]
+      Combining (3.3) and (3.6),
+      \[
+      \frac{\|P_\Omega H\|}{\sigma\sqrt m}\vee\widehat\lambda_1
+      \le\sqrt p\,\bigl(1+\sqrt\rho+C\log^{-1}m\bigr),
+      \tag{3.7}
+      \]
+      which is the second asserted display. Also \(\theta_1\ge0\), and by (3.3),
+      \[
+      \theta_1\le C\sqrt p\qquad\text{for all large }m,
+      \tag{3.8}
+      \]
+      a bound that will be used in Section 7.
+
+      #### 4. Lower bound for the middle reference sum
+
+      **Goal.** On \(\mathcal E_{\mathrm{ref},D}\),
+      \[
+      \sum_{i\in I}\widehat\lambda_i\ge cn\sqrt p .
+      \tag{4.1}
+      \]
+      (Here and below all constants may depend on the fixed exponent \(D\); at the end we take \(D=4\).)
+
+      We first record the elementary properties of the rooted Marchenko--Pastur law that will be needed. Let
+      \[
+      Q_\rho(x)=\int_x^{\lambda_+}\nu_\rho(t)\,dt
+      =\int_x^{\lambda_+}\frac{1}{\pi\rho}\frac{\sqrt{(\lambda_+^2-t^2)(t^2-\lambda_-^2)}}{t}\,dt,
+      \qquad \lambda_\pm=1\pm\sqrt\rho .
+      \]
+      Thus \(Q_\rho\) is nonincreasing and \(Q_\rho(\lambda_+)=0\). Since \(\nu_\rho\) is continuous on \((\lambda_-,\lambda_+)\) and bounded there by \(2/(\pi\rho_-)\) (this is estimate (4.4) below), it is integrable on \([\lambda_-,\lambda_+]\) and \(Q_\rho\) is continuous on that interval.
+
+      **Normalization of \(\nu_\rho\).** For every \(0<\rho\le1\),
+      \[
+      \int_{\lambda_-}^{\lambda_+}\nu_\rho(t)\,dt=1,
+      \qquad\text{equivalently}\qquad Q_\rho(\lambda_-)=1 .
+      \tag{4.2a}
+      \]
+      *Proof.* The integrand is nonnegative and continuous on \((\lambda_-,\lambda_+)\), so the integral exists as an improper integral; we compute its value. Let \(a:=\lambda_-^2=(1-\sqrt\rho)^2\), \(b:=\lambda_+^2=(1+\sqrt\rho)^2\), and substitute \(t=\sqrt u\), \(dt=du/(2\sqrt u)\). Since \(\sqrt{(\lambda_+^2-t^2)(t^2-\lambda_-^2)}=\sqrt{(b-u)(u-a)}\) for \(u=t^2\),
+      \[
+      \int_{\lambda_-}^{\lambda_+}\nu_\rho(t)\,dt
+      =\int_a^b\frac{\sqrt{(b-u)(u-a)}}{2\pi\rho\,u}\,du .
+      \tag{4.2b}
+      \]
+      Suppose first that \(0<\rho<1\), and set \(A:=1+\rho\), \(B:=2\sqrt\rho\), so that \(A>|B|\) and \(A^2-B^2=(1-\rho)^2\). Substitute \(u=A+B\cos\varphi\), \(\varphi\in[0,\pi]\). Then \(b-u=B(1-\cos\varphi)\), \(u-a=B(1+\cos\varphi)\), \(du=-B\sin\varphi\,d\varphi\), and by \((1-\cos\varphi)(1+\cos\varphi)=\sin^2\varphi\),
+      \[
+      \sqrt{(b-u)(u-a)}=B\sin\varphi,
+      \qquad\text{hence}\qquad
+      \int_a^b\frac{\sqrt{(b-u)(u-a)}}{u}\,du
+      =B^2\int_0^\pi\frac{\sin^2\varphi}{A+B\cos\varphi}\,d\varphi .
+      \tag{4.2c}
+      \]
+      Writing \(\cos\varphi=(A+B\cos\varphi-A)/B\), we have the identity
+      \[
+      \frac{\sin^2\varphi}{A+B\cos\varphi}
+      =\frac{1}{A+B\cos\varphi}-\frac{A+B\cos\varphi}{B^2}+\frac{2A}{B^2}-\frac{A^2}{B^2\,(A+B\cos\varphi)} .
+      \]
+      Together with the standard integrals \(\int_0^\pi (A+B\cos\varphi)^{-1}d\varphi=\pi/\sqrt{A^2-B^2}\) (legitimate because \(A>|B|\)) and \(\int_0^\pi(A+B\cos\varphi)\,d\varphi=A\pi\), this gives
+      \[
+      \int_0^\pi\frac{\sin^2\varphi}{A+B\cos\varphi}\,d\varphi
+      =\Bigl(1-\frac{A^2}{B^2}\Bigr)\frac{\pi}{1-\rho}-\frac{A\pi}{B^2}+\frac{2A\pi}{B^2}
+      =\frac{\pi\bigl(A-(1-\rho)\bigr)}{B^2}
+      =\frac{\pi}{2},
+      \]
+      where in the second equality we used \((A^2-B^2)/B^2=(1-\rho)^2/B^2\) and in the last one \(A-(1-\rho)=2\rho=B^2/2\). Inserting this into (4.2c) and then into (4.2b) yields
+      \[
+      \int_{\lambda_-}^{\lambda_+}\nu_\rho(t)\,dt
+      =\frac{1}{2\pi\rho}\cdot B^2\cdot\frac{\pi}{2}
+      =\frac{B^2}{4\rho}=1,
+      \]
+      because \(B^2=4\rho\). If \(\rho=1\), then \(\lambda_-=0\), \(\lambda_+=2\) and \(\nu_1(t)=\frac1\pi\frac{\sqrt{(4-t^2)t^2}}{t}=\frac1\pi\sqrt{4-t^2}\) on \([0,2]\), so \(\int_0^2\nu_1(t)\,dt=\pi^{-1}\int_0^2\sqrt{4-t^2}\,dt=\pi^{-1}\cdot\pi=1\), the last integral being the area of the quarter disc of radius \(2\). This proves (4.2a). \(\square\)
+
+      Consequently \(Q_\rho(\lambda_-)=1\) and \(Q_\rho(\lambda_+)=0\), and by the defining relation for the quantiles, with the convention \(Q_\rho(x)=0\) for \(x\ge\lambda_+\),
+      \[
+      Q_\rho(\gamma_i)=\frac{i-1/2}{n},\qquad 1\le i\le n.
+      \tag{4.2d}
+      \]
+
+      **Claim.** There are constants \(c_0=c_0(\rho_-)>0\) and \(m_1\) such that
+      \[
+      \gamma_i\ge c_0\qquad\text{for all }i\in I\ \text{and all }m\ge m_1 .
+      \tag{4.3}
+      \]
+
+      *Proof of the claim.* Take \(c_0:=\pi\rho_-/12\), so \(c_0<1\). On the support \(t\in[\lambda_-,\lambda_+]\) we estimate, using \(\lambda_+\le2\), \(\sqrt{t^2-\lambda_-^2}\le t\) and \(\rho\ge\rho_-\),
+      \[
+      0\le\nu_\rho(t)
+      =\frac{1}{\pi\rho}\cdot\frac{\sqrt{\lambda_+^2-t^2}\cdot\sqrt{t^2-\lambda_-^2}}{t}
+      \le\frac{1}{\pi\rho_-}\cdot2\cdot1=\frac{2}{\pi\rho_-}.
+      \tag{4.4}
+      \]
+      *Case 1: \(\lambda_->c_0\).* Since \(Q_\rho\) is nonincreasing and \(Q_\rho(\lambda_-)=1\), while \(Q_\rho(\gamma_i)=(i-1/2)/n<1\) for every \(i\le n\), we cannot have \(\gamma_i\le\lambda_-\); hence \(\gamma_i>\lambda_->c_0\).
+
+      *Case 2: \(\lambda_-\le c_0\).* By (4.4), the mass of \(\nu_\rho\) on \([\lambda_-,c_0]\) is at most
+      \[
+      \frac{2}{\pi\rho_-}\,(c_0-\lambda_-)\le\frac{2c_0}{\pi\rho_-}=\frac16 ,
+      \]
+      so \(Q_\rho(c_0)=1-\int_{\lambda_-}^{c_0}\nu_\rho\ge5/6\). On the other hand, for \(i\in I\),
+      \[
+      Q_\rho(\gamma_i)=\frac{i-1/2}{n}\le\frac{\lfloor 2n/3\rfloor-1/2}{n}<\frac23<\frac56\le Q_\rho(c_0).
+      \]
+      Since \(Q_\rho\) is nonincreasing, \(Q_\rho(\gamma_i)<Q_\rho(c_0)\) forces \(\gamma_i>c_0\). This proves (4.3). \(\square\)
+
+      Now take \(m\) so large that \(C\delta_m\le c_0/2\), with the constant \(C\) of (2.8). On \(\mathcal E_{\mathrm{ref},D}\), (2.8) gives \(\widehat\lambda_i\ge\sqrt p\,(\gamma_i-C\delta_m)\) for every \(i\), hence by (4.3)
+      \[
+      \sum_{i\in I}\widehat\lambda_i
+      \ge\sqrt p\sum_{i\in I}(\gamma_i-C\delta_m)
+      \ge\sqrt p\,|I|\,\frac{c_0}{2}.
+      \tag{4.5}
+      \]
+      Finally,
+      \[
+      |I|=\left\lfloor\frac{2n}3\right\rfloor-\left\lceil\frac n3\right\rceil+1\ge\frac{2n}3-1-\Bigl(\frac n3+1\Bigr)+1=\frac n3-1\ge\frac n4
+      \tag{4.6}
+      \]
+      for all \(n\ge12\). Combining (4.5) and (4.6) gives (4.1) with \(c=c_0/8\). In particular the middle reference sum is positive on \(\mathcal E_{\mathrm{ref},D}\), so the scale \(\widehat\sigma(M)\) is well defined for every \(M\) on that event.
+
+      #### 5. Consistency of \(\widehat\sigma(M_0)\)
+
+      At \(M=M_0\) we have \(Y-P_\Omega(M_0)=P_\Omega(H)\), so by the definition of \(\widehat\sigma\) and of \(\theta_i\),
+      \[
+      \frac{\widehat\sigma(M_0)}{\sigma}
+      =\frac{\sum_{i\in I}s_i(P_\Omega H)}{\sigma\sqrt m\sum_{i\in I}\widehat\lambda_i}
+      =\frac{\sum_{i\in I}\theta_i}{\sum_{i\in I}\widehat\lambda_i}.
+      \tag{5.1}
+      \]
+      Therefore
+      \[
+      \frac{\widehat\sigma(M_0)}{\sigma}-1
+      =\frac{\sum_{i\in I}\bigl(\theta_i-\widehat\lambda_i\bigr)}{\sum_{i\in I}\widehat\lambda_i}.
+      \tag{5.2}
+      \]
+      By (3.5), the numerator is bounded in absolute value by \(|I|\max_i|\theta_i-\widehat\lambda_i|\le n\,C\sqrt p\,\delta_m\), while by (4.1) the denominator is at least \(cn\sqrt p\). Hence, on \(\mathcal E_{\mathrm{spec},D}\),
+      \[
+      \left|\frac{\widehat\sigma(M_0)}{\sigma}-1\right|
+      \le\frac{Cn\sqrt p\,\delta_m}{cn\sqrt p}\le C\delta_m .
+      \tag{5.3}
+      \]
+      By (3.2) and (4.3), for every \(i\in I\) and all sufficiently large \(m\),
+      \[
+      \theta_i\ge\sqrt p\,(\gamma_i-C\delta_m)\ge\tfrac12c_0\sqrt p>0 ,
+      \]
+      so that \(A(M_0)=\sum_{i\in I}s_i(P_\Omega H)=\sigma\sqrt m\sum_{i\in I}\theta_i>0\). Together with \(S>0\) from (4.1) this shows that \(\widehat\sigma(M_0)\) is finite and strictly positive on \(\mathcal E_{\mathrm{spec},D}\), so the ratio in (5.1) is meaningful. This is the fourth asserted display. In particular, the normalized loss at \(M_0\) is finite on \(\mathcal E_{\mathrm{spec},D}\), i.e.\ it is not assigned the value \(+\infty\).
+
+      #### 6. Candidate-dependent scale
+
+      Let \(M\in\mathbb R^{m\times n}\) be arbitrary and put
+      \[
+      \Delta:=M-M_0,\qquad E(M):=Y-P_\Omega(M)=P_\Omega(H-\Delta),\qquad E(M)-P_\Omega H=-P_\Omega\Delta .
+      \]
+      Mirsky's perturbation inequality for singular values, applied to the two \(m\times n\) matrices \(E(M)\) and \(P_\Omega H\), gives
+      \[
+      \sum_{i=1}^n\bigl(s_i(E(M))-s_i(P_\Omega H)\bigr)^2\le\|E(M)-P_\Omega H\|_F^2=\|P_\Omega\Delta\|_F^2 .
+      \tag{6.1}
+      \]
+      Bounding the sum over the subset \(I\subseteq\{1,\dots,n\}\) and applying Cauchy--Schwarz to the indicator of \(I\),
+      \[
+      \left|\sum_{i\in I}s_i(E(M))-\sum_{i\in I}s_i(P_\Omega H)\right|
+      \le\sqrt{|I|}\;\|P_\Omega\Delta\|_F\le\sqrt n\,\|P_\Omega\Delta\|_F .
+      \tag{6.2}
+      \]
+      Write, for brevity,
+      \[
+      S:=\sum_{i\in I}\widehat\lambda_i,\qquad
+      A(M):=\sum_{i\in I}s_i(E(M)),\qquad
+      B:=\sum_{i\in I}s_i(P_\Omega H).
+      \]
+      Since \(B=\sigma\sqrt m\sum_{i\in I}\theta_i=\sigma\sqrt m\,S+\sigma\sqrt m\sum_{i\in I}(\theta_i-\widehat\lambda_i)\), (6.2) and (3.5) give
+      \[
+      \begin{aligned}
+      \bigl|A(M)-\sigma\sqrt m\,S\bigr|
+      &\le\bigl|A(M)-B\bigr|+\sigma\sqrt m\sum_{i\in I}\bigl|\theta_i-\widehat\lambda_i\bigr|\\
+      &\le\sqrt n\,\|P_\Omega\Delta\|_F+C\sigma n\sqrt{mp}\,\delta_m .
+      \end{aligned}
+      \tag{6.3}
+      \]
+      On \(\mathcal E_{\mathrm{spec},D}\) we have \(S\ge cn\sqrt p\) by (4.1), so \(\sqrt m\,S\ge cn\sqrt{mp}\). Since
+      \[
+      \widehat\sigma(M)=\frac{A(M)}{\sqrt m\,S},
+      \]
+      dividing (6.3) by the positive quantity \(\sqrt m\,S\) yields
+      \[
+      \begin{aligned}
+      \bigl|\widehat\sigma(M)-\sigma\bigr|
+      &=\frac{\bigl|A(M)-\sigma\sqrt m\,S\bigr|}{\sqrt m\,S}\\
+      &\le\frac{\sqrt n\,\|P_\Omega\Delta\|_F}{cn\sqrt{mp}}+C\sigma\delta_m
+      \le C\sigma\delta_m+\frac{C\|P_\Omega\Delta\|_F}{\sqrt{mnp}} .
+      \end{aligned}
+      \tag{6.4}
+      \]
+      Dividing (6.4) by \(\sigma>0\),
+      \[
+      \left|\frac{\widehat\sigma(M)}{\sigma}-1\right|
+      \le C\delta_m+\frac{C\|P_\Omega(M-M_0)\|_F}{\sigma\sqrt{mnp}}
+      =C\log^{-1}m+\frac{C\|P_\Omega(M-M_0)\|_F}{\sigma\sqrt{mnp}} .
+      \tag{6.5}
+      \]
+      The derivation of (6.5) used only the fixed event \(\mathcal E_{\mathrm{spec},D}\) and the deterministic inequalities (6.1)--(6.3); no randomness remains. Hence, on \(\mathcal E_{\mathrm{spec},D}\), (6.5) holds simultaneously for every \(M\in\mathbb R^{m\times n}\), which is the sixth asserted display.
+
+      #### 7. Loss at the truth
+
+      At \(M=M_0\), the normalized residual is \(P_\Omega(H)/(\sqrt m\,\widehat\sigma(M_0))\), whose \(i\)-th singular value equals
+      \[
+      s_i\!\left(\frac{P_\Omega H}{\sqrt m\,\widehat\sigma(M_0)}\right)
+      =\frac{s_i(P_\Omega H)}{\sqrt m\,\widehat\sigma(M_0)}
+      =\frac{\sigma}{\widehat\sigma(M_0)}\,\theta_i .
+      \]
+      Consequently, using the definition of \(\mathcal L\) and \(\sum_i\omega_i=1\),
+      \[
+      \mathcal L(M_0;Y,\Omega)
+      =p^{-1}\sum_{i=1}^n\omega_i\left(\frac{\sigma}{\widehat\sigma(M_0)}\theta_i-\widehat\lambda_i\right)^2 .
+      \tag{7.1}
+      \]
+      Put
+      \[
+      \alpha:=\frac{\sigma}{\widehat\sigma(M_0)}-1,
+      \qquad\text{so that}\qquad
+      \frac{\sigma}{\widehat\sigma(M_0)}\theta_i-\widehat\lambda_i
+      =(\theta_i-\widehat\lambda_i)+\alpha\theta_i .
+      \]
+      Write \(\widehat s_0:=\widehat\sigma(M_0)\). By (5.3) and the positivity established in Section 5, \(\widehat s_0>0\) and \(|\widehat s_0/\sigma-1|\le C\delta_m\le1/2\) for all large \(m\); hence \(\widehat s_0/\sigma\ge1/2\) and, by the reciprocal estimate,
+      \[
+      \alpha=\frac{\sigma}{\widehat s_0}-1=\frac{1-\widehat s_0/\sigma}{\widehat s_0/\sigma},
+      \qquad
+      |\alpha|\le\frac{C\delta_m}{1-C\delta_m}\le 2C\delta_m .
+      \tag{7.2}
+      \]
+      Using \((a+b)^2\le2a^2+2b^2\), \(\omega_i\ge0\), \(\sum_i\omega_i=1\), and \(0\le\theta_i\le\theta_1\) (singular values are nonnegative and ordered), we obtain
+      \[
+      \begin{aligned}
+      \mathcal L(M_0;Y,\Omega)
+      &\le2p^{-1}\sum_{i=1}^n\omega_i(\theta_i-\widehat\lambda_i)^2
+      +2p^{-1}\alpha^2\sum_{i=1}^n\omega_i\theta_i^2\\
+      &\le2p^{-1}\max_{1\le i\le n}\bigl|\theta_i-\widehat\lambda_i\bigr|^2
+      +2p^{-1}\alpha^2\theta_1^2 .
+      \end{aligned}
+      \tag{7.3}
+      \]
+      The first term is at most \(2p^{-1}\bigl(C\sqrt p\,\delta_m\bigr)^2=2C^2\delta_m^2\) by (3.5). For the second term, the bound (7.2) gives \(\alpha^2\le4C^2\delta_m^2\) and (3.8) gives \(\theta_1^2\le Cp\); hence the second term is at most \(8C^3\delta_m^2\). Therefore, on \(\mathcal E_{\mathrm{spec},D}\),
+      \[
+      \mathcal L(M_0;Y,\Omega)\le C_0\delta_m^2=C_0\log^{-2}m .
+      \tag{7.4}
+      \]
+      This is the fifth asserted display.
+
+      #### 8. The simultaneous event
+
+      Take \(D=4\) in Sections 1 and 2; then \(D_1=2\cdot4+8=16\) in Section 1. Let
+      \[
+      \mathcal E:=\mathcal E_{\mathrm{noise}}\cap\mathcal E^{(1)}_4\cap\mathcal E^{(2)}_4
+      =\mathcal E_{\mathrm{spec},4},
+      \]
+      the last identity being the definition (3.4). This is an event in the joint randomness \((\Omega,H,G^{(1)},\dots,G^{(T)})\). Its complement satisfies, by (R1), (1.3)--(1.4) and (2.5),
+      \[
+      \mathbb P(\mathcal E^c)\le cn^{-4}+cn^{-4}+cn^{-4}\le cn^{-3}
+      \]
+      for all large \(n\) (the three summands correspond to \(\mathcal E_{\mathrm{noise}}^c\), \((\mathcal E^{(1)}_4)^c\) and \((\mathcal E^{(2)}_4)^c\), and the last inequality absorbs the factor \(3\)). Hence
+      \[
+      \mathbb P(\mathcal E)\ge1-cn^{-3}.
+      \tag{8.1}
+      \]
+
+      On \(\mathcal E\), all the estimates proved above hold, since each of them was derived under exactly the event \(\mathcal E_{\mathrm{spec},4}=\mathcal E_{\mathrm{ref},4}\cap\mathcal E_{\mathrm{noise}}\):
+
+      * (3.5) is the first display, \(\max_i|s_i(P_\Omega H)/(\sigma\sqrt m)-\widehat\lambda_i|\le C\sqrt p\,\log^{-1}m\);
+      * (3.7) is the second display, \(\|P_\Omega H\|/(\sigma\sqrt m)\vee\widehat\lambda_1\le\sqrt p\,(1+\sqrt\rho+C\log^{-1}m)\);
+      * (4.1) is the third display, \(\sum_{i\in I}\widehat\lambda_i\ge cn\sqrt p\);
+      * (5.3) is the fourth display, \(|\widehat\sigma(M_0)/\sigma-1|\le C\log^{-1}m\);
+      * (7.4) is the fifth display, \(\mathcal L(M_0;Y,\Omega)\le C_0\log^{-2}m\);
+      * (6.5), derived on \(\mathcal E\) for an arbitrary candidate \(M\) with no further randomness, is the sixth display:
+        \[
+        \left|\frac{\widehat\sigma(M)}{\sigma}-1\right|\le C\log^{-1}m+\frac{C\|P_\Omega(M-M_0)\|_F}{\sigma\sqrt{mnp}}
+        \quad\text{for every }M\in\mathbb R^{m\times n}.
+        \]
+
+      All six bounds therefore hold simultaneously on a single event of probability at least \(1-cn^{-3}\), which is the first part of the statement.
+
+      Finally, the conditional statements of the theorem were proved with an arbitrary prescribed exponent: for every fixed \(D>0\) the event \(\mathcal E^{(1)}_D\) of Section 1 (a mask event) satisfies \(\mathbb P_\Omega(\mathcal E^{(1)}_D)\ge1-cn^{-D}\) and carries (1.1), i.e.\ the conditional reference rigidity
+      \[
+      \max_{1\le i\le n}\bigl|\lambda_i^{\circ}(\Omega)-\sqrt p\,\gamma_i\bigr|\le C\sqrt p\,\log^{-1}m ;
+      \]
+      and conditionally on any such mask (indeed on any fixed mask at all), the event \(\mathcal E^{(2)}_D\) of Section 2 satisfies \(\mathbb P_G(\mathcal E^{(2)}_D\mid\Omega)\ge1-cn^{-D}\) and carries (2.1), i.e.
+      \[
+      \max_{1\le i\le n}\bigl|\widehat\lambda_i-\lambda_i^{\circ}(\Omega)\bigr|
+      \le C\sqrt{\frac{\log n}{mT}} .
+      \]
+      This completes the proof.
+
+      ### References
+      #### Reference R1
+      Target: Lemma lem:sparse_coarse_rigidity (Coarse rigidity for sparse rectangular matrices)
+      Citation: Use 1: “Apply Lemma \ref{lem:sparse_coarse_rigidity} to the normalized sparse Gaussian matrix \begin{align*} \bm B_{\bOmega}(\bm G) =\frac{P_{\bOmega}(\bm G)}{\sqrt{mp}}. \end{align*} For an arbitrarily large \(D_1\), \begin{align}\label{eq:supp_joint_gaussian_bad} \mathbb P_{\bOmega,\bm G}\left( \max_i|s_i(\bm B_{\bOmega}(\bm G))-\gamma_i| >C\delta_m\right) \le cn^{-D_1}. \end{align}” Use 2: “By the standing noise assumption, the \(\xi_{ij}\) satisfy \eqref{eq:supp_sparse_entry_assumption}. Lemma \ref{lem:sparse_coarse_rigidity} therefore yields \begin{align}\label{eq:supp_noise_to_mp} \max_i\left| \frac{\theta_i}{\sqrt p}-\gamma_i \right|\le C\log^{-1}m \end{align} with probability at least \(1-cn^{-4}\).”
+      Bibliography: supp
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction from D1, the supplement by Ziyuan Chen and Fang Yao, Section `sec:supp_sparse_rmt`, supplementary lemma `lem:sparse_coarse_rigidity`, “Coarse rigidity for sparse rectangular matrices.” The supplied material contains the complete statement, the rooted Marchenko–Pastur density and quantile definitions, and the hypotheses. The lemma supports the two uses recorded in the Citation: the spectral-rigidity bad-event bound for the normalized masked Gaussian matrix, and, after taking \(\xi_{ij}=H_{ij}/\sigma\), the comparison of the normalized masked-noise singular values with the deterministic Marchenko–Pastur quantiles. The “in particular” display supplies the top-edge bound for \(s_1(\bm A)\). The proof of the lemma and the current proof’s substitutions and specialized consequences are not organized here. No separate external origin for this supplementary lemma is identified in the supplied material.
+
+      ##### Coarse rigidity for sparse rectangular matrices (`lem:sparse_coarse_rigidity`)
+      ###### Definitions and notation
+      Throughout the containing block, the aspect-ratio regime is
+      \[
+      0<\rho_-\le \rho=\frac{n}{m}\le 1
+      \]
+      for a fixed constant \(\rho_->0\). In particular \(m\ge n\).
+
+      For an \(m\times n\) matrix \(\bm A\), write
+      \[
+      s_1(\bm A)\ge \cdots \ge s_n(\bm A)
+      \]
+      for its ordered singular values; the supplement also writes \(s_i(\bm A)=\psi_i(\bm A)\).
+
+      The rooted Marchenko–Pastur density is
+      \[
+      \nu_{\rho}(x)
+          = \frac{1}{\pi}\frac{
+          \sqrt{(\lambda_+^2-x^2)(x^2-\lambda_-^2)}}{\rho x}
+          \mathbf 1_{\{\lambda_-\le x\le\lambda_+\}},
+          \qquad
+          \lambda_{\pm}=1\pm\sqrt{\rho}.
+      \]
+      The deterministic quantiles
+      \(\gamma_1\ge\cdots\ge\gamma_n\) are defined by
+      \[
+      \int_{\gamma_i}^{\lambda_+}\nu_{\rho}(x)\,dx
+          =\frac{i-1/2}{n},\qquad 1\le i\le n.
+      \]
+
+      For a mask \(\bOmega\), \(P_{\bOmega}(\bm A)\) keeps the entries of \(\bm A\) on \(\bOmega\) and sets the remaining entries to zero. The sparse matrix in the lemma is
+      \[
+      \bm A=\frac{1}{\sqrt{mp}}P_{\bOmega}(\bm\Xi),
+      \qquad
+      \bm\Xi=(\xi_{ij})_{m\times n}.
+      \]
+
+      The source writes \(\delta_m=(\log m)^{-1}\), so \(C\log^{-1}m=C\delta_m\) in the displayed rate.
+
+      ###### Assumptions
+      Let \(\{\xi_{ij}:1\le i\le m,\,1\le j\le n\}\) be independent random variables satisfying, uniformly in \(i,j\),
+      \[
+      \mathbb E\xi_{ij}=0,\qquad
+      \mathbb E\xi_{ij}^2=1,\qquad
+      \mathbb P(|\xi_{ij}|>t)\le 2\exp(-t/K),\quad t>0,
+      \]
+      for a fixed tail constant \(K>0\).
+
+      Let
+      \[
+      \Omega_{ij}\stackrel{\mathrm{i.i.d.}}{\sim}\operatorname{Bernoulli}(p)
+      \]
+      be independent of the \(\xi_{ij}\). The sparse sampling condition is
+      \[
+      mp\ge \log^{\alpha_0}m
+      \]
+      for a fixed \(\alpha_0>15\). The aspect-ratio condition \(0<\rho_-\le \rho=n/m\le1\) with fixed \(\rho_->0\) is in force in the containing block.
+
+      ###### Statement
+      For every fixed \(\alpha_0>15\), if \(mp\ge\log^{\alpha_0}m\), then for some constant \(D>0\),
+      \[
+      \mathbb P\left
+          \{\max_{1\le i\le n}|s_i(\bm A)-\gamma_i|
+          >C\log^{-1}m\right\}
+          \le c n^{-D}.
+      \]
+      In particular, with the same probability,
+      \[
+      s_1(\bm A)\le1+\sqrt{\rho}+C\log^{-1}m.
+      \]
+      The constants \(C,c>0\) and \(D>0\) are as in the source statement.
+    lean_name: paper_951aae9227d84800bf9113306ae458aa
+    lean_namespace: Statlib.Imported
+    layer: formalization
+    priority: 3
+    dependencies: []
+    notes: generated from a persisted ordinary goal; no attack-DAG dependency semantics
+source_document: supp.tex

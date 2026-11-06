@@ -1,0 +1,5 @@
+import Lean
+import ProverJobs.ResidualE2EAssembly20261106.M_6b0a59abdf3a33a0a258
+
+namespace PaperProofTasks.paper_fresh_20261030t103504286z_residual_matching
+

@@ -1,0 +1,810 @@
+version: v1
+theorem_set: document-goal
+source_tag: document-processing
+theorems:
+  - id: entry:selected:7cc1196c-e149-4b85-9199-7e973f475d7a
+    title: Theorem 4.1 (first main theorem; thm:upper_bound_for_rankr; rank-r matrix recovery bound, including the uniform low-loss candidate conclusion)
+    kind: theorem
+    latex_statement: |-
+      For any matrix \(\M\in \mathbb{R}^{m\times n}\), the following norms are defined: \(\|\M\|\) for the spectral norm (the largest singular value), \(\|\M\|_{F}\) for the Frobenius norm (the square root of the sum of squared entries), \(\|\M\|_{*}\) for the nuclear norm (the sum of singular values), \(\|\M\|_{\infty}\) for the maximum norm (the largest absolute value of entries), and \(\|\M\|_{2,\infty}\) for the largest \(L_2\) norm of the rows (sometimes named as the \(L_2/L_\infty\) norm \citep{ma2018implicit}). The transpose of \(\M\) is denoted by \(\M'\), and \(\operatorname{Proj}_{s}(\M)\) indicates the projection of \(\M\) onto the space of matrices with rank no more than \(s\). We use the notation \(\M_{[1:s]}\) to denote the matrix formed by the first \(s\) columns of \(\M\), and \((a)_{+}\) to represent the positive part of \(a\). Additionally, the notation \(a(m)\lesssim b(m)\) means that there exists a constant \(c>0\) such that \(|a(m)|\le c|b(m)|\), and similarly \(a(m)\gtrsim b(m)\) means that \(|a(m)|\ge c|b(m)|\).
+
+      Noisy matrix completion aims to estimate \(\M_0\in \mathbb{R}^{m\times n}\) with \(n/m=\rho\in[\rho_-,1]\) for a fixed \(\rho_->0\) from the observation \(\Y\in \mathbb{R}^{m\times n}\),
+      \begin{align*}
+      \Y = P_{\bOmega}(\M_0 + \bH),
+      \end{align*}
+      where \(\bOmega\in \mathbb{R}^{m\times n}\) is a binary matrix with ones indexing the locations of observed entries, and \(\bH\in \mathbb{R}^{m\times n}\) is an unknown noise matrix that is independent of \(\M_0\). The projection \(P_{\bOmega}(\cdot)\) preserves the observed entries in \(\bOmega\) and assigns zeros to the unobserved entries.
+
+      A sparse Gaussian random matrix of size \(m\times n\) and missing probability \(1-p_{i,j} \ge 0, 1\le i\le m, 1\le j\le n\) can be formulated as
+      \begin{align*}
+         \M\in\mathbb{R}^{m\times n}, \quad \M_{i,j} = \bm{\Phi}_{i,j} \bOmega_{i,j},\quad 1\le i\le m,1\le j\le n,
+      \end{align*}
+      where \(\bm{\Phi}_{i,j}\) are independent Gaussian random variables with mean zero and variance \(1/m\), and \(\bOmega_{i,j}\) are independent Bernoulli random variables with success probability \(p_{i,j}\).
+      Define the probability space \(\mathcal{S}_{m,n,p} = \left(\mathbb{R}^{m\times n},\mathcal{B}_{m,n},\mathcal{P}_{m,n,p}\right)\), where \(\mathcal{B}_{m,n}\) is the Borel \(\sigma\)-algebra of \(\mathbb{R}^{m\times n}\), and the probability measure \(\mathcal{P}_{m,n,p}\) is the product mixture law
+      \begin{align*}
+       \mathcal P_{m,n,p}
+       =\bigotimes_{i=1}^{m}\bigotimes_{j=1}^{n}
+       \{p_{i,j}N(0,1/m)+(1-p_{i,j})\delta_0\},
+      \end{align*}
+      where \(\delta_0\) is a point mass at zero. 
+      We denote the singular values of \(\M\) as \(\lambda_{1}(\M)\ge \lambda_2(\M)\ge \cdots \ge \lambda_n(\M)\) and combine them into a vector \(\bm{\lambda}(\M)\). 
+      In the probability space \(\mathcal{S}_{m,n,p}\), we define the conditional expectation of the random vector \(\bm{\lambda}(\M)\) as
+      \(\bm{\lambda} = \mathbb{E}_{\M} [\bm{\lambda}(\M)|\bOmega]\). For uniform sampling, the singular values of \(p^{-1/2}\M\) admit a coarse ordered approximation to the rooted Marchenko--Pastur quantiles under the sparse sampling conditions in Section~\ref{sec:theoretical}. The same-mask reference additionally reflects the realized observation pattern, while averaging several draws reduces Monte Carlo variability. The conditional mean spectrum can be approximated by Monte Carlo \(\widehat{\bm{\lambda}} = \sum_{i=1}^T \bm{\lambda}(\M_i)/T\) where \(\M_i,1\le i\le T\) are independent sparse Gaussian random matrices conditional on the observed set \(\bOmega\). The entries of \(\widehat{\bm{\lambda}}\) are denoted as \(\widehat{\lambda}_i,1\le i\le n\).
+
+      We then construct a criterion \(l(\bm{N};\bm{\omega})\) to evaluate whether the spectrum of a matrix \(\bm{N}\in\mathbb R^{m\times n}\) agrees with the sparse Gaussian reference. Let the ordered singular values of \(\bm{N}\) be denoted as \(\psi_1(\bm{N})\ge \psi_2(\bm{N})\ge \cdots \ge \psi_n(\bm{N})\), and define the vector \(\bm{\psi}(\bm{N}) = (\psi_1(\bm{N}),\cdots,\psi_n(\bm{N}))\). The criterion calculates the weighted \(L_2\) distance between \(\bm{\psi}(\bm{N})\) and \(\widehat{\bm{\lambda}}\), i.e., 
+      \[
+      l(\bm{N};\bm{\omega}) = \left\|\bm{\psi}(\bm{N}) - \widehat{\bm{\lambda}}\right\|_{\bm{\omega}}^2 = \sum_{i=1}^n \omega_i \left(\psi_i(\bm{N}) - \widehat{\lambda}_i \right)^2,
+      \]
+      where \(\bm{\omega}=(\omega_1,\cdots,\omega_n)\) is the vector of nonnegative weights satisfying \(\sum_{i=1}^n\omega_i=1\). The weights are held fixed during optimization.
+
+      \begin{align} 
+      \label{eq:working_variance}
+          \widehat{\sigma}(\M) = \frac{\sum_{i\in I} \psi_i\left(\Y - P_{\bOmega}(\M)\right)}{\sqrt{m}\sum_{i\in I} \widehat\lambda_i},
+      \end{align}
+      where \(I=\{\lceil n/3\rceil,\ldots,\lfloor2n/3\rfloor\}\) and \(\psi_i(\Y-P_{\bOmega}(\M))\) are the ordered residual singular values. Candidates with zero bulk scale are assigned infinite loss. We use the normalization \(\mathcal L(\M)=p^{-1}l((\Y-P_{\bOmega}(\M))/(\sqrt m\widehat\sigma(\M));\bm\omega)\). The working estimator \(\widehat\sigma(\M)\) approximates the standard deviation \(\sigma\) of the noise by calculating the proportion of the bulk singular values' sum from the residual matrix and sparse random matrices. Using the middle singular values reduces the influence of a few large residual singular values on scale estimation.
+
+      With a rank cap \(s\), write \(\M=\bL\R'\) with
+      \(\bL\in\mathbb R^{m\times s}\) and \(\R\in\mathbb R^{n\times s}\).
+      To control the distribution of the signal across entries, define
+      \begin{align*}
+       \mathbb M_{s,\mu_1}=\left\{\M=\U\bm D\V':\operatorname{rank}(\M)\le s,
+       \ \|\U\|_{2,\infty}^2\le\frac{\mu_1s}{m},
+       \ \|\V\|_{2,\infty}^2\le\frac{\mu_1s}{n}\right\},
+      \end{align*}
+      where \(\U,\V\) contain the nonzero singular directions; the zero matrix is included. Consider the estimator
+      \begin{align*}
+       \widetilde\M\in\operatorname*{argmin}_{\M\in \mathbb M_{r,\mu_1}}
+                   \mathcal L(\M),
+      \end{align*}
+      whenever a minimizer exists.
+
+      <!-- formalization-clarifications:v1:621b8de46419d6160b6c0b78191a9a144915a3812a98692f8591b45165f5113a -->
+      Formalization clarifications from source and proof:
+      1. Constants and quantifier order. For Theorem 4.1 the intended order is: fix the numerical/fixed parameters and conditions, including the fixed ratio constant ρ_->0, α0>15, the tail constant K_H, the fixed low-loss multiplier C_L>0, and the weight vector ω with sum one and first coordinate ω1; for each m,n with m≥n and n/m∈[ρ_-,1], each rank r with 12r≤n, each fixed deterministic M0 satisfying Assumption target with parameters μ0, s*, s1, κ, and each μ1≥μ0, p and σ satisfying the displayed sampling condition and assumptions, one considers the random mask Ω, noise H, and Gaussian Monte Carlo reference draws, obtaining an event of probability at least 1-c n^{-3}. On that same event the theorem asserts the bound for the minimizer and, more generally, simultaneously for every M∈M_{r,μ1} with finite loss and L(M)≤C_Lω1. The source states the uniform clause explicitly: “on the same event, every finite-loss candidate … obeys this bound”; the proof adds “uniform in the candidate” and “data-dependent candidates.” Thus do not put the candidate before the probability event as a per-candidate event; the high-probability event is common. The source says M0 is fixed in Assumption target and the probability statements account for “the observation mask, noise and Monte Carlo reference matrices.” The asymptotic filter is not formally specified; the source uses “sufficiently large dimensions” and ω1≫log^{-2}m, while the sampling inequality np≥Cκ²{⋯} is a finite quantitative condition. Constants: the theorem says the error constant “may depend on fixed C_L>0”; the proof states “Constants may depend on the fixed lower bound for n/m.” R2 explicitly says its C,c are numerical and may depend on the fixed lower bound for n/m. R3 explicitly allows C_M≥1 to be “possibly depending on the dimensions,” and C_{C_M} may depend on C_M. The selected text does not give a complete dependence calculus for C and c in Theorem 4.1 or for C0 in R1; in particular, exact permitted dependence on r, μ0, μ1, κ, p, σ, T, and the weight vector is not fully spelled out. What is clear is that an implicit Lean parameter does not by itself make a constant uniform over that parameter. Also, ω1 here is the first coordinate of the fixed weight vector ω, not an independent arbitrary loss threshold; the threshold is C_Lω1, and the condition ω1≫log^{-2}m is used with the first weighted term in the loss (Theorem 4.1 and proof “The first weighted singular-value term in the loss…”). The theorem’s minimizer conclusion requires a minimizer to exist; the Definitions and Proof state the estimator “whenever a minimizer exists” and “Statements about global minimizers assume their existence.” The more general finite-loss candidate conclusion does not require asserting that the candidate is a minimizer.
+
+      2. Norms and mathematical objects. The Definitions and notation fixes all matrix norms exactly: ‖M‖ is the spectral norm, the largest singular value; ‖M‖_F is the Frobenius norm, the square root of the sum of squared entries; ‖M‖_* is the nuclear norm, the sum of singular values; ‖M‖_∞ is the maximum absolute entry; and ‖M‖_{2,∞} is the largest Euclidean row L2 norm. The transpose is M′, Proj_s(M) is the projection onto rank ≤s matrices, M_{[1:s]} means the first s columns, and (a)_+ is the positive part. In the proof s_i(A)=ψ_i(A) denotes the i-th singular value in decreasing order, not an eigenvalue. The Monte Carlo reference \hatλ_i in the loss is the i-th singular value of P_Ω(G^{(t)})/√m averaged over t, and the ideal same-mask reference is λ_i°(Ω)=E_G[s_i(P_Ω(G)/√m)|Ω] in R1; these are singular values of the sparse-masked Gaussian reference, not deterministic Marchenko–Pastur quantiles, not eigenvalues of a covariance matrix, and not the singular values of an unprojected or p-scaled Gaussian matrix. R1 only compares them to √p γ_i in its reference-rigidity bound. The loss is l(N;ω)=∑_{i=1}^n ω_i(ψ_i(N)-\hatλ_i)^2=‖ψ(N)-\hatλ‖_ω^2, and the normalized loss is L(M)=p^{-1}l((Y-P_Ω(M))/(√m\hatσ(M));ω); the p^{-1}, the √m division, and the scale \hatσ(M) are part of the object. The working scale is \hatσ(M)=∑_{i∈I}ψ_i(Y-P_Ω(M))/(√m∑_{i∈I}\hatλ_i), with I={ceil(n/3),…,floor(2n/3)}; candidates with zero bulk scale are assigned infinite loss, and R1 notes the reference middle sum is positive on the stated events. The candidate class M_{s,μ1} is defined through M=UDV′ with rank≤s and U,V containing the nonzero singular directions, satisfying the squared leverage bounds ‖U‖_{2,∞}^2≤μ1s/m and ‖V‖_{2,∞}^2≤μ1s/n; the zero matrix is included and has zero leverage. This is a condition on singular spaces, not on arbitrary factors L,R in M=LR′; the proof may use balanced factorizations for Schur bounds, but that is an intermediate device. In the proof, E(M)=Y-P_Ω(M), Δ=M-M0, d=‖Δ‖_F, Q_Ω(Δ)=‖P_Ω(Δ)‖_F^2, T_Ω=p^{-1}P_Ω-Id, h=σ√(m/p), and β=μ̄r/√(np). Q_Ω is the squared Frobenius norm of the observed projection, not p^{-1} times that quantity. R2 uses W_Ω=p^{-1}Ω-J, Λ=C√(m/p), θ=C√(μ0 r log m/(np)), and the Schur bound ‖T_Ω(LR′)‖≤Λ‖L‖_{2,∞}‖R‖_{2,∞}; its b(A,C) is the minimum of ‖A‖_F‖C‖_{2,∞} and ‖A‖_{2,∞}‖C‖_F. R3’s local RSC display is exactly (p/2)‖M-M0‖_F^2≤‖P_Ω(M-M0)‖_F^2≤(3p/2)‖M-M0‖_F^2 under its stated C_M-dependent event and sampling condition; do not replace the two-sided comparison by an unobserved Frobenius equality.
+
+      3. Asymptotics. The preliminaries define a(m)≲b(m) to mean there exists c>0 with |a(m)|≤c|b(m)| and a(m)≳b(m) analogously. The selected theorem uses explicit C and c, not o_P/O_P notation. The expression ω1≫log^{-2}m is not given an exact quantitative constant in the selected statement; the proof only says “Since ω1≫log^{-2}m, for all sufficiently large m.” Likewise “sufficiently large dimensions” is an eventual side condition, not a specified threshold. The sampling condition np≥Cκ²{μ̄r log m+μ̄²r²} and the sparse condition mp≥log^{α0}m, α0>15, are quantitative finite-sample inequalities. The high-probability conclusion is literally with probability at least 1-c n^{-3}; R1 also gives conditional Monte Carlo error C√(log n/(mT)) and R2 gives mask probability 1-c n^{-4}. The main methodology says that under the sufficient sparse sampling condition any T≥1 has the required Monte Carlo property and larger T reduces the Monte Carlo component; however Theorem 4.1 itself does not explicitly restate a quantifier for T, so the exact T-dependence in the theorem statement is an implicit/source-unspecified point. The theorem’s event is the common calibration/mask/reference event; it is not a family of separate candidate-dependent events.
+
+      4. Potentially omitted definitions and side conditions. In the homogeneous theoretical sections the mask is independent Bernoulli(p) with scalar p; the more general p_{i,j} notation in the methodology is not what Assumptions–Theorem 4.1 use. H has independent mean-zero entries with variance σ²>0 and a uniform sub-exponential tail with fixed K_H; the assumption does not say the H_{ij} are identically distributed beyond variance and tail. M0 is deterministic and fixed in Assumption target, with compact SVD and s*=ψ_r(M0)>0; 12r≤n and n/m∈[ρ_-,1] are side conditions. The theorem’s rank-r factor section says “Assume μ1≥μ0, so that M0 is feasible, and set μ̄=max{μ0,μ1}”; this feasibility condition is contextual even though it is not repeated inside the displayed theorem statement. The Gaussian reference matrices are independent of the noise conditional on the observed mask, and independent standard Gaussian draws are used conditionally on the mask in R1. The weight vector is nonnegative, sums to one, and is fixed during optimization; zero bulk scale gives infinite loss. Argmin notation is conditional: the estimator is taken “whenever a minimizer exists,” and the proof says global-minimizer statements assume existence. The proof’s intermediate claims—observed energy upper bound, coarse localization, local RSC, pilot consistency—are not additional source hypotheses of Theorem 4.1; they are proof steps or consequences/citations under the stated assumptions. The proof writes \widetilde M_fac in the pilot discussion while the selected theorem writes \widetilde M; the main source defines \widetilde M_fac as the factorization estimator, but the selected theorem text does not explicitly restate the identification, so this is a notational point to resolve in formalization rather than an extra assumption. The external owners are: R1, Lemma lem:loss_for_true “Same-mask spectral and scale calibration,” supplies the calibration event, uniform scale bound, true-loss calibration, conditional same-mask reference rigidity, and Monte Carlo reference error; R2, Lemma lem:mask_geometry “Uniform Bernoulli sampling bounds,” supplies the mask event, Λ and θ, the Schur-product bound, and the factor inequalities; R3, Lemma lem:global_relative_sampling “Relative sampling for incoherent candidates,” supplies the local relative sampling/RSC bound and the C_M-dependent condition. These are universal cited lemmas under their own stated assumptions and are not restricted by the target application.
+      <!-- /formalization-clarifications -->
+
+      Suppose
+      \begin{align}
+       np\ge C\kappa^2\{\bar\mu r\log m+\bar\mu^2r^2\},
+       \qquad \omega_1\gg\log^{-2}m.
+       \label{eq:main_factor_sampling}
+      \end{align}
+      With probability at least \(1-cn^{-3}\),
+      \begin{align*}
+       \|\widetilde\M-\M_0\|_F\le C\sigma\sqrt{mr/p}.
+      \end{align*}
+      More generally, on the same event, every finite-loss candidate
+      \(\M\in \mathbb M_{r,\mu_1}\) satisfying
+      \(\mathcal L(\M)\le C_L\omega_1\) obeys this bound, with a constant
+      that may depend on the fixed \(C_L>0\).
+    assumptions:
+      - |-
+        The probability statements account for the observation mask, noise and Monte Carlo reference matrices.
+
+        \begin{assumption}
+        \label{assum:noise}\label{assum:1.a.}
+        The entries \(\bH_{ij}\) are independent mean-zero random variables with
+        variance \(\sigma^2>0\). There is a fixed constant \(K_H>0\) such that
+        \(\mathbb P(|\bH_{ij}|>t\sigma)\le2\exp(-t/K_H)\) for every \(t>0\), uniformly
+        in \(i,j,m,n\).
+        \end{assumption}
+
+        \begin{assumption}
+        \label{assum:target}
+        The fixed matrix \(\M_0\in\mathbb R^{m\times n}\) has rank \(r\), with
+        \(12r\le n\) and \(0<\rho_-\le n/m\le1\). Its compact SVD
+        \(\M_0=\U_0\bm D_0\V_0'\) satisfies
+        \(\|\U_0\|_{2,\infty}\le\sqrt{\mu_0r/m}\) and
+        \(\|\V_0\|_{2,\infty}\le\sqrt{\mu_0r/n}\).
+        Write \(s_\star=\psi_r(\M_0)>0\), \(s_1=\psi_1(\M_0)\) and
+        \(\kappa=s_1/s_\star\).
+        \end{assumption}
+
+        \begin{assumption}
+        \label{assum:missing}
+        The entries of \(\bOmega\) are independent Bernoulli\((p)\) variables,
+        independent of \(\bH\), and \(mp\ge\log^{\alpha_0}m\) for a fixed
+        \(\alpha_0>15\) and sufficiently large dimensions. The Gaussian reference
+        matrices are independent of the noise conditional on the observed mask.
+        \end{assumption}
+
+        Throughout Sections~\ref{sec:4.1}--\ref{sec:4.3}, Assumptions~\ref{assum:noise}--\ref{assum:missing} are in force.
+
+        In the setting of Theorem 4.1, the rank is \(s=r\). Firstly, we focus on the scenario where the rank \(s\) of the estimation space is properly selected, i.e., \(s=r\). In Section~\ref{sec:4.1}, the rank \(s\) of the estimation space is properly selected, i.e., \(s=r\). Assume \(\mu_1\ge\mu_0\), so that \(\M_0\) is feasible, and set \(\bar\mu=\max\{\mu_0,\mu_1\}\).
+    proof_body: |-
+      ### Definitions and notation used in Proof
+      In the proof we write \(\mathcal L(\M;\Y,\bOmega)\) for the same normalized loss \(\mathcal L(\M)\) when displaying its data arguments. Write
+      \[
+      h=\sigma\sqrt{m/p}.
+      \]
+      The zero matrix has zero leverage. For any matrix \(A\), \(s_i(A)=\psi_i(A)\) denotes its \(i\)th singular value, in decreasing order. Write
+      \[
+      \delta_m=(\log m)^{-1}.
+      \]
+      The reference middle sum is positive on the stated events. Statements about global minimizers assume their existence. Write
+      \[
+      \bm E(\M)=\Y-P_{\bOmega}(\M).
+      \]
+      Throughout the rank-constrained proof, write
+      \begin{align*}
+          \Delta=\M-\M_0,\qquad
+          d=\|\Delta\|_F,\qquad
+          Q_{\bOmega}(\Delta)=\|P_{\bOmega}(\Delta)\|_F^2,
+      \end{align*}
+      and let
+      \[
+          \bar\mu=\max\{\mu_0,\mu_1\}.
+      \]
+      We work on the high-probability event constructed in the companion's sparse spectral section; in particular,
+      \begin{align}
+      \label{eq:factor_noise_edge_event}
+          \|P_{\bOmega}(\bH)\|
+          &\le C\sigma\sqrt{mp},\\
+      \label{eq:factor_reference_edge_event}
+          \widehat\lambda_1&\le C\sqrt p,\\
+      \label{eq:factor_reference_bulk_event}
+          \sum_{i=n/3}^{2n/3}\widehat\lambda_i&\ge c n\sqrt p,
+      \end{align}
+      with probability at least \(1-cn^{-3}\). Constants may depend on the fixed lower bound for \(n/m\). Also let
+      \[
+      T_{\bOmega}=p^{-1}P_{\bOmega}-\operatorname{Id}.
+      \]
+
+      ### Proof
+      Work on the intersection of the calibration and sampling events above. Fix \(C_L>0\) and \(\omega_1>0\), and consider a finite-loss candidate \(\M\in \mathbb M_{r,\mu_1}\) satisfying
+      \begin{align}
+       \mathcal L(\M;\Y,\bOmega)\le C_L\omega_1.
+       \label{eq:factor_low_loss_condition}
+      \end{align}
+      All subsequent bounds hold on this common event, uniformly in the candidate.
+
+      \textit{Observed energy.} We first prove
+      \begin{align}
+       Q_{\bOmega}(\Delta)
+       \le C_{C_L}\sigma\sqrt{rmp}\,d
+             +C_{C_L}\frac rn d^2.
+       \label{eq:factor_energy_upper}
+      \end{align}
+      The first weighted singular-value term in the loss and the finite-loss condition displayed above, namely
+      \[
+      \mathcal L(\M;\Y,\bOmega)\le C_L\omega_1,
+      \]
+      imply
+      \begin{align*}
+          \left|
+          \frac{\|\bm E(\M)\|}{\sqrt m\widehat\sigma(\M)}
+          -\widehat\lambda_1
+          \right|
+          \le \sqrt{C_Lp}.
+      \end{align*}
+      Together with the reference-edge event
+      \[
+      \widehat\lambda_1\le C\sqrt p
+      \quad\text{(label eq:factor\_reference\_edge\_event)},
+      \]
+      we obtain
+      \begin{align}
+      \label{eq:residual_operator_low_loss}
+          \|\bm E(\M)\|
+          \le C_{C_L}\widehat\sigma(\M)\sqrt{mp}.
+      \end{align}
+      Since \(\bm E(\M)=P_{\bOmega}(\bH-\Delta)\), the noise-edge event
+      \[
+      \|P_{\bOmega}(\bH)\|\le C\sigma\sqrt{mp}
+      \quad\text{(label eq:factor\_noise\_edge\_event)}
+      \]
+      and the residual-operator bound just displayed yield
+      \begin{align}
+      \label{eq:sampled_delta_operator}
+          \|P_{\bOmega}(\Delta)\|
+          \le C_{C_L}
+          \{\widehat\sigma(\M)+\sigma\}\sqrt{mp}.
+      \end{align}
+      Because \(\operatorname{rank}(\Delta)\le2r\),
+      \begin{align*}
+          Q_{\bOmega}(\Delta)
+          &=\langle P_{\bOmega}(\Delta),\Delta\rangle
+          \le \|P_{\bOmega}(\Delta)\|\,\|\Delta\|_*
+          \le \sqrt{2r}\|P_{\bOmega}(\Delta)\|d.
+      \end{align*}
+      By the calibration event of [ref:R1] under its stated homogeneous-noise and sampling conditions, the uniform scale bound
+      \begin{align}
+       \left|\frac{\widehat\sigma(\M)}{\sigma}-1\right|
+       \le C\log^{-1}m+
+       \frac{C\|P_{\bOmega}(\M-\M_0)\|_F}{\sigma\sqrt{mnp}}
+       \label{eq:working_scale_bound}
+      \end{align}
+      holds on the same event simultaneously for all \(\M\in\mathbb R^{m\times n}\). Applying this to the sampled-delta operator bound just displayed gives
+      \begin{align*}
+          Q_{\bOmega}(\Delta)
+          \le C_{C_L}\sigma\sqrt{rmp}\,d
+             +C_{C_L}\sqrt{\frac rn}
+              Q_{\bOmega}(\Delta)^{1/2}d.
+      \end{align*}
+      Young's inequality absorbs one half of the last \(Q_{\bOmega}(\Delta)\) term and proves
+      \[
+       Q_{\bOmega}(\Delta)
+       \le C_{C_L}\sigma\sqrt{rmp}\,d
+             +C_{C_L}\frac rn d^2
+      \quad\text{(label eq:factor\_energy\_upper)}.
+      \]
+
+      \textit{Operator localization.} Put \(\beta=\bar\mu r/\sqrt{np}\). We next show that, if \(C_{C_L}\beta\le1/2\),
+      \begin{align}
+       \|\M-\M_0\|\le C_{C_L}h+C_{C_L}\beta s_1.
+       \label{eq:factor_coarse_localization}
+      \end{align}
+      Let \(N=p^{-1}P_{\bOmega}\bH\), \(\Delta=\M-\M_0\), and \(E_{\bOmega}=T_{\bOmega}\Delta\). On the event of [ref:R2], under its standing sparse sampling condition and \(np\ge C\mu_0r\log m\), the Schur-product sampling bound
+      \[
+       \|T_{\bOmega}(LR')\|
+       \le\Lambda\|L\|_{2,\infty}\|R\|_{2,\infty}
+       \label{eq:sampling_schur_bound}
+      \]
+      holds for all conformable factors, including data-dependent factors. Applying this Schur bound to balanced factorizations of the two endpoints separately gives
+      \begin{align}
+       \|E_{\bOmega}\|\le C\beta(s_1+\|\Delta\|).
+       \label{eq:sampling_endpoint_mask_bound}
+      \end{align}
+      The residual divided by \(p\) is \(N-\Delta-E_{\bOmega}\). Since \(\rank(\Delta)\le2r\) and \(i\in I\) implies \(i>2r\), the rank perturbation singular-value inequality gives
+      \[
+      s_i(N-\Delta)\le s_{i-2r}(N)\le\|N\|\le Ch.
+      \]
+      Weyl's inequality and \(\sum_{i\in I}\widehat\lambda_i/\sqrt p\ge cn\) therefore give
+      \[
+      \widehat\sigma(\M)\sqrt{m/p}
+      =\frac{\sum_{i\in I}s_i\{N-\Delta-E_{\bOmega}\}}
+             {\sum_{i\in I}\widehat\lambda_i/\sqrt p}
+       \le C(h+\|E_{\bOmega}\|).
+      \]
+      The first weighted term of the low-loss condition implies
+      \[
+      \|\bm E(\M)/p\|\le C_{C_L}
+      \widehat\sigma(\M)\sqrt{m/p}.
+      \]
+      Thus
+      \[
+      \|\Delta\|\le\|N\|+\|E_{\bOmega}\|+
+      \|\bm E(\M)/p\|\le C_{C_L}(h+\|E_{\bOmega}\|).
+      \]
+      Use the sampling endpoint mask bound
+      \[
+       \|E_{\bOmega}\|\le C\beta(s_1+\|\Delta\|)
+       \quad\text{(label eq:sampling\_endpoint\_mask\_bound)}
+      \]
+      and absorb its last term. This proves
+      \[
+       \|\M-\M_0\|\le C_{C_L}h+C_{C_L}\beta s_1
+       \quad\text{(label eq:factor\_coarse\_localization)}.
+      \]
+
+      \textit{Frobenius error and minimizers.} Write \(d=\|\M-\M_0\|_F\) and \(\delta=\|\M-\M_0\|\). The sampling condition makes \(C_{C_L}\beta\le1/2\). If \(h\ge s_1\), the coarse localization bound gives \(\delta\le Ch\), and \(d\le\sqrt{2r}\delta\le C\sqrt r h\) already proves the claim. If \(h<s_1\), the coarse localization bound gives \(\|\M\|\le C_{C_L}s_1\).
+
+      Use the local restricted strong convexity from [ref:R3]. On the event of [ref:R2], simultaneously for every \(\M\in\mathbb M_{r,\mu_1}\) satisfying \(\|\M\|\le C_Ms_1\), with \(\Delta=\M-\M_0\) and \(f=\|\Delta\|_F\), its relative sampling bound holds, and in particular, for fixed \(C_M\), if
+      \[
+      np\ge C_{C_M}\kappa^2\{\bar\mu r\log m+\bar\mu^2r^2\},
+      \]
+      then on the same event
+      \begin{align}
+       \frac p2\|\M-\M_0\|_F^2
+       \le\|P_{\bOmega}(\M-\M_0)\|_F^2
+       \le\frac{3p}2\|\M-\M_0\|_F^2.
+       \label{eq:factor_local_rsc}
+      \end{align}
+      Use this with the fixed \(C_M\) just obtained and combine it with the energy upper bound
+      \[
+       Q_{\bOmega}(\Delta)
+       \le C_{C_L}\sigma\sqrt{rmp}\,d
+             +C_{C_L}\frac rn d^2
+      \quad\text{(label eq:factor\_energy\_upper)}:
+      \]
+      \[
+       \frac p2 d^2\le C_{C_L}\sigma\sqrt{rmp}\,d
+                          +C_{C_L}\frac r n d^2.
+      \]
+      Since \(np\ge C_{C_L}r\), absorb the last term and divide by \(pd\) when \(d>0\). This gives \(d\le C_{C_L}\sigma\sqrt{mr/p}\); \(d=0\) is immediate. All events are uniform, so the argument applies to data-dependent candidates.
+
+      Choose, for instance, \(C_L=1\). [ref:R1] shows that, under the homogeneous-noise assumptions and the sampling condition of Lemma~\ref{lem:sparse_coarse_rigidity}, on the calibration event of probability at least \(1-cn^{-3}\),
+      \begin{align}
+       \mathcal L(\M_0;\Y,\bOmega)&\le C_0\log^{-2}m.
+       \label{eq:calibration_true_loss}
+      \end{align}
+      Since \(\omega_1\gg\log^{-2}m\), for all sufficiently large \(m\),
+      \[
+       \mathcal L(\widetilde\M;\Y,\bOmega)
+          \le \mathcal L(\M_0;\Y,\bOmega)
+          \le \omega_1.
+      \]
+      The uniform bound just proved therefore gives
+      \[
+          \|\widetilde\M-\M_0\|_F
+          \le C\sigma\sqrt{\frac{mr}{p}}
+      \]
+      with probability at least \(1-cn^{-3}\).
+
+      The same argument also calibrates the working scale at a low-loss candidate. For the minimizer, define
+      \begin{align}
+       \widehat\sigma_{\rm pil}=\widehat\sigma(\widetilde\M_{\rm fac}).
+       \label{eq:nuclear_pilot_definition}
+      \end{align}
+      Substitution of the Frobenius bound into the energy upper bound
+      \[
+       Q_{\bOmega}(\Delta)
+       \le C_{C_L}\sigma\sqrt{rmp}\,d
+             +C_{C_L}\frac rn d^2
+      \quad\text{(label eq:factor\_energy\_upper)}
+      \]
+      gives
+      \[
+      \|P_{\bOmega}(\widetilde\M_{\rm fac}-\M_0)\|_F^2\le C\sigma^2mr.
+      \]
+      Hence the uniform scale bound
+      \[
+       \left|\frac{\widehat\sigma(\M)}{\sigma}-1\right|
+       \le C\log^{-1}m+
+       \frac{C\|P_{\bOmega}(\M-\M_0)\|_F}{\sigma\sqrt{mnp}}
+       \quad\text{(label eq:working\_scale\_bound)}
+      \]
+      yields
+      \begin{align}
+       \left|\widehat\sigma_{\rm pil}/\sigma-1\right|
+       \le C\{\log^{-1}m+\sqrt{r/(np)}\}.
+       \label{eq:nuclear_pilot_consistency}
+      \end{align}
+      Together with the bound
+      \[
+      \left|\frac{\widehat\sigma(\M_0)}{\sigma}-1\right|
+       \le C\log^{-1}m
+      \quad\text{(label eq:supp\_sigma\_consistency)}
+      \]
+      from the same calibration event, this establishes the pilot event
+      \begin{align}
+       \mathcal E_{\rm pil}
+       =\left\{\frac12\sigma\le\widehat\sigma_{\rm pil}\le\frac32\sigma,
+                \quad\frac12\sigma\le\widehat\sigma(\M_0)\le\frac32\sigma\right\}
+       \label{eq:nuclear_pilot_event}
+      \end{align}
+      for sufficiently large dimensions. The same bounds hold for any candidate satisfying the low-loss premise, with constants depending on \(C_L\).
+
+      ### References
+      #### Reference R1
+      Target: Lemma~\ref{lem:loss_for_true} (Same-mask spectral and scale calibration)
+
+      Citation: The proof uses the calibration event and the uniform scale bound from Lemma~\ref{lem:loss_for_true}: “By the calibration event of Lemma~\ref{lem:loss_for_true} under its stated homogeneous-noise and sampling conditions, the uniform scale bound
+      \[
+       \left|\frac{\widehat\sigma(\M)}{\sigma}-1\right|
+       \le C\log^{-1}m+
+       \frac{C\|P_{\bOmega}(\M-\M_0)\|_F}{\sigma\sqrt{mnp}}
+       \label{eq:working_scale_bound}
+      \]
+      holds on the same event simultaneously for all \(\M\in\mathbb R^{m\times n}\).” Later the proof says: “Choose, for instance, \(C_L=1\). Lemma~\ref{lem:loss_for_true} shows that
+      \[
+       \mathcal L(\M_0;\Y,\bOmega)\le C_0\log^{-2}m.
+      \]
+      Since \(\omega_1\gg\log^{-2}m\), …” It also uses \(\left|\widehat\sigma(\M_0)/\sigma-1\right|\le C\log^{-1}m\) from the same calibration event.
+
+      Bibliography: supp
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction from D1 (`supp.tex`), Section “Sparse spectral calibration at the true matrix” (`sec:supp_sparse_rmt`), Lemma `lem:loss_for_true` (“Same-mask spectral and scale calibration”), attributed to Ziyuan Chen and Fang Yao as supplementary material for “Residual spectral matching: a new perspective for matrix completion.” The lemma directly supports the target’s uniform candidate-dependent scale bound, the truth-scale calibration \(|\widehat\sigma(\M_0)/\sigma-1|\le C\log^{-1}m\), and the truth-loss calibration \(\mathcal L(\M_0;\Y,\bOmega)\le C_0\log^{-2}m\). The lemma’s final sentence also identifies the conditional same-mask reference bound and the Monte Carlo reference error bound; these are included as part of the same source result because the lemma statement refers to them. No additional independent source result is required here, and no bridge or discharge of application conditions is asserted. The main file D2 could not be read in this run; the organized mathematical statement below is present in the supplied supplement D1.
+
+      ##### Lemma `lem:loss_for_true` (Same-mask spectral and scale calibration)
+
+      ###### Definitions and notation
+      For the homogeneous model,
+      \[
+      Y=P_{\bOmega}(M_0+H),
+      \]
+      where \(M_0\in\mathbb R^{m\times n}\) is a fixed rank-\(r\) matrix, \(m\ge n\), and
+      \[
+      0<\rho_-\le \rho=\frac nm\le 1
+      \]
+      for a fixed constant \(\rho_->0\). The matrix \(P_{\bOmega}(\cdot)\) is the projection that preserves the entries indexed by \(\bOmega\) and assigns zeros to unobserved entries. The entries of \(\bOmega\) are independent Bernoulli\((p)\) variables. We write
+      \[
+      s_\star=s_r(M_0)>0,\qquad s_1=s_1(M_0),\qquad \kappa=\frac{s_1}{s_\star},\qquad h=\sigma\sqrt{\frac mp}.
+      \]
+
+      For any matrix \(\bm A\), \(s_i(\bm A)=\psi_i(\bm A)\) denotes its \(i\)th singular value, in decreasing order. Let
+      \[
+      I=\left\{\left\lceil \frac n3\right\rceil,\ldots,\left\lfloor \frac{2n}3\right\rfloor\right\},
+      \qquad
+      \delta_m=(\log m)^{-1}.
+      \]
+      Weights \(\omega_i\) are nonnegative, satisfy \(\sum_{i=1}^n\omega_i=1\), and are fixed during optimization. The reference middle sum is positive on the stated events. Candidates with zero bulk scale are assigned infinite loss.
+
+      Under the aspect-ratio regime above, define the rooted Marchenko–Pastur density
+      \[
+      \nu_{\rho}(x)
+      =
+      \frac{1}{\pi}
+      \frac{\sqrt{(\lambda_+^2-x^2)(x^2-\lambda_-^2)}}{\rho x}
+      \mathbf 1_{\{\lambda_-\le x\le\lambda_+\}},
+      \qquad
+      \lambda_{\pm}=1\pm\sqrt{\rho},
+      \]
+      and let \(\gamma_1\ge\cdots\ge\gamma_n\) be the deterministic quantiles defined by
+      \[
+      \int_{\gamma_i}^{\lambda_+}\nu_{\rho}(x)\,dx
+      =\frac{i-1/2}{n},
+      \qquad 1\le i\le n.
+      \]
+
+      Let \(\bm G^{(t)}=(g^{(t)}_{ij})_{m\times n}\), \(1\le t\le T\), be independent standard Gaussian matrices, independent of \((\bOmega,H)\). The ideal same-mask reference is
+      \[
+      \lambda_i^{\circ}(\bOmega)
+      =
+      \mathbb E_{\bm G}\left[
+      s_i\left(\frac{P_{\bOmega}(\bm G)}{\sqrt m}\right)
+      \biggm|\bOmega\right],
+      \qquad 1\le i\le n,
+      \]
+      and its Monte Carlo approximation is
+      \[
+      \widehat\lambda_i
+      =
+      \frac1T\sum_{t=1}^T
+      s_i\left(\frac{P_{\bOmega}(\bm G^{(t)})}{\sqrt m}\right).
+      \]
+
+      The criterion is
+      \[
+      l(\bm N;\bm\omega)
+      =
+      \left\|\bm\psi(\bm N)-\widehat{\bm\lambda}\right\|_{\bm\omega}^2
+      =
+      \sum_{i=1}^n
+      \omega_i\left(\psi_i(\bm N)-\widehat\lambda_i\right)^2,
+      \]
+      where \(\bm{\omega}=(\omega_1,\ldots,\omega_n)\) is the vector of nonnegative weights satisfying \(\sum_{i=1}^n\omega_i=1\), held fixed during optimization.
+
+      The working scale is
+      \[
+      \widehat{\sigma}(M)
+      =
+      \frac{\sum_{i\in I}\psi_i\left(Y-P_{\bOmega}(M)\right)}
+      {\sqrt m\sum_{i\in I}\widehat\lambda_i},
+      \]
+      where \(\psi_i(Y-P_{\bOmega}(M))\) are the ordered residual singular values. The normalized loss is
+      \[
+      \mathcal L(M;Y,\bOmega)
+      =
+      p^{-1}
+      l\!\left(
+      \frac{Y-P_{\bOmega}(M)}{\sqrt m\,\widehat\sigma(M)};
+      \bm\omega
+      \right).
+      \]
+      Candidates with zero bulk scale are assigned infinite loss.
+
+      ###### Assumptions
+      The homogeneous-noise assumptions are: the entries \(H_{ij}\) of \(H\) are independent, centered, have common variance \(\sigma^2>0\), and satisfy
+      \[
+      \mathbb P(|H_{ij}|>t\sigma)\le 2e^{-t/K}
+      \]
+      uniformly, for a fixed \(K>0\). The entries of \(\bOmega\) are independent Bernoulli\((p)\) and independent of \(H\). The Gaussian reference draws are independent of the observations. The singular spaces of \(M_0\) are \(\mu_0\)-incoherent; equivalently, for the compact SVD \(M_0=U_0D_0V_0'\),
+      \[
+      \|U_0\|_{2,\infty}\le\sqrt{\frac{\mu_0 r}{m}},
+      \qquad
+      \|V_0\|_{2,\infty}\le\sqrt{\frac{\mu_0 r}{n}}.
+      \]
+      The homogeneous spectral results assume
+      \[
+      mp\ge \log^{\alpha_0}m
+      \]
+      for a fixed \(\alpha_0>15\) and sufficiently large dimensions. The sampling condition of Lemma `lem:sparse_coarse_rigidity` is the same sparse polylogarithmic condition
+      \[
+      mp\ge \log^{\alpha_0}m
+      \]
+      with fixed \(\alpha_0>15\), applied to the normalized entries \(H_{ij}/\sigma\), which are independent, centered, of variance one, and satisfy the displayed uniform sub-exponential tail bound.
+
+      ###### Statement
+      Under the homogeneous-noise assumptions and the sampling condition of Lemma \ref{lem:sparse_coarse_rigidity}, the following bounds hold with probability at least \(1-cn^{-3}\):
+      \begin{align}
+       \max_i\left|\frac{s_i(P_{\bOmega}H)}{\sigma\sqrt m}
+                        -\widehat\lambda_i\right|
+       &\le C\sqrt p\log^{-1}m,
+       \label{eq:supp_noise_reference_uniform}\\
+       \frac{\|P_{\bOmega}H\|}{\sigma\sqrt m}
+             \vee\widehat\lambda_1
+       &\le\sqrt p(1+\sqrt\rho+C\log^{-1}m),
+             \label{eq:control_theta_1}\\
+       \sum_{i\in I}\widehat\lambda_i&\ge cn\sqrt p,
+             \label{eq:bound_for_lambda_sum}\\
+       \left|\frac{\widehat\sigma(M_0)}{\sigma}-1\right|
+       &\le C\log^{-1}m,
+       \label{eq:supp_sigma_consistency}\\
+       \mathcal L(M_0;Y,\bOmega)&\le C_0\log^{-2}m.
+             \label{eq:calibration_true_loss}
+      \end{align}
+      On the same event, simultaneously for all \(M\in\mathbb R^{m\times n}\),
+      \begin{align}
+       \left|\frac{\widehat\sigma(M)}{\sigma}-1\right|
+       \le C\log^{-1}m+
+       \frac{C\|P_{\bOmega}(M-M_0)\|_F}{\sigma\sqrt{mnp}}.
+       \label{eq:working_scale_bound}
+      \end{align}
+
+      The conditional reference and Monte Carlo bounds referred to in the lemma are the following. For every fixed \(D>0\), if \(mp\ge\log^{\alpha_0}m\) with \(\alpha_0\) sufficiently large, then with probability at least \(1-cn^{-D}\) over the mask,
+      \begin{align}
+      \label{eq:supp_conditional_reference_rigidity}
+          \max_{1\le i\le n}
+          |\lambda_i^{\circ}(\bOmega)-\sqrt p\,\gamma_i|
+          \le C\sqrt p\,\log^{-1}m.
+      \end{align}
+      Conditionally on such a mask, with probability at least \(1-cn^{-D}\) over the Monte Carlo Gaussian matrices,
+      \begin{align}
+      \label{eq:supp_mc_reference_error}
+          \max_{1\le i\le n}
+          |\widehat\lambda_i-\lambda_i^{\circ}(\bOmega)|
+          \le C\sqrt{\frac{\log n}{mT}}.
+      \end{align}
+
+      #### Reference R2
+      Target: Lemma~\ref{lem:mask_geometry} (Uniform Bernoulli sampling bounds)
+
+      Citation: The proof invokes the sampling event and uses the Schur-product sampling bound: “Applying \eqref{eq:sampling_schur_bound} to balanced factorizations of the two endpoints separately gives
+      \[
+       \|E_\Omega\|\le C\beta(s_1+\|\Delta\|).
+      \]
+      ” The lemma supplies
+      \[
+       \|T_\Omega(LR')\|
+       \le\Lambda\|L\|_{2,\infty}\|R\|_{2,\infty},
+      \]
+      under the standing sparse sampling condition and \(np\ge C\mu_0r\log m\), for all conformable factors, including data-dependent factors.
+
+      Bibliography: supp
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction. The cited result is the supplement’s `slemma` labeled `lem:mask_geometry` (“Uniform Bernoulli sampling bounds”), in the subsection “Uniform sampling bounds” (`sec:uniform_sampling`) of D1, attributed to Ziyuan Chen and Fang Yao in the Supplement to “Residual spectral matching: a new perspective for matrix completion.” The source lemma states a simultaneous mask event and four bounds: the mask-norm bound, the tangent-space bilinear bound, the general bilinear factor bound, and the Schur-product factor bound. The current target explicitly invokes the lemma’s event and equation `eq:sampling_schur_bound`; the other displays are independently stated parts of the same source lemma. The supplement’s section introduction identifies the standing homogeneous sparse sampling condition as \(mp\ge \log^{\alpha_0}m\) for fixed \(\alpha_0>15\). No additional independently stated source result is needed for this reference item. No proof is reproduced.
+
+      ##### Lemma (Uniform Bernoulli sampling bounds, lem:mask_geometry)
+
+      ###### Definitions and notation
+      Let \(m,n\) be positive integers with \(m\ge n\) and
+      \[
+      0<\rho_-\le \frac nm\le 1
+      \]
+      for a fixed constant \(\rho_->0\). Let \(M_0\in\mathbb R^{m\times n}\) be a fixed rank-\(r\) matrix, and let \(\Omega\in\mathbb R^{m\times n}\) be a binary observation mask.
+
+      For a matrix \(X\), let \(\|X\|\) denote the spectral norm, \(\|X\|_F\) the Frobenius norm, and
+      \[
+      \|X\|_{2,\infty}
+      \]
+      the largest \(L_2\) norm of the rows of \(X\). Let \(X'\) denote the transpose of \(X\), and let \(\operatorname{Id}\) denote the identity operator. Let \(J\) denote the \(m\times n\) all-ones matrix. Let \(P_\Omega\) be the projection that preserves entries indexed by \(\Omega\) and assigns zero to unobserved entries.
+
+      Define
+      \[
+      W_\Omega=p^{-1}\Omega-J,
+      \qquad
+      T_\Omega=p^{-1}P_\Omega-\operatorname{Id}.
+      \]
+
+      Let \(T_\star\) be the fixed tangent space at \(M_0\). Equivalently, when
+      \[
+      M_0=U\Sigma V'
+      \]
+      is a compact singular value decomposition with \(r\) nonzero singular directions, the same source later writes the tangent space in the form
+      \[
+      T=\left\{ UA'+BV':\ A\in\mathbb R^{n\times r},\ B\in\mathbb R^{m\times r}\right\}.
+      \]
+      Thus in the present lemma, \(T_\star\) is this fixed tangent space at \(M_0\).
+
+      For conformable factors \(A,C\) and \(B,D\), the source uses
+      \[
+      b(A,C)=\min\left\{\|A\|_F\|C\|_{2,\infty},\ \|A\|_{2,\infty}\|C\|_F\right\}.
+      \]
+
+      ###### Assumptions
+      The surrounding homogeneous model is
+      \[
+      Y=P_\Omega(M_0+H),
+      \]
+      with fixed rank-\(r\) matrix \(M_0\in\mathbb R^{m\times n}\), \(m\ge n\), and
+      \[
+      0<\rho_-\le \frac nm\le 1
+      \]
+      for fixed \(\rho_->0\). The singular spaces of \(M_0\) are \(\mu_0\)-incoherent; in the notation of the target assumptions, for a compact SVD \(M_0=U_0\Sigma_0V_0'\),
+      \[
+      \|U_0\|_{2,\infty}\le \sqrt{\frac{\mu_0r}{m}},
+      \qquad
+      \|V_0\|_{2,\infty}\le \sqrt{\frac{\mu_0r}{n}}.
+      \]
+      Throughout the rank-constrained results, \(12r\le n\).
+
+      The entries of \(\Omega\) are independent Bernoulli\((p)\) random variables and are independent of \(H\). The standing sparse sampling condition for the homogeneous spectral results is
+      \[
+      mp\ge \log^{\alpha_0}m
+      \]
+      for fixed \(\alpha_0>15\) and sufficiently large dimensions. In addition, the lemma assumes
+      \[
+      np\ge C\mu_0r\log m.
+      \]
+      The constants \(C,c\) are numerical and may depend on the fixed lower bound for \(n/m\). The probability statement below is over the observation mask \(\Omega\).
+
+      ###### Statement
+      Under the preceding assumptions, with probability at least \(1-cn^{-4}\), the following bounds hold simultaneously:
+      \[
+      \|W_\Omega\|\le \Lambda:=C\sqrt{\frac mp},
+      \]
+      and
+      \[
+      |\langle T_\Omega A,B\rangle|
+      \le \theta\|A\|_F\|B\|_F,
+      \qquad A,B\in T_\star,
+      \]
+      where
+      \[
+      \theta=C\sqrt{\frac{\mu_0r\log m}{np}},
+      \]
+      and \(T_\star\) is the fixed tangent space at \(M_0\).
+
+      On this event the following hold for all conformable factors, including data-dependent factors:
+      \[
+      |\langle T_\Omega(AB'),CD'\rangle|
+      \le \Lambda\, b(A,C)b(B,D),
+      \qquad
+      b(A,C)=\min\left\{\|A\|_F\|C\|_{2,\infty},
+      \|A\|_{2,\infty}\|C\|_F\right\},
+      \]
+      and
+      \[
+      \|T_\Omega(LR')\|
+      \le \Lambda\|L\|_{2,\infty}\|R\|_{2,\infty}.
+      \]
+      The two pairs of factors in the bilinear inequality may have different numbers of columns.
+
+      #### Reference R3
+      Target: Lemma~\ref{lem:global_relative_sampling} (Relative sampling for incoherent candidates)
+
+      Citation: The proof uses the local restricted strong convexity from Lemma~\ref{lem:global_relative_sampling}: “Use \eqref{eq:factor_local_rsc} with this fixed \(C_M\) and combine it with \eqref{eq:factor_energy_upper}:
+      \[
+       \frac p2 d^2\le C_{C_L}\sigma\sqrt{rmp}\,d
+                          +C_{C_L}\frac r n d^2.
+      \]
+      ” The formula used is
+      \[
+       \frac p2\|\M-\M_0\|_F^2
+       \le\|P_{\bOmega}(\M-\M_0)\|_F^2
+       \le\frac{3p}2\|\M-\M_0\|_F^2,
+      \]
+      under its stated event, rank/incoherence conditions, and sampling condition \(np\ge C_{C_M}\kappa^2\{\bar\mu r\log m+\bar\mu^2r^2\}\).
+
+      Bibliography: supp
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction. The result is displayed as a supplementary lemma, `\begin{slemma}[Relative sampling for incoherent candidates]`, in D1 (`supp.tex`), Section 3.1 “Uniform sampling bounds,” immediately after Lemma~\ref{lem:mask_geometry}. It is attributed in the supplied source to the supplement of “Residual spectral matching: a new perspective for matrix completion” by Ziyuan Chen and Fang Yao. The statement supplies both the relative sampling inequality and its local restricted strong convexity consequence. The latter gives the two-sided comparison
+      \[
+      \frac p2\|\M-\M_0\|_F^2
+      \le\|P_{\bOmega}(\M-\M_0)\|_F^2
+      \le\frac{3p}2\|\M-\M_0\|_F^2
+      \]
+      under the fixed \(C_M\), rank/incoherence conditions and sampling condition
+      \(np\ge C_{C_M}\kappa^2\{\bar\mu r\log m+\bar\mu^2r^2\}\), and thus supports the restricted strong convexity step in the current proof. The event of Lemma~\ref{lem:mask_geometry} is retained as a referenced source event; its constants \(\theta,\Lambda\) are defined below because they occur explicitly in the source statement. No additional independently stated result from D1 is needed for this reference item.
+
+      ##### Lemma~\ref{lem:global_relative_sampling} (Relative sampling for incoherent candidates)
+      ###### Definitions and notation
+      Let \(m,n\) be positive integers with \(m\ge n\) and \(0<\rho_-\le n/m\le1\). Let \(p\in(0,1]\) be the Bernoulli observation probability, and let \(\bOmega\in\mathbb R^{m\times n}\) be the binary observation mask. The projection \(P_{\bOmega}(\cdot)\) keeps observed entries and sets unobserved entries to zero.
+
+      Let \(\M_0\in\mathbb R^{m\times n}\) be a fixed rank-\(r\) matrix. For any matrix \(A\), write \(s_i(A)=\psi_i(A)\) for its \(i\)th singular value in decreasing order. Write
+      \[
+      s_1=s_1(\M_0),\qquad s_\star=s_r(\M_0)>0,\qquad \kappa=s_1/s_\star .
+      \]
+      The singular spaces of \(\M_0\) are \(\mu_0\)-incoherent. For the candidate class, \(\mu_1\) is the leverage/incoherence parameter, and
+      \[
+      \bar\mu=\max\{\mu_0,\mu_1\}.
+      \]
+      The class \(\mathbb M_{r,\mu_1}\) is the class of matrices of rank at most \(r\), represented as \(M=LR'\) with \(r\) columns in each factor and projector leverage bounds \(\mu_1r/m,\mu_1r/n\) on their nonzero singular spaces. The zero matrix is included and has zero leverage.
+
+      Let \(J\) denote the \(m\times n\) all-ones matrix, and define
+      \[
+      W_\Omega=p^{-1}\bOmega-J,\qquad 
+      T_\Omega=p^{-1}P_{\bOmega}-\operatorname{Id}.
+      \]
+      On the event of Lemma~\ref{lem:mask_geometry}, the constants used in the present lemma are
+      \[
+      \Lambda:=C\sqrt{m/p}
+      \]
+      from the operator bound \(\|W_\Omega\|\le\Lambda\) in \eqref{eq:sampling_mask_norm}, and
+      \[
+      \theta=C\sqrt{\frac{\mu_0r\log m}{np}}
+      \]
+      from the tangent-space sampling bound in \eqref{eq:recovery_tangent-event}. Here \(C\) denotes a sufficiently large numerical constant, and \(C_{C_M}\) denotes a constant depending on \(C_M\).
+
+      For a candidate \(\M\in\mathbb M_{r,\mu_1}\), set
+      \[
+      \Delta=\M-\M_0,\qquad f=\|\Delta\|_F.
+      \]
+      The quantity \(a_g\) is defined in the Statement below by
+      \[
+      a_g=C\kappa\left\{\theta+(1+C_M)\Lambda\frac{\bar\mu r}{\sqrt{mn}}\right\}.
+      \]
+
+      ###### Assumptions
+      The following source conditions apply.
+
+      \begin{enumerate}
+      \item The dimensions satisfy \(m\ge n\), \(0<\rho_-\le n/m\le1\), and \(12r\le n\). The rank-constrained results are stated in the regime of sufficiently large dimensions.
+
+      \item The matrix \(\M_0\in\mathbb R^{m\times n}\) is fixed of rank \(r\), with singular spaces satisfying the \(\mu_0\)-incoherence condition of the homogeneous model. The quantities \(s_1,s_\star,\kappa\) are positive and finite as defined above.
+
+      \item The observation mask \(\bOmega\) has independent Bernoulli\((p)\) entries. The standing sparse sampling condition
+      \[
+      mp\ge \log^{\alpha_0}m
+      \]
+      holds for a fixed \(\alpha_0>15\), with sufficiently large dimensions.
+
+      \item The realized mask lies in the event of Lemma~\ref{lem:mask_geometry}. That event is formed under the standing sparse sampling condition and
+      \[
+      np\ge C\mu_0r\log m,
+      \]
+      and carries the constants \(\Lambda=C\sqrt{m/p}\) and \(\theta=C\sqrt{\mu_0r\log m/(np)}\) defined above. The present lemma is stated conditionally on this event.
+
+      \item \(C_M\ge1\) is a constant, possibly depending on the dimensions.
+      \end{enumerate}
+
+      ###### Statement
+      Let \(C_M\ge1\), possibly depending on the dimensions. On the event of Lemma~\ref{lem:mask_geometry}, simultaneously for every
+      \[
+      \M\in \mathbb M_{r,\mu_1}
+      \]
+      satisfying
+      \[
+      \|\M\|\le C_Ms_1,
+      \]
+      with
+      \[
+      \Delta=\M-\M_0,\qquad f=\|\Delta\|_F,
+      \]
+      the following bounds hold:
+      \begin{align}
+      \left|p^{-1}\|P_{\bOmega}\Delta\|_F^2-f^2\right|
+      &\le a_g f^2,
+      \label{eq:sampling_global_relative_sampling}\\
+      a_g&=C\kappa\left\{\theta+(1+C_M)
+                         \Lambda\frac{\bar\mu r}{\sqrt{mn}}\right\}
+       \le C_{C_M}\kappa\left\{
+            \sqrt{\frac{\bar\mu r\log m}{np}}+
+            \frac{\bar\mu r}{\sqrt{np}}\right\}.
+       \label{eq:sampling_global_sampling_constant}
+      \end{align}
+      In particular, for fixed \(C_M\), if
+      \begin{align}
+      np\ge C_{C_M}\kappa^2\{\bar\mu r\log m+\bar\mu^2r^2\},
+      \label{eq:relative_sampling_condition}
+      \end{align}
+      then, on the same event,
+      \begin{align}
+      \frac p2\|\M-\M_0\|_F^2
+      \le\|P_{\bOmega}(\M-\M_0)\|_F^2
+      \le\frac{3p}2\|\M-\M_0\|_F^2.
+      \label{eq:factor_local_rsc}
+      \end{align}
+    lean_name: Theorem_4_1_first_main_theorem_thm_upper_bound_for_rankr_rank_r_matrix_recovery_bound_including_the_uniform_low_loss_can
+    lean_namespace: Statlib.Imported
+    layer: formalization
+    priority: 3
+    dependencies: []
+    notes: generated from a persisted ordinary goal; no attack-DAG dependency semantics

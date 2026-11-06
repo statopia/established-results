@@ -1,0 +1,403 @@
+version: v1
+theorem_set: paper-proof-group
+source_tag: document-processing
+theorems:
+  - id: entry:selected:d21c55e7-2bf2-454d-beb0-2b2cce6e9886
+    title: paper_165f462a7e494b7a9c0f4fb377733656
+    kind: lemma
+    latex_statement: |-
+      For a matrix \(A\), \(\|A\|\) denotes the spectral norm (largest singular value), \(\|A\|_F\) the Frobenius norm, and \(\|A\|_{2,\infty}\) the largest Euclidean row norm. The transpose is \(A'\). For a matrix \(A\), write \(s_i(A)=\psi_i(A)\) for its \(i\)th singular value in decreasing order.
+
+      For the binary observation mask \(\Omega\), the projection \(P_\Omega(\cdot)\) keeps observed entries and sets unobserved entries to zero. Let \(J\) denote the \(m\times n\) all-ones matrix, and define
+      \[
+      W_\Omega=p^{-1}\Omega-J,
+      \qquad
+      T_\Omega=p^{-1}P_\Omega-\operatorname{Id}.
+      \]
+      On the event of Lemma~\ref{lem:mask_geometry}, the constants used in the present lemma are
+      \[
+      \Lambda:=C\sqrt{m/p}
+      \]
+      from the operator bound \(\|W_\Omega\|\le\Lambda\), and
+      \[
+      \theta=C\sqrt{\frac{\mu_0r\log m}{np}}.
+      \]
+      The constants \(C,c\) are numerical and may depend on the fixed lower bound for \(n/m\). Also, \(C_{C_M}\) denotes a constant depending on \(C_M\).
+
+      For the fixed matrix \(M_0\) of the assumptions, write
+      \[
+      s_1=s_1(M_0),\qquad
+      s_\star=s_r(M_0)>0,\qquad
+      \kappa=s_1/s_\star.
+      \]
+      For the candidate class, \(\mu_1\) is the leverage/incoherence parameter, and
+      \[
+      \bar\mu=\max\{\mu_0,\mu_1\}.
+      \]
+      The class \(\mathbb M_{r,\mu_1}\) is the class of matrices of rank at most \(r\), represented as \(M=LR'\) with \(r\) columns in each factor and projector leverage bounds \(\mu_1r/m,\mu_1r/n\) on their nonzero singular spaces; equivalently, for a compact SVD \(M=UDV'\) with \(U,V\) containing the nonzero singular directions,
+      \[
+      \|U\|_{2,\infty}^2\le \frac{\mu_1r}{m},
+      \qquad
+      \|V\|_{2,\infty}^2\le \frac{\mu_1r}{n}.
+      \]
+      The zero matrix is included and has zero leverage.
+
+      <!-- formalization-clarifications:v1:95b0293a788bf6825087e2eb3d09974746e64c640fcbf02ec3fcc8d0faae8180 -->
+      Formalization clarifications from source and proof:
+      1. Constants and quantifier order. Owner: the target is the supplement’s Lemma “Relative sampling for incoherent candidates” (supp.tex, “Proofs for rank-constrained estimation”); its mask event is Lemma “Uniform Bernoulli sampling bounds” (R1, supp.tex “Uniform sampling bounds”); the Gram-factor inequality is external Tu et al. Lemma 5.4 (R2). Explicit order: fix \(m,n\) with \(m\ge n\), a fixed \(\rho_->0\) with \(\rho_-\le n/m\le1\), \(12r\le n\), \(p\in(0,1]\), the fixed \(M_0\) and its incoherence data, \(\mu_1\ge\mu_0\), the Bernoulli mask law, and the realized mask on the R1 event; then fix \(C_M\ge1\). The conclusion is simultaneous for every \(M\in\mathbb M_{r,\mu_1}\) with \(\|M\|\le C_Ms_1\). The probability statement belongs to R1: “with probability at least \(1-cn^{-4}\)” over the Bernoulli mask; the target itself is conditional “on the event of Lemma \ref{lem:mask_geometry}”. The target explicitly says \(C,c\) are numerical and “may depend on the fixed lower bound for \(n/m\)”, and that \(C_{C_M}\) “denotes a constant depending on \(C_M\)”. It also explicitly allows \(C_M\) to be “possibly depending on the dimensions”. Thus \(C,c\) must not silently depend on the candidate \(M\), the mask realization, \(M_0\), or \(C_M\); \(C_{C_M}\) may depend on \(C_M\) and inherits any dependence \(C_M\) is allowed. The phrase “for fixed \(C_M\)” is essential; the second estimate is not uniform over a sequence of \(C_M\) growing with dimension. The source does not say whether “dimensions” for \(C_M\) includes \(r\), nor does it explicitly authorize dependence of \(C,c\) on \(\alpha_0,\mu_0,r\) or other parameters beyond what is displayed. R1’s \(\theta\) uses \(\mu_0\), not \(\bar\mu\), and \(\Lambda=C\sqrt{m/p}\). R2 prints a universal inequality for arbitrary \(U,X\in\mathbb R^{n\times r}\) with no incoherence, RIP, or rank restriction; the target’s \(F,F_0\) form and \(\sigma_r(F_0)^2=2s_\star\) are a consumer’s specialization, not part of printed Lemma 5.4.
+
+      2. Norms and mathematical objects. Owner: main.tex “Notations and settings for noisy matrix completion” and the target/R1 definitions; R2 defines its own \(\sigma_\ell\) and \(\operatorname{dist}\). Here \(\|A\|\) is the spectral norm, i.e. largest singular value; \(\|A\|_F\) is the unnormalized Frobenius norm \((\sum_{ij}A_{ij}^2)^{1/2}\); \(\|A\|_{2,\infty}=\max_i(\sum_jA_{ij}^2)^{1/2}\), the largest Euclidean row norm; \(\|A\|_\infty\) is the largest entry magnitude when used; \(\|A\|_*\) is the nuclear norm. Do not replace \(\|\cdot\|_{2,\infty}\) by an operator norm, and do not use normalized Hilbert–Schmidt in place of \(\|\cdot\|_F\). Explicitly, \(J\) is the \(m\times n\) all-ones matrix,
+      \[
+      W_\Omega=p^{-1}\Omega-J,\qquad T_\Omega=p^{-1}P_\Omega-\operatorname{Id},
+      \]
+      where \(\Omega\) is the \(0/1\) mask matrix, \(P_\Omega(A)\) is entrywise projection (observed entries kept, others zero), and \(T_\Omega\) is the linear operator \(T_\Omega(A)=p^{-1}P_\Omega(A)-A\) on \(\mathbb R^{m\times n}\). The inner product in R1/target is not redefined in the excerpt; the proof uses the standard unnormalized trace/Frobenius pairing, but the normalization is not explicitly stated there. The class \(\mathbb M_{r,\mu_1}\) is rank at most \(r\), zero included, with compact SVD nonzero directions satisfying the squared leverage bounds \(\|U\|_{2,\infty}^2\le\mu_1r/m\), \(\|V\|_{2,\infty}^2\le\mu_1r/n\). For \(M_0\), the assumptions are written unsquared: \(\|U_0\|_{2,\infty}\le\sqrt{\mu_0r/m}\), \(\|V_0\|_{2,\infty}\le\sqrt{\mu_0r/n}\). \(s_i(A)=\psi_i(A)\) are singular values in decreasing order; \(s_\star=s_r(M_0)>0\), \(s_1=s_1(M_0)\), \(\kappa=s_1/s_\star\), \(\bar\mu=\max\{\mu_0,\mu_1\}\) (equal to \(\mu_1\) under the stated \(\mu_1\ge\mu_0\), though the source retains \(\max\)). \(T_\star\) is only called “the fixed tangent space at \(M_0\)” in the target; its explicit formula is not restated there. The proof asserts \(\Delta_T=X_0E_Y'+E_XY_0'\in T_\star\), which is a proof-based inference consistent with the later source definition of the tangent space via \(U A'+B V'\); do not replace \(T_\star\) by the full matrix space. “Balanced factors” \(M=XY'\), \(M_0=X_0Y_0'\), with padding and common orthogonal rotation, are proof constructions, not extra hypotheses on the theorem’s candidate. Also, the final local-RSC conclusion is exactly \(p/2\|M-M_0\|_F^2\le\|P_\Omega(M-M_0)\|_F^2\le3p/2\|M-M_0\|_F^2\), with no additional \(p^{-1}\) or observed-count normalization.
+
+      3. Asymptotics. Owner: R1 gives the high-probability statement; R2 gives a deterministic finite-dimensional inequality; the target is a conditional deterministic lemma on the R1 event. The regime is \(m\to\infty\) with \(m\ge n\), \(n/m\in[\rho_-,1]\), \(12r\le n\), fixed \(\alpha_0>15\), sparse sampling \(mp\ge\log^{\alpha_0}m\), and “sufficiently large dimensions”; no exact threshold or exact constant in the sufficient condition \(np\ge C\mu_0r\log m\) is supplied. The target uses only explicit inequalities such as \(a_g\le C_{C_M}\kappa\{\cdots\}\), not \(O_P\)/\(o_P\) notation. Source-wide \(O,o,\lesssim,\gtrsim\) notation is defined in main.tex as eventual comparison under the same matrix-dimension filter, with constants allowed only as the corresponding source statement permits. In particular, “simultaneously for every \(M\)” is a uniform quantifier over the class and over the operator bound \(\|M\|\le C_Ms_1\), not a pointwise or almost-sure-over-candidates assertion; data-dependent candidates are allowed because R1 says its bilinear and Schur bounds hold “for all conformable factors, including data-dependent factors.” The condition \(np\ge C_{C_M}\kappa^2\{\bar\mu r\log m+\bar\mu^2r^2\}\) is a sufficient condition for the second local-RSC conclusion and for making \(a_g\le1/2\) in the proof; it is not part of the first inequality unless separately assumed, and it is not claimed optimal. R2 has denominator \(\sigma_r^2(X)\); the supplied printed statement does not separately print a hypothesis \(\sigma_r(X)>0\).
+
+      4. Potentially omitted definitions and side conditions. The R1 event is not merely the two displayed norm bounds: it is the common event where \(\|W_\Omega\|\le\Lambda\), the tangent-form bound with \(\theta\), the bilinear bound with \(b(A,C)=\min\{\|A\|_F\|C\|_{2,\infty},\|A\|_{2,\infty}\|C\|_F\}\), and the Schur bound \(\|T_\Omega(LR')\|\le\Lambda\|L\|_{2,\infty}\|R\|_{2,\infty}\) all hold. The source explicitly allows the two factor pairs in the bilinear inequality to have different numbers of columns and says the Schur bound “holds without summing the individual singular directions.” The target assumes the realized mask lies in this event; in Lean this should be an event hypothesis, not re-proved by the target lemma. The target’s \(a_g\) uses \(\theta\) and \(\Lambda\) from R1 and \(\Delta=M-M_0\), \(f=\|\Delta\|_F\); the first conclusion is \(|p^{-1}\|P_\Omega\Delta\|_F^2-f^2|\le a_gf^2\). Do not promote proof intermediates such as balancedness, \(\Delta_T\in T_\star\), the factor-distance inequality, row-norm estimates, \(a_g\le1/2\), or the extra \(np\) condition for local RSC into theorem hypotheses for the general first inequality. R2’s printed lemma uses \(\operatorname{dist}(U,X)=\min_{R^\top R=I_r}\|U-XR\|_F\) for arbitrary \(U,X\in\mathbb R^{n\times r}\); the target writes \(\min_{O'O=I}\|FO-F_0\|_F^2\), a specialization/application with a possibly different orientation and with the target-specific constant \(\sigma_r(F_0)^2=2s_\star\). The source materials leave unresolved the explicit formula of \(T_\star\) within the target statement, the exact inner-product normalization in the excerpt, whether “dimensions” in \(C_M\) includes \(r\), any explicit dependence of numerical constants on \(\alpha_0\), and any convention for the R2 denominator when \(\sigma_r(X)=0\). The complete bibliography entry for R2 is not supplied; its owner/result remains Tu–Boczar–Simchowitz–Soltanolkotabi–Recht, Lemma 5.4, and target-specific use does not weaken or restrict that universal statement.
+      <!-- /formalization-clarifications -->
+
+      Let \(C_M\ge1\) be a constant, possibly depending on the dimensions. Then, on the event of Lemma~\ref{lem:mask_geometry}, simultaneously for every
+      \[
+      M\in \mathbb M_{r,\mu_1}
+      \]
+      satisfying
+      \[
+      \|M\|\le C_M s_1,
+      \]
+      with
+      \[
+      \Delta=M-M_0,\qquad f=\|\Delta\|_F,
+      \]
+      the following bounds hold:
+      \[
+      \left|p^{-1}\|P_{\Omega}\Delta\|_F^2-f^2\right|
+      \le a_g f^2,
+      \]
+      where
+      \[
+      a_g
+      =C\kappa\left\{
+      \theta+(1+C_M)\Lambda\frac{\bar\mu r}{\sqrt{mn}}
+      \right\}
+      \le C_{C_M}\kappa\left\{
+      \sqrt{\frac{\bar\mu r\log m}{np}}+
+      \frac{\bar\mu r}{\sqrt{np}}
+      \right\}.
+      \]
+      In particular, for fixed \(C_M\), if
+      \[
+      np\ge C_{C_M}\kappa^2\{\bar\mu r\log m+\bar\mu^2 r^2\},
+      \]
+      then on the same event,
+      \[
+      \frac p2\|M-M_0\|_F^2
+      \le\|P_{\Omega}(M-M_0)\|_F^2
+      \le\frac{3p}2\|M-M_0\|_F^2.
+      \]
+    assumptions:
+      - |-
+        Let \(m,n\) be positive integers with \(m\ge n\) and
+        \[
+        0<\rho_-\le \frac nm\le 1
+        \]
+        for a fixed constant \(\rho_->0\), and assume \(12r\le n\). Let \(p\in(0,1]\), and let \(\Omega\in\mathbb R^{m\times n}\) be a binary observation mask whose entries are independent Bernoulli\((p)\).
+
+        Let \(M_0\in\mathbb R^{m\times n}\) be a fixed rank-\(r\) matrix with compact SVD \(M_0=U_0D_0V_0'\) and singular spaces that are \(\mu_0\)-incoherent:
+        \[
+        \|U_0\|_{2,\infty}\le \sqrt{\frac{\mu_0r}{m}},
+        \qquad
+        \|V_0\|_{2,\infty}\le \sqrt{\frac{\mu_0r}{n}}.
+        \]
+        Assume \(\mu_1\ge\mu_0\).
+
+        Assume the sparse sampling condition
+        \[
+        mp\ge \log^{\alpha_0}m
+        \]
+        for fixed \(\alpha_0>15\) and sufficiently large dimensions, that the realized mask lies in the event of Lemma~\ref{lem:mask_geometry}, and that
+        \[
+        np\ge C\mu_0r\log m.
+        \]
+    proof_body: |-
+      ### Definitions and notation used in Proof
+      Let \(T_\star\) be the fixed tangent space at \(M_0\).
+
+      ### Proof
+      Work on the event of [ref:R1]; in particular, the bounds involving \(\theta\) and \(\Lambda\) stated there are available and uniform over the factors.
+
+      Take balanced factors \(M=XY'\) and \(M_0=X_0Y_0'\), padding the first pair with zero columns when its rank is smaller than \(r\). A common orthogonal rotation of \(X,Y\) can be chosen so that, with
+      \[
+      E_X=X-X_0,\qquad E_Y=Y-Y_0,
+      \]
+      we have
+      \[
+       \|E_X\|_F^2+\|E_Y\|_F^2
+       \le\frac{f^2}{(\sqrt2-1)s_\star}.
+      \]
+      To prove this inequality, for \(\operatorname{Dil}(M)=\left(\begin{smallmatrix}0&M\\M'&0\end{smallmatrix}\right)\) and \(F=(X',Y')'\), balancedness gives
+      \[
+      FF'=|\operatorname{Dil}(M)|+\operatorname{Dil}(M).
+      \]
+      For any symmetric \(A,B\), expansion in their eigenbases shows
+      \[
+       \||A|-|B|\|_F^2
+       =\sum_{ij}(|a_i|-|b_j|)^2|\langle u_i,v_j\rangle|^2
+       \le\sum_{ij}(a_i-b_j)^2|\langle u_i,v_j\rangle|^2
+       =\|A-B\|_F^2.
+      \]
+      The diagonal and off-diagonal blocks of the balanced lift are orthogonal, so
+      \[
+      \|FF'-F_0F_0'\|_F^2\le4f^2.
+      \]
+      Apply the global Gram-factor inequality [ref:R2]
+      \[
+       \min_{O'O=I}\|FO-F_0\|_F^2
+       \le\frac{\|FF'-F_0F_0'\|_F^2}
+       {2(\sqrt2-1)\sigma_r(F_0)^2},
+       \qquad \sigma_r(F_0)^2=2s_\star,
+      \]
+      which proves
+      \[
+       \|E_X\|_F^2+\|E_Y\|_F^2
+       \le\frac{f^2}{(\sqrt2-1)s_\star}.
+      \]
+
+      Let
+      \[
+      b_L=\sqrt{\bar\mu r/m},\qquad b_R=\sqrt{\bar\mu r/n}.
+      \]
+      Balancedness, endpoint incoherence, and the operator norm bound imply
+      \[
+       \|X_0\|_{2,\infty}+\|E_X\|_{2,\infty}\le C_{C_M}\sqrt{s_1}\,b_L,
+      \]
+      \[
+       \|Y_0\|_{2,\infty}+\|E_Y\|_{2,\infty}\le C_{C_M}\sqrt{s_1}\,b_R.
+      \]
+      Write
+      \[
+      \Delta_T=X_0E_Y'+E_XY_0'\in T_\star,
+      \qquad
+      \Delta_Q=E_XE_Y'.
+      \]
+      By the factor-distance inequality,
+      \[
+      \|\Delta_T\|_F+\|\Delta_Q\|_F\le C_{C_M}\sqrt\kappa f.
+      \]
+      For the quadratic term use
+      \[
+      \|E_X\|\le(1+\sqrt{C_M})\sqrt{s_1}.
+      \]
+      More specifically,
+      \[
+      \|\Delta_T\|_F\le C\sqrt\kappa f
+      \]
+      independently of \(C_M\). The tangent--tangent form is therefore at most
+      \[
+      C\kappa\theta f^2.
+      \]
+      For the two tangent--quadratic forms use, respectively,
+      \[
+      \Lambda\|X_0\|_{2,\infty}\|E_X\|_F\|E_Y\|_F\|E_Y\|_{2,\infty},
+      \]
+      and
+      \[
+      \Lambda\|E_X\|_F\|E_X\|_{2,\infty}\|Y_0\|_{2,\infty}\|E_Y\|_F.
+      \]
+      Each is at most
+      \[
+      C_{C_M}\Lambda\kappa b_Lb_R f^2.
+      \]
+      The quadratic--quadratic form is bounded by
+      \[
+       \Lambda\|E_X\|_F\|E_X\|_{2,\infty}
+       \|E_Y\|_F\|E_Y\|_{2,\infty},
+      \]
+      with the same upper bound. Each row-norm product introduces at most
+      \[
+      (1+\sqrt{C_M})^2\le2(1+C_M).
+      \]
+      The tangent--tangent bound is independent of \(C_M\). Adding the four forms proves
+      \[
+       \left|p^{-1}\|P_{\Omega}\Delta\|_F^2-f^2\right|
+       \le a_g f^2,
+      \]
+      where
+      \[
+      a_g=C\kappa\left\{\theta+(1+C_M)
+                         \Lambda\frac{\bar\mu r}{\sqrt{mn}}\right\}
+       \le C_{C_M}\kappa\left\{
+            \sqrt{\frac{\bar\mu r\log m}{np}}+
+            \frac{\bar\mu r}{\sqrt{np}}\right\}.
+      \]
+      Choosing the constant in
+      \[
+       np\ge C_{C_M}\kappa^2\{\bar\mu r\log m+\bar\mu^2r^2\}
+      \]
+      so that \(a_g\le1/2\) gives
+      \[
+       \frac p2\|M-M_0\|_F^2
+       \le\|P_{\Omega}(M-M_0)\|_F^2
+       \le\frac{3p}2\|M-M_0\|_F^2.
+      \]
+
+      ### References
+      #### Reference R1
+      Target: Lemma~\ref{lem:mask_geometry} (Uniform Bernoulli sampling bounds)
+
+      Citation: Let \(J\) denote the \(m\times n\) all-ones matrix, and put \(W_\Omega=p^{-1}\bOmega-J\) and \(T_\Omega=p^{-1}P_{\bOmega}-\operatorname{Id}\). Under the standing sparse sampling condition and \(np\ge C\mu_0r\log m\), with probability at least \(1-cn^{-4}\),
+      \[
+      \|W_\Omega\|\le\Lambda:=C\sqrt{m/p},
+      \]
+      \[
+      |\langle T_\Omega A,B\rangle|
+       \le\theta\|A\|_F\|B\|_F,\qquad A,B\in T_\star,
+       \quad\theta=C\sqrt{\frac{\mu_0r\log m}{np}}.
+      \]
+      On this event,
+      \[
+      |\langle T_\Omega(AB'),CD'\rangle|
+       \le\Lambda b(A,C)b(B,D),
+       \quad b(A,C)=\min\{\|A\|_F\|C\|_{2,\infty},
+                                  \|A\|_{2,\infty}\|C\|_F\},
+      \]
+      and
+      \[
+      \|T_\Omega(LR')\|
+       \le\Lambda\|L\|_{2,\infty}\|R\|_{2,\infty}.
+      \]
+      In the proof of Lemma~\ref{lem:global_relative_sampling}, the tangent--tangent form is therefore at most \(C\kappa\theta f^2\), and the two tangent--quadratic forms use \(\Lambda\), with each bounded by \(C_{C_M}\Lambda\kappa b_Lb_R f^2\).
+
+      Bibliography: supp
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction from D1 (Ziyuan Chen and Fang Yao, supplement to “Residual spectral matching: a new perspective for matrix completion”), Section 3, Section 3.1 “Uniform sampling bounds,” Lemma \ref{lem:mask_geometry}. The named result supplies the mask event and the estimates for \(W_\Omega\), for the tangent--tangent form on \(T_\star\), for the bilinear form, and for the Schur product that the target proof invokes. The later use in the target proof of the global Gram-factor inequality \citep[Lemma~5.4]{tu2016procrustes} is an external citation (Reference R2 here), not part of this source lemma. No additional independently stated result from the supplied D1 passage is organized under this item.
+
+      ##### Lemma \ref{lem:mask_geometry} (Uniform Bernoulli sampling bounds)
+      ###### Definitions and notation
+      Let \(m,n\) be positive integers. Let \(J\) denote the \(m\times n\) all-ones matrix. Let \(\bOmega\) be the binary observation mask, so that \(P_{\bOmega}\) keeps observed entries and zeroes unobserved entries. Put
+      \[
+      W_\Omega=p^{-1}\bOmega-J,
+      \qquad
+      T_\Omega=p^{-1}P_{\bOmega}-\operatorname{Id}.
+      \]
+      Let \(M_0\in\mathbb R^{m\times n}\) be a fixed rank-\(r\) matrix with compact SVD \(M_0=U_0D_0V_0'\) and singular spaces that are \(\mu_0\)-incoherent:
+      \[
+      \|U_0\|_{2,\infty}\le \sqrt{\frac{\mu_0r}{m}},
+      \qquad
+      \|V_0\|_{2,\infty}\le \sqrt{\frac{\mu_0r}{n}}.
+      \]
+      Here \(\|M\|\) is the spectral norm, \(\|M\|_F\) is the Frobenius norm, and \(\|M\|_{2,\infty}\) is the largest Euclidean row norm. For a matrix \(A\), \(s_i(A)=\psi_i(A)\) denotes its \(i\)th singular value in decreasing order. Write
+      \[
+      s_\star=s_r(M_0)>0,\qquad s_1=s_1(M_0),\qquad \kappa=s_1/s_\star.
+      \]
+      Let \(T_\star\) be the fixed tangent space at \(M_0\). For matrices \(A,C\) of compatible dimensions, define
+      \[
+      b(A,C)=\min\{\|A\|_F\|C\|_{2,\infty},
+      \|A\|_{2,\infty}\|C\|_F\}.
+      \]
+      The constants \(C,c\) are numerical and may depend on the fixed lower bound for \(n/m\).
+
+      ###### Assumptions
+      The homogeneous model has \(m\ge n\) and
+      \[
+      0<\rho_-\le \frac nm\le 1
+      \]
+      for a fixed constant \(\rho_->0\). The entries of \(\bOmega\) are independent Bernoulli\((p)\), \(p\in(0,1]\), and the singular spaces of \(M_0\) are \(\mu_0\)-incoherent. We assume \(12r\le n\) throughout the rank-constrained results.
+
+      The standing sparse sampling condition is
+      \[
+      mp\ge \log^{\alpha_0}m
+      \]
+      for fixed \(\alpha_0>15\) and sufficiently large dimensions. In addition,
+      \[
+      np\ge C\mu_0r\log m.
+      \]
+
+      ###### Statement
+      Under the standing sparse sampling condition and \(np\ge C\mu_0r\log m\), with probability at least \(1-cn^{-4}\),
+      \[
+      \|W_\Omega\|\le\Lambda:=C\sqrt{m/p},
+      \label{eq:sampling_mask_norm}
+      \]
+      \[
+      |\langle T_\Omega A,B\rangle|
+      \le\theta\|A\|_F\|B\|_F,\qquad A,B\in T_\star,
+      \quad\theta=C\sqrt{\frac{\mu_0r\log m}{np}},
+      \label{eq:recovery_tangent-event}
+      \]
+      where \(T_\star\) is the fixed tangent space at \(M_0\).
+
+      On this event the following hold for all conformable factors, including data-dependent factors:
+      \[
+      |\langle T_\Omega(AB'),CD'\rangle|
+      \le\Lambda b(A,C)b(B,D),
+      \quad b(A,C)=\min\{\|A\|_F\|C\|_{2,\infty},
+      \|A\|_{2,\infty}\|C\|_F\},
+      \label{eq:recovery_bilinear-event}
+      \]
+      \[
+      \|T_\Omega(LR')\|
+      \le\Lambda\|L\|_{2,\infty}\|R\|_{2,\infty}.
+      \label{eq:sampling_schur_bound}
+      \]
+      The two pairs of factors in the bilinear inequality may have different numbers of columns.
+
+      #### Reference R2
+      Target: Lemma~5.4 (global Gram-factor inequality)
+
+      Citation: Apply the global Gram-factor inequality \citep[Lemma~5.4]{tu2016procrustes}
+      \[
+       \min_{O'O=I}\|FO-F_0\|_F^2
+       \le\frac{\|FF'-F_0F_0'\|_F^2}
+       {2(\sqrt2-1)\sigma_r(F_0)^2},
+       \qquad
+       \sigma_r(F_0)^2=2s_\star,
+      \]
+      which proves \(\|E_X\|_F^2+\|E_Y\|_F^2\le f^2/\{(\sqrt2-1)s_\star\}\).
+
+      Bibliography: Citation key: tu2016procrustes; complete bibliography entry not supplied in the provided source material.
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction. The organized result is the printed Lemma 5.4 in Tu, Boczar, Simchowitz, Soltanolkotabi, and Recht, “Low-rank Solutions of Linear Matrix Equations via Procrustes Flow,” Section 5.1 “Preliminaries,” physical PDF page 6 (supplied original-PDF/model reading; citation key `tu2016procrustes`; complete bibliography entry not supplied). The lemma is printed in \(U,X\) notation and uses \(\operatorname{dist}\); the \(F,F_0\) form with \(\min_{O' O=I}\) and \(\sigma_r(F_0)^2=2s_\star\) appears in the current proof as the consumer’s specialization/application, not as part of the printed Lemma 5.4. This source result supports the current proof’s global Gram-factor/factor-distance step; no application conditions are discharged here.
+
+      ##### Lemma 5.4 (global Gram-factor inequality)
+      ###### Definitions and notation
+      For a matrix \(X\), \(\sigma_\ell(X)\) denotes the \(\ell\)-th largest singular value, and \(\|X\|=\sigma_1(X)\) is the operator norm. The distance used is
+      \[
+      \operatorname{dist}(U,X)
+      :=\min_{R\in \mathbb R^{r\times r}:\,R^\top R=I_r}
+      \|U-XR\|_F. \tag{3.1}
+      \]
+      Here \(\|\cdot\|_F\) is the Frobenius norm. The source’s minimization variable is \(R\); in the citation’s \(F,F_0\) notation the corresponding orthogonal variable is written \(O\) with \(O^\top O=I\).
+
+      ###### Assumptions
+      The printed lemma is stated for arbitrary matrices \(U,X\in\mathbb R^{n\times r}\) of the displayed dimensions. No incoherence, RIP, rank restriction on \(U\), or additional standing condition is attached to Lemma 5.4 in the supplied source material. The denominator is \(\sigma_r^2(X)\) as printed; no separate condition \(\sigma_r(X)>0\) is printed in the supplied statement.
+
+      ###### Statement
+      For any \(U,X\in\mathbb R^{n\times r}\),
+      \[
+      \operatorname{dist}^2(U,X)
+      \le
+      \frac{1}{2(\sqrt2-1)\sigma_r^2(X)}
+      \,\|UU^\top-XX^\top\|_F^2 .
+      \]
+    lean_name: paper_165f462a7e494b7a9c0f4fb377733656
+    lean_namespace: Statlib.Imported
+    layer: formalization
+    priority: 3
+    dependencies: []
+    notes: generated from a persisted ordinary goal; no attack-DAG dependency semantics
+source_document: supp.tex

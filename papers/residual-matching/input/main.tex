@@ -1,0 +1,1279 @@
+%%
+%% Copyright 2024 OXFORD UNIVERSITY PRESS
+%%
+%% This file is part of the 'oup-authoring-template Bundle' for the Royal Statistical Society.
+%% ---------------------------------------------
+%%
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%%
+%% The list of all files belonging to the 'oup-authoring-template Bundle' is
+%% given in the file `manifest.txt'.
+%%
+%% Template article for OXFORD UNIVERSITY PRESS's document class `oup-authoring-template'
+%% with bibliographic references
+%%
+
+\documentclass[numsec,webpdf,modern,large,namedate]{oup-authoring-template}
+
+\onecolumn
+
+
+\usepackage[doublespacing]{setspace}
+\usepackage[fontsize=12pt]{fontsize}
+
+\RequirePackage{amsthm,amsmath,amsfonts,amssymb}
+\RequirePackage[authoryear]{natbib}
+\RequirePackage{graphicx}
+\usepackage{subfigure}
+
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{diagbox}
+\usepackage[figuresright]{rotating}
+\usepackage{pdflscape}
+\usepackage{bm}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{xcolor}
+\usepackage{enumerate}
+\usepackage{booktabs}
+\usepackage{mathabx} 
+\theoremstyle{plain}
+\newtheorem{axiom}{Axiom}
+\newtheorem{claim}[axiom]{Claim}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{remark}{Remark}[section]
+\theoremstyle{remark}
+\newtheorem{definition}{Definition}[section]
+\newtheorem*{example}{Example}
+\newtheorem*{fact}{Fact}
+\newtheorem*{pf}{Proof of Theorem}
+\newtheorem{assumption}{Assumption}
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{assertion}{Assertion}
+
+\newcounter{cnstcnt}
+\newcommand{\xc}{% 
+   \refstepcounter{cnstcnt}%
+   \ensuremath{c_{\thecnstcnt}}
+}
+\newcommand{\jc}[1]{\ensuremath{c_{\ref{#1}}}}
+
+\newcounter{bnstcnt}
+\newcommand{\xb}{% 
+   \refstepcounter{bnstcnt}%
+   \ensuremath{b_{\thebnstcnt}}
+}
+\newcommand{\jb}[1]{\ensuremath{b_{\ref{#1}}}}
+
+\newcounter{dbnstcnt}
+\newcommand{\xdb}{% 
+   \refstepcounter{dbnstcnt}%
+   \ensuremath{B_{\thedbnstcnt}}
+}
+\newcommand{\jdb}[1]{\ensuremath{B_{\ref{#1}}}}
+
+\makeatletter
+\newcommand*{\centerfloat}{%
+  \parindent \z@
+  \leftskip \z@ \@plus 1fil \@minus \marginparwidth
+  \rightskip \leftskip
+  \parfillskip \z@skip}
+\makeatother
+
+\newtheorem{manualtheoreminner}{Assumption}
+\newenvironment{manualtheorem}[1]{%
+  \renewcommand\themanualtheoreminner{#1}%
+  \manualtheoreminner
+}{\endmanualtheoreminner}
+
+
+\newcommand{\M}{\bm{M}}
+\newcommand{\bH}{\bm{H}}
+\newcommand{\Y}{\bm{Y}}
+\newcommand{\X}{\bm{X}}
+\newcommand{\bOmega}{\bm{\Omega}}
+\newcommand{\U}{\bm{U}}
+\newcommand{\V}{\bm{V}}
+\newcommand{\bu}{\bm{u}}
+\newcommand{\bv}{\bm{v}}
+\newcommand{\x}{\bm{x}}
+\newcommand{\y}{\bm{y}}
+\newcommand{\N}{\bm{N}}
+\newcommand{\bL}{\bm{L}}
+\newcommand{\R}{\bm{R}}
+
+
+% BEGIN MAJOR-REVISION MARKUP DEFINITIONS
+% Set \markchangesfalse to suppress the selective revision colouring.
+\newif\ifmarkchanges
+\markchangestrue
+\DeclareRobustCommand{\rev}[1]{{\ifmarkchanges\color{red}\fi#1}}
+\newenvironment{revision}{\begingroup\ifmarkchanges\color{red}\fi}{\endgroup}
+\DeclareRobustCommand{\revisionfloatcolor}{\ifmarkchanges\color{red}\fi}
+% END MAJOR-REVISION MARKUP DEFINITIONS
+
+\begin{document}
+
+
+\journaltitle{Journals of the Royal Statistical Society}
+\DOI{DOI HERE}
+\copyrightyear{XXXX}
+\pubyear{XXXX}
+\access{Advance Access Publication Date: Day Month Year}
+\appnotes{Original article}
+
+\firstpage{1}
+
+
+\title[Residual spectral matching: a new perspective for matrix completion]{Residual spectral matching: a new perspective for matrix completion}
+
+\author[1]{Ziyuan Chen}
+\author[1,$\ast$]{Fang Yao}
+
+\authormark{Ziyuan Chen and Fang Yao}
+
+\address[1]{\orgdiv{Department of Probability and Statistics, School of Mathematical Sciences, Center for Statistical Science}, 
+\orgname{Peking University}, \orgaddress{ \state{Beijing}, \country{China}}}
+
+\corresp[$\ast$]{Correspondence: Fang Yao, Department of Probability and Statistics, School of Mathematical Sciences, Center for Statistical Science, Peking University, Beijing, China. Email: \href{mailto:fyao@math.pku.edu.cn}{fyao@math.pku.edu.cn}}
+
+\received{Date}{0}{Year}
+\revised{Date}{0}{Year}
+\accepted{Date}{0}{Year}
+
+
+\abstract{Noisy matrix completion has attracted significant attention due to its applications in recommendation systems, signal processing and image restoration. 
+Most existing works rely on least squares methods under various low-rank constraints. 
+However, minimizing the sum of squared residuals is not always efficient, as it may ignore the potential structural information in the residuals.
+\rev{In this study, we propose a novel residual spectral matching criterion that incorporates not only the numerical but spectral structural information of the residuals. We derive optimal statistical properties by analyzing the spectral properties of sparse random matrices and bounding the effects of low-rank perturbations and partial observations. We propose algorithms that efficiently approximate solutions by constructing computable pseudo-gradients and achieve linear convergence up to the optimal statistical error rate
+in the homogeneous model. With unknown heterogeneous profiles,
+estimated variance weights and output stabilization preserve the
+known-profile Frobenius error order. Our method and algorithms demonstrate improved numerical performance in both simulated and real data examples, particularly in environments with high noise levels.}}
+
+\keywords{low-rank perturbation, random matrix theory, residual structure, sparse random matrix, spectral property}
+
+
+\maketitle
+\vspace{-1cm}
+\section{Introduction}
+
+\subsection{Literature review}
+
+Matrix completion aims to reconstruct the target matrix $\M \in \mathbb{R}^{m \times n}$ from partial observations of its entries that are corrupted by random noise, which has applications across different fields.
+For example, it has been utilized in recommendation systems \citep{jannach2016recommender}, signal processing \citep{weng2012low}, and image restoration \citep{ji2011robust}.
+Recently, matrix completion based statistical models have also been applied to various problems, including wireless sensor networks \citep{kortas2021robust}, causal inference \citep{athey2021matrix}, and policy evaluation \citep{duan2024online}.
+
+In the matrix completion model, the sample size is often significantly smaller than the matrix dimensions $m\times n$. Completing the target matrix $\M$ is generally impossible without specific structures and properties. The most commonly considered property for the underlying matrix $\M$ is a low-rank structure or related characteristics, such as the rapid decay of singular values. A common approach to addressing the low-rank matrix completion problem is to impose strict low-rank constraints through specific matrix factorization techniques. For instance, \cite{keshavan2009matrix} introduced a method that employs thin singular value decomposition. The typical method for constraining the rank of matrix $\M$ to be at most $s$ represents it as $\M = \bm{L}\bm{R}'$, where $\bm{L}\in \mathbb{R}^{m\times s}$ and $\bm{R}\in \mathbb{R}^{n\times s}$. Although this low-rank representation lacks identifiability, extensive research has examined the properties of least squares methods utilizing this matrix factorization with alternating minimization schemes. This includes the incorporation of regularization terms \citep{sun2016guaranteed,ge2016matrix} and algorithmic analyses \citep{jain2013low,hardt2014understanding,zheng2016convergence,ma2018implicit,chen2020nonconvex}. Following the findings of \cite{candes2009exact}, another prevalent method has emerged. They demonstrated that exact matrix completion is achievable in the absence of random noise, by relaxing the strict rank constraint to a nuclear norm constraint. Consequently, the nuclear norm constraint is widely used in both practical applications and theoretical analyses due to its convex properties. Various least squares estimators based on the nuclear norm \citep{candes2010matrix,rohde2011estimation,negahban2011estimation} and their variants \citep{koltchinskii2011nuclear,cai2015rop,cai2016matrix,fang2018max} have been thoroughly investigated.
+
+Recent studies have also explored various extensions to traditional noisy matrix completion settings. Works such as \cite{klopp2014noisy} and \cite{bi2017group} extended the missing data mechanism from ``missing completely at random''  to ``missing at random''.
+Later, the missing mechanism was further extended to ``missing not at random'' \citep{bhattacharya2022matrix,choi2023matrix}.  \cite{chen2019inference} and \cite{xia2021statistical} investigated both completion and statistical inference problems. \cite{gui2023conformalized} later combined conformal inference techniques with matrix completion. Using additional covariate information, \cite{mao2019matrix} and \cite{jin2022matrix} proposed a column space decomposition model. \cite{ma2024statistical} also studied the inference problem related to this model.
+\cite{chen2024dynamic} introduced dynamic matrix estimators designed for time-varying target matrices.
+
+Works such as \cite{cai2013max,davenport20141,chen2024note} address the completion and inference of categorical data, which is particularly well suited to a wide range of realistic rating and classification datasets.
+In the absence of low-rank structure, high rank matrix completion \citep{elhamifar2016high} and nonlinear variants \citep{fan2017deep} have also been extensively studied. Additionally, tensor completion has gained popularity due to the development of its efficient algorithms \citep{zhang2020islet,luo2023low}.
+
+\subsection{A new perspective from random matrix theory}
+For the noisy matrix completion problem and its variants, previous works typically treat the noisy matrix completion model as data sampled from the target matrix $\M$ with random noise. The commonly used criterion for evaluating performance in noisy matrix completion is the (weighted) squared error. Least squares methods are often employed in statistical models involving noise, and the resulting estimators generally exhibit good performance. However, the rank structure of matrices relates to both the values and locations of entries, indicating that random noise possesses both numerical and locational characteristics in the noisy matrix completion problem. The sum of squared residuals does not describe their full spectral structure, which motivates the use of additional spectral information.
+
+In contrast, we approach the noisy matrix completion problem from a different perspective.
+We model the data as samples from a low-rank perturbation $\M$ of a random matrix $\bH$ consisting of random noise. This perspective motivates us to propose a criterion based on the similarity between the residual matrix and sparse random matrices. Inspired by the fact that singular values capture spectral information about the values and arrangement of entries, we measure the similarity by comparing the distribution of singular values between the residual matrix and sparse random matrices.
+The properties of singular values of mean zero rectangular random matrices $\bm{X}\in\mathbb{R}^{m\times n}$ with $\mathbb{E}[\bm{X}^2_{i,j}] = 1$, are directly linked to the empirical spectral distribution (ESD) of sample covariance matrices $\bm{S} = \bm{X}'\bm{X}/m$. Under the independent homogeneous-noise conditions considered below, this ESD converges to the Marchenko-Pastur (M-P) distribution as $m \rightarrow \infty$ with the ratio $n/m \rightarrow \rho > 0$ \citep{yin1986limit,bai1988necessary}.
+Extensive research has examined the convergence rate to the M-P distribution \citep{gotze2004rate,gotze2011rate,bai2012convergence}, local convergence in various settings \citep{bourgade2014local,alt2017local,bao2017local} and the universality property \citep{erdos2010bulk,erdHos2012rigidity,tao2012random,pillai2014universality}.
+\cite{benaych2012singular} provided the limit values of leading singular values and vectors in low-rank perturbations of random matrices. Subsequent studies have explored additional properties, such as the limit distribution of leading singular values \citep{veraart2016denoising,bao2021singular,bao2022statistical}. The tail distributions of entries in classical random matrix theories are often constrained by bounded high-order moment conditions.
+Sparse random matrices, where each entry is multiplied by a random variable following a Bernoulli distribution with probability $p_{i,j}\rightarrow 0$, do not satisfy these conditions.
+For example, the entries in Gaussian sparse random matrices $\bm{X}$ with $\mathbb{E}[\bm{X}^2_{i,j}] = 1$ have a divergent fourth moment $\mathbb{E}[\bm{X}^4_{i,j}] = 3p_{i,j}^{-1}$.
+Recently, the spectral properties of sparse random matrices have attracted much attention. For example, the local law for sparse sample covariance matrices has been established \citep{lee2021higher,gotze2022local,kafetzopoulos2023local}. The universality property of these matrices is also discussed in several studies \citep{ding2018necessary,he2023edge,brailovskaya2024universality}.
+
+% BEGIN MAJOR REVISION M02
+\begin{revision}
+Random matrix theory has also been used to shrink observed singular values, including with missing observations \citep{nadakuditi2014optshrink}. Our criterion instead compares the candidate-dependent residual spectrum with the noise reference.
+
+\end{revision}
+% END MAJOR REVISION M02
+
+\subsection{Our contributions and paper organization}
+
+In this paper, we propose a novel residual spectral matching criterion for noisy matrix completion. We adopt the perspective of low-rank perturbation of random matrices and leverage the properties of sparse random noise matrices to design this effective criterion. The proposed criterion leverages the ordered singular values of the residual matrix, in contrast to the Frobenius norm loss which depends solely on the sum of squared singular values.
+The proposed criterion is formulated as the weighted $L_2$ distance between the ordered singular values of the residual matrix and the expected singular values of variance-adjusted sparse Gaussian random matrices.
+Adjusting the spectral distribution of the residual matrix to resemble that of sparse random matrices provides more structural information than merely minimizing the Frobenius norm of the residual matrix.
+Our research demonstrates both optimal theoretical properties and improved numerical performance for this criterion, particularly under high noise levels and complex noise structures.
+
+% BEGIN MAJOR REVISION M03
+\begin{revision}
+The main contributions of our study are four-fold. First, a new residual spectral matching criterion is proposed for noisy matrix completion. This criterion is user-friendly and adaptable to various noise structures. Second, the statistical properties of estimators under both strict low-rank and relaxed nuclear norm constraints are provided. We develop an analytical framework that leverages techniques from low-rank perturbation, random missing data, and sparse random matrices. Optimal Frobenius bounds are established for rank-constrained estimation, with corresponding nuclear-norm bounds under explicit scale and sampling-curvature conditions. Third, a general iterative algorithm for minimizing the proposed criterion is presented. Preconditioned factor updates and nuclear-norm proximal updates use a computable spectral derivative and backtracking on the objective. Finally, the properties of algorithm iterations are carefully analyzed.
+The homogeneous recovery sequence has a uniform geometric error bound
+and an explicit iteration complexity. Under heterogeneous noise with
+unknown profile laws, a distribution-agnostic calibration stage followed
+by an observable safeguard gives adaptive weighted outputs the same
+error order as the known-profile benchmark. The weighted result concerns the stabilized output.
+
+\end{revision}
+% END MAJOR REVISION M03
+
+The structure of the paper is as follows. Section \ref{sec:preliminary} provides a brief introduction of the noisy matrix completion problem, and discusses the success of the low-rank perturbation viewpoint and the random matrix theory in the matrix denoising model, a special case of noisy matrix completion. In Section \ref{sec:methodology}, we present the spectral matching criterion, estimation methods and the corresponding algorithm. Section \ref{sec:theoretical} establishes the statistical properties of the proposed estimators and the error analysis for the iterative series in the proposed algorithm. In Section \ref{sec:numerical}, both simulation and real data experiments demonstrate the favorable performance of the proposed methods over commonly used Frobenius norm methods.
+
+\section{Preliminary and motivation}
+\label{sec:preliminary}
+\subsection{Notations and settings for noisy matrix completion}
+We first introduce some notations to be used throughout the paper. For any matrix $\M\in \mathbb{R}^{m\times n}$, the following norms are defined: $\|\M\|$ for the spectral norm (the largest singular value), $\|\M\|_{F}$ for the Frobenius norm (the square root of the sum of squared entries), $\|\M\|_{*}$ for the nuclear norm (the sum of singular values), $\|\M\|_{\infty}$ for the maximum norm (the largest absolute value of entries), and $\|\M\|_{2,\infty}$ for the largest $L_2$ norm of the rows (sometimes named as the $L_2/L_\infty$ norm \citep{ma2018implicit}). The transpose of $\M$ is denoted by $\M'$, and $\operatorname{Proj}_{s}(\M)$ indicates the projection of $\M$ onto the space of matrices with rank no more than $s$. We use the notation $\M_{[1:s]}$ to denote the matrix formed by the first $s$ columns of $\M$, and $(a)_{+}$ to represent the positive part of $a$. Additionally, the notation $a(m)\lesssim b(m)$ means that there exists a constant $c>0$ such that $|a(m)|\le c|b(m)|$, and similarly $a(m)\gtrsim b(m)$ means that $|a(m)|\ge c|b(m)|$.
+
+Noisy matrix completion aims to estimate $\M_0\in \mathbb{R}^{m\times n}$ with $n/m=\rho\in[\rho_-,1]$ for a fixed $\rho_->0$ from the observation $Y\in \mathbb{R}^{m\times n}$,
+\begin{align*}
+\Y = P_{\bOmega}(\M_0 + \bH),
+\end{align*}
+where $\bOmega\in \mathbb{R}^{m\times n}$ is a binary matrix with ones indexing the locations of observed entries, and $\bH\in \mathbb{R}^{m\times n}$ is an unknown noise matrix that is independent of $\M_0$. The projection $P_{\bOmega}(\cdot)$ preserves the observed entries in $\bOmega$ and assigns zeros to the unobserved entries.
+
+
+Two mainstream methods and their variations have been proposed and extensively studied for noisy matrix completion. The first type is mostly based on the low-rank factorization $\M = \bm{L}\bm{R}',\bm{L}\in \mathbb{R}^{m\times s},\bm{R}\in\mathbb{R}^{n\times s}$ of a rank $s$ matrix $\M$. The matrix $\M_0$ is then estimated by
+\begin{align}
+\label{eq:nonconvex-estimate}
+    \widehat{\M}_{\text{fac}} = \underset{\M = \bm{L}\bm{R}',\bm{L}\in \mathbb{R}^{m\times s},\bm{R}\in\mathbb{R}^{n\times s}}{\arg \min}  \|\Y - P_{\bOmega}(\bm{L}\bm{R}')\|_{F}^2.
+\end{align}
+The second type constrains the rank of the estimator by controlling its nuclear norm, i.e., 
+\begin{align}
+\label{eq:convex-estimate}
+    \widehat{\M}_{\text{nuc}} =  \underset{\M\in  \mathbb{R}^{m\times n}}{\arg \min}  \|\Y - P_{\bOmega}(\M)\|_{F}^2 +\lambda \|\M\|_{*}.
+\end{align}
+
+\subsection{A motivating example: matrix denoising}
+
+The matrix denoising problem aims to separate the underlying signal matrix $\M_0$ from its noisy version $\Y = \M_0 + \bH$. In fact, the model can be viewed as a special case of matrix completion with the whole matrix $\Y$ being fully observed. When we apply the methods \eqref{eq:nonconvex-estimate} and \eqref{eq:convex-estimate} in parallel to the matrix denoising problem, two estimators for $\M_0$ are obtained respectively:
+\begin{align*}
+    \widecheck{\M}_{\text{fac}} = \sum_{i=1}^s \psi_i \bu_i \bv_i',\quad \widecheck{\M}_{\text{nuc}} = \sum_{i=1}^n (\psi_i - \lambda/2)_{+}\bu_i \bv_i',
+\end{align*}
+where $\Y = \sum_{i=1}^n \psi_i \bu_i \bv_i'$ is the singular value decomposition of $\Y$. 
+Under the homogeneous-noise conditions below and suitable rank and regularization choices, both estimators achieve optimal upper bounds that match the problem's lower bound $\sigma\sqrt{rm}$. However, we shall compare their performance in matrix denoising with an estimator based on random matrix theory.
+
+
+Rather than viewing the matrix denoising model as a target matrix contaminated by random noise, we consider the model as a random matrix $\bH$ perturbed by a low-rank matrix $\M_0$. Classical random matrix theory \citep{bai2010spectral} shows that the empirical spectral distribution of $\bH'\bH/m$ converges to the Marchenko-Pastur distribution under the independent homogeneous-noise conditions considered below. Consequently, the limiting density of the singular values of $\bH/\sqrt{m}$ is
+\begin{align*}
+    \nu(x) = \frac{1}{\pi \sigma^2}\frac{\sqrt{(\lambda^2_{+}-x^2)(x^2-\lambda^2_{-})}}{\rho x}\mathbf{1}_{x\in[\lambda_{-},\lambda_{+}]},\quad \lambda_{\pm} = \sigma(1\pm\sqrt{\rho}).
+\end{align*}
+When $\rho<1$, the lower edge $\lambda_-$ is positive and the smallest singular values of $\bH/\sqrt m$ concentrate near this edge. Taking $\widecheck{\M}_{\text{fac}}$ as an example, $\widecheck{\bH} = \Y - \widecheck{\M}_{\text{fac}}$ can intuitively be viewed as an estimator of the random noise matrix $\bH$. However, the $s$ smallest singular values of $\widecheck{\bH}$ are zero, which differs from those of the random noise matrix $\bH$. This contrast motivates spectrum-based adjustments. \cite{benaych2012singular} derived the limit distribution of singular values of random matrices with low-rank perturbations. It helps us to construct the estimator $\widecheck{\M}_{\text{rmt}} = \sum_{i=1}^s \widetilde{\psi}_i \bu_i \bv_i'$, where
+
+% BEGIN MAJOR REVISION M04
+\begin{revision}
+\begin{align*}
+ c(\psi)&=\psi^2-\widehat\sigma^2(1+\rho)m,\\
+ \widetilde\psi_i&=
+ \begin{cases}
+ \left\{\dfrac{c(\psi_i)+
+  \sqrt{c(\psi_i)^2-4\widehat\sigma^4\rho m^2}}{2}\right\}^{1/2},
+ &\psi_i>\sqrt m\,\widehat\sigma(1+\sqrt\rho),\\[2mm]
+ 0,&\psi_i\le\sqrt m\,\widehat\sigma(1+\sqrt\rho).
+ \end{cases}
+\end{align*}
+Here $\widehat\sigma$ is a consistent noise-scale estimate. The nonzero
+branch inverts the upper-outlier location formula; the bulk branch is set
+to zero.
+
+\end{revision}
+% END MAJOR REVISION M04
+
+
+To verify our motivation, we conduct a numerical study comparing the performance of the estimators $\widecheck{\M}_{\text{rmt}}$ with $\widecheck{\M}_{\text{fac}}$ and $\widecheck{\M}_{\text{nuc}}$. The underlying matrix $\M_0\in \mathbb{R}^{m\times n}$ with $m=500,n=250$, is generated as $\M_0 = \U_0 \bm{D}_0 \V_0'$ where $\U_0\in \mathbb{R}^{m\times r},\V_0 \in \mathbb{R}^{n\times r}$ consist of the leading $r$ left and right singular vectors of a randomly generated standard Gaussian matrix $\bm{W}\in \mathbb{R}^{m\times n}$. The matrix $\bm{D}_0\in \mathbb{R}^{r\times r}$ is diagonal with entries $(5\sqrt{10}+10\sqrt{5})(1+i/100),i=0,1,\cdots,r-1$. Each entry of the noise matrix $\bH$ is independently generated as the sum of a mean-zero Gaussian random variable with variance $\sigma^2/2$ and a Rademacher random variable scaled by $\sigma/\sqrt{2}$. Table \ref{tab:denoise_model} shows the outstanding performance of the estimator $\widecheck{\M}_{\text{rmt}}$ based on random matrix theory, with the performance gap widening as $\sigma$ increases.
+
+
+\begin{table}[htbp!]
+\centering
+    \caption{The relative Frobenius norm error ($\times 10^{-1}$) $\|\widecheck{\M}-M_0\|_{F}/(mn)^{-1/2}$ for $\widecheck{\M}_{\text{fac}},\widecheck{\M}_{\text{nuc}}$ and $\widecheck{\M}_{\text{rmt}}$ across varying noise levels, based on $100$ repeated experiments with matrix dimension $m=500,n=250$ and the rank set to $r$.}
+    \label{tab:denoise_model}
+    \begin{tabular}{ccrrrrrrrr}
+		\toprule[1pt]
+		\multicolumn{2}{c}{Noise level $\sigma$}&0.01 & 0.02&0.05&  0.1 & 0.2 &0.3 & 0.4 & 0.5  \\
+    \midrule[1pt]
+    $r=5$ &$\widecheck{M}_{\text{rmt}}$ & 0.0700&0.1402&0.3503&0.7002& 1.3995& 2.0971& 2.7951& 3.4452\\
+    $r=5$ &$\widecheck{M}_{\text{fac}}$ & 0.0700& 0.1402&0.3504& 0.7015& 1.4097& 2.1319& 2.8761& 3.5996\\
+    $r=5$ &$\widecheck{M}_{\text{nuc}}$ &  0.1096& 0.2191&0.5425& 1.0716 &2.0830&3.0350& 3.9404&4.7321\\
+    \hline
+    \hline
+    $r=10$ &$\widecheck{M}_{\text{rmt}}$ &0.0681& 0.1364& 0.3405&0.6809&1.3610&2.0392&2.7133& 3.3840\\
+    $r=10$ &$\widecheck{M}_{\text{fac}}$ & 0.0681&0.1364& 0.3407& 0.6821& 1.3705& 2.0717 &2.7892& 3.5313\\
+    $r=10$ &$\widecheck{M}_{\text{nuc}}$ & 0.1008& 0.2012& 0.4980&0.9818&1.9053&2.7689& 3.5812& 4.3354\\
+    \hline
+    \hline
+    $r=20$ &$\widecheck{M}_{\text{rmt}}$ &0.0648& 0.1947& 0.3568& 0.6479&1.3270& 1.9733&2.5800& 3.1213 \\
+    $r=20$ &$\widecheck{M}_{\text{fac}}$ &  0.0648& 0.1948 &0.3570& 0.6490&1.3361& 2.0033& 2.6470& 3.2398 \\
+    $r=20$ &$\widecheck{M}_{\text{nuc}}$ &0.0931& 0.2780& 0.5057& 0.9059& 1.7960& 2.5895&3.2907& 3.8780\\
+    \bottomrule[1pt]
+    	\end{tabular}
+\end{table}
+
+While random matrix theory has achieved significant success in matrix denoising and observed-spectrum shrinkage, residual spectral matching offers a different approach to noisy matrix completion.
+The strong performance of the estimator $\widecheck{\M}_{\text{rmt}}$ in matrix denoising prompted us to adopt the perspective of low-rank perturbations of random matrices. In the noisy matrix completion problem, we treat the observation $\Y=P_{\bOmega}(\M_0+\bH)$ as a perturbation of the sparse random matrix $P_{\bOmega}(\bH)$. We therefore seek an estimator whose residual spectrum approximates that of $P_{\bOmega}(\bH)$. Unlike matrix denoising, there is no closed-form solution for the proposed estimator in noisy matrix completion. Due to the limited sample size, approximating each entry of $P_{\bOmega}(\bH)$ is challenging. We leverage the spectral distributions of sparse random matrices, which are stable under the conditions considered below. By using the distance between spectral distributions as a criterion, we can assess whether the residual spectrum is consistent with the noise reference.
+
+\section{Methodology and algorithm}
+\label{sec:methodology}
+
+\subsection{Proposed method}
+A sparse Gaussian random matrix of size $m\times n$ and missing probability $1-p_{i,j} \ge 0, 1\le i\le m, 1\le j\le n$ can be formulated as
+\begin{align*}
+   \M\in\mathbb{R}^{m\times n}, \quad \M_{i,j} = \bm{\Phi}_{i,j} \bOmega_{i,j},\quad 1\le i\le m,1\le j\le n,
+\end{align*}
+where $\bm{\Phi}_{i,j}$ are independent Gaussian random variables with mean zero and variance $1/m$, and $\bOmega_{i,j}$ are independent Bernoulli random variables with success probability $p_{i,j}$.
+% BEGIN MAJOR REVISION M05
+\begin{revision}
+Define the probability space $\mathcal{S}_{m,n,p} = \left(\mathbb{R}^{m\times n},\mathcal{B}_{m,n},\mathcal{P}_{m,n,p}\right)$, where $\mathcal{B}_{m,n}$ is the Borel $\sigma$-algebra of $\mathbb{R}^{m\times n}$, and the probability measure $\mathcal{P}_{m,n,p}$ is the product mixture law
+\begin{align*}
+ \mathcal P_{m,n,p}
+ =\bigotimes_{i=1}^{m}\bigotimes_{j=1}^{n}
+ \{p_{i,j}N(0,1/m)+(1-p_{i,j})\delta_0\},
+\end{align*}
+where $\delta_0$ is a point mass at zero. 
+We denote the singular values of $\M$ as $\lambda_{1}(\M)\ge \lambda_2(\M)\ge \cdots \ge \lambda_n(\M)$ and combine them into a vector $\bm{\lambda}(\M)$. 
+  In the probability space $\mathcal{S}_{m,n,p}$, we define the conditional expectation of the random vector $\bm{\lambda}(\M)$ as
+  $\bm{\lambda} = \mathbb{E}_{\M} [\bm{\lambda}(\M)|\bOmega]$. For uniform sampling, the singular values of $p^{-1/2}\M$ admit a coarse ordered approximation to the rooted Marchenko--Pastur quantiles under the sparse sampling conditions in Section~\ref{sec:theoretical}. The same-mask reference additionally reflects the realized observation pattern, while averaging several draws reduces Monte Carlo variability.  The conditional mean spectrum can be approximated by Monte Carlo $\widehat{\bm{\lambda}} = \sum_{i=1}^T \bm{\lambda}(\M_i)/T$ where $\M_i,1\le i\le T$ are independent sparse Gaussian random matrices conditional on the observed set $\bOmega$. The entries of $\widehat{\bm{\lambda}}$ are denoted as $\widehat{\lambda}_i,1\le i\le n$.
+
+Conditional on the observed mask, Gaussian concentration gives
+\begin{align}
+ \mathbb P\left\{
+ \max_{1\le i\le n}|\widehat\lambda_i-\lambda_i|
+ > C_D\sqrt{\frac{\log n}{mT}}\,\biggm|\,\bOmega\right\}
+ \le 2n^{-D}
+ \label{eq:main_reference_mc_error}
+\end{align}
+for every fixed $D>0$. Thus $mpT\gtrsim\log^3m$ makes the Monte Carlo
+error no larger than the $\sqrt p/\log m$ sparse-calibration scale.
+Under the sufficient sparse sampling condition in Section~\ref{sec:theoretical},
+any $T\ge1$ has this property; a larger $T$ reduces the Monte Carlo
+component.
+
+\end{revision}
+% END MAJOR REVISION M05
+
+
+  
+
+We then construct a criterion $l(\bm{N};\bm{\omega})$ to evaluate whether the spectrum of a matrix $\bm{N}\in\mathbb R^{m\times n}$ agrees with the sparse Gaussian reference. Let the ordered singular values of $\bm{N}$ be denoted as $\psi_1(\bm{N})\ge \psi_2(\bm{N})\ge \cdots\ge \psi_n(\bm{N})$, and define the vector $\bm{\psi}(\bm{N}) = (\psi_1(\bm{N}),\cdots,\psi_n(\bm{N}))$. The criterion calculates the weighted $L_2$ distance between $\bm{\psi}(\bm{N})$ and $\widehat{\bm{\lambda}}$, i.e., 
+$$l(\bm{N};\bm{\omega}) = \left\|\bm{\psi}(\bm{N}) - \widehat{\bm{\lambda}}\right\|_{\bm{\omega}}^2 = \sum_{i=1}^n \omega_i \left(\psi_i(\bm{N}) - \widehat{\lambda}_i \right)^2,$$
+where $\bm{\omega}=(\omega_1,\cdots,\omega_n)$ is the vector of nonnegative weights satisfying $\sum_{i=1}^n\omega_i=1$. The weights are held fixed during optimization.
+
+% BEGIN MAJOR REVISION M06
+\begin{revision}
+One family illustrating the theoretical weight conditions is
+\begin{align*}
+ \omega_i=\frac{\zeta}{k_\omega}\mathbf1_{\{i\le k_\omega\}}
+             +\frac{1-\zeta}{n},
+ \qquad 0<\zeta<1,\quad 1\le k_\omega\le n.
+\end{align*}
+For fixed $\zeta$, taking $k_\omega=o(\log^2m)$ satisfies the factor
+condition $\omega_1\gg\log^{-2}m$. Taking
+$r\le k_\omega\le C_\omega\log^2m$ satisfies the nuclear condition
+$\min_{i\le r}\omega_i\gtrsim\log^{-2}m$. The parameters $\zeta$ and $k_\omega$ determine the allocation of weight
+between the leading and remaining singular values.
+
+\end{revision}
+% END MAJOR REVISION M06
+
+
+For noisy matrix completion, any matrix $\M\in\mathbb R^{m\times n}$ close to $\M_0$ will result in the residual matrix
+\begin{align*}
+ \Y-P_{\bOmega}(\M)=P_{\bOmega}(\M_0-\M)+P_{\bOmega}(\bH)
+\end{align*}
+being close to $P_{\bOmega}(\bH)$. Under the homogeneous-noise conditions below, its scale-adjusted spectrum can be calibrated by the sparse Gaussian reference. Therefore, we propose the following method to find an estimator $\widetilde\M\in\mathbb M$ for $\M_0$ as
+\begin{align}
+\label{eq:general_estimation}
+    \widetilde{\M} = \underset{\M\in \mathbb{M}}{\arg\min}\ l\left(\frac{\Y - P_{\bOmega}(\M)}{\sqrt{m} \widehat{\sigma}(\M)};\bm{\omega}\right).
+\end{align}
+% BEGIN MAJOR REVISION M07
+\begin{revision}
+Here $\widehat{\sigma}(\M)$ is the estimated working standard deviation, defined as 
+
+\begin{align} 
+\label{eq:working_variance}
+    \widehat{\sigma}(\M) = \frac{\sum_{i\in I} \psi_i\left(\Y - P_{\bOmega}(\M)\right)}{\sqrt{m}\sum_{i\in I} \widehat\lambda_i},
+\end{align}
+
+where $I=\{\lceil n/3\rceil,\ldots,\lfloor2n/3\rfloor\}$ and $\psi_i(\Y-P_{\bOmega}(\M))$ are the ordered residual singular values. Candidates with zero bulk scale are assigned infinite loss. We use the normalization $\mathcal L(\M)=p^{-1}l((\Y-P_{\bOmega}(\M))/(\sqrt m\widehat\sigma(\M));\bm\omega)$. The working estimator $\widehat\sigma(\M)$ approximates the standard deviation $\sigma$ of the noise by calculating the proportion of the bulk singular values' sum from the residual matrix and sparse random matrices. Using the middle singular values reduces the influence of a few large residual singular values on scale estimation.
+
+
+Section~\ref{sec:4.4} extends the method to unknown row and
+column variance distributions by estimating relative weights and using
+a stabilized weighted fit with the same-mask Gaussian reference.
+
+\end{revision}
+% END MAJOR REVISION M07
+
+
+% BEGIN MAJOR REVISION M08
+\begin{revision}
+With a rank cap $s$, write $\M=\bL\R'$ with
+$\bL\in\mathbb R^{m\times s}$ and $\R\in\mathbb R^{n\times s}$.
+To control the distribution of the signal across entries, define
+\begin{align*}
+ \mathbb M_{s,\mu_1}=\left\{\M=\U\bm D\V':\operatorname{rank}(\M)\le s,
+ \ \|\U\|_{2,\infty}^2\le\frac{\mu_1s}{m},
+ \ \|\V\|_{2,\infty}^2\le\frac{\mu_1s}{n}\right\},
+\end{align*}
+where $\U,\V$ contain the nonzero singular directions; the zero matrix is
+included. The matrix-factorization estimator is
+\begin{align}
+\label{eq:our_estimator_nonconvex}
+ \widetilde{\M}_{\mathrm{fac}}
+ \in\operatorname*{argmin}_{\M=\bL\R'\in\mathbb M_{s,\mu_1}}
+ l\left(\frac{\Y-P_{\bOmega}(\bL\R')}
+ {\sqrt m\widehat\sigma(\bL\R')};\bm\omega\right).
+\end{align}
+For nuclear-norm regularization, let $\widehat\sigma_{\mathrm{pil}}$ be a
+preliminary estimate of $\sigma$, held fixed during optimization, and set
+\begin{align}
+ \widehat\sigma_{\mathrm{cl}}(\M)
+ &=\min\{\widehat\sigma(\M),4\widehat\sigma_{\mathrm{pil}}\},\nonumber\\
+ \mathcal L_{\mathrm{cl}}(\M)
+ &=p^{-1}l\left(\frac{\Y-P_{\bOmega}(\M)}
+ {\sqrt m\widehat\sigma_{\mathrm{cl}}(\M)};\bm\omega\right).
+ \label{eq:main_clipped_scale}
+\end{align}
+The pilot is $\widehat\sigma_{\mathrm{pil}}=\widehat\sigma(\M^{(k_0)})$,
+where $\M^{(k_0)}$ is the iterate selected by the stopping rule in
+Section~\ref{sec:4.3}.
+The nuclear-norm estimator is
+\begin{align}
+ \widetilde\M_{\mathrm{nuc}}
+ \in\operatorname*{argmin}_{\M\in\mathbb R^{m\times n}}
+ \{\mathcal L_{\mathrm{cl}}(\M)+\lambda\|\M\|_*\}.
+ \label{eq:our_estimator_convex}
+\end{align}
+The nuclear norm relaxes the rank constraint, although the overall spectral
+objective remains nonconvex. The scale cap controls candidates with large
+working scales and is inactive at the truth when the pilot is sufficiently
+accurate. Here $\lambda$ corresponds to the normalized loss
+$\mathcal L_{\mathrm{cl}}$; the equivalent coefficient for the unnormalized
+loss is $p\lambda$.
+
+
+
+\end{revision}
+% END MAJOR REVISION M08
+The criterion calibrates the residual spectrum while the rank constraint or nuclear penalty regularizes the signal. The reference can therefore incorporate noise structure without changing the form of the low-rank model.
+
+% BEGIN MAJOR REVISION M09
+\begin{revision}
+\subsection{Optimization algorithm}
+Minimizing the proposed spectral criterion is more challenging than minimizing the squared residual norm because the criterion is nonconvex. To address this, we develop iterative algorithms, whose convergence properties will be studied in the next section.
+
+The derivative can be computed from the residual singular value decomposition. Write
+$\bm E(\M)=\Y-P_{\bOmega}(\M)
+ =\U_E\operatorname{diag}(d_i)\V_E'$, and let
+$S=\sum_{i\in I}d_i$, $A_I=\sum_{i\in I}\widehat\lambda_i$,
+$b=S/A_I=\sqrt m\widehat\sigma(\M)$,
+$e_i=d_i/b-\widehat\lambda_i$ and $T_e=\sum_i\omega_i e_i d_i$.
+When the residual singular values are positive and distinct and $S>0$,
+\begin{align}
+ G(\M):=\nabla\mathcal L(\M)
+ &=-P_{\bOmega}\{\U_E\operatorname{diag}(a_i)\V_E'\},\nonumber\\
+ a_i&=\frac{2}{pb}\left(\omega_i e_i-
+             \frac{\mathbf1_{\{i\in I\}}}{S}T_e\right).
+ \label{eq:gradient_for_our}
+\end{align}
+The second term accounts for the working scale and requires one scalar
+sum after the residual SVD. The reference and weights remain fixed,
+whereas the working scale is recomputed at each trial point.
+
+For the factorization $\M=\bL\R'$, we use preconditioned directions
+\begin{align}
+ D_L&=-G(\M)\R(\R'\R+\gamma I_s)^{-1},\nonumber\\
+ D_R&=-G(\M)'\bL(\bL'\bL+\gamma I_s)^{-1},\qquad\gamma>0.
+ \label{eq:main_factor_direction}
+\end{align}
+Only two $s\times s$ linear systems are required. Positive damping
+stabilizes these solves without adding a penalty to the objective.
+For $Z(t)=(\bL+tD_L)(\R+tD_R)'$, the derivative of
+$\mathcal L\{Z(t)\}$ at zero is $-d_{\mathrm{dir}}$, where
+$d_{\mathrm{dir}}=-\langle G,D_L\R'+\bL D_R'\rangle\ge0$.
+We select the step size by backtracking on the actual loss.
+
+Starting from $\M^{(0)}$, use the iteration index $k=0,1,\ldots$
+throughout the algorithm. Let $k_0$ be the stopping index defined in
+Section~\ref{sec:4.3}, and put
+$\widehat h=\widehat\sigma(\M^{(k_0)})\sqrt{m/p}$.
+The matrix $\M^{(k_0)}$ is held fixed in the following acceptance test.
+For a fixed $A_0>0$, set $R_a=A_0\sqrt s\,\widehat h$ and
+$\mathcal B_a=\{\M:\|\M-\M^{(k_0)}\|_F\le R_a\}$.
+To retain statistical accuracy during optimization, accept finite-loss
+candidates in
+\begin{align}
+ \mathcal A_{\mathrm{fac}}=
+ \{\M\in\mathbb M_{s,\mu_1}:\M\in\mathcal B_a
+                         \ \text{or}\ \mathcal L(\M)\le\omega_1\}.
+ \label{eq:main_factor_acceptance}
+\end{align}
+The line search requires
+\begin{align}
+ Z(t)\in\mathcal A_{\mathrm{fac}},\qquad
+ \mathcal L\{Z(t)\}\le\mathcal L(\M)-c_A td_{\mathrm{dir}},
+ \quad 0<c_A<1.
+ \label{eq:main_factor_armijo}
+\end{align}
+A feasible initial matrix already satisfying $\mathcal L\le\omega_1$
+can be used directly, without the preliminary construction or ball test.
+Once this loss level is reached, monotone descent preserves it.
+For a thin SVD $\M=\U\bm D\V'$, write
+$\operatorname{Bal}(\M)=(\U\bm D^{1/2},\V\bm D^{1/2})$, with zero
+columns added when necessary. Rebalancing leaves the represented matrix
+unchanged.
+
+
+\begin{algorithm}[htbp!]\revisionfloatcolor{}
+\caption{Iteration Algorithm for $\widetilde{\M}_{\mathrm{fac}}$}
+\label{alg:nonconvex}
+
+\begin{algorithmic}[1]
+\State \textbf{Input} $\Y,\bOmega,p$, rank $s$, envelopes $\mu_0,\mu_1$, weights
+$\bm\omega$, and budgets $T,K$.
+\State Sample $T$ same-mask Gaussian matrices; set
+$\widehat{\bm\lambda}\leftarrow T^{-1}\sum_{t=1}^T\bm\lambda(\M_t)$.
+\State Construct $\M^{(0)},\ldots,\M^{(k_0)}$ by Section~\ref{sec:4.3};
+set $k_0=0$ for a feasible start with $\mathcal L\le\omega_1$.
+\State $(\bL^{(k_0)},\R^{(k_0)})\leftarrow\operatorname{Bal}(\M^{(k_0)})$.
+\State \textbf{For} $k=k_0,\ldots,k_0+K-1$
+\State \quad Compute the residual SVD, working scale, and $G_k$ by
+\eqref{eq:gradient_for_our}.
+\State \quad Form $(D_{L,k},D_{R,k})$ by \eqref{eq:main_factor_direction}.
+\State \quad Choose $t_k$ by \eqref{eq:main_factor_armijo}; stop if the
+prescribed tolerance is met or no trial is accepted.
+\State \quad $\M^{(k+1)}\leftarrow(\bL^{(k)}+t_kD_{L,k})
+                         (\R^{(k)}+t_kD_{R,k})'$.
+\State \quad $(\bL^{(k+1)},\R^{(k+1)})\leftarrow
+                         \operatorname{Bal}(\M^{(k+1)})$.
+\State \textbf{End for}
+\State \textbf{Output} The last accepted matrix $\M$.
+\end{algorithmic}
+
+\end{algorithm}
+
+
+For nuclear-norm regularization, the update is performed directly in the
+matrix space. With $g=\nabla\mathcal L_{\mathrm{cl}}(\M)$, form
+\begin{align}
+ Z_0(t)=\operatorname{SVT}_{t\lambda}(\M-tg),
+ \qquad
+ \operatorname{SVT}_{u}(A)=\sum_i(\psi_i(A)-u)_+\bu_i(A)\bv_i(A)'.
+ \label{eq:main_nuclear_step}
+\end{align}
+If $\M\in\mathcal B_a$ and this proposal fails the acceptance conditions
+in Section~\ref{sec:4.3}, use the same proximal minimization restricted to
+$Z\in\mathcal B_a$. For either exact proximal proposal, backtracking
+requires
+\begin{align}
+ \mathcal L_{\mathrm{cl}}(Z)
+ \le\mathcal L_{\mathrm{cl}}(\M)+\langle g,Z-\M\rangle
+                  +\frac{1-c_A}{2t}\|Z-\M\|_F^2.
+ \label{eq:main_nuclear_backtracking}
+\end{align}
+The resulting penalized objective decreases without imposing a fixed-rank
+restriction on $Z$. Below the scale cap, $g$ is given by
+\eqref{eq:gradient_for_our}; strictly above it, the capped scale is used and
+the scale-derivative term is omitted. At a spectral collision or clipping
+boundary, a step is taken only if a valid descent proposal is available.
+The procedures return the last accepted matrix at termination.
+
+
+\paragraph{Estimated variance weights.}
+For heterogeneous noise we first estimate a relative scale profile and
+hold its normalized weights $W$ fixed. The weighted observation operator
+and residual are
+\begin{align*}
+ \mathcal A_W(M)&=W\odot P_{\bOmega}(M),&
+ E_W(M)&=W\odot\{Y-P_{\bOmega}(M)\}.
+\end{align*}
+Recovery uses the corresponding weighted spectral score in the original
+matrix parameterization. An optional factor or nuclear-norm refinement
+uses a scale $b_W>0$ calibrated at the start of that refinement and held
+fixed in
+\begin{align}
+ \mathcal L_{W,b_W}(M)
+ &=\frac1p\sum_i\omega_i
+   \left\{\frac{\psi_i(E_W(M))}{b_W}-\widehat\lambda_i\right\}^2.
+ \label{eq:weighted_fixed_loss}
+\end{align}
+The same-mask Gaussian reference is unchanged. The weight construction
+and final stabilization are specified in Section~\ref{sec:4.4}; the
+weighted score, derivatives, step selection, and stopping conventions
+are given in the Supplementary Material.
+\end{revision}
+% END MAJOR REVISION M09
+
+
+
+% BEGIN MAJOR REVISION M10
+\begin{revision}
+\section{Theoretical results}
+\label{sec:theoretical}
+Several assumptions for noisy matrix completion are outlined here. The probability statements account for the observation mask, noise and Monte Carlo reference matrices.
+
+\begin{assumption}
+\label{assum:noise}\label{assum:1.a.}
+The entries $H_{ij}$ are independent mean-zero random variables with
+variance $\sigma^2>0$. There is a fixed constant $K_H>0$ such that
+$\mathbb P(|H_{ij}|>t\sigma)\le2\exp(-t/K_H)$ for every $t>0$, uniformly
+in $i,j,m,n$.
+\end{assumption}
+\begin{assumption}
+\label{assum:target}
+The fixed matrix $\M_0\in\mathbb R^{m\times n}$ has rank $r$, with
+$12r\le n$ and $0<\rho_-\le n/m\le1$. Its compact SVD
+$\M_0=\U_0\bm D_0\V_0'$ satisfies
+$\|\U_0\|_{2,\infty}\le\sqrt{\mu_0r/m}$ and
+$\|\V_0\|_{2,\infty}\le\sqrt{\mu_0r/n}$.
+Write $s_\star=\psi_r(\M_0)>0$, $s_1=\psi_1(\M_0)$ and
+$\kappa=s_1/s_\star$.
+\end{assumption}
+\begin{assumption}
+\label{assum:missing}
+The entries of $\bOmega$ are independent Bernoulli$(p)$ variables,
+independent of $\bH$, and $mp\ge\log^{\alpha_0}m$ for a fixed
+$\alpha_0>15$ and sufficiently large dimensions. The Gaussian reference
+matrices are independent of the noise conditional on the observed mask.
+\end{assumption}
+The exponent $\alpha_0$ gives a sufficient sampling condition for sparse
+spectral calibration. The results below state the additional dependence
+on rank, incoherence and condition number. No lower bound on the noise level is imposed
+beyond $\sigma>0$. Throughout Sections~\ref{sec:4.1}--\ref{sec:4.3},
+Assumptions~\ref{assum:noise}--\ref{assum:missing} are in force.
+Section~\ref{sec:4.4} replaces homogeneity by a separable variance profile.
+\end{revision}
+% END MAJOR REVISION M10
+
+
+
+% BEGIN MAJOR REVISION M11
+\begin{revision}
+\subsection{Statistical properties of matrix factorization estimation}
+\label{sec:4.1}
+We consider the properties of $\widetilde\M_{\mathrm{fac}}$ over the estimation space $\mathbb M_{s,\mu_1}$.
+The factorization enforces the rank constraint. The singular-space bounds are checked when a trial matrix is accepted.
+Firstly, we focus on the scenario where the rank $s$ of the estimation space is properly selected, i.e., $s=r$. Assume $\mu_1\ge\mu_0$, so that $\M_0$ is feasible, and set $\bar\mu=\max\{\mu_0,\mu_1\}$. Consider the estimator
+\begin{align*}
+ \widetilde\M\in\operatorname*{argmin}_{\M\in\mathbb M_{r,\mu_1}}
+             \mathcal L(\M),
+\end{align*}
+whenever a minimizer exists.
+
+\begin{theorem}
+\label{thm:upper_bound_for_rankr}
+Suppose
+\begin{align}
+ np\ge C\kappa^2\{\bar\mu r\log m+\bar\mu^2r^2\},
+ \qquad \omega_1\gg\log^{-2}m.
+ \label{eq:main_factor_sampling}
+\end{align}
+With probability at least $1-cn^{-3}$,
+\begin{align*}
+ \|\widetilde\M-\M_0\|_F\le C\sigma\sqrt{mr/p}.
+\end{align*}
+More generally, on the same event, every finite-loss candidate
+$\M\in\mathbb M_{r,\mu_1}$ satisfying
+$\mathcal L(\M)\le C_L\omega_1$ obeys this bound, with a constant
+that may depend on the fixed $C_L>0$.
+\end{theorem}
+
+The upper bound presented in Theorem~\ref{thm:upper_bound_for_rankr} coincides with the minimax lower bound in Theorem 3 of \cite{negahban2012restricted} and Theorem 5 of \cite{koltchinskii2011nuclear}, with an order of $\sigma\sqrt{mr/p}$, when the incoherence and condition number are bounded. The bound applies uniformly to low-loss candidates selected using the same observations.
+
+For correctly specified rank and positive noise level, the bound tends
+to zero whenever $\sigma\sqrt{mr/p}\to0$ under the stated sampling conditions.
+\begin{corollary}
+\label{cor:large_M0}
+Under Theorem~\ref{thm:upper_bound_for_rankr}, every candidate
+$\widehat{\M}\in\mathbb M_{r,\mu_1}$ satisfying
+\begin{align*}
+ \mathcal L(\widehat{\M})
+ \le\inf_{\M\in\mathbb M_{r,\mu_1}}\mathcal L(\M)+\omega_1/2
+\end{align*}
+has $\|\widehat{\M}-\M_0\|_F\le C\sigma\sqrt{mr/p}$ on the same event,
+for sufficiently large $m$.
+\end{corollary}
+The displayed objective tolerance is therefore sufficient for optimal
+statistical accuracy.
+
+
+Several studies have investigated estimation and testing issues concerning the underlying rank $r$ of $\M_0$, e.g., \cite{zhang2019statistical} and \cite{li2023robust}. When the noise level is significant, precisely estimating the true rank of $\M_0$ may not always be feasible. For a working rank $s\ge r$, we next bound the estimation error over the larger space $\mathbb M_{s,\mu_1}$.
+
+\begin{corollary}
+\label{cor:mis_ranks}
+Let $s\ge r$, $k=r+s\le n$, $\mu_1\ge\mu_0$,
+$\omega_1\gg\log^{-2}m$, and $np\ge Ck\{1+\mu_1^2s^2\}$.
+Every global minimizer $\widetilde\M_s$ over $\mathbb M_{s,\mu_1}$,
+when it exists, satisfies with probability at least $1-cn^{-3}$,
+\begin{align*}
+ \|\widetilde\M_s-\M_0\|_F
+ \le C\sigma\sqrt{mk/p}
+   +C(\mu_0r+\mu_1s)\sqrt{\frac{k}{np}}\|\M_0\|_F.
+\end{align*}
+\end{corollary}
+The first term has the usual noise scale for the enlarged rank, whereas
+the second records the effect of sampling. For $s=r$,
+Theorem~\ref{thm:upper_bound_for_rankr} gives the sharper bound without
+this remainder.
+\end{revision}
+% END MAJOR REVISION M11
+
+
+
+% BEGIN MAJOR REVISION M12
+\begin{revision}
+\subsection{Statistical properties of nuclear-norm regularization}
+\label{sec:4.2}
+In addition to the strictly low-rank constraint $\M=\bL\R'$, several studies such as \cite{candes2009exact} suggest that the nuclear norm $\|\M\|_*$ serves as an effective convex relaxation of the rank constraint. Our method can employ a similar relaxation for low-rank constraints. Analyzing the resulting estimator is more challenging because the spectral loss is nonconvex and the rank of the candidate matrix is not fixed.
+
+For nuclear-norm regularization, let $\widehat{\M}_\lambda$ be a finite-loss
+candidate satisfying
+\begin{align}
+ \Phi_\lambda(\widehat{\M}_\lambda)
+ &\le\Phi_\lambda(\M_0)+\varepsilon_{\mathrm{opt}},
+       \qquad\varepsilon_{\mathrm{opt}}\ge0,\nonumber\\
+ \Phi_\lambda(\M)&=\mathcal L_{\mathrm{cl}}(\M)+\lambda\|\M\|_*.
+ \label{eq:main_nuclear_objective_comparison}
+\end{align}
+An exact global minimizer satisfies this inequality with
+$\varepsilon_{\mathrm{opt}}=0$. Put
+$\Delta=\widehat{\M}_\lambda-\M_0$, $d=\|\Delta\|_F$,
+$\ell=\mathcal L_{\mathrm{cl}}(\M_0)+\varepsilon_{\mathrm{opt}}$, and
+$\bar\omega_r=\min_{1\le i\le r}\omega_i>0$.
+\begin{theorem}
+\label{thm:upper_bound_for_convexlambda}
+With probability at least $1-cn^{-3}$, the following holds. Suppose both
+$\widehat\sigma_{\mathrm{pil}}$ and $\widehat\sigma(\M_0)$ belong to
+$[\sigma/2,3\sigma/2]$. For every candidate satisfying
+\eqref{eq:main_nuclear_objective_comparison} and
+\begin{align}
+ \|P_{\bOmega}(\Delta)\|_F^2
+       \ge c_{\mathrm{curv}}p\|\Delta\|_F^2,
+ \label{eq:main_nuclear_curvature}
+\end{align}
+with fixed $c_{\mathrm{curv}}>0$, one has
+\begin{align*}
+ d\le C\left\{
+ \frac{\ell}{\lambda\sqrt r}+\sigma\sqrt{\frac{mr}{p}}
+ +\sigma\sqrt{\frac{m\ell}{p\bar\omega_r}}
+ +\frac{\sigma^2m\lambda\sqrt r}{p\bar\omega_r}\right\}.
+\end{align*}
+\end{theorem}
+The scale cap provides uniform control of the working standard deviation.
+Condition~\eqref{eq:main_nuclear_curvature} controls the sampled energy of
+the estimation error. The algorithmic acceptance conditions in
+Section~\ref{sec:4.3} are stated in terms of observable quantities.
+\begin{corollary}
+\label{cor:convex_tuning_lambda}
+Under Theorem~\ref{thm:upper_bound_for_convexlambda}, suppose
+$\bar\omega_r\ge c_\omega\log^{-2}m$,
+$\ell\le C_\ell r\log^{-2}m$, and
+$\lambda\asymp\sigma^{-1}\sqrt{p/m}\log^{-2}m$. Then
+\begin{align*}
+ \|\widehat{\M}_\lambda-\M_0\|_F\le C\sigma\sqrt{mr/p}.
+\end{align*}
+\end{corollary}
+The tuning balances the objective tolerance and the regularization term.
+A calibrated pilot may replace $\sigma$ without changing the order of
+$\lambda$. Since the weights sum to one, the stated lower bound on the
+first $r$ weights entails $r\log^{-2}m=O(1)$ when $r$ diverges.
+\end{revision}
+% END MAJOR REVISION M12
+
+
+
+% BEGIN MAJOR REVISION M13
+\begin{revision}
+\subsection{Algorithmic properties under homogeneous noise}
+\label{sec:4.3}
+
+We begin the algorithm analysis with the initial matrix $\M^{(0)}$ of
+Algorithm~\ref{alg:nonconvex}.
+For $Z=p^{-1}\Y$, write $\widehat s_i=\psi_i(Z)$,
+$Z_s=\operatorname{Proj}_s(Z)$ and
+$\widehat h_{\mathrm{raw}}=\widehat\sigma(0)\sqrt{m/p}$.
+Set $B=K_0\sqrt{\mu_0s}\,\widehat s_1$, with a supplied incoherence
+envelope $\mu_0$ and a sufficiently large fixed $K_0$. Define
+\begin{align}
+ P_B(A)&=D_aAD_b,\nonumber\\
+ (D_a)_{ii}&=1\wedge\frac{B}{\sqrt m\|A_{i,\cdot}\|_2},\qquad
+ (D_b)_{jj}=1\wedge\frac{B}{\sqrt n\|A_{\cdot,j}\|_2},
+ \label{eq:main_initial_projection}
+\end{align}
+using multiplier one for a zero row or column, and put $M_b=P_B(Z_s)$.
+For a fixed small $t_0>0$, if
+$\sqrt s\,\widehat h_{\mathrm{raw}}\ge t_0\widehat s_s$, take
+\begin{align}
+ \M^{(0)}=\operatorname{HT}_{\widehat s_s/4}(M_b),\qquad
+ \operatorname{HT}_u(A)=\sum_{\psi_i(A)\ge u}\psi_i(A)\bu_i(A)\bv_i(A)'.
+ \label{eq:main_initial_spectral_branch}
+\end{align}
+Set $k_0=0$ in this case. Otherwise, start at $\M^{(0)}=M_b$ and use the simultaneous factor
+updates \eqref{eq:main_factor_direction} with $\gamma=0$, step size $1/2$,
+and $G$ replaced by
+\begin{align}
+ G_{\mathrm{RSM}}(M)
+ &=-p^{-1}\bm E(M)+\alpha(M)p^{-1}P_{\bOmega}\{Q(M)\},\nonumber\\
+ Q(M)&=\sqrt m\widehat\sigma(M)\U_E
+                   \operatorname{diag}(\widehat\lambda_i)\V_E',\nonumber\\
+ \alpha(M)&=1\wedge
+ \frac{C_Q\widehat\sigma(M)\sqrt{mp}}{\|P_{\bOmega}\{Q(M)\}\|}.
+ \label{eq:main_initial_score}
+\end{align}
+Here $C_Q$ is fixed, the singular vectors are those of $\bm E(M)$,
+and $\alpha(M)=1$ when its denominator is zero. Apply $P_B$
+and rebalance after each update. Set $k_0=k+1$ at the first occurrence of
+\begin{align}
+ \|\M^{(k+1)}-\M^{(k)}\|_F
+ \le C_{\mathrm{stop}}\sqrt s\,
+                \widehat\sigma(\M^{(k)})\sqrt{m/p}.
+ \label{eq:main_initial_stop}
+\end{align}
+In either case set $\widehat h=\widehat\sigma(\M^{(k_0)})\sqrt{m/p}$.
+
+Put $h=\sigma\sqrt{m/p}$ and $\bar\mu=\max\{\mu_0,\mu_1\}$.
+In addition to Assumptions~\ref{assum:noise}--\ref{assum:missing}, suppose
+\begin{align}
+ &\mu_1\ge C_\mu\mu_0\kappa^2,\qquad h\le c_hs_\star,\nonumber\\
+ &np\ge C\left[\mu_0\kappa^2r^2\log m+\mu_0^2\kappa^4r^2
+           +\kappa^2\{\bar\mu r\log m+\bar\mu^2r^2\}\right].
+ \label{eq:main_algorithm_conditions}
+\end{align}
+Under \eqref{eq:main_algorithm_conditions}, the projected spectral start satisfies
+\begin{align}
+ \|M_b-\M_0\|_F&\le C\sqrt r\{h+b_{\mathrm{sig}}\},\nonumber\\
+ b_{\mathrm{sig}}:=\|(p^{-1}P_{\bOmega}-\operatorname{Id})\M_0\|
+ &\le Cs_1\left\{\sqrt{\frac{\mu_0r\log m}{np}}
+             +\frac{\mu_0r\log m}{p\sqrt{mn}}\right\}.
+ \label{eq:main_spectral_start_accuracy}
+\end{align}
+Continue the factor updates of Algorithm~\ref{alg:nonconvex} from
+$\M^{(k_0)}$, without restarting the iteration index. Thus
+$\{\M^{(k)}\}_{k\ge0}$ denotes the full sequence from the initial matrix
+$\M^{(0)}$; repeat the returned matrix after termination.
+
+\begin{theorem}
+\label{thm:track_interation}
+Suppose \eqref{eq:main_algorithm_conditions} holds, $s=r$, and
+$\omega_1\gg\log^{-2}m$. With probability at least $1-cn^{-3}$,
+Algorithm~\ref{alg:nonconvex} is initialized successfully and the
+successive matrices satisfy, for every $k\ge0$,
+\begin{align}
+ \|\M^{(k+1)}-\M_0\|_F
+ &\le q\|\M^{(k)}-\M_0\|_F+C_*\sigma\sqrt{\frac{mr}{p}},
+ \qquad 0<q\le\frac34,\label{eq:main_uniform_contraction}\\
+ \|\M^{(k)}-\M_0\|_F
+ &\le q^k\|\M^{(0)}-\M_0\|_F
+       +\frac{C_*(1-q^k)}{1-q}\sigma\sqrt{\frac{mr}{p}}.
+ \label{eq:main_geometric_recovery}
+\end{align}
+The constants $q,C_*$ are independent of $k$. An error of order
+$\sigma\sqrt{mr/p}$ is attained within
+\begin{align}
+ J\le C\left[1+\log_+\left\{
+       \frac{\|\M^{(0)}-\M_0\|_F}{\sigma\sqrt{mr/p}}\right\}\right]
+ \label{eq:main_recovery_complexity}
+\end{align}
+updates, where $\log_+(x)=\log\max\{1,x\}$.
+The selected iterate $\M^{(k_0)}\in\mathbb M_{r,\mu_1}$ also obeys
+\begin{align*}
+ \|\M^{(k_0)}-\M_0\|_F&\le C\sigma\sqrt{mr/p},\qquad
+ \|P_{\bOmega}(\M^{(k_0)}-\M_0)\|_F\le C\sigma\sqrt{mr},\\
+ h/2&\le\widehat h\le3h/2.
+\end{align*}
+\end{theorem}
+In particular, while $\|\M^{(k)}-\M_0\|_F\ge
+2C_*\sigma\sqrt{mr/p}/(1-q)$, each update satisfies
+\begin{align}
+ \|\M^{(k+1)}-\M_0\|_F
+ \le\frac{1+q}{2}\|\M^{(k)}-\M_0\|_F.
+ \label{eq:main_linear_above_floor}
+\end{align}
+Hence the iterations converge geometrically to the statistical error scale.
+
+For nuclear-norm updates, accept a finite-loss candidate in $\mathcal B_a$
+or satisfying
+\begin{align}
+ \Phi_\lambda(\M)&\le\lambda\|\M^{(k_0)}\|_*+C_Jr\log^{-2}m,\nonumber\\
+ \|P_{\bOmega}(\M-\M^{(k_0)})\|_F
+ &\ge a_0\sqrt p\,\|\M-\M^{(k_0)}\|_F,\qquad 0<a_0<1,
+ \label{eq:main_nuclear_acceptance}
+\end{align}
+where $C_J$ is fixed.
+\begin{corollary}
+\label{cor:iteration_results}
+Under Theorem~\ref{thm:track_interation}, continue from $\M^{(k_0)}$.
+For Algorithm~\ref{alg:nonconvex}, take
+$s=r$ and $\omega_1\gg\log^{-2}m$.
+For the nuclear updates
+\eqref{eq:main_nuclear_step}--\eqref{eq:main_nuclear_backtracking}, use
+\eqref{eq:main_nuclear_acceptance},
+$\lambda=c_\lambda\log^{-2}m/\widehat h$ and
+$\bar\omega_r\ge c_\omega\log^{-2}m$.
+Then every accepted iterate of either procedure, for $k\ge k_0$, satisfies
+\begin{align*}
+ \|\M^{(k)}-\M_0\|_F\le C\sigma\sqrt{mr/p}.
+\end{align*}
+The corresponding factor loss and penalized nuclear objective are
+nonincreasing for $k\ge k_0$.
+\end{corollary}
+\end{revision}
+% END MAJOR REVISION M13
+
+
+
+% BEGIN MAJOR REVISION M14
+\begin{revision}
+\subsection{Extension to heterogeneous noise}
+\label{sec:4.4}
+
+We allow the row and column variance distributions to be unknown. The
+method estimates their realized relative scale profile; it does not fit
+a parametric distribution or simulate new multipliers from a known law.
+
+\begin{assumption}[Unknown variance-profile distributions]
+\label{assum:hetero}
+The noise admits the representation
+\[
+ H_{ij}=\sigma\sqrt{\nu_i\mu_j}\,\xi_{ij},\qquad \sigma>0.
+\]
+The row and column multipliers are independent samples from unknown
+positive distributions with mean one and uniformly bounded twelfth
+moments. For a fixed $a>0$,
+$\mathbb P(\nu\ge a)\wedge\mathbb P(\mu\ge a)\ge0.95$.
+Conditional on these multipliers, the standardized errors are
+independent, centered, have unit variance, and have a uniform
+sub-exponential tail. The observation mask is independent of the
+multipliers and standardized errors.
+
+The distribution class has deterministic tail envelopes
+$U_\nu,U_\mu\ge1$ such that, for fixed $c_1,C_U>0$,
+\[
+ \mathbb P(\nu>U_\nu)\vee\mathbb P(\mu>U_\mu)\le c_1n^{-5},
+ \qquad U_\nu+U_\mu\le\log^{C_U}m.
+\]
+\end{assumption}
+These are distributional regularity conditions, not bounds on a noise
+realization. Put $H_n=H_{\nu,\mu}=(U_\nu+U_\mu)^{1/2}$.
+The conditional variance matrix has entries $\sigma^2\nu_i\mu_j$;
+constant multipliers include homogeneous and row- or column-specific
+noise as special cases.
+
+\paragraph{Feasible estimation.}
+First compute an unweighted calibration matrix $M_a$ and a noise-scale
+estimate $\widehat s_a$ using the same-mask Gaussian reference. Their
+construction and accuracy are established in the Supplementary Material.
+Fit additive row and column effects to the observed log absolute
+residuals, using a two-way median fit, and exponentiate the fitted values
+to obtain a positive relative scale matrix $S$. With the fixed choice
+$v=1/4$, define
+\begin{align}
+ T_{ij}&=S_{ij}\vee Q_v(\{S_{ij}\}_{ij}),&
+ \widehat W_{ij}&=\frac{\operatorname{median}_{ij}T_{ij}}{T_{ij}}.
+ \label{eq:normalized_truncated_weights}
+\end{align}
+Here $Q_v$ is the sample quantile over the fitted matrix. Normalization
+removes the unidentified common scale, while flooring limits large
+inverse weights. The fitted scale is separable before flooring.
+
+Let $\widetilde M$ be the weighted factor or nuclear-refinement output
+using $\widehat W$, with all observations available for the final fit.
+Use the following final stabilization, for a fixed $A_0>0$:
+\begin{align}
+ R_a&=A_0H_n\widehat s_a\sqrt{mr/p},
+ \label{eq:hetero_output_radius}\\
+ \widehat M=\mathfrak C_a(\widetilde M)
+ &=\begin{cases}
+ \widetilde M,&\|\widetilde M-M_a\|_F\le R_a,\\
+ M_a,&\text{otherwise}.
+ \end{cases}
+ \label{eq:hetero_output_guard}
+\end{align}
+A nonfinite numerical output returns $M_a$. The tail-class envelopes
+calibrate this radius; neither the multiplier laws nor their realizations
+are supplied to the estimator. This rule leaves every accepted weighted
+output unchanged.
+
+\begin{theorem}[Recovery with unknown profile distributions]
+\label{thm:weighted_unknown_rate}
+Suppose Assumptions~\ref{assum:target} and \ref{assum:hetero} hold and the
+mask has independent Bernoulli$(p)$ entries. Use the calibration
+construction specified in the Supplementary Material and $1\le T\le n$
+same-mask Gaussian reference draws. Let $L=\log\{e(m+n)\}$ and suppose
+\begin{align*}
+ mp&\ge C H_n^2\log^{\alpha_{\rm vp}}m,
+ \qquad \alpha_{\rm vp}>40+6C_U,
+\end{align*}
+\begin{align}
+ np&\ge C\bigl[H_n^2\mu_0\kappa^2r^2L+
+                   \mu_0^2\kappa^4r^2+H_n^2r\bigr].
+ \label{eq:hetero_anchor_samples}
+\end{align}
+Then the construction terminates, and with probability at least
+$1-cn^{-3}$ the stabilized factor and nuclear-refinement outputs satisfy
+\begin{align}
+ \|\widehat M-M_0\|_F\le C H_n\sigma\sqrt{mr/p}.
+ \label{eq:hetero_certified_rate}
+\end{align}
+The conclusion holds on the same event if the estimated weights are
+replaced by the normalized, floored true-profile weights.
+\end{theorem}
+Thus the feasible and oracle versions have the same Frobenius error
+order under the stated distribution class, without an additional term
+for estimating the weights. This is an error-order comparison, not an
+asymptotic-equivalence or leading-constant claim. The theorem concerns
+the output defined in \eqref{eq:hetero_output_guard}; the calibration
+recurrence, its iteration complexity, and the known-profile reference
+benchmark are given in the Supplementary Material. No consistency or
+independence assumption is imposed on the fitted weights.
+\end{revision}
+% END MAJOR REVISION M14
+
+
+
+\section{Numerical results}
+\label{sec:numerical}
+We compare the factor and nuclear-norm implementations of residual spectral matching with the least-squares estimators in \eqref{eq:nonconvex-estimate} and \eqref{eq:convex-estimate}. We denote the proposed estimators by $\widetilde{\M}_{\mathrm{fac}}$ and $\widetilde{\M}_{\mathrm{nuc}}$, and the corresponding baselines by $\widehat{\M}_{\mathrm{fac}}$ and $\widehat{\M}_{\mathrm{nuc}}$. Estimator 1 and Estimator 2 refer to the factor and nuclear-norm methods, respectively. The factor baseline uses the alternating gradient procedure of \cite{ma2018implicit}, and the nuclear-norm baseline uses singular-value thresholding.
+
+We report three relative errors,
+\begin{align*}
+ \mathcal E_F&=\frac{\|\widehat\M-\M_0\|_F}{\|\M_0\|_F},&
+ \mathcal E_{sp}&=\frac{\|\widehat\M-\M_0\|}{\|\M_0\|},&
+ \mathcal E_\infty&=\frac{\|\widehat\M-\M_0\|_\infty}{\|\M_0\|_\infty}.
+\end{align*}
+Table entries are means over 100 repetitions and are rounded to four decimal places. A displayed value of $0.0000$ therefore need not represent exact recovery.
+
+\subsection{Simulation study}
+The observations are generated from $\Y=P_{\bOmega}(\M_0+\bH)$, where the entries of $\bOmega$ are independent Bernoulli variables with success probability $p$. Conditional on the variance profile, the noise entries are independent and each is the sum of a mean-zero Gaussian variable with variance $\sigma_{ij}^2/2$ and a Rademacher variable multiplied by $\sigma_{ij}/\sqrt2$.
+The signal is $\M_0=\U_0\bm D_0\V_0'$, where $\U_0$ and $\V_0$ contain the leading $r$ singular vectors of an independent standard Gaussian matrix. We consider $r\in\{5,10,20\}$ and set
+\begin{align*}
+ \psi_i(\M_0)=(2-i/r)\sqrt{mn}(1+\sqrt{n/m}),\qquad i=1,\ldots,r.
+\end{align*}
+
+% BEGIN MAJOR REVISION M15
+\begin{revision}
+\paragraph{Implementation.}
+\label{sec:simulation_implementation}
+The simulated-data comparisons use a common perturbed-truth input $M_{\mathrm{input}}=\M_0+5\bm N$, with the same simulated perturbation $\bm N$ supplied to all methods. They assess recovery from a common informative initialization. Unless rank misspecification is considered, the working rank is $s=r$.
+For the factor implementation, the recovery proposal uses step size $0.1p$. The number of updates is selected by fitting on $90\%$ of the observed entries and minimizing RMSE on the remaining $10\%$, subject to a maximum of 1500 updates. The recovery procedure is then rerun on all observed entries for the selected number of updates. The factor estimate is the resulting recovery iterate. The nuclear-norm implementation starts from the same recovery fit and applies singular-value-thresholding refinement.
+In the simulated-data nuclear-norm results, the proposed penalty is selected from $\{10^{-7},10^{-6.5},\ldots,10^{-2}\}$ by minimizing the true Frobenius error. These are oracle-penalty comparisons, whereas the recovery stopping rule uses only held-out observations. The prediction experiments below use validation data for regularization selection.
+
+
+\end{revision}
+% END MAJOR REVISION M15
+\paragraph{Matrix dimensions and noise level.}
+We first set $\sigma_{ij}=1$, $p=0.2$ and $n/m=0.5$, and vary $m$ from 200 to 1000. Table~\ref{tab:change_matrix_size} reports the Frobenius errors. The errors decrease as the matrix dimensions increase, and both proposed implementations have smaller mean errors than their corresponding baselines in these settings. The two proposed implementations attain similar estimation accuracy. The spectral and maximum errors in the Supplementary Material show the same overall pattern.
+\begin{table}[!htbp]
+\centering
+\caption{Mean relative Frobenius errors $\mathcal E_F$ for $\sigma=1$, $p=0.2$ and $n/m=0.5$. Each entry averages 100 repetitions.}
+\label{tab:change_matrix_size}
+\begingroup
+\small
+\setstretch{1.05}
+\setlength{\tabcolsep}{3.2pt}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{@{}llrrrrrrrrr@{}}
+\toprule
+$r$ & Estimator & $m=200$ & $m=300$ & $m=400$ & $m=500$ & $m=600$ & $m=700$ & $m=800$ & $m=900$ & $m=1000$ \\
+\midrule
+\multirow{4}{*}{$5$} & $\widetilde{\M}_{\mathrm{fac}}$ & 0.1212 & 0.0938 & 0.0788 & 0.0692 & 0.0627 & 0.0575 & 0.0534 & 0.0502 & 0.0474 \\
+ & $\widehat{\M}_{\mathrm{fac}}$ & 0.1362 & 0.1021 & 0.0840 & 0.0745 & 0.0667 & 0.0605 & 0.0556 & 0.0518 & 0.0485 \\
+ & $\widetilde{\M}_{\mathrm{nuc}}$ & 0.1207 & 0.0936 & 0.0787 & 0.0691 & 0.0627 & 0.0574 & 0.0534 & 0.0502 & 0.0474 \\
+ & $\widehat{\M}_{\mathrm{nuc}}$ & 0.1308 & 0.1019 & 0.0839 & 0.0741 & 0.0673 & 0.0619 & 0.0576 & 0.0542 & 0.0512 \\
+\midrule
+\multirow{4}{*}{$10$} & $\widetilde{\M}_{\mathrm{fac}}$ & 0.1325 & 0.0983 & 0.0810 & 0.0703 & 0.0631 & 0.0576 & 0.0532 & 0.0498 & 0.0470 \\
+ & $\widehat{\M}_{\mathrm{fac}}$ & 0.1649 & 0.1107 & 0.0884 & 0.0754 & 0.0667 & 0.0614 & 0.0563 & 0.0522 & 0.0488 \\
+ & $\widetilde{\M}_{\mathrm{nuc}}$ & 0.1317 & 0.0981 & 0.0809 & 0.0702 & 0.0630 & 0.0575 & 0.0532 & 0.0498 & 0.0470 \\
+ & $\widehat{\M}_{\mathrm{nuc}}$ & 0.1514 & 0.1086 & 0.0878 & 0.0766 & 0.0689 & 0.0614 & 0.0570 & 0.0535 & 0.0505 \\
+\midrule
+\multirow{4}{*}{$20$} & $\widetilde{\M}_{\mathrm{fac}}$ & 0.1586 & 0.1138 & 0.0903 & 0.0766 & 0.0674 & 0.0609 & 0.0557 & 0.0518 & 0.0486 \\
+ & $\widehat{\M}_{\mathrm{fac}}$ & 0.1740 & 0.1378 & 0.1056 & 0.0853 & 0.0735 & 0.0654 & 0.0592 & 0.0545 & 0.0507 \\
+ & $\widetilde{\M}_{\mathrm{nuc}}$ & 0.1569 & 0.1133 & 0.0902 & 0.0765 & 0.0674 & 0.0608 & 0.0557 & 0.0518 & 0.0486 \\
+ & $\widehat{\M}_{\mathrm{nuc}}$ & 0.1663 & 0.1303 & 0.1041 & 0.0868 & 0.0748 & 0.0676 & 0.0606 & 0.0564 & 0.0530 \\
+\bottomrule
+\end{tabular}
+}
+\endgroup
+\end{table}
+
+We also vary the homogeneous noise level from zero to five for $m=500$, $n=250$ and $p=0.2$. The full results are reported in the Supplementary Material. At $\sigma=5$, the factor errors are $0.1470$, $0.1412$ and $0.1381$ for $r=5,10,20$, respectively, compared with $0.3714$, $0.3844$ and $0.4182$ for least squares. At small noise levels the differences are smaller. For $r=20$ and very small noise, the finite-iteration errors can exceed those of the baselines; these runs reach the imposed iteration limit.
+
+% BEGIN MAJOR REVISION M16
+\begin{revision}
+\paragraph{Heterogeneous variance profiles.}
+\label{sec:heterogeneous_simulation}
+We next set $\sigma_{ij}^2=\sigma^2\nu_i\mu_j$ and consider the four profiles below. Let $P_B$ denote the positive two-point distribution with $P_B(\{9/2\})=0.2$ and $P_B(\{1/8\})=0.8$. The row and column multipliers are sampled independently.
+\begin{align*}
+ \text{Scenario 1: }&\nu_i\sim P_B,\quad \mu_j=1;\\
+ \text{Scenario 2: }&\nu_i\sim\chi_1^2,\quad \mu_j=1;\\
+ \text{Scenario 3: }&\nu_i\sim P_B,\quad \mu_j\sim P_B;\\
+ \text{Scenario 4: }&\nu_i\sim\chi_1^2,\quad \mu_j\sim\chi_1^2.
+\end{align*}
+Both multiplier distributions have mean one. We use $m=500$, $n=250$, $p=0.2$ and $s=r=5$, and vary $\sigma$ from $0.01$ to $5$.
+
+The proposed weighted estimators $\widetilde{\M}_{\mathrm{fac},W}$ and $\widetilde{\M}_{\mathrm{nuc},W}$ estimate the relative scale profile from a preliminary residual fit. The scales are floored at their empirical lower quartile and normalized by their median as in \eqref{eq:normalized_truncated_weights}. The weights remain fixed during recovery and refinement. The same-mask homogeneous Gaussian spectrum supplies the reference, and weighted recovery uses the adaptive proposal step given in the Supplementary Material. For comparison, $\widetilde{\M}_{\mathrm{fac},W}^{\mathrm{or}}$ and $\widetilde{\M}_{\mathrm{nuc},W}^{\mathrm{or}}$ use true-profile weights with the same flooring and normalization. The proposed weighted estimates do not use either multiplier distribution or its realizations to construct their weights. All methods share the simulated data and starting input.
+The numerical tables evaluate the recovery and refinement fits. The statistical guarantee in Theorem~\ref{thm:weighted_unknown_rate} applies to these fits after the output rule \eqref{eq:hetero_output_guard} is imposed.
+\end{revision}
+% END MAJOR REVISION M16
+
+\begin{table}[!htbp]
+\centering
+\caption{Mean relative Frobenius errors $\mathcal E_F$ under the four heterogeneous variance profiles, with $m=500$, $n=250$, $p=0.2$ and $s=r=5$. The weighted estimators use estimated profiles; the superscript $\mathrm{or}$ denotes true-profile weights. Each entry averages 100 repetitions.}
+\label{tab:heterogeneous_fnorm}
+\begingroup
+\small
+\setstretch{1.05}
+\setlength{\tabcolsep}{3.2pt}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{@{}llrrrrrrrrr@{}}
+\toprule
+Scenario & Estimator & $\sigma=0.01$ & $\sigma=0.02$ & $\sigma=0.05$ & $\sigma=0.1$ & $\sigma=0.2$ & $\sigma=0.5$ & $\sigma=1$ & $\sigma=2$ & $\sigma=5$ \\
+\midrule
+\multirow{6}{*}{1} & $\widetilde{\M}_{\mathrm{fac},W}$ & 0.0007 & 0.0013 & 0.0033 & 0.0066 & 0.0131 & 0.0305 & 0.0521 & 0.0819 & 0.1239 \\
+ & $\widetilde{\M}_{\mathrm{fac},W}^{\mathrm{or}}$ & 0.0006 & 0.0013 & 0.0032 & 0.0065 & 0.0129 & 0.0298 & 0.0502 & 0.0802 & 0.1547 \\
+ & $\widehat{\M}_{\mathrm{fac}}$ & 0.0008 & 0.0015 & 0.0038 & 0.0076 & 0.0153 & 0.0382 & 0.0768 & 0.1589 & 0.5235 \\
+ & $\widetilde{\M}_{\mathrm{nuc},W}$ & 0.0007 & 0.0013 & 0.0033 & 0.0066 & 0.0131 & 0.0306 & 0.0521 & 0.0819 & 0.1237 \\
+ & $\widetilde{\M}_{\mathrm{nuc},W}^{\mathrm{or}}$ & 0.0006 & 0.0013 & 0.0032 & 0.0065 & 0.0129 & 0.0298 & 0.0502 & 0.0802 & 0.1546 \\
+ & $\widehat{\M}_{\mathrm{nuc}}$ & 0.0008 & 0.0015 & 0.0038 & 0.0076 & 0.0153 & 0.0382 & 0.0769 & 0.1594 & 0.5254 \\
+\midrule
+\multirow{6}{*}{2} & $\widetilde{\M}_{\mathrm{fac},W}$ & 0.0007 & 0.0014 & 0.0034 & 0.0069 & 0.0137 & 0.0329 & 0.0596 & 0.0948 & 0.1345 \\
+ & $\widetilde{\M}_{\mathrm{fac},W}^{\mathrm{or}}$ & 0.0007 & 0.0013 & 0.0034 & 0.0067 & 0.0133 & 0.0319 & 0.0573 & 0.0952 & 0.1811 \\
+ & $\widehat{\M}_{\mathrm{fac}}$ & 0.0008 & 0.0015 & 0.0039 & 0.0077 & 0.0154 & 0.0385 & 0.0773 & 0.1585 & 0.5180 \\
+ & $\widetilde{\M}_{\mathrm{nuc},W}$ & 0.0007 & 0.0014 & 0.0035 & 0.0069 & 0.0137 & 0.0330 & 0.0598 & 0.0952 & 0.1358 \\
+ & $\widetilde{\M}_{\mathrm{nuc},W}^{\mathrm{or}}$ & 0.0007 & 0.0013 & 0.0034 & 0.0067 & 0.0134 & 0.0320 & 0.0574 & 0.0953 & 0.1811 \\
+ & $\widehat{\M}_{\mathrm{nuc}}$ & 0.0008 & 0.0015 & 0.0039 & 0.0077 & 0.0154 & 0.0385 & 0.0774 & 0.1589 & 0.5207 \\
+\midrule
+\multirow{6}{*}{3} & $\widetilde{\M}_{\mathrm{fac},W}$ & 0.0004 & 0.0007 & 0.0019 & 0.0038 & 0.0075 & 0.0186 & 0.0353 & 0.0616 & 0.0992 \\
+ & $\widetilde{\M}_{\mathrm{fac},W}^{\mathrm{or}}$ & 0.0003 & 0.0007 & 0.0017 & 0.0033 & 0.0067 & 0.0166 & 0.0314 & 0.0528 & 0.0962 \\
+ & $\widehat{\M}_{\mathrm{fac}}$ & 0.0008 & 0.0015 & 0.0038 & 0.0076 & 0.0152 & 0.0382 & 0.0778 & 0.1703 & 0.9152 \\
+ & $\widetilde{\M}_{\mathrm{nuc},W}$ & 0.0004 & 0.0008 & 0.0019 & 0.0038 & 0.0076 & 0.0187 & 0.0360 & 0.0654 & 0.1008 \\
+ & $\widetilde{\M}_{\mathrm{nuc},W}^{\mathrm{or}}$ & 0.0003 & 0.0007 & 0.0017 & 0.0033 & 0.0067 & 0.0166 & 0.0314 & 0.0528 & 0.0960 \\
+ & $\widehat{\M}_{\mathrm{nuc}}$ & 0.0008 & 0.0015 & 0.0038 & 0.0076 & 0.0152 & 0.0382 & 0.0779 & 0.1709 & 0.9008 \\
+\midrule
+\multirow{6}{*}{4} & $\widetilde{\M}_{\mathrm{fac},W}$ & 0.0005 & 0.0009 & 0.0024 & 0.0047 & 0.0094 & 0.0231 & 0.0444 & 0.0780 & 0.1185 \\
+ & $\widetilde{\M}_{\mathrm{fac},W}^{\mathrm{or}}$ & 0.0004 & 0.0007 & 0.0017 & 0.0035 & 0.0069 & 0.0171 & 0.0328 & 0.0588 & 0.1220 \\
+ & $\widehat{\M}_{\mathrm{fac}}$ & 0.0008 & 0.0015 & 0.0038 & 0.0077 & 0.0154 & 0.0385 & 0.0779 & 0.1658 & 0.8036 \\
+ & $\widetilde{\M}_{\mathrm{nuc},W}$ & 0.0005 & 0.0010 & 0.0024 & 0.0048 & 0.0097 & 0.0239 & 0.0459 & 0.0836 & 0.1319 \\
+ & $\widetilde{\M}_{\mathrm{nuc},W}^{\mathrm{or}}$ & 0.0004 & 0.0007 & 0.0017 & 0.0035 & 0.0069 & 0.0170 & 0.0328 & 0.0585 & 0.1205 \\
+ & $\widehat{\M}_{\mathrm{nuc}}$ & 0.0008 & 0.0015 & 0.0038 & 0.0077 & 0.0154 & 0.0385 & 0.0780 & 0.1663 & 0.7769 \\
+\bottomrule
+\end{tabular}
+}
+\endgroup
+\end{table}
+
+Table~\ref{tab:heterogeneous_fnorm} shows that estimated variance weights reduce the mean Frobenius error relative to the corresponding least-squares baselines across the positive noise levels considered. The effect is pronounced at moderate and high noise. At $\sigma=1$, the factor errors are $0.0521$, $0.0596$, $0.0353$ and $0.0444$ across the four scenarios, compared with baseline errors $0.0768$, $0.0773$, $0.0778$ and $0.0779$. The errors obtained with estimated profiles are of similar magnitude to those obtained with true-profile weights, although neither dominates in every setting. This is a finite-sample comparison under the stated initialization and tuning protocol.
+% BEGIN MAJOR REVISION M17
+\begin{revision}
+The Supplementary Material reports the spectral and maximum errors, the complete noise grid, and comparisons with unweighted residual spectral matching. It also examines unstructured variance perturbations, dependent noise, ill-conditioned signals, Gaussian factor signals and misspecified working ranks.
+
+\end{revision}
+% END MAJOR REVISION M17
+
+% BEGIN MAJOR REVISION M18
+\begin{revision}
+\subsection{Netflix rating data}
+\label{sec:netflix_data}
+We use the Netflix Prize Dataset \citep{bennett2007netflix} to study rating prediction. Ratings take values in $[1,5]$. We retain movies with more than 25,000 ratings and consider three user groups. Scenario 1 contains users with more than 700 ratings. Scenarios 2 and 3 each contain 3,000 users sampled from those with more than 200 and 75 ratings, respectively. The observation fractions reported for these three scenarios are $0.4965$, $0.2393$ and $0.1539$.
+
+\paragraph{Evaluation protocol.}
+\label{sec:real_data_evaluation}
+The observed entries in each scenario are partitioned into training, validation and test sets in the ratio $4:1:1$. The factor rank $s$ and nuclear penalty $\lambda$ are selected by validation RMSE. The nuclear-norm RSM fit is initialized at the rank selected by factor RSM. The test set is used only for evaluation.
+
+For the test index set $\Omega_{\mathrm{te}}$, prediction accuracy is measured by
+\begin{align}
+ \operatorname{RMSE}(\widehat\M)
+ &=\left\{\frac{1}{|\Omega_{\mathrm{te}}|}
+       \sum_{(i,j)\in\Omega_{\mathrm{te}}}
+       (Y_{ij}-\widehat M_{ij})^2\right\}^{1/2}.
+ \label{eq:real_data_rmse}
+\end{align}
+We report RMSE on the original rating scale. For each estimator, the unclipped and clipped predictions are reported in adjacent columns. Clipping restricts predictions to $[1,5]$ without changing the selected tuning parameters.
+
+The selected factor ranks are $20,9,7$ for RSM and $20,15,8$ for the factor least-squares baseline. Table~\ref{tab:netflix_data} shows that nuclear-norm RSM has lower prediction errors than the nuclear-norm baseline in the three reported scenarios. Factor RSM has lower errors than its baseline in scenarios 1 and 2 and nearly the same error in scenario 3. Clipping does not increase the reported prediction errors.
+
+\end{revision}
+% END MAJOR REVISION M18
+
+\begin{table}[!htbp]
+\centering
+\caption{Test RMSE for Netflix rating prediction. Factor and nuclear-norm RSM are compared with the corresponding least-squares baselines. Unclipped and clipped predictions are shown side by side; clipping restricts predictions to $[1,5]$ without retuning. Boldface marks the smallest displayed value in each row, including ties. $^{\dagger}$Least-squares values are approximate conversions from the reported relative RMSE using the scenario-specific test-rating scale.}
+\label{tab:netflix_data}
+\begingroup
+\small
+\setstretch{1.05}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}crrrrrrrr@{}}
+\toprule
+ & \multicolumn{4}{c}{RSM} & \multicolumn{4}{c}{Least squares$^{\dagger}$} \\
+\cmidrule(lr){2-5}\cmidrule(lr){6-9}
+ & \multicolumn{2}{c}{Factor} & \multicolumn{2}{c}{Nuclear} & \multicolumn{2}{c}{Factor} & \multicolumn{2}{c}{Nuclear} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}
+Scenario & Raw & Clipped & Raw & Clipped & Raw & Clipped & Raw & Clipped \\
+\midrule
+1 & 0.7692 & 0.7675 & 0.7619 & \textbf{0.7617} & 0.7765 & 0.7750 & 0.7724 & 0.7694 \\
+2 & 0.8101 & 0.8089 & 0.8042 & \textbf{0.8037} & 0.8118 & 0.8099 & 0.8148 & 0.8121 \\
+3 & 0.8426 & 0.8409 & 0.8354 & \textbf{0.8351} & 0.8421 & 0.8406 & 0.8506 & 0.8479 \\
+\bottomrule
+\end{tabular}
+\endgroup
+\end{table}
+
+% BEGIN MAJOR REVISION M19
+\begin{revision}
+\subsection{Amazon reviews data}
+\label{sec:amazon_data}
+We also use the Amazon Reviews 2023 dataset \citep{hou2024bridging}. The three scenarios correspond to movies, books and electronics reviews. In each category, we retain the 1,000 most reviewed items and sample 3,000 users after preprocessing, obtaining a $1000\times3000$ rating matrix. The observation fractions reported for the three scenarios are $0.0128$, $0.0128$ and $0.0110$.
+
+We use the evaluation protocol and RMSE in Section~\ref{sec:netflix_data}. The factor rank is selected over $s\in\{1,\ldots,10\}$, and RSM selects $s=1$ in each scenario. The nuclear penalty is selected by validation RMSE.
+
+Table~\ref{tab:amazon_data} shows lower errors for factor and nuclear-norm RSM than for their corresponding baselines in the three reported scenarios. The two RSM implementations have similar prediction errors, and clipping reduces their errors in each scenario.
+
+\end{revision}
+% END MAJOR REVISION M19
+
+\begin{table}[!htbp]
+\centering
+\caption{Test RMSE for Amazon rating prediction. Factor and nuclear-norm RSM are compared with the corresponding least-squares baselines. Unclipped and clipped predictions are shown side by side; clipping restricts predictions to $[1,5]$ without retuning. Boldface marks the smallest displayed value in each row, including ties. $^{\dagger}$Least-squares values are approximate conversions from the reported relative RMSE using the scenario-specific test-rating scale.}
+\label{tab:amazon_data}
+\begingroup
+\small
+\setstretch{1.05}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}crrrrrrrr@{}}
+\toprule
+ & \multicolumn{4}{c}{RSM} & \multicolumn{4}{c}{Least squares$^{\dagger}$} \\
+\cmidrule(lr){2-5}\cmidrule(lr){6-9}
+ & \multicolumn{2}{c}{Factor} & \multicolumn{2}{c}{Nuclear} & \multicolumn{2}{c}{Factor} & \multicolumn{2}{c}{Nuclear} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}\cmidrule(lr){6-7}\cmidrule(lr){8-9}
+Scenario & Raw & Clipped & Raw & Clipped & Raw & Clipped & Raw & Clipped \\
+\midrule
+1 & 0.9219 & 0.9132 & 0.9210 & \textbf{0.9128} & 0.9365 & 0.9270 & 0.9456 & 0.9369 \\
+2 & 0.8513 & \textbf{0.8408} & 0.8510 & \textbf{0.8408} & 0.8685 & 0.8574 & 0.8654 & 0.8547 \\
+3 & 0.9817 & 0.9710 & 0.9802 & \textbf{0.9695} & 1.0021 & 0.9907 & 1.0177 & 1.0071 \\
+\bottomrule
+\end{tabular}
+\endgroup
+\end{table}
+
+% BEGIN MAJOR REVISION M20
+\begin{revision}
+\section{Discussion}
+\label{sec:discussion}
+
+This paper introduces a novel spectral matching criterion for noisy matrix completion. We demonstrate that estimators based on this criterion perform well both theoretically and numerically. Efficient algorithms are devised for the proposed criterion, with homogeneous geometric recovery bounds and a separate
+heterogeneous output guarantee at the Frobenius statistical scale. Our method incorporates spectral information from the noise reference, particularly in settings with complex noise structures.
+
+\label{sec:dependence_discussion}
+Extensions to broader missing-data mechanisms and dependent noise require corresponding spectral calibration results. Future research should focus on extending the proposed approach to more general noise settings beyond those specified in Assumption~\ref{assum:hetero}. It would be valuable to explore how the proposed method can be extended to matrix completion problems involving categorical and dynamic data, where the residual structure is more challenging to identify and exploit.
+
+\end{revision}
+% END MAJOR REVISION M20
+
+\section{Acknowledgments}
+Fang Yao is the corresponding author. This research is partially supported by the National Key R\&D Program of China (No. 2022YFA1003800), the National Natural Science Foundation of China (No. 12292981,  123B2009, 12288101), Fundamental and Interdisciplinary Disciplines Breakthrough Plan of the Ministry of Education of China (No. JYB2025XDXM118), the New Cornerstone Science Foundation through Xplorer Prize, the LMAM, the Fundamental Research Funds for the Central Universities and the LMEQF.
+
+
+\bibliographystyle{abbrvnat}
+\bibliography{reference}
+
+
+\end{document}
