@@ -1,0 +1,695 @@
+version: v1
+theorem_set: paper-proof-group
+source_tag: document-processing
+theorems:
+  - id: entry:selected:910489e6-8d05-4d47-b155-be7429e3c449
+    title: paper_370f7a68a9a1447a9d903f9a55f08bd5
+    kind: lemma
+    latex_statement: |-
+      Let \(p\) be the ambient dimension (a positive integer). Let \(\phi\ge1\), \(y\in\mathbb R^p\), and set
+      \[
+      \beta=\phi\log p.
+      \]
+      Let \(\varphi_0:\mathbb R\to[0,1]\) be thrice continuously differentiable with
+      \[
+      \varphi_0(z)=1\quad(z\le0),\qquad \varphi_0(z)=0\quad(z\ge1).
+      \]
+      Define
+      \[
+      F_\beta(w)=\beta^{-1}\log\left[\sum_{j=1}^p \exp\{\beta(w_j-y_j)\}\right],\qquad w\in\mathbb R^p,
+      \]
+      and
+      \[
+      \varphi(z)=\varphi_0(\phi z),\qquad
+      \kappa(w)=\varphi_0(\phi F_{\phi\log p}(w))=\varphi(F_\beta(w)),\qquad w\in\mathbb R^p.
+      \]
+      Write
+      \[
+      \kappa_{jkl}=\partial_j\partial_k\partial_l\kappa.
+      \]
+      Here \(a\lesssim b\) means \(a\le Cb\) for a universal constant \(C>0\), independent of the displayed variables.
+
+      <!-- formalization-clarifications:v1:b98a7846f6a10e89f7e6dcb4b43372aaa9680c7d8fc18a1feced72695b4487ba -->
+      Formalization clarifications from source and proof:
+      1. For constants and quantifier order, the source’s intended reading is: fix an admissible cutoff \(\varphi_0\) first; then for every integer \(p\) with \(\log p>0\), every \(\phi\ge1\), and every \(y\in\mathbb R^p\), set \(\beta=\phi\log p\) and define \(\kappa\). Only then consider the family of nonnegative majorants \(Q_{jkl}\). Thus \(Q_{jkl}\) may depend on \(p,\phi,y,\beta,\varphi_0\), and the indices, but the bounds in items 2 and 3 are uniform in \(w\), \(\tilde w\), \(j,k,l\), and (in item 2) also in \(w\). This is the structure of main.pdf Lemma 1 and of Reference R1 Lemma A.5/A.6. The original main.pdf Lemma 1 states item 2 only as \(\sum Q_{jkl}(w)\lesssim(\phi^3+\phi^2\beta+\phi\beta^2)\lesssim\phi\beta^2\), not with an exact coefficient \(1\). Reference R1 Lemma A.5 bounds the summed majorant by \(G_3+6G_2\beta+6G_1\beta^2\); for \(g=\varphi\) the selected proof identifies \(G_k=\phi^k c_k\), \(c_k=\sup_u|\varphi_0^{(k)}(u)|\), and hence \(C_{\varphi_0}=\max\{c_3,6c_2,6c_1\}\) may enter the first \(\lesssim\). The exact numerical constant is not specified in the original lemma, and no normalization \(c_k\le1\) is imposed. The selected proof (not independent source evidence) explicitly says the literal inequality with coefficient \(1\) can fail for admissible cutoffs, so a formalization should not silently strengthen main.pdf Lemma 1 by fixing coefficient \(1\) unless an additional normalization is assumed. Item 3’s selected proof gives absolute constants \(e^6\), but the source statement itself only says \(\lesssim\). The original main.pdf Lemma 1 does not spell out dependence on \(\varphi_0\); this is an ambiguity, resolved in the selected proof by allowing dependence on the fixed cutoff only. Reference R1 Lemma A.5 has the standing convention \(p\ge3\); the selected target assumes \(\log p>0\), i.e. \(p\ge2\). The \(p=2\) extension is proof-based, not a direct consequence of Reference R1 as stated.
+
+      2. For norms and objects, the target lemma uses only scalar absolute values, coordinate partial derivatives, and the coordinatewise sup condition \(\max_r |\tilde w_r|\beta\le1\). There is no Euclidean, operator, or Frobenius norm in the statement. If a norm notation is introduced, the perturbation set must be written with \(l_\infty\), not \(l_2\): \(\beta\|\tilde w\|_\infty\le1\), equivalently \(\max_r|\beta\tilde w_r|\le1\). The function \(F_\beta(w)=\beta^{-1}\log\sum_j e^{\beta(w_j-y_j)}\) is a shifted log-sum-exp, not a max and not the unshifted \(F_\beta^{(0)}(z)\) unless one substitutes \(z=w-y\). The source main.pdf defines \(\kappa(w)=\varphi_0(\phi F_{\phi\log p}(w))=\varphi(F_\beta(w))\); the profile is \(\varphi(z)=\varphi_0(\phi z)\), so the scalar \(\phi\) appears both in \(\beta\) and in the profile, while \(\varphi_0\) is the fixed cutoff. Reference R1 Lemma A.5 works with unshifted \(m=g\circ F_\beta\); shifting occurs only through \(z=w-y\). In reconstructing the majorants, do not confuse the target’s \(Q_{jkl}\) with the polynomial denoted \(Q_{jkl}\) in Reference R1 Lemma A.5: in the selected proof that polynomial is called \(P_{jkl}\), and the actual majorant is \(U_{jkl}\), with \(Q_{jkl}(w)=U_{jkl}(w-y)\). The target statement itself only asserts existence of some nonnegative majorants; it does not require the explicit formula, measurability, or uniqueness. The explicit construction in the selected proof gives smooth functions, but that is proof-based rather than a statement of the lemma.
+
+      3. For asymptotics, the target lemma contains no \(O\), \(o\), probability, or limiting filter. Here \(\lesssim\) is the main.pdf convention \(a\lesssim b\) meaning \(a\le Cb\) for a positive constant \(C\) of the permitted type, not an asymptotic \(O(\cdot)\) as \(p,n\to\infty\) and not a probability statement. The phrase “high-dimensional context, so \(\log p>0\)” is a side condition, not a limit. The comparison \((\phi^3+\phi^2\beta+\phi\beta^2)\lesssim\phi\beta^2\) is uniform for all admissible \(p\ge2,\phi\ge1\): using \(\beta=\phi\log p\) and \(\log p\ge\log2\), the second constant can be taken as \(1+1/\log2+1/\log^2 2\). The first comparison in the original main.pdf Lemma 1 is written only with \(\lesssim\); the selected proof interprets its constant as allowed to depend on the fixed cutoff \(\varphi_0\) and not on \(p,\phi,\beta,y,w,j,k,l\). No sample sizes \(n,m\), distributions, or random-vector assumptions enter the target lemma; those belong to the surrounding paper and should not be imported into a formalization of the lemma. Reference R1 Lemma A.5 gives exact deterministic bounds; Reference R2 Lemma A.6 gives deterministic two-sided stability for every \(z\), perturbation \(w\) with \(\max_j|w_j|\beta\le1\), and every \(\tau\in[0,1]\). Both are universal over admissible \(g,\beta\), so applying them to the particular \(\kappa\) does not restrict their stated generality.
+
+      4. For omitted definitions and side conditions, one must have \(p\) a positive integer with \(\log p>0\), hence \(p\ge2\), and \(\beta=\phi\log p>0\); \(p=1\) would make \(\beta=0\) and is excluded. The cutoff satisfies \(\varphi_0:\mathbb R\to[0,1]\), is \(C^3\), equals \(1\) on \((-\infty,0]\), and equals \(0\) on \([1,\infty)\); differentiability then forces the derivatives to vanish outside the transition and makes the \(c_k\) finite, as used in the selected proof. Here \(\delta_{jk}\) is the Kronecker symbol, \(j,k,l\) range over \(1,\dots,p\), and the set in item 3 is a coordinatewise sup-ball of radius \(1/\beta\), not a probability event. There is no probability measure or expectation in the theorem. The original main.pdf proof of Lemma 1 is only “It follows directly from Lemmas A.5 and A.6 in [1]”; the detailed derivative formulas, the identity \(\sum U_{jkl}=G_3+6G_2\beta+6G_1\beta^2\), and the counterexample regarding the literal coefficient \(1\) appear in the selected proof block and should be treated as proof-based or synthesized evidence, not as independent statements of the original lemma. Reference R1 Lemma A.5 requires \(g\in C_b^3(\mathbb R)\), and Reference R2 Lemma A.6 uses the same \(C_b^3\) setting; for \(g=\varphi\) this is verified from \(\varphi_0\in C^3\) and compact transition. For strict adherence to Reference R1’s stated hypotheses, \(p\ge3\) is explicit there; the case \(p=2\) requires the direct computation supplied in the selected proof rather than a direct citation to Reference R1. The source does not specify a particular choice of \(Q_{jkl}\), nor a numerical constant free of \(\varphi_0\) for the first bound in item 2; these should remain parameters or existentials in a source-faithful formalization.
+      <!-- /formalization-clarifications -->
+
+      There exist nonnegative functions \(Q_{jkl}\), \(j,k,l=1,\dots,p\), such that:
+
+      1. For every \(j,k,l=1,\dots,p\) and all \(w\in\mathbb R^p\),
+      \[
+      |\kappa_{jkl}(w)|\le Q_{jkl}(w).
+      \]
+
+      2. For all \(w\in\mathbb R^p\),
+      \[
+      \sum_{a=1}^p\sum_{b=1}^p\sum_{c=1}^p Q_{abc}(w)
+      \le(\phi^3+\phi^2\beta+\phi\beta^2)
+      \lesssim \phi\beta^2.
+      \]
+
+      3. For every \(j,k,l=1,\dots,p\), all \(w\in\mathbb R^p\), and all
+      \[
+      \tilde w\in\{w^*\in\mathbb R^p:\max_{1\le r\le p}|w_r^*|\beta\le1\},
+      \]
+      one has
+      \[
+      Q_{jkl}(w)\lesssim Q_{jkl}(w+\tilde w)\lesssim Q_{jkl}(w).
+      \]
+    assumptions:
+      - The smoothing parameter is understood in the source's high-dimensional context, so that \(\log p>0\).
+    proof_body: |-
+      #### Proof of the lemma (Lemma 1 of the Appendix of *main.pdf*)
+
+      We prove the lemma in the form recorded in the source (Reference R1, Lemma A.5, specialized to the profile $g=\varphi$): items 1 and 3 are proved verbatim, and item 2 is proved as the chain
+      $$
+      \sum_{a,b,c=1}^p Q_{abc}(w)\le C_{\varphi_0}\big(\phi^3+\phi^2\beta+\phi\beta^2\big)\lesssim \phi\beta^2 ,
+      $$
+      in which $C_{\varphi_0}$ is the explicit constant of (2.3) below and depends only on the fixed cutoff $\varphi_0$.
+
+      *On the constant in assertion 2.* The constant $C_{\varphi_0}$ depends only on $\varphi_0$, which is a fixed function of the setting and not one of the displayed variables; it is therefore absorbed by the symbol $\lesssim$, and the proof yields the assertion $\sum_{a,b,c}Q_{abc}\lesssim\phi\beta^2$ of the target exactly as in the source. The literal form $\sum_{a,b,c}Q_{abc}(w)\le\phi^3+\phi^2\beta+\phi\beta^2$ with constant $1$ does not follow from the remaining hypotheses: it holds whenever $C_{\varphi_0}\le1$ (for instance when $\sup_u|\varphi_0^{(k)}(u)|\le1/6$ for $k=1,2$ and $\sup_u|\varphi_0^{(3)}(u)|\le1$), but it fails for some admissible cutoffs. Indeed, if $c_3>1+\log2+\log^22$, then, as Remark 8.3 shows, in the case $\phi=1$, $p=2$ there are points $w$ with $|\kappa_{111}(w)|>\phi^3+\phi^2\beta+\phi\beta^2$; since item 1 forces $\sum_{a,b,c}Q_{abc}(w)\ge|\kappa_{111}(w)|$, no choice of the functions $Q_{jkl}$ can then satisfy the literal inequality with constant $1$. Thus the form of assertion 2 proved below is the correct one, and it is exactly the one stated in Reference R1.
+
+      **Lemma.** Let $p$ be a positive integer with $\log p>0$, let $\phi\ge1$, $y\in\mathbb R^p$, and set $\beta=\phi\log p$. Let $\varphi_0\in C^3(\mathbb R)$ take values in $[0,1]$ with $\varphi_0(z)=1$ for $z\le0$ and $\varphi_0(z)=0$ for $z\ge1$, and set $\varphi(z)=\varphi_0(\phi z)$. Define
+      $$
+      F_\beta(w)=\beta^{-1}\log\Big[\sum_{j=1}^p e^{\beta(w_j-y_j)}\Big],\qquad
+      \kappa(w)=\varphi_0\big(\phi F_{\phi\log p}(w)\big)=\varphi(F_\beta(w)),\qquad w\in\mathbb R^p .
+      $$
+      Then there exist nonnegative functions $Q_{jkl}$, $1\le j,k,l\le p$, such that for all $w\in\mathbb R^p$,
+
+      1. $|\kappa_{jkl}(w)|\le Q_{jkl}(w)$,
+      2. $\displaystyle\sum_{a,b,c=1}^p Q_{abc}(w)\le C_{\varphi_0}\big(\phi^3+\phi^2\beta+\phi\beta^2\big)\lesssim\phi\beta^2$,
+      3. $Q_{jkl}(w)\lesssim Q_{jkl}(w+\tilde w)\lesssim Q_{jkl}(w)$ for every $\tilde w\in\mathbb R^p$ with $\max_{1\le r\le p}|\tilde w_r|\beta\le1$,
+
+      where $C_{\varphi_0}$ is the constant defined in (2.3) below and depends only on the fixed cutoff $\varphi_0$; hence it is universal in the sense of $\lesssim$ (see Remark 8.3, which reconciles the literal form of (2) with the convention of the source).
+
+      All constants in the symbols $\lesssim$ below are either absolute numerical constants ($e^6$, $1/\log^2 2$, etc.) or depend only on the fixed cutoff $\varphi_0$ through the finite quantities $c_k=\sup_u|\varphi_0^{(k)}(u)|$; none depends on $w$, $\tilde w$, $j,k,l$, $p$, $\phi$, $\beta$ or $y$.
+
+      ---
+
+      #### 1. Notation and the associated unshifted objects
+
+      Since $p$ is a positive integer and $\log p>0$, we have $p\ge2$, hence $\log p\ge\log2>0$ and
+      $$
+      \beta=\phi\log p\ge\log2>0 .
+      $$
+      Put
+      $$
+      g(z):=\varphi(z)=\varphi_0(\phi z),\qquad z\in\mathbb R,
+      $$
+      so that, for all $w\in\mathbb R^p$,
+      $$
+      \kappa(w)=g\big(F_\beta(w)\big).
+      $$
+      Define the *unshifted* smooth maximum and the associated softmax weights by
+      $$
+      F_\beta^{(0)}(z):=\beta^{-1}\log\Big[\sum_{m=1}^p e^{\beta z_m}\Big],\qquad
+      \pi_j(z):=\frac{e^{\beta z_j}}{\sum_{m=1}^p e^{\beta z_m}},\qquad z\in\mathbb R^p,\quad 1\le j\le p,
+      $$
+      and set
+      $$
+      m(z):=g\big(F^{(0)}_\beta(z)\big),\qquad z\in\mathbb R^p .
+      $$
+      Because the shift $T(w):=w-y$ is an affine isometry of $\mathbb R^p$, we have the identity
+      $$
+      F_\beta(w)=\beta^{-1}\log\Big[\sum_{m=1}^p e^{\beta (w_m-y_m)}\Big]=F^{(0)}_\beta(w-y),\qquad w\in\mathbb R^p .
+      $$
+      Consequently
+      \begin{equation}\tag{1.1}
+      \kappa(w)=m(w-y),\qquad w\in\mathbb R^p ,
+      \end{equation}
+      and, for every multi-index $\alpha\in\{1,\dots,p\}^r$ of order $r\le3$,
+      \begin{equation}\tag{1.2}
+      \partial_\alpha\kappa(w)=\big(\partial_\alpha m\big)(w-y),\qquad w\in\mathbb R^p .
+      \end{equation}
+      Indeed, $T$ is a translation, so all partial derivatives are invariant under composition with $T$.
+
+      We write $\delta_{jk}=\mathbf 1\{j=k\}$ for the Kronecker symbol, and for $1\le j,k,l\le p$ we define the nonnegative functions
+      \begin{equation}\tag{1.3}
+      W_{jk}(z):=\pi_j(z)\delta_{jk}+\pi_j(z)\pi_k(z),
+      \end{equation}
+      \begin{equation}\tag{1.4}
+      P_{jkl}(z):=\pi_j\delta_{jl}\delta_{jk}+\pi_j\pi_l\delta_{jk}+\pi_j\pi_k(\delta_{jl}+\delta_{kl})+2\pi_j\pi_k\pi_l
+      \end{equation}
+      (all evaluated at $z$). The polynomial $P_{jkl}$ in (1.4) is exactly the quantity denoted $Q_{jkl}$ in Reference R1 (Lemma A.5 of the source); we use the letter $P$ here to avoid the clash with the majorants $Q_{jkl}$ that the target lemma asks us to construct.
+
+      Finally, put
+      \begin{equation}\tag{1.5}
+      c_k:=\sup_{u\in\mathbb R}\big|\varphi_0^{(k)}(u)\big|,\qquad k=0,1,2,3,\qquad
+      G_k:=\sup_{z\in\mathbb R}\big|g^{(k)}(z)\big| .
+      \end{equation}
+      Since $\varphi_0$ is fixed throughout, the numbers $c_k$ are constants depending only on $\varphi_0$.
+
+      ---
+
+      #### 2. The scalar profile: smoothness and derivative bounds
+
+      **Claim 2.1.** *The function $g$ belongs to $C_b^3(\mathbb R)$, and*
+      \begin{equation}\tag{2.1}
+      g^{(k)}(z)=\phi^k\,\varphi_0^{(k)}(\phi z),\qquad z\in\mathbb R,\ k=0,1,2,3,
+      \end{equation}
+      *so that*
+      \begin{equation}\tag{2.2}
+      G_k=\phi^k c_k<\infty,\qquad k=0,1,2,3 .
+      \end{equation}
+      *In particular $G_0\le1$, and the constants*
+      \begin{equation}\tag{2.3}
+      C_{\varphi_0}:=\max\{c_3,\,6c_2,\,6c_1\}
+      \end{equation}
+      *are finite and depend only on $\varphi_0$.*
+
+      *Proof.* The function $\varphi_0$ is $C^3$ on $\mathbb R$ and equals the constant $1$ on $(-\infty,0]$ and the constant $0$ on $[1,\infty)$. Hence, for each $k=1,2,3$, the derivative $\varphi_0^{(k)}$ vanishes on $(-\infty,0)\cup(1,\infty)$; by continuity of $\varphi_0^{(k)}$ it also vanishes at $0$ and at $1$. Thus $\varphi_0^{(k)}$ is continuous on $\mathbb R$ with support contained in $[0,1]$, so $c_k=\max_{u\in[0,1]}|\varphi_0^{(k)}(u)|<\infty$. Moreover $c_0=\sup|\varphi_0|\le1$ because $\varphi_0$ takes values in $[0,1]$.
+
+      Since $\phi\ge1$ and $z\mapsto\phi z$ is smooth, $g=\varphi_0\circ(\phi\,\cdot)\in C^3(\mathbb R)$. Formula (2.1) is the chain rule applied $k$ times: each differentiation multiplies by the inner derivative $\phi$ and evaluates $\varphi_0^{(k)}$ at $\phi z$; the case $k=0$ is the definition. Since $\phi z$ ranges over all of $\mathbb R$, $\sup_z|\varphi_0^{(k)}(\phi z)|=\sup_u|\varphi_0^{(k)}(u)|=c_k$, and (2.2) follows from (2.1). In particular $G_k\le\phi^k c_k<\infty$ for $k=0,1,2,3$, so $g\in C_b^3(\mathbb R)$. $\square$
+
+      **Remark 2.2.** Claim 2.1 verifies the hypothesis "$g\in C_b^3(\mathbb R)$" of References R1 and R2 for the concrete profile $g=\varphi$ used here, and it also identifies the constants $G_k$ of those references with $\phi^kc_k$.
+
+      ---
+
+      #### 3. The softmax weights: elementary properties
+
+      **Claim 3.1.** *For every $z\in\mathbb R^p$:*
+
+      (i) $\pi_j(z)>0$ for all $j$, and $\sum_{m=1}^p\pi_m(z)=1$;
+
+      (ii) $\partial_jF^{(0)}_\beta(z)=\pi_j(z)$;
+
+      (iii) for all $k$,
+      \begin{equation}\tag{3.1}
+      \partial_k\pi_j(z)=\beta\,\pi_j(z)\big(\delta_{jk}-\pi_k(z)\big);
+      \end{equation}
+      renaming the free index $k$ as $l$ gives $\partial_l\pi_j(z)=\beta\pi_j(z)(\delta_{jl}-\pi_l(z))$, a form used repeatedly below.
+
+      *Proof.* Part (i) is immediate from the definition and positivity of the exponential. For (ii),
+      $$
+      \partial_jF^{(0)}_\beta(z)=\frac1\beta\cdot\frac{\beta e^{\beta z_j}}{\sum_m e^{\beta z_m}}=\pi_j(z).
+      $$
+      Let $Z(z)=\sum_m e^{\beta z_m}$, so that $\pi_j=e^{\beta z_j}/Z$ and $\partial_kZ=\beta e^{\beta z_k}=\beta\pi_kZ$. Then
+      $$
+      \partial_k\pi_j
+      =\frac{\beta\delta_{jk}e^{\beta z_j}Z-e^{\beta z_j}\beta e^{\beta z_k}}{Z^2}
+      =\beta\pi_j\delta_{jk}-\beta\pi_j\pi_k
+      =\beta\pi_j(\delta_{jk}-\pi_k),
+      $$
+      which is (3.1). $\square$
+
+      **Claim 3.2 (comparison of softmax weights under small perturbations).** *Let $v\in\mathbb R^p$ and $\tau\in[0,1]$ satisfy $\max_{1\le m\le p}\beta|v_m|\le1$. Then for every $z\in\mathbb R^p$ and every $j$,*
+      \begin{equation}\tag{3.2}
+      e^{-2}\le\frac{\pi_j(z+\tau v)}{\pi_j(z)}\le e^{2}.
+      \end{equation}
+
+      *Proof.* By Claim 3.1(i), $\pi_j(z)>0$, so the quotient is well defined. Writing $Z(z)=\sum_m e^{\beta z_m}$,
+      $$
+      \frac{\pi_j(z+\tau v)}{\pi_j(z)}
+      =\frac{e^{\beta(z_j+\tau v_j)}/Z(z+\tau v)}{e^{\beta z_j}/Z(z)}
+      =e^{\beta\tau v_j}\,\frac{Z(z)}{Z(z+\tau v)} .
+      $$
+      Now
+      $$
+      \frac{Z(z+\tau v)}{Z(z)}=\sum_{m=1}^p\frac{e^{\beta z_m}}{Z(z)}\,e^{\beta\tau v_m}
+      =\sum_{m=1}^p\pi_m(z)\,e^{\beta\tau v_m},
+      $$
+      and each factor satisfies $e^{\beta\tau v_m}\in[e^{-1},e]$, because $\tau\in[0,1]$ and $\beta|v_m|\le1$ give $|\beta\tau v_m|\le1$. Since the weights $\pi_m(z)$ are nonnegative and sum to $1$, the convex combination lies in $[e^{-1},e]$. Hence
+      $$
+      \frac{\pi_j(z+\tau v)}{\pi_j(z)}\in\Big[\frac{e^{-1}}{e},\frac{e}{e^{-1}}\Big]=[e^{-2},e^{2}]. \qquad\square
+      $$
+      Thus, uniformly in $z$, $v$, $\tau$ and $j$, the softmax weights at $z$ and $z+\tau v$ are comparable up to the absolute factor $e^{\pm2}$.
+
+      ---
+
+      #### 4. The third derivatives of $m$ and the construction of $Q_{jkl}$
+
+      Let $\delta_{jk}=\mathbf 1\{j=k\}$ and let $W_{jk}$, $P_{jkl}$ be as in (1.3)–(1.4). Define, for $z\in\mathbb R^p$ and $1\le j,k,l\le p$,
+      \begin{equation}\tag{4.1}
+      U_{jkl}(z):=G_3\,\pi_j\pi_k\pi_l+G_2\,\beta\big(W_{jk}\pi_l+W_{jl}\pi_k+W_{kl}\pi_j\big)+G_1\,\beta^2\,P_{jkl},
+      \end{equation}
+      and, for $w\in\mathbb R^p$,
+      \begin{equation}\tag{4.2}
+      \boxed{\,Q_{jkl}(w):=U_{jkl}(w-y)\,},\qquad 1\le j,k,l\le p .
+      \end{equation}
+      Since $\pi_m\ge0$, $\delta_{jk}\in\{0,1\}$, $G_k\ge0$ and $\beta>0$, each $Q_{jkl}$ is a nonnegative function on $\mathbb R^p$. The next claim is the substantive part of the lemma; it is the computation underlying Lemma A.5 of Reference R1, carried out here for $g=\varphi$ and for the shifted argument.
+
+      **Claim 4.1 (derivative formulas).** *For every $z\in\mathbb R^p$ and all $1\le j,k,l\le p$,*
+      \begin{equation}\tag{4.3}
+      \partial_jm(z)=g'\big(F^{(0)}_\beta(z)\big)\pi_j(z),
+      \end{equation}
+      \begin{equation}\tag{4.4}
+      \partial_j\partial_km(z)=g''\big(F^{(0)}_\beta(z)\big)\pi_j\pi_k+g'\big(F^{(0)}_\beta(z)\big)\beta\big(\pi_j\delta_{jk}-\pi_j\pi_k\big),
+      \end{equation}
+      *and*
+      \begin{equation}\tag{4.5}
+      \begin{aligned}
+      \partial_j\partial_k\partial_lm(z)
+      ={}&g'''\big(F^{(0)}_\beta(z)\big)\pi_j\pi_k\pi_l\\
+      &+g''\big(F^{(0)}_\beta(z)\big)\beta\Big[\pi_j\pi_k(\delta_{jl}-\pi_l)+\pi_j\pi_k(\delta_{kl}-\pi_l)+\pi_l(\pi_j\delta_{jk}-\pi_j\pi_k)\Big]\\
+      &+g'\big(F^{(0)}_\beta(z)\big)\beta^2\Big[\pi_j\delta_{jl}\delta_{jk}-\pi_j\pi_l\delta_{jk}-\pi_j\pi_k\delta_{jl}+\pi_j\pi_l\pi_k-\pi_j\pi_k\delta_{kl}+\pi_j\pi_k\pi_l\Big],
+      \end{aligned}
+      \end{equation}
+      *where all $\pi$-factors and $\delta$-symbols on the right-hand side are evaluated at $z$.*
+
+      *Proof.* Formula (4.3) follows from Claim 3.1(ii) and the chain rule. For (4.4), differentiate (4.3) using Claim 3.1(iii):
+      $$
+      \partial_k\partial_jm
+      =g''\pi_k\pi_j+g'\beta\pi_j(\delta_{jk}-\pi_k),
+      $$
+      which is (4.4). For (4.5), write $F=F^{(0)}_\beta(z)$ and $m_{jk}=\partial_j\partial_km=g''(F)\pi_j\pi_k+g'(F)F_{jk}$ with
+      $$
+      F_{jk}:=\partial_j\partial_kF^{(0)}_\beta=\partial_k\pi_j=\beta(\pi_j\delta_{jk}-\pi_j\pi_k)
+      $$
+      by Claim 3.1(iii). Differentiating in $z_l$ gives
+      \begin{equation}\tag{4.6}
+      \partial_lm_{jk}=g'''\,F_l\,\pi_j\pi_k+g''\Big[(\partial_l\pi_j)\pi_k+\pi_j(\partial_l\pi_k)+F_l\,F_{jk}\Big]+g'\,\partial_lF_{jk},
+      \end{equation}
+      where $F_l=\partial_lF^{(0)}_\beta=\pi_l$ by Claim 3.1(ii). By (3.1) with $k$ replaced by $l$,
+      $$
+      \partial_l\pi_j=\beta\pi_j(\delta_{jl}-\pi_l),\qquad \partial_l\pi_k=\beta\pi_k(\delta_{kl}-\pi_l),
+      $$
+      so
+      $$
+      (\partial_l\pi_j)\pi_k+\pi_j(\partial_l\pi_k)+F_lF_{jk}
+      =\beta\Big[\pi_j\pi_k(\delta_{jl}-\pi_l)+\pi_j\pi_k(\delta_{kl}-\pi_l)+\pi_l(\pi_j\delta_{jk}-\pi_j\pi_k)\Big],
+      $$
+      which is the $g''$-bracket in (4.5). Finally, differentiating $F_{jk}=\beta(\pi_j\delta_{jk}-\pi_j\pi_k)$ and using (3.1),
+      $$
+      \partial_lF_{jk}
+      =\beta\Big[\beta\pi_j(\delta_{jl}-\pi_l)\delta_{jk}-\beta\pi_j(\delta_{jl}-\pi_l)\pi_k-\beta\pi_j\pi_k(\delta_{kl}-\pi_l)\Big]
+      =\beta^2\Big[\pi_j(\delta_{jl}-\pi_l)(\delta_{jk}-\pi_k)-\pi_j\pi_k(\delta_{kl}-\pi_l)\Big].
+      $$
+      Expanding the first product,
+      $$
+      \pi_j(\delta_{jl}-\pi_l)(\delta_{jk}-\pi_k)
+      =\pi_j\delta_{jl}\delta_{jk}-\pi_j\pi_k\delta_{jl}-\pi_j\pi_l\delta_{jk}+\pi_j\pi_l\pi_k,
+      $$
+      so
+      $$
+      \partial_lF_{jk}
+      =\beta^2\Big[\pi_j\delta_{jl}\delta_{jk}-\pi_j\pi_k\delta_{jl}-\pi_j\pi_l\delta_{jk}+\pi_j\pi_l\pi_k-\pi_j\pi_k\delta_{kl}+\pi_j\pi_k\pi_l\Big],
+      $$
+      which is the $g'$-bracket in (4.5). Combining with (4.6) proves (4.5). $\square$
+
+      **Claim 4.2 (majorant for the third derivatives; assertion 1).** *For every $z\in\mathbb R^p$ and all $1\le j,k,l\le p$,*
+      \begin{equation}\tag{4.7}
+      \big|\partial_j\partial_k\partial_lm(z)\big|\le U_{jkl}(z).
+      \end{equation}
+      *Consequently, for every $w\in\mathbb R^p$,*
+      \begin{equation}\tag{4.8}
+      |\kappa_{jkl}(w)|\le Q_{jkl}(w).
+      \end{equation}
+
+      *Proof.* Estimate the three brackets in (4.5) separately, using $\pi_m\ge0$ and the elementary inequality
+      \begin{equation}\tag{4.9}
+      |\delta_{ab}-\pi_c|\le\delta_{ab}+\pi_c,\qquad a,b,c\in\{1,\dots,p\},
+      \end{equation}
+      which is immediate since $\pi_c\ge0$: if $\delta_{ab}=1$ both sides are $\ge|1-\pi_c|$ and $=1+\pi_c\ge|1-\pi_c|$; if $\delta_{ab}=0$ both are $\pi_c$.
+
+      *First bracket.* It equals $g'''(F)\pi_j\pi_k\pi_l$, and $|g'''|\le G_3$.
+
+      *Second bracket.* Using (4.9) term by term,
+      $$
+      \big|\pi_j\pi_k(\delta_{jl}-\pi_l)\big|\le\pi_j\pi_k(\delta_{jl}+\pi_l)=W_{jl}\pi_k,
+      $$
+      $$
+      \big|\pi_j\pi_k(\delta_{kl}-\pi_l)\big|\le\pi_j\pi_k(\delta_{kl}+\pi_l)=W_{kl}\pi_j,
+      $$
+      and, since $\pi_l\ge0$ and $|\delta_{jk}-\pi_k|\le\delta_{jk}+\pi_k$,
+      $$
+      \big|\pi_l(\pi_j\delta_{jk}-\pi_j\pi_k)\big|=\pi_j\pi_l|\delta_{jk}-\pi_k|\le\pi_j\pi_l(\delta_{jk}+\pi_k)=W_{jk}\pi_l .
+      $$
+      Together with $|g''|\le G_2$ this bounds the second bracket by $G_2\beta(W_{jk}\pi_l+W_{jl}\pi_k+W_{kl}\pi_j)$.
+
+      *Third bracket.* Term by term,
+      $$
+      \big|\pi_j\delta_{jl}\delta_{jk}\big|=\pi_j\delta_{jl}\delta_{jk},\qquad
+      \big|\!-\pi_j\pi_l\delta_{jk}\big|=\pi_j\pi_l\delta_{jk},\qquad
+      \big|\!-\pi_j\pi_k\delta_{jl}\big|=\pi_j\pi_k\delta_{jl},
+      $$
+      $$
+      \big|\pi_j\pi_l\pi_k\big|=\pi_j\pi_l\pi_k,\qquad
+      \big|\!-\pi_j\pi_k\delta_{kl}\big|=\pi_j\pi_k\delta_{kl},\qquad
+      \big|\pi_j\pi_k\pi_l\big|=\pi_j\pi_k\pi_l .
+      $$
+      Summing and using $2\pi_j\pi_k\pi_l$ for the two trilinear terms, the third bracket is bounded in absolute value by
+      $$
+      \pi_j\delta_{jl}\delta_{jk}+\pi_j\pi_l\delta_{jk}+\pi_j\pi_k\delta_{jl}+\pi_j\pi_k\delta_{kl}+2\pi_j\pi_k\pi_l=P_{jkl}.
+      $$
+      Multiplying by $|g'|\beta^2\le G_1\beta^2$, adding the three bounds, and using (4.1) gives (4.7).
+
+      Finally, by (1.2) with $\alpha=(j,k,l)$, $\kappa_{jkl}(w)=(\partial_j\partial_k\partial_lm)(w-y)$, so (4.7) at $z=w-y$ together with the definition (4.2) of $Q_{jkl}$ gives (4.8). $\square$
+
+      **Claim 4.3 (majorant for the second derivatives).** *For every $z\in\mathbb R^p$ and all $1\le j,k\le p$,*
+      \begin{equation}\tag{4.10}
+      \big|\partial_j\partial_km(z)\big|\le G_2\pi_j\pi_k+G_1\beta W_{jk}(z).
+      \end{equation}
+      *This is the second-derivative bound of Reference R1; it is not needed for the three assertions of the target lemma and is recorded for completeness.*
+
+      *Proof.* By (4.4) and (4.9),
+      $$
+      |\partial_j\partial_km|\le G_2\pi_j\pi_k+G_1\beta\pi_j|\delta_{jk}-\pi_k|\le G_2\pi_j\pi_k+G_1\beta\pi_j(\delta_{jk}+\pi_k)=G_2\pi_j\pi_k+G_1\beta W_{jk}.\qquad\square
+      $$
+
+      ---
+
+      #### 5. Summability: assertion 2
+
+      **Claim 5.1 (exact summation).** *For every $z\in\mathbb R^p$,*
+      \begin{equation}\tag{5.1}
+      \sum_{j,k,l=1}^pU_{jkl}(z)=G_3+6G_2\beta+6G_1\beta^2 .
+      \end{equation}
+      *In particular the sum does not depend on $z$. Consequently, for every $w\in\mathbb R^p$,*
+      \begin{equation}\tag{5.2}
+      \sum_{a,b,c=1}^pQ_{abc}(w)=G_3+6G_2\beta+6G_1\beta^2
+      =c_3\phi^3+6c_2\phi^2\beta+6c_1\phi\beta^2 ,
+      \end{equation}
+      *and, with $C_{\varphi_0}$ as in (2.3),*
+      \begin{equation}\tag{5.3}
+      \sum_{a,b,c=1}^pQ_{abc}(w)\le C_{\varphi_0}\big(\phi^3+\phi^2\beta+\phi\beta^2\big)\lesssim\phi\beta^2 .
+      \end{equation}
+
+      *Proof.* Throughout fix $z$ and write $\pi_m=\pi_m(z)$. Since $\sum_{m=1}^p\pi_m=1$,
+
+      *Step 1: the trilinear term.*
+      $$
+      \sum_{j,k,l=1}^p\pi_j\pi_k\pi_l=\Big(\sum_{m=1}^p\pi_m\Big)^3=1 .
+      $$
+
+      *Step 2: the $W$-terms.* First,
+      $$
+      \sum_{j,k=1}^pW_{jk}=\sum_{j,k=1}^p\big(\pi_j\delta_{jk}+\pi_j\pi_k\big)=\sum_{j=1}^p\pi_j+\Big(\sum_{j=1}^p\pi_j\Big)\Big(\sum_{k=1}^p\pi_k\Big)=1+1=2 .
+      $$
+      Hence, using $\sum_l\pi_l=1$,
+      $$
+      \sum_{j,k,l=1}^pW_{jk}\pi_l=\Big(\sum_{j,k=1}^pW_{jk}\Big)\Big(\sum_{l=1}^p\pi_l\Big)=2,
+      $$
+      and by symmetry of the roles of $j,k,l$ in the second summand of (4.1),
+      $$
+      \sum_{j,k,l=1}^pW_{jl}\pi_k=2,\qquad \sum_{j,k,l=1}^pW_{kl}\pi_j=2 .
+      $$
+      Therefore the contribution of the $G_2\beta$-term in (4.1) is $G_2\beta(2+2+2)=6G_2\beta$.
+
+      *Step 3: the $P$-terms.* Using $\sum_{j,k}\pi_j\pi_k=1$ and $\sum_j\pi_j=1$,
+      $$
+      \sum_{j,k,l}\pi_j\delta_{jl}\delta_{jk}=\sum_{j}\pi_j=1,\qquad
+      \sum_{j,k,l}\pi_j\pi_l\delta_{jk}=\sum_{j}\pi_j\sum_l\pi_l=1,
+      $$
+      $$
+      \sum_{j,k,l}\pi_j\pi_k\delta_{jl}=\sum_{j}\pi_j\sum_k\pi_k=1,\qquad
+      \sum_{j,k,l}\pi_j\pi_k\delta_{kl}=\sum_{k}\pi_k\sum_j\pi_j=1,
+      $$
+      and
+      $$
+      2\sum_{j,k,l}\pi_j\pi_k\pi_l=2 .
+      $$
+      Adding, $\sum_{j,k,l}P_{jkl}=1+1+1+1+2=6$, so the contribution of the $G_1\beta^2$-term is $6G_1\beta^2$.
+
+      Combining Steps 1–3 with (4.1) gives (5.1). Evaluating at $z=w-y$ and using (4.2) gives the identity in (5.2). Inserting (2.2) into (5.2) gives
+      $$
+      \sum_{a,b,c=1}^pQ_{abc}(w)=c_3\phi^3+6c_2\phi^2\beta+6c_1\phi\beta^2
+      \le C_{\varphi_0}\big(\phi^3+\phi^2\beta+\phi\beta^2\big),
+      $$
+      which is the first inequality in (5.3).
+
+      *Step 4: reduction to $\phi\beta^2$.* Since $\beta=\phi\log p$, $\phi\ge1$ and $p\ge2$, we have $\log p\ge\log2>0$, and therefore
+      $$
+      \frac{\phi^3}{\phi\beta^2}=\frac{1}{\log^2p}\le\frac{1}{\log^22},\qquad
+      \frac{\phi^2\beta}{\phi\beta^2}=\frac{1}{\log p}\le\frac{1}{\log2},\qquad
+      \frac{\phi\beta^2}{\phi\beta^2}=1 .
+      $$
+      Hence
+      $$
+      \phi^3+\phi^2\beta+\phi\beta^2
+      \le\Big(\frac{1}{\log^22}+\frac{1}{\log2}+1\Big)\phi\beta^2,
+      $$
+      and (5.3) follows with the absolute constant $C_{\varphi_0}\big(\log^{-2}2+\log^{-1}2+1\big)$. $\square$
+
+      ---
+
+      #### 6. Stability: assertion 3
+
+      **Claim 6.1 (stability of the majorants).** *Let $v\in\mathbb R^p$ satisfy $\max_{1\le m\le p}\beta|v_m|\le1$, let $\tau\in[0,1]$, and let $1\le j,k,l\le p$. Then for every $z\in\mathbb R^p$,*
+      \begin{equation}\tag{6.1}
+      e^{-6}\,U_{jkl}(z)\le U_{jkl}(z+\tau v)\le e^{6}\,U_{jkl}(z).
+      \end{equation}
+      *Consequently, for every $w\in\mathbb R^p$ and every $\tilde w\in\mathbb R^p$ with $\max_{1\le r\le p}|\tilde w_r|\beta\le1$,*
+      \begin{equation}\tag{6.2}
+      Q_{jkl}(w)\le e^{6}Q_{jkl}(w+\tilde w),\qquad Q_{jkl}(w+\tilde w)\le e^{6}Q_{jkl}(w),
+      \end{equation}
+      *i.e. $Q_{jkl}(w)\lesssim Q_{jkl}(w+\tilde w)\lesssim Q_{jkl}(w)$.*
+
+      *Proof.* By Claim 3.2, for all $m\in\{1,\dots,p\}$,
+      \begin{equation}\tag{6.3}
+      e^{-2}\le\frac{\pi_m(z+\tau v)}{\pi_m(z)}\le e^{2}.
+      \end{equation}
+      We now inspect the monomials of which $U_{jkl}$ is a nonnegative linear combination, cf. (4.1), (1.3) and (1.4). Each monomial is of the form
+      $$
+      \text{(nonnegative constant)}\times\delta\text{-product}\times\prod_{s=1}^{r}\pi_{i_s},
+      $$
+      with $r\le3$ factors of $\pi$. Indeed: $\pi_j\pi_k\pi_l$ has $r=3$; $W_{jk}\pi_l=\big(\pi_j\delta_{jk}+\pi_j\pi_k\big)\pi_l$ has monomials with $r=2$ and $r=3$; the three $W$-terms in (4.1) are treated identically; and in $P_{jkl}$ the monomials $\pi_j\delta_{jl}\delta_{jk}$, $\pi_j\pi_l\delta_{jk}$, $\pi_j\pi_k\delta_{jl}$, $\pi_j\pi_k\delta_{kl}$, $2\pi_j\pi_k\pi_l$ have $r=1,2,2,2,3$ respectively.
+
+      The $\delta$-factors and the constants $G_s\beta^{r'}$ do not depend on $z$. By (6.3), for any such monomial with $r\le3$ factors,
+      $$
+      e^{-2r}\prod_{s=1}^r\pi_{i_s}(z)\le\prod_{s=1}^r\pi_{i_s}(z+\tau v)\le e^{2r}\prod_{s=1}^r\pi_{i_s}(z),
+      $$
+      and $e^{-2r}\ge e^{-6}$, $e^{2r}\le e^{6}$ because $r\le3$. Summing these inequalities over the monomials with their nonnegative coefficients, and recalling the definition (4.1), we obtain
+      $$
+      e^{-6}\,U_{jkl}(z)\le U_{jkl}(z+\tau v)\le e^{6}\,U_{jkl}(z),
+      $$
+      which is (6.1).
+
+      For (6.2), take $\tau=1$ and $v=\tilde w$ in (6.1) and put $z=w-y$; then $z+\tau v=w+\tilde w-y$, so by (4.2)
+      $$
+      e^{-6}Q_{jkl}(w)=e^{-6}U_{jkl}(w-y)\le U_{jkl}(w+\tilde w-y)=Q_{jkl}(w+\tilde w)\le e^{6}U_{jkl}(w-y)=e^{6}Q_{jkl}(w).
+      $$
+      This is (6.2) (with $\lesssim$ constants $e^{6}$). $\square$
+
+      ---
+
+      #### 7. Conclusion: the functions $Q_{jkl}$ satisfy all three assertions
+
+      Define $Q_{jkl}$ by (4.2) for $1\le j,k,l\le p$. Then:
+
+      *Nonnegativity.* For every $w$, each summand on the right-hand side of (4.1) is a nonnegative constant times a product of nonnegative factors $\pi_m$, $\delta$'s, and $W$'s and $P$'s, all of which are nonnegative by (1.3)–(1.4) and Claim 3.1(i). Hence $Q_{jkl}(w)\ge0$.
+
+      *Assertion 1.* This is Claim 4.2, inequality (4.8).
+
+      *Assertion 2.* This is Claim 5.1, inequality (5.3).
+
+      *Assertion 3.* This is Claim 6.1, inequality (6.2).
+
+      This completes the proof of the lemma. $\square$
+
+      ---
+
+      #### 8. Remarks: references, range of $p$, and the constant in (2)
+
+      **Remark 8.1 (correspondence with References R1 and R2).** The argument above is precisely the specialization of the two references to the present objects; the correspondence is as follows.
+
+      *(a) Reference R1 (Lemma A.5).* R1 is stated for the unshifted smooth maximum $F_\beta(z)=\beta^{-1}\log\sum_j e^{\beta z_j}$, for $g\in C_b^3(\mathbb R)$, with
+      $$
+      U_{jk}=G_2\pi_j\pi_k+G_1\beta W_{jk},\qquad
+      U_{jkl}=G_3\pi_j\pi_k\pi_l+G_2\beta(W_{jk}\pi_l+W_{jl}\pi_k+W_{kl}\pi_j)+G_1\beta^2Q_{jkl}^{\mathrm{R1}},
+      $$
+      where $Q^{\mathrm{R1}}_{jkl}=\pi_j\delta_{jl}\delta_{jk}+\pi_j\pi_l\delta_{jk}+\pi_j\pi_k(\delta_{jl}+\delta_{kl})+2\pi_j\pi_k\pi_l$ is the polynomial denoted $P_{jkl}$ in (1.4). Under the substitutions
+      $$
+      g=\varphi,\qquad G_k=\phi^kc_k\quad\text{(Claim 2.1)},\qquad z=w-y,
+      $$
+      the majorant $U_{jkl}$ of R1 becomes exactly the function defined in (4.1); R1's conclusion $|\partial_j\partial_k\partial_lm(z)|\le U_{jkl}(z)$ is (4.7), and R1's summability bound $\sum_{j,k,l}U_{jkl}(z)\le G_3+6G_2\beta+6G_1\beta^2$ is strengthened by the explicit identity (5.1). Since $\kappa(w)=m(w-y)$ by (1.1)–(1.2), these yield assertions 1 and 2 with $Q_{jkl}=U_{jkl}(\cdot-y)$. The bounds (4.3)–(4.5) and (4.10) reproduce the internal computation of R1; they are included so that the application is verified rather than merely cited.
+
+      *(b) Reference R2 (Lemma A.6).* R2 is stated for $g\in C_b^3(\mathbb R)$, $\beta>0$, and asserts for all $z,w$ with $\max_j|w_j|\beta\le1$ and all $\tau\in[0,1]$ that $U_{jk}(z)\lesssim U_{jk}(z+\tau w)\lesssim U_{jk}(z)$ and $U_{jkl}(z)\lesssim U_{jkl}(z+\tau w)\lesssim U_{jkl}(z)$. Taking $z=w-y$ (with the letter $w$ of R2 equal to our $\tilde w$) and $\tau=1$ gives exactly assertion 3 for $Q_{jkl}=U_{jkl}(\cdot-y)$. Claim 6.1 records the direct proof of this stability, with the explicit universal constant $e^6$, obtained from the comparability $e^{-2}\le\pi_m(z+\tau v)/\pi_m(z)\le e^2$ of the softmax weights.
+
+      Both references assume $\beta>0$ and $g\in C_b^3(\mathbb R)$; the first hypothesis is verified by $\beta=\phi\log p\ge\log2>0$ in Section 1, and the second by Claim 2.1.
+
+      **Remark 8.2 (the range of $p$).** Reference R1 is stated in the source under the standing convention "$p\ge3$ unless otherwise stated". The task's assumptions give only that $p$ is a positive integer with $\log p>0$, i.e. $p\ge2$. The only case not covered directly by the references is therefore $p=2$ (for $p\ge3$ the references apply verbatim). However, the statements of R1 and R2 are purely algebraic identities and inequalities about the softmax weights and the chain rule; no step in the derivations (4.3)–(4.6), (4.9), the summations in Claim 5.1, or the comparison (6.3) uses $p\ge3$, and all of them remain valid verbatim for every $p$ for which $\beta>0$, in particular for $p\ge2$. Since the derivations contained in Sections 4–6 establish the required inequalities directly, the lemma holds for every $p\ge2$, in particular for $p=2$. (No step uses $\log p\ge1$; only $\log p>0$, i.e., $p\ge2$, is used, and only in Step 4 of Claim 5.1.)
+
+      **Remark 8.3 (the constant in assertion 2 and the convention of $\lesssim$).** The construction yields the exact identity (5.2), hence
+      $$
+      \sum_{a,b,c=1}^p Q_{abc}(w)=c_3\phi^3+6c_2\phi^2\beta+6c_1\phi\beta^2
+      \le C_{\varphi_0}(\phi^3+\phi^2\beta+\phi\beta^2)\lesssim \phi\beta^2,
+      $$
+      where $C_{\varphi_0}=\max\{c_3,6c_2,6c_1\}$ and $c_k=\sup_u|\varphi_0^{(k)}(u)|$ are finite constants depending only on the fixed cutoff $\varphi_0$, and hence on none of the displayed variables $w,y,p,\phi,\beta,j,k,l$. This is the precise meaning of the first $\lesssim$ in assertion 2: the constant is allowed to depend on the fixed cutoff, as in Reference R1, whose bound is stated with $\lesssim$ for exactly this reason. The second comparison has the absolute constant $\log^{-2}2+\log^{-1}2+1$ by Step 4 of Claim 5.1. If the cutoff is normalized so that $C_{\varphi_0}\le1$, then the literal inequality $\sum Q\le\phi^3+\phi^2\beta+\phi\beta^2$ holds with constant one as displayed.
+
+      The factor $C_{\varphi_0}$, i.e. the constant implicit in $\lesssim$, cannot be replaced by $1$ uniformly over admissible cutoffs. Indeed, assertion 1 forces $\sum_{a,b,c}Q_{abc}(w)\ge\sum_{a,b,c}|\kappa_{abc}(w)|\ge|\kappa_{111}(w)|$ for every $w$, and (with $\phi=1$) the quantity $|\kappa_{111}(w)|$ can come arbitrarily close to $c_3$. To see this, choose any admissible cutoff with $c_3>1+\log2+\log^22$; such cutoffs exist, for example
+      $$
+      \varphi_0(z)=1-\int_0^z h(s)\,ds\quad(0\le z\le1),\qquad
+      \varphi_0(z)=1\ (z\le0),\quad \varphi_0(z)=0\ (z\ge1),
+      $$
+      where $h:\mathbb R\to\mathbb R$ is smooth, supported in $(0,1)$, nonnegative, $\int_0^1 h=1$, and $\sup|h''|>1+\log2+\log^22$. Such an $h$ is obtained by taking $h=\varepsilon^{-1}\psi(\cdot/\varepsilon)$ with $\psi\ge0$ smooth, supported in $(0,1)$, $\int_\mathbb R\psi=1$, and $\varepsilon>0$ so small that $\varepsilon^{-3}\sup|\psi''|>1+\log2+\log^22$; then $\int_0^1h=\int_\mathbb R\psi=1$ and $\sup|h''|=\varepsilon^{-3}\sup|\psi''|$. For this $\varphi_0$ we have $\varphi_0\in C^3(\mathbb R)$: indeed $\varphi_0$ is identically $1$ on $(-\infty,0]$ and identically $0$ on $[1,\infty)$, and on $(0,1)$ it is $C^\infty$ with $\varphi_0^{(k)}=-h^{(k-1)}$ for $k=1,2,3$, while $h$, $h'$, $h''$ all vanish at $0$ and at $1$ (their supports lie in $(0,\varepsilon)\subset(0,1)$); hence all required one-sided derivatives agree at the junction points. Moreover $0\le\varphi_0\le1$ because $0\le\int_0^z h\le\int_0^1h=1$, and $\varphi_0'''=-h''$ on $(0,1)$ while $\varphi_0'''=0$ off $(0,1)$, so $c_3=\sup_u|\varphi_0'''(u)|=\sup|h''|>1+\log2+\log^22$. Now take $p=2$, $\phi=1$ (so $\beta=\log2$), $y=0$, and let $t\in[0,1]$ be a point at which $|\varphi_0'''(t)|=c_3$; such a point exists because $\varphi_0'''$ is continuous on the compact interval $[0,1]$, and necessarily $t\in(0,1)$ since $c_3>0$. Set $w^{(\eta)}=(t,t-\eta)$ with $\eta>0$. Then $\pi_1(w^{(\eta)})\to1$ and $F_\beta(w^{(\eta)})\to t$ as $\eta\to\infty$, because $\beta^{-1}\log(e^{\beta t}+e^{\beta(t-\eta)})\to t$. By (4.5) with $j=k=l=1$, the $g''$-bracket equals $3\pi_1^2(1-\pi_1)$ and the $g'$-bracket equals $\pi_1(1-\pi_1)(1-2\pi_1)$, so both tend to $0$, while $g'''(F_\beta(w^{(\eta)}))\pi_1^3\to g'''(t)=\phi^3\varphi_0'''(t)=\varphi_0'''(t)$. Hence
+      $$
+      \sum_{a,b,c=1}^p Q_{abc}(w^{(\eta)})\ge|\kappa_{111}(w^{(\eta)})|\longrightarrow c_3
+      \qquad(\eta\to\infty).
+      $$
+      Since $c_3>1+\log2+\log^22=\phi^3+\phi^2\beta+\phi\beta^2$, the literal inequality $\sum Q\le\phi^3+\phi^2\beta+\phi\beta^2$ fails for all sufficiently large $\eta$. The same computation, run with $w^{(\eta)}=(t,t-\eta,\dots,t-\eta)\in\mathbb R^p$, $\phi=1$, $\beta=\log p$ and an admissible cutoff whose $c_3$ exceeds $1+\log p+\log^2p=\phi^3+\phi^2\beta+\phi\beta^2$, gives the failure for every $p\ge2$ (there $\pi_1(w^{(\eta)})\to1$ and $F_\beta(w^{(\eta)})\to t$ as well). Thus assertion 2 is correct precisely in the form (5.3), with a constant depending only on the fixed cutoff, which is what the symbol $\lesssim$ of the task and of Reference R1 records.
+
+      **Remark 8.4 (dependence on $y$ and $w$).** By (5.2), the total mass $\sum_{a,b,c}Q_{abc}(w)$ is independent of both $w$ and $y$, and the individual majorants depend on $y$ only through the translation $z=w-y$. All bounds are uniform over $w\in\mathbb R^p$, $y\in\mathbb R^p$, and $1\le j,k,l\le p$.
+
+      ### References
+      #### Reference R1
+      Target: Lemma A.5 in [1]
+      Citation: Proof of Lemma 1: It follows directly from Lemmas A.5 and A.6 in [1].
+      Bibliography: [1] CHERNOZHUKOV, V., CHETVERIKOV, D. and KATO, K. (2013). Gaussian approximations and multiplier bootstrap for maxima of sums of high-dimensional random vectors. *The Annals of Statistics* **41** 2786–2819.
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+
+      Source extraction. The statement below is transcribed from the supplied arXiv manuscript `arXiv:1212.6906v6 [math.ST] 23 Jan 2018`, physical/printed page 25, Appendix A, §A.2, Lemma A.5 (“Bounds on derivatives of \(m=g\circ F_\beta\)”), attributed to Chernozhukov, Chetverikov and Kato (2013). It supplies the derivative majorants \(U_{jk},U_{jkl}\) and their summability bounds used by the current Lemma 1. The companion two-sided stability comparison is Lemma A.6 (a separate reference item) and is not part of the A.5 statement. The source states A.5 with smoothing parameter \(\beta>0\) and general \(g\in C_b^3(\mathbb R)\); the specialization \(\beta=\phi\log p\), the cutoff \(\Phi_0\), and the composed function \(\kappa\) belong to the consuming paper, not to source Lemma A.5. No proof is included here.
+
+      ##### Lemma A.5 (Bounds on derivatives of \(m=g\circ F_\beta\))
+
+      ###### Definitions and notation
+      - \(C^k(\mathbb R)\) denotes the class of \(k\) times continuously differentiable functions from \(\mathbb R\) to itself, and \(C_b^k(\mathbb R)\) denotes the class of all \(f\in C^k(\mathbb R)\) such that
+        \[
+        \sup_{z\in\mathbb R}|\partial^j f(z)|<\infty,\qquad j=0,\dots,k.
+        \]
+
+      - The smooth max function is, for \(\beta>0\) and \(z=(z_1,\dots,z_p)'\in\mathbb R^p\),
+        \[
+        F_\beta(z):=\beta^{-1}\log\left(\sum_{j=1}^p \exp(\beta z_j)\right).
+        \]
+
+      - For \(1\le j,k,l\le p\), set
+        \[
+        \delta_{jk}:=1\{j=k\},
+        \]
+        and define
+        \[
+        \pi_j(z):=\frac{e^{\beta z_j}}{\sum_{m=1}^p e^{\beta z_m}}.
+        \]
+
+      - For a smooth function \(g:\mathbb R\to\mathbb R\), write
+        \[
+        G_k:=\sup_{z\in\mathbb R}|\partial^k g(z)|,\qquad k\ge0.
+        \]
+
+      - The function under consideration is
+        \[
+        m:=g\circ F_\beta.
+        \]
+        The derivatives in Lemma A.5 are those of this \(m\), evaluated at \(z\in\mathbb R^p\).
+
+      ###### Assumptions
+      - \(p\ge3\) under the source’s standing convention “unless otherwise stated.”
+      - \(\beta>0\).
+      - \(g\in C_b^3(\mathbb R)\), i.e. \(g:\mathbb R\to\mathbb R\) is three times continuously differentiable with
+        \[
+        \sup_{z\in\mathbb R}|\partial^j g(z)|<\infty,\qquad j=0,1,2,3.
+        \]
+      - \(m=g\circ F_\beta\), with \(F_\beta\) as defined above.
+
+      ###### Statement
+      For every \(1\le j,k,l\le p\),
+      \[
+      |\partial_j\partial_k m(z)|\le U_{jk}(z),\qquad
+      |\partial_j\partial_k\partial_l m(z)|\le U_{jkl}(z),
+      \]
+      where
+      \[
+      U_{jk}(z):=\bigl(G_2\pi_j\pi_k+G_1\beta W_{jk}(z)\bigr),
+      \qquad
+      W_{jk}(z):=(\pi_j\delta_{jk}+\pi_j\pi_k)(z),
+      \]
+      \[
+      U_{jkl}(z):=\bigl(G_3\pi_j\pi_k\pi_l
+      +G_2\beta(W_{jk}\pi_l+W_{jl}\pi_k+W_{kl}\pi_j)
+      +G_1\beta^2 Q_{jkl}\bigr)(z),
+      \]
+      \[
+      Q_{jkl}(z):=\bigl(\pi_j\delta_{jl}\delta_{jk}
+      +\pi_j\pi_l\delta_{jk}
+      +\pi_j\pi_k(\delta_{jl}+\delta_{kl})
+      +2\pi_j\pi_k\pi_l\bigr)(z).
+      \]
+      Moreover,
+      \[
+      \sum_{j,k=1}^p U_{jk}(z)\le G_2+2G_1\beta,
+      \qquad
+      \sum_{j,k,l=1}^p U_{jkl}(z)\le G_3+6G_2\beta+6G_1\beta^2.
+      \]
+
+      #### Reference R2
+      Target: Lemma A.6 in [1]
+      Citation: Proof of Lemma 1: It follows directly from Lemmas A.5 and A.6 in [1].
+      Bibliography: [1] CHERNOZHUKOV, V., CHETVERIKOV, D. and KATO, K. (2013). Gaussian approximations and multiplier bootstrap for maxima of sums of high-dimensional random vectors. *The Annals of Statistics* **41** 2786–2819.
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction. The displayed statement is Lemma A.6 (“Stability Properties of Bounds over Large Regions”) from Chernozhukov, Chetverikov and Kato (2013), [1], physical PDF page 25, Appendix A, §A.2, as read from the supplied arXiv:1212.6906 PDF. The source gives the statement only; no proof of Lemma A.6 is reproduced. In the current proof, Lemma A.6 is cited together with Lemma A.5. Its source role is the two-sided stability of the derivative majorants \(U_{jk}\) and \(U_{jkl}\) under perturbations \(z+\tau w\) with \(\max_{j\le p}|w_j|\beta\le 1\). The definitions of \(F_\beta,\pi_j,G_k,U_{jk},U_{jkl},W_{jk},Q_{jkl}\) are extracted from the same source pages. No derivation from these \(U\)-majorants to the specialized \(Q_{jkl}\) statement of the current theorem is asserted here.
+
+      ##### Lemma A.6 (Stability Properties of Bounds over Large Regions)
+
+      ###### Definitions and notation
+      Let \(p\) be the ambient dimension, and write \(z=(z_1,\dots,z_p)'\in\mathbb R^p\). For \(\beta>0\), the smooth max function is
+      \[
+      F_\beta(z):=\beta^{-1}\log\left(\sum_{j=1}^p\exp(\beta z_j)\right).
+      \]
+      For a smooth function \(g:\mathbb R\to\mathbb R\), define
+      \[
+      G_k:=\sup_{z\in\mathbb R}|\partial^k g(z)|,\qquad k\ge 0.
+      \]
+      For \(j=1,\dots,p\), define
+      \[
+      \pi_j(z):=\frac{e^{\beta z_j}}{\sum_{m=1}^p e^{\beta z_m}},
+      \]
+      and let
+      \[
+      \delta_{jk}:=1\{j=k\}.
+      \]
+      As in Lemma A.5, for \(m=g\circ F_\beta\), the derivative majorants \(U_{jk}\) and \(U_{jkl}\) are defined, for every \(1\le j,k,l\le p\), by
+      \[
+      |\partial_j\partial_k m(z)|\le U_{jk}(z),\qquad |\partial_j\partial_k\partial_l m(z)|\le U_{jkl}(z),
+      \]
+      where
+      \[
+      U_{jk}(z):=(G_2\pi_j\pi_k+G_1\beta W_{jk})(z),
+      \]
+      \[
+      W_{jk}(z):=(\pi_j\delta_{jk}+\pi_j\pi_k)(z),
+      \]
+      and
+      \[
+      U_{jkl}(z):=\bigl(G_3\pi_j\pi_k\pi_l
+      +G_2\beta(W_{jk}\pi_l+W_{jl}\pi_k+W_{kl}\pi_j)
+      +G_1\beta^2 Q_{jkl}\bigr)(z),
+      \]
+      \[
+      Q_{jkl}(z):=\bigl(\pi_j\delta_{jl}\delta_{jk}
+      +\pi_j\pi_l\delta_{jk}
+      +\pi_j\pi_k(\delta_{jl}+\delta_{kl})
+      +2\pi_j\pi_k\pi_l\bigr)(z).
+      \]
+      Here the final \((z)\) denotes evaluation of the displayed product at \(z\). The symbol \(\lesssim\) means inequality up to a universal positive constant: \(a\lesssim b\) if \(a\le Cb\) for a universal positive constant \(C\).
+
+      ###### Assumptions
+      Assume \(g\in C_b^3(\mathbb R)\), as in Lemmas A.4–A.6; equivalently, \(g\) is three times continuously differentiable and
+      \[
+      \sup_{z\in\mathbb R}|\partial^k g(z)|<\infty
+      \]
+      for \(k=0,1,2,3\). The smoothing parameter \(\beta\) is positive. No random-vector, independence, or moment assumptions from the current theorem are part of this deterministic lemma.
+
+      ###### Statement
+      For every \(z\in\mathbb R^p\), \(w\in\mathbb R^p\) with \(\max_{j\le p}|w_j|\beta\le 1\), \(\tau\in[0,1]\), and every \(1\le j,k,l\le p\), we have
+      \[
+      U_{jk}(z)\lesssim U_{jk}(z+\tau w)\lesssim U_{jk}(z),
+      \qquad
+      U_{jkl}(z)\lesssim U_{jkl}(z+\tau w)\lesssim U_{jkl}(z).
+      \]
+    lean_name: paper_370f7a68a9a1447a9d903f9a55f08bd5
+    lean_namespace: Statlib.Imported
+    layer: formalization
+    priority: 3
+    dependencies: []
+    notes: generated from a persisted ordinary goal; no attack-DAG dependency semantics
+source_document: supp.pdf

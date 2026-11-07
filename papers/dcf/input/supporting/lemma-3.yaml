@@ -1,0 +1,690 @@
+version: v1
+theorem_set: paper-proof-group
+source_tag: document-processing
+theorems:
+  - id: entry:selected:a93fb0fc-64a5-4500-a07c-43568161afa6
+    title: paper_c88218b13cf249bdb98064482dead315
+    kind: lemma
+    latex_statement: |-
+      Let \(n,m,p\) be positive integers. Let \(X^n=\{X_1,\ldots,X_n\}\) be mutually independent (not necessarily identically distributed) random vectors in \(\mathbb R^p\), with \(X_i=(X_{i1},\ldots,X_{ip})'\) and \(E(X_i)=\mu^X=(\mu_1^X,\ldots,\mu_p^X)'\), \(i=1,\ldots,n\). Let \(Y^m=\{Y_1,\ldots,Y_m\}\) be defined similarly with \(E(Y_i)=\mu^Y=(\mu_1^Y,\ldots,\mu_p^Y)'\), \(i=1,\ldots,m\).
+
+      Let \(F^n=\{F_1,\ldots,F_n\}\) be mutually independent Gaussian random vectors with
+      \[
+      F_i=(F_{i1},\ldots,F_{ip})'\sim N_p\bigl(\mu^X,E\{(X_i-\mu^X)(X_i-\mu^X)'\}\bigr),
+      \qquad i=1,\ldots,n,
+      \]
+      and let \(G^m=\{G_1,\ldots,G_m\}\) be mutually independent Gaussian random vectors with
+      \[
+      G_i=(G_{i1},\ldots,G_{ip})'\sim N_p\bigl(\mu^Y,E\{(Y_i-\mu^Y)(Y_i-\mu^Y)'\}\bigr),
+      \qquad i=1,\ldots,m.
+      \]
+      The four arrays \(X^n,Y^m,F^n,G^m\) are independent of each other; coordinates within a vector may be arbitrarily correlated.
+
+      Denote the normalized sums
+      \[
+      S_n^X=n^{-1/2}\sum_{i=1}^n X_i=(S_{n1}^X,\ldots,S_{np}^X)',
+      \qquad
+      S_m^Y=m^{-1/2}\sum_{i=1}^m Y_i=(S_{m1}^Y,\ldots,S_{mp}^Y)',
+      \]
+      \[
+      S_n^F=n^{-1/2}\sum_{i=1}^n F_i,
+      \qquad
+      S_m^G=m^{-1/2}\sum_{i=1}^m G_i.
+      \]
+
+      Let \(\mathcal A^{\mathrm{Re}}\) denote the class of all hyperrectangles in \(\mathbb R^p\) of the form
+      \[
+      \{w\in\mathbb R^p:a_j\le w_j\le b_j\text{ for all }j=1,\ldots,p\},
+      \]
+      where \(-\infty\le a_j\le b_j\le\infty\); finite, unbounded, and degenerate intervals are included.
+
+      Let \(\delta_{n,m}\) be a sequence of constants depending on both \(n\) and \(m\). Here and below \(P\) denotes the joint law of the four independent arrays \(X^n,Y^m,F^n,G^m\). Define
+      \[
+      \begin{aligned}
+      \rho_{n,m}^{*}={}&\sup_{v\in[0,1]}\sup_{A\in\mathcal A^{\mathrm{Re}}}\Bigl|
+      P\bigl\{v^{1/2}(S_n^X-n^{1/2}\mu^X+\delta_{n,m}S_m^Y-\delta_{n,m}m^{1/2}\mu^Y)\\
+      &\qquad +(1-v)^{1/2}(S_n^F-n^{1/2}\mu^X+\delta_{n,m}S_m^G-\delta_{n,m}m^{1/2}\mu^Y)\in A\bigr\}\\
+      &\qquad -P(S_n^F-n^{1/2}\mu^X+\delta_{n,m}S_m^G-\delta_{n,m}m^{1/2}\mu^Y\in A)\Bigr|.
+      \end{aligned}
+      \]
+
+      Define
+      \[
+      L_n^X=\max_{1\le j\le p}\sum_{i=1}^n E(|X_{ij}-\mu_j^X|^3)/n,
+      \qquad
+      L_m^Y=\max_{1\le j\le p}\sum_{i=1}^m E(|Y_{ij}-\mu_j^Y|^3)/m.
+      \]
+
+      For any \(\phi\ge1\), denote
+      \[
+      M_n(\phi)=M_n^X(\phi)+M_n^F(\phi),
+      \]
+      where
+      \[
+      M_n^X(\phi)=n^{-1}\sum_{i=1}^n E\Bigl[\max_{1\le j\le p}|X_{ij}-\mu_j^X|^3
+      1\Bigl\{\max_{1\le j\le p}|X_{ij}-\mu_j^X|>n^{1/2}/(4\phi\log p)\Bigr\}\Bigr],
+      \]
+      \[
+      M_n^F(\phi)=n^{-1}\sum_{i=1}^n E\Bigl[\max_{1\le j\le p}|F_{ij}-\mu_j^X|^3
+      1\Bigl\{\max_{1\le j\le p}|F_{ij}-\mu_j^X|>n^{1/2}/(4\phi\log p)\Bigr\}\Bigr].
+      \]
+      Likewise, for any \(\phi\ge1\) and any sequence of constants \(\delta_{n,m}\) that depends on both \(n\) and \(m\), denote
+      \[
+      M_m^*(\phi)=M_m^Y(\phi)+M_m^G(\phi),
+      \]
+      where
+      \[
+      M_m^Y(\phi)=m^{-1}\sum_{i=1}^m E\Bigl[\max_{1\le j\le p}|Y_{ij}-\mu_j^Y|^3
+      1\Bigl\{\max_{1\le j\le p}|Y_{ij}-\mu_j^Y|>m^{1/2}/(4|\delta_{n,m}|\phi\log p)\Bigr\}\Bigr],
+      \]
+      \[
+      M_m^G(\phi)=m^{-1}\sum_{i=1}^m E\Bigl[\max_{1\le j\le p}|G_{ij}-\mu_j^Y|^3
+      1\Bigl\{\max_{1\le j\le p}|G_{ij}-\mu_j^Y|>m^{1/2}/(4|\delta_{n,m}|\phi\log p)\Bigr\}\Bigr].
+      \]
+
+      <!-- formalization-clarifications:v1:82e9ec7c240982bf428d18f94f8b1186bb2b513c33e6f557993b4783486442ef -->
+      Formalization clarifications from source and proof:
+      1. Constants and quantifier order. In the target Lemma 3 definitions/statement, \(n,m,p\) are positive integers, \(\delta_{n,m}\) is a sequence of constants depending on both \(n\) and \(m\), and condition (a) says there exists a universal constant \(b>0\) such that the displayed minimum of the squared coordinate term is at least \(b\). The theorem then says for any \(\phi_1,\phi_2\ge1\) there is \(K^*>0\), depending only on \(b\), for which the displayed inequality holds. The intended Lean order is therefore: the bound constant \(K^*=K^*(b)\) is chosen after the assumption constant \(b\) but before \(n,m,p,\delta_{n,m},\phi_1,\phi_2\) and before the random vectors/distributions; it may depend on \(b\), but the source gives no dependence on \(n,m,p,\phi_i,\delta\), the data, or the distributions. The original statement only says \(K^*\) is “a universal constant that depends only on \(b\)”; the selected repaired proof’s explicit formula \(K^*=\max\{3,2\sqrt2\,C_b\}\) is proof-based construction, not part of the original Lemma 3 wording. In particular, \(\delta_{n,m}\) is not assumed bounded in the target Lemma 3; the bounded-\(|\delta_{n,m}|\) condition appears in Theorem 1, not here. Moreover, \(M_m^*(\phi)\) actually depends on \(\delta_{n,m}\) through the threshold \(m^{1/2}/(4|\delta_{n,m}|\phi\log p)\) even though \(\delta\) is suppressed in the notation; a formal version must pass \(\delta\) to \(M_m^*\). The case \(\delta_{n,m}=0\) is not handled explicitly in the original formula because of the denominator \(|\delta_{n,m}|\); the selected proof imposes the convention \(M_m^*(\phi)=0\) when \(\delta=0\), but that is a proof convention, not an explicit original-source definition. Similarly, the original definitions allow \(p=1\), while \(\log p=0\); the selected proof notes that the literal Lemma 3 inequality fails for \(p=1\) and proves a \(p\ge2\) version, but the original Lemma 3 statement itself does not explicitly state this side condition.
+
+      2. Norms and mathematical objects. The ambient spaces are \(\mathbb R^p\), and after doubling \(\mathbb R^{2p}\); the target \(\rho_{n,m}^*\) is defined through probabilities of hyperrectangles \(A\in\mathcal A^{\mathrm{Re}}\), not through any Euclidean, \(l_2\), sup, operator, or Frobenius norm. Componentwise order \(x\le y\) means coordinatewise order; it appears in Lemma 2 and in the halfspace formulation of the proof, but in the target statement the object is the hyperrectangle probability in \(\rho_{n,m}^*\). Do not replace \(\rho_{n,m}^*\) by the paper’s later \(\|\cdot\|_\infty\)-based test statistic, and do not replace the rectangle supremum by a halfspace supremum unless using the doubling argument that relates them. The sums are exactly \(S_n^X=n^{-1/2}\sum_iX_i\), \(S_m^Y=m^{-1/2}\sum_iY_i\), \(S_n^F=n^{-1/2}\sum_iF_i\), and \(S_m^G=m^{-1/2}\sum_iG_i\). The Gaussian vectors satisfy \(F_i\sim N_p(\mu^X,E(X_i-\mu^X)(X_i-\mu^X)')\) and \(G_i\sim N_p(\mu^Y,E(Y_i-\mu^Y)(Y_i-\mu^Y)')\), independently across \(i\), with the four arrays independent; within-vector coordinates may be arbitrarily correlated. The functionals are exactly \(L_n^X=\max_j n^{-1}\sum_iE|X_{ij}-\mu_j^X|^3\), \(L_m^Y\) analogously, and \(M_n=M_n^X+M_n^F\), \(M_m^*=M_m^Y+M_m^G\), with truncated max-coordinate third moments at levels \(n^{1/2}/(4\phi\log p)\) and \(m^{1/2}/(4|\delta_{n,m}|\phi\log p)\). The target definitions use \(\mu_j^X\) in the \(M_n^F\) deviation \(|F_{ij}-\mu_j^X|\) and \(\mu_j^Y\) in the \(M_m^G\) deviation; the Appendix excerpt contains a typographical \(\mu_j^F\) or \(\mu_j^G\) in some displays where those symbols are not otherwise defined, so the target definition is the consistent reading. For the doubled arrays \(\tilde X_i=(X_i,-X_i)\), etc., in dimension \(2p\), the \(L\)-identities are exact, but the \(M\)-functionals depend on whether the truncation level is \(\log p\) or \(\log(2p)\). The original source asserts the equality \(\tilde M_n(\phi)=M_n(\phi)\) and \(\tilde M_m^*(\phi)=M_m^*(\phi)\) in its (103); read literally with “analogous” truncation in dimension \(2p\), that equality is not justified because the threshold uses \(\log(2p)\). The selected repaired proof treats the \(L\)-identities as exact and replaces the \(M\)-equality by inequalities of the form \(\tilde M_n(\phi)\le M_n(2\phi)\) for \(p\ge2\), then applies Lemma 2 with halved parameters. This is a proof-based repair, not an explicit original fact. Also keep distinct the four objects: \(\rho_{n,m}^*\) in Lemma 3 is the rectangle/mixture quantity; \(\rho_{n,m}\) in Lemma 2 is the halfspace quantity; \(\rho_{n,m}^{**}\) in the main paper is another rectangle Gaussian-approximation quantity; and \(\tilde\rho_{n,m}\) in the proof is the doubled halfspace supremum.
+
+      3. Asymptotics. The target Lemma 3 is a finite-parameter inequality, not an \(O\), \(o\), \(O_p\), \(o_p\), or convergence-in-probability assertion. The notation \(a_n\lesssim b_n\) is defined in the proof only as \(a_n\le Cb_n\) for a universal constant \(C>0\); in Lean this should be desugared into an existential universal constant bound, not a limit or filter relation. The source does not specify a formal filter such as \(n\to\infty\), \(m\to\infty\), \(p\to\infty\), or any relation between \(n,m,p\) in the statement of Lemma 3; the discussion of \(p\to\infty\) is the paper’s asymptotic framework, not an explicit hypothesis of the displayed Lemma 3. The cited Lemma 2 (Reference R1, Xue–Yao Appendix Lemma 2, described as a two-sample extension of Lemma 5.1 of Chernozhukov–Chetverikov–Kato [9]) is a universal finite-sample bound with constant \(C_b\) depending only on \(b\); target-specific applications do not restrict that cited theorem. When Lemma 2 is applied to the doubled arrays, its ambient dimension is \(d=2p\), so its \(\log d\), \(L\), and \(M\) truncation levels are the \(2p\)-versions, not the original \(p\)-versions. The target has ordinary probabilities under the joint law \(P\) of \(X^n,Y^m,F^n,G^m\); bootstrap notation such as \(P_e\) appears elsewhere in the paper but is not part of the target Lemma 3.
+
+      4. Potentially omitted definitions and side conditions. The data are not assumed identically distributed: only \(X_1,\dots,X_n\) are mutually independent with common mean \(\mu^X\), and \(Y_1,\dots,Y_m\) mutually independent with common mean \(\mu^Y\); covariances may vary with \(i\). The Gaussian arrays match each \(X_i\) or \(Y_i\) covariance coordinatewise as stated, and the four arrays are mutually independent. The hyperrectangles are the extended-interval rectangles with \(-\infty\le a_j\le b_j\le\infty\), including unbounded and degenerate finite intervals; the original definition does not explicitly discuss the empty set, although the selected proof does. The probabilities in \(\rho_{n,m}^*\) use the mixture \(v^{1/2}\) of the \(X/Y\) part plus \((1-v)^{1/2}\) of the \(F/G\) part, compared with the pure \(F/G\) part; the means \(n^{1/2}\mu^X\) and \(\delta m^{1/2}\mu^Y\) appear in both terms exactly as displayed. The assumption is only the coordinatewise lower bound in condition (a); it does not require nonsingular covariance matrices or a lower bound for the full covariance matrix. Finiteness of the third absolute moments defining \(L_n^X,L_m^Y,M_n,M_m^*\) is not separately stated in the original Lemma 3 definitions; the selected proof adds a convention that one assumes finiteness or reads the statement in an extended sense, but that is not an explicit original hypothesis. Finally, the source leaves unresolved in the original wording the \(p=1\) case, the \(\delta_{n,m}=0\) convention in \(M_m^*\), and the exact interpretation of the doubled \(M\)-functionals in (103); these should not be silently resolved in Lean without recording the chosen convention or proof-based inference.
+      <!-- /formalization-clarifications -->
+
+      For any \(\phi_1,\phi_2\ge1\),
+      \[
+      \begin{aligned}
+      \rho_{n,m}^{*}\le {}&K^*\Big[
+      n^{-1/2}\phi_1^2(\log p)^2
+      \{\phi_1L_n^X\rho_{n,m}^{*}
+      +L_n^X(\log p)^{1/2}
+      +\phi_1M_n(\phi_1)\}\\
+      &+m^{-1/2}\phi_2^2(\log p)^2|\delta_{n,m}|^3
+      \{\phi_2L_m^Y\rho_{n,m}^{*}
+      +L_m^Y(\log p)^{1/2}
+      +\phi_2M_m^*(\phi_2)\}\\
+      &+(\min\{\phi_1,\phi_2\})^{-1}(\log p)^{1/2}\Big],
+      \end{aligned}
+      \]
+      where \(K^*>0\) is a universal constant that depends only on \(b\). The quantities \(\rho_{n,m}^*\), \(L_n^X,L_m^Y\), \(M_n\), and \(M_m^*\) are defined above.
+    assumptions:
+      - |-
+        Assume there exists a universal constant \(b>0\) such that
+        \[
+        \min_{1\le j\le p}E\{(S_{nj}^X-n^{1/2}\mu_j^X+\delta_{n,m}S_{mj}^Y-\delta_{n,m}m^{1/2}\mu_j^Y)^2\}\ge b.
+        \]
+    proof_body: |-
+      ### Definitions and notation used in Proof
+      For sequences of constants \(a_n,b_n\), write \(a_n\lesssim b_n\) if \(a_n\le Cb_n\) for a universal constant \(C>0\).
+
+      Construct the doubled arrays as in the source: set \(\tilde X_i=(\tilde X_{i1},\ldots,\tilde X_{i,2p})'\) by
+      \[
+      \tilde X_{ij}=X_{ij}\quad (j=1,\ldots,p),\qquad 
+      \tilde X_{ij}=-X_{i,j-p}\quad (j=p+1,\ldots,2p),
+      \]
+      and define \(\tilde Y^m,\tilde F^n,\tilde G^m\) analogously. Define all corresponding tilded quantities \(\tilde S_n^{\tilde X},\tilde S_m^{\tilde Y},\tilde S_n^{\tilde F},\tilde S_m^{\tilde G}\), \(\tilde L_n^{\tilde X},\tilde L_m^{\tilde Y}\), \(\tilde M_n(\phi),\tilde M_m^*(\phi)\), and the tilded means \(\mu^{\tilde X},\mu^{\tilde Y}\), and let \(\tilde\rho_{n,m}\) be the tilded analogue of \(\rho_{n,m}^*\) in dimension \(2p\).
+
+      ### Proof
+      #### Proof of Lemma 3
+
+      Throughout, logarithms are natural, \(\delta=\delta_{n,m}\), and \(a\lesssim b\) means that \(a\le Cb\) for a universal constant \(C>0\).
+      #### 0. The assertion
+
+      Let \(b>0\) be the constant in the Assumptions. The assertion of Lemma 3 of the source, in the form stated in the task, is that there is a constant \(K^*=K^*(b)>0\) such that for all \(n,m\ge1\), all positive integers \(p\), and all \(\phi_1,\phi_2\ge1\), the following inequality holds:
+      \[
+      \begin{aligned}
+      \rho_{n,m}^{*}\le {}&K^*\Bigl[
+      n^{-1/2}\phi_1^2(\log p)^2
+      \{\phi_1L_n^X\rho_{n,m}^{*}
+      +L_n^X(\log p)^{1/2}
+      +\phi_1M_n(\phi_1)\}\nonumber\\
+      &+m^{-1/2}\phi_2^2(\log p)^2|\delta_{n,m}|^3
+      \{\phi_2L_m^Y\rho_{n,m}^{*}
+      +L_m^Y(\log p)^{1/2}
+      +\phi_2M_m^*(\phi_2)\}\nonumber\\
+      &+(\min\{\phi_1,\phi_2\})^{-1}(\log p)^{1/2}\Bigr].
+      \end{aligned}
+      \]
+
+      The case \(p=1\) is exceptional: then \(\log p=0\), the right-hand side of the displayed inequality is \(0\), and the inequality fails in general (Convention 1 and Remark 6.1). The proof below establishes the displayed bound for every \(p\ge2\), which is the range relevant to the source's asymptotic framework \(p\to\infty\); this is the exact range in which the displayed inequality is valid without further qualification.
+
+
+
+      **Conventions used in the proof.**
+
+      1. *Range of \(p\).* We prove the assertion for \(p\ge 2\), and we note first that the assertion is literally false for \(p=1\). Indeed, for \(p=1\) one has \(\log p=0\), so the right-hand side of the asserted inequality equals \(0\), whereas \(\rho_{n,m}^*>0\) in general; Remark 6.1 gives an explicit situation satisfying every hypothesis of the lemma in which this happens. Thus the statement is to be understood for \(p\ge2\), which is the range of the source's asymptotic framework \(p\to\infty\); on the smaller range \(p\ge3\) one even has \(\log p\ge1\).
+      2. *Trivial bound.* \(\rho_{n,m}^*\le 1\), because \(\rho_{n,m}^*\) is a supremum of absolute differences of two probabilities of the same events.
+      3. *Finiteness.* We assume that the third absolute moments appearing in \(L_n^X,L_m^Y,M_n,M_m^*\) are finite, which is the only case in which the quantities in the statement are finite; otherwise the statement is to be read in the extended sense.
+      4. *The case \(\delta=0\).* Under the literal definitions the threshold \(m^{1/2}/(4|\delta|\phi\log p)\) is \(+\infty\) when \(\delta=0\), so that the indicators in \(M_m^Y,M_m^G\) vanish and \(M_m^*(\phi)=0\). This is consistent with the fact that the second line of the asserted bound carries the factor \(|\delta_{n,m}|^3=0\).
+
+      #### 1. The external input (Reference R1)
+
+      We use the source's Lemma 2 as an established external result. We record it in a notation adapted to an arbitrary ambient dimension \(d\).
+
+      Let \(d\ge 2\). Let \(U^n=\{U_1,\dots,U_n\}\) be mutually independent random vectors in \(\mathbb R^d\), not necessarily identically distributed, with \(E(U_i)=\mu^U\) for all \(i\), and let \(V^m=\{V_1,\dots,V_m\}\) be mutually independent random vectors in \(\mathbb R^d\) with \(E(V_i)=\mu^V\) for all \(i\). Let \(H^n=\{H_1,\dots,H_n\}\) be mutually independent Gaussian vectors with
+      \[
+      H_i\sim N_d\bigl(\mu^U,\;E\{(U_i-\mu^U)(U_i-\mu^U)'\}\bigr),\qquad i=1,\dots,n,
+      \]
+      and \(K^m=\{K_1,\dots,K_m\}\) mutually independent Gaussian vectors with
+      \[
+      K_i\sim N_d\bigl(\mu^V,\;E\{(V_i-\mu^V)(V_i-\mu^V)'\}\bigr),\qquad i=1,\dots,m,
+      \]
+      the four arrays being independent. Write
+      \[
+      S_n^U=n^{-1/2}\sum_{i=1}^n U_i,\qquad S_m^V=m^{-1/2}\sum_{i=1}^m V_i,\qquad
+      S_n^H=n^{-1/2}\sum_{i=1}^n H_i,\qquad S_m^K=m^{-1/2}\sum_{i=1}^m K_i,
+      \]
+      and define
+      \[
+      \begin{aligned}
+      \rho_{n,m}(U,V;H,K)=\sup_{v\in[0,1]}\sup_{y\in\mathbb R^d}\Bigl|
+      &P\bigl\{v^{1/2}(S_n^U-n^{1/2}\mu^U+\delta S_m^V-\delta m^{1/2}\mu^V)\\
+      &\quad +(1-v)^{1/2}(S_n^H-n^{1/2}\mu^U+\delta S_m^K-\delta m^{1/2}\mu^V)\le y\bigr\}\\
+      &-P\bigl(S_n^H-n^{1/2}\mu^U+\delta S_m^K-\delta m^{1/2}\mu^V\le y\bigr)\Bigr|,
+      \end{aligned}
+      \]
+      where \(\le\) is componentwise. For \(\phi\ge 1\) set
+      \[
+      L_n^U=\max_{1\le j\le d}\frac1n\sum_{i=1}^nE|U_{ij}-\mu_j^U|^3,
+      \]
+      \[
+      \mathcal M_n^{U}(\phi;d)=\frac1n\sum_{i=1}^nE\Bigl[\max_{1\le j\le d}|U_{ij}-\mu_j^U|^3
+      1\Bigl\{\max_{1\le j\le d}|U_{ij}-\mu_j^U|>\frac{n^{1/2}}{4\phi\log d}\Bigr\}\Bigr],
+      \]
+      \[
+      \mathcal M_n^{H}(\phi;d)=\frac1n\sum_{i=1}^nE\Bigl[\max_{1\le j\le d}|H_{ij}-\mu_j^U|^3
+      1\Bigl\{\max_{1\le j\le d}|H_{ij}-\mu_j^U|>\frac{n^{1/2}}{4\phi\log d}\Bigr\}\Bigr],
+      \qquad
+      M_n(\phi;d)=\mathcal M_n^U(\phi;d)+\mathcal M_n^H(\phi;d),
+      \]
+      and analogously
+      \[
+      L_m^V=\max_{1\le j\le d}\frac1m\sum_{i=1}^mE|V_{ij}-\mu_j^V|^3,\qquad
+      M_m^*(\phi;d)=\mathcal M_m^{V}(\phi;d)+\mathcal M_m^{K}(\phi;d),
+      \]
+      where
+      \[
+      \mathcal M_m^{V}(\phi;d)=\frac1m\sum_{i=1}^mE\Bigl[\max_{1\le j\le d}|V_{ij}-\mu_j^V|^3
+      1\Bigl\{\max_{1\le j\le d}|V_{ij}-\mu_j^V|>\frac{m^{1/2}}{4|\delta|\phi\log d}\Bigr\}\Bigr],
+      \]
+      and \(\mathcal M_m^{K}\) is defined in the same way with \(K_i\) in place of \(V_i\) (the mean of \(K_i\) being \(\mu^V\)).
+
+      **Lemma 2 (source; Reference R1).** *In the above notation, assume*
+
+      *\((\mathrm{H}1)\)* *the independence and Gaussian-matching requirements described above, and*
+
+      *\((\mathrm{H}2)\)* *there is a universal constant \(b>0\) such that*
+      \[
+      \min_{1\le j\le d}E\bigl\{\bigl(S_{nj}^U-n^{1/2}\mu_j^U+\delta_{n,m}S_{mj}^V-\delta_{n,m}m^{1/2}\mu_j^V\bigr)^2\bigr\}\ge b.
+      \tag{1}
+      \]
+      *Then for every \(\phi_1,\phi_2\ge1\),*
+      \[
+      \begin{aligned}
+      \rho_{n,m}(U,V;H,K)\le C_b\Bigl[
+      &n^{-1/2}\phi_1^2(\log d)^2\bigl\{\phi_1L_n^U\rho_{n,m}(U,V;H,K)+L_n^U(\log d)^{1/2}+\phi_1M_n(\phi_1;d)\bigr\}\\
+      &+m^{-1/2}\phi_2^2(\log d)^2|\delta_{n,m}|^3\bigl\{\phi_2L_m^V\rho_{n,m}(U,V;H,K)+L_m^V(\log d)^{1/2}+\phi_2M_m^*(\phi_2;d)\bigr\}\\
+      &+(\min\{\phi_1,\phi_2\})^{-1}(\log d)^{1/2}\Bigr],
+      \end{aligned}
+      \tag{2}
+      \]
+      *where \(C_b>0\) depends only on \(b\).*
+
+      Lemma 2 is the source's Lemma 2 with the ambient dimension renamed \(d\): the truncation levels in (2) are \(n^{1/2}/(4\phi\log d)\) and \(m^{1/2}/(4|\delta|\phi\log d)\), exactly the source's definition with \(p\) replaced by \(d\). Thus (2) requires no adaptation of the external result: we shall apply it only with the ambient dimension \(d\) and the corresponding logarithmic level \(\log d\). Below we verify (H1) and (H2) for the specific arrays to which it is applied.
+
+      Note that the quantities of the present lemma are recovered at level \(\log p\), i.e.
+      \[
+      L_n^X=L_n^U\big|_{U=X,d=p},\qquad
+      M_n(\phi)=M_n(\phi;p),\qquad M_m^*(\phi)=M_m^*(\phi;p).
+      \]
+
+      #### 2. The doubled arrays
+
+      For \(i=1,\dots,n\) define
+      \[
+      \tilde X_i=(\tilde X_{i1},\dots,\tilde X_{i,2p})'\in\mathbb R^{2p},\qquad
+      \tilde X_{ij}=X_{ij}\ (1\le j\le p),\qquad \tilde X_{ij}=-X_{i,j-p}\ (p+1\le j\le2p),
+      \]
+      and define \(\tilde Y_i,\tilde F_i,\tilde G_i\) from \(Y_i,F_i,G_i\) in the same way. Let \(\mu^{\tilde X}=E(\tilde X_i)\) and \(\mu^{\tilde Y}=E(\tilde Y_i)\); these means do not depend on \(i\), because \(E(X_i)=\mu^X\) and \(E(Y_i)=\mu^Y\) for every \(i\), which is exactly what hypothesis (H1) of Lemma 2 requires in the ambient dimension \(2p\). Then
+      \[
+      \mu_j^{\tilde X}=\mu_j^X,\quad \mu_{j+p}^{\tilde X}=-\mu_j^X,\qquad
+      \mu_j^{\tilde Y}=\mu_j^Y,\quad \mu_{j+p}^{\tilde Y}=-\mu_j^Y,
+      \qquad 1\le j\le p.
+      \tag{3}
+      \]
+      The tilded normalized sums \(\tilde S_n^{\tilde X},\tilde S_m^{\tilde Y},\tilde S_n^{\tilde F},\tilde S_m^{\tilde G}\) are defined by the same normalizations as the original ones.
+
+      The doubled arrays satisfy hypothesis (H1) in dimension \(d=2p\). Indeed, with \(T=\binom{I_p}{-I_p}\in\mathbb R^{2p\times p}\) one has \(\tilde X_i=TX_i\) and \(\tilde F_i=TF_i\). Since \(F_i\sim N_p(\mu^X,\Sigma_i^X)\) with \(\Sigma_i^X=E\{(X_i-\mu^X)(X_i-\mu^X)'\}\), we get
+      \[
+      \tilde F_i\sim N_{2p}\bigl(T\mu^X,\;T\Sigma_i^X T'\bigr),
+      \]
+      which is precisely the Gaussian law with the mean and covariance of \(\tilde X_i=TX_i\). The same argument applies to \(\tilde Y_i,\tilde G_i\). Mutual independence of the four tilded arrays, and independence of the vectors within each tilded array, are inherited from the originals.
+
+      #### 2.1. The minimum-variance condition in dimension \(2p\)
+
+      We claim
+      \[
+      \begin{aligned}
+      &\min_{1\le j\le 2p}E\bigl\{\bigl(\tilde S_{nj}^{\tilde X}-n^{1/2}\mu_j^{\tilde X}+\delta\tilde S_{mj}^{\tilde Y}-\delta m^{1/2}\mu_j^{\tilde Y}\bigr)^2\bigr\}\\
+      &\qquad=\min_{1\le j\le p}E\bigl\{\bigl(S_{nj}^{X}-n^{1/2}\mu_j^{X}+\delta S_{mj}^{Y}-\delta m^{1/2}\mu_j^{Y}\bigr)^2\bigr\}.
+      \end{aligned}
+      \tag{4}
+      \]
+      Indeed, for \(1\le j\le p\) the \(j\)-th tilded entry coincides with the \(j\)-th original one. For \(p+1\le j\le 2p\), write \(j=k+p\) with \(1\le k\le p\). Then, using (3),
+      \[
+      \tilde S_{n,k+p}^{\tilde X}-n^{1/2}\mu_{k+p}^{\tilde X}
+      =-S_{n,k}^{X}+n^{1/2}\mu_k^X
+      =-\bigl(S_{n,k}^{X}-n^{1/2}\mu_k^X\bigr),
+      \qquad
+      \tilde S_{m,k+p}^{\tilde Y}-m^{1/2}\mu_{k+p}^{\tilde Y}
+      =-\bigl(S_{m,k}^{Y}-m^{1/2}\mu_k^Y\bigr).
+      \]
+      Hence the \((k+p)\)-th tilded entry is the negative of the \(k\)-th original entry, and its square is unchanged. The multiset of squared entries in dimension \(2p\) therefore consists of two copies of the multiset of squared entries in dimension \(p\), which gives (4). By the standing assumption of the lemma, the right-hand side of (4) is at least \(b\); consequently hypothesis (H2) holds for the doubled arrays in dimension \(2p\).
+
+      #### 2.2. Maxima, \(L\)-functionals and truncated functionals
+
+      For \(1\le j\le p\),
+      \[
+      \tilde X_{ij}-\mu_j^{\tilde X}=X_{ij}-\mu_j^X,
+      \]
+      while for \(p+1\le j\le2p\), with \(j=k+p\),
+      \[
+      \tilde X_{ij}-\mu_j^{\tilde X}=-X_{i,k}-(-\mu_k^X)=-(X_{i,k}-\mu_k^X).
+      \]
+      Taking absolute values and maxima,
+      \[
+      \max_{1\le j\le2p}\bigl|\tilde X_{ij}-\mu_j^{\tilde X}\bigr|
+      =\max_{1\le j\le p}\bigl|X_{ij}-\mu_j^X\bigr|=:m_i^X.
+      \tag{5}
+      \]
+      The same identity holds with \(F_i\) in place of \(X_i\) (whose mean is \(\mu^X\)), and with \(Y_i,G_i\) in place of \(X_i\) (whose means are \(\mu^Y\)); we write
+      \[
+      m_i^F=\max_{1\le j\le p}|F_{ij}-\mu_j^X|,\qquad
+      m_i^Y=\max_{1\le j\le p}|Y_{ij}-\mu_j^Y|,\qquad
+      m_i^G=\max_{1\le j\le p}|G_{ij}-\mu_j^Y|.
+      \]
+      From (5) we immediately get the exact identities
+      \[
+      \tilde L_n^{\tilde X}=L_n^X,\qquad \tilde L_m^{\tilde Y}=L_m^Y,
+      \tag{6}
+      \]
+      because the tilded \(L\)-functional is the maximum of the third absolute moments of the \(2p\) doubled coordinates. Explicitly, for \(1\le j\le p\) the coordinate deviation is \(\tilde X_{ij}-\mu_j^{\tilde X}=X_{ij}-\mu_j^X\), while for \(j=k+p\) with \(1\le k\le p\) it equals \(-(X_{ik}-\mu_k^X)\); taking absolute values and third powers shows that the \(2p\) numbers \(E|\tilde X_{ij}-\mu_j^{\tilde X}|^3\) are two copies of the \(p\) numbers \(E|X_{ij}-\mu_j^X|^3\), so their maxima coincide. The same argument with \(\tilde Y\) (resp. \(\tilde F,\tilde G\)) in place of \(\tilde X\) gives the second identity in (6). This is an exact identity of untruncated moments; the truncated functionals treated next will only satisfy an inequality.
+
+      The tilded \(M\)-functionals are, by definition, formed in dimension \(2p\), so their truncation levels are
+      \[
+      \frac{n^{1/2}}{4\phi\log(2p)},\qquad \frac{m^{1/2}}{4|\delta|\phi\log(2p)}.
+      \]
+      Using (5) we can write them in terms of the original coordinate maxima:
+      \[
+      \tilde M_n(\phi)=\frac1n\sum_{i=1}^nE\Bigl[(m_i^X)^3 1\Bigl\{m_i^X>\frac{n^{1/2}}{4\phi\log(2p)}\Bigr\}\Bigr]
+      +\frac1n\sum_{i=1}^nE\Bigl[(m_i^F)^3 1\Bigl\{m_i^F>\frac{n^{1/2}}{4\phi\log(2p)}\Bigr\}\Bigr],
+      \tag{7}
+      \]
+      \[
+      \tilde M_m^*(\phi)=\frac1m\sum_{i=1}^mE\Bigl[(m_i^Y)^3 1\Bigl\{m_i^Y>\frac{m^{1/2}}{4|\delta|\phi\log(2p)}\Bigr\}\Bigr]
+      +\frac1m\sum_{i=1}^mE\Bigl[(m_i^G)^3 1\Bigl\{m_i^G>\frac{m^{1/2}}{4|\delta|\phi\log(2p)}\Bigr\}\Bigr].
+      \tag{8}
+      \]
+
+      **Lemma 2.1 (monotonicity of the truncated third moment).** *Let \(Z\ge0\) be a random variable and \(0<c\le c'\). Then*
+      \[
+      E\bigl[Z^3 1\{Z>c'\}\bigr]\le E\bigl[Z^3 1\{Z>c\}\bigr].
+      \]
+      *Proof.* \(\{Z>c'\}\subseteq\{Z>c\}\) and \(Z^3\ge0\). \(\square\)
+
+      **Lemma 2.2 (comparison of the levels \(\log p\) and \(\log(2p)\)).** *For \(p\ge2\) and every \(\phi\ge1\),*
+      \[
+      \tilde M_n(\phi)\le M_n(2\phi),\qquad \tilde M_m^*(\phi)\le M_m^*(2\phi).
+      \tag{9}
+      \]
+      *Proof.* Since \(p\ge2\) implies \(\log 2\le\log p\), we have
+      \[
+      \log(2p)=\log p+\log2\le 2\log p,
+      \]
+      hence
+      \[
+      \frac{n^{1/2}}{8\phi\log p}\le\frac{n^{1/2}}{4\phi\log(2p)}.
+      \]
+      By Lemma 2.1, each summand in the first sum on the right of (7) is at most the corresponding summand of
+      \[
+      \mathcal M_n^{X,(2\phi)}:=\frac1n\sum_{i=1}^nE\Bigl[(m_i^X)^3 1\Bigl\{m_i^X>\frac{n^{1/2}}{8\phi\log p}\Bigr\}\Bigr],
+      \]
+      and likewise for the second sum. Since \(M_n(2\phi)=\mathcal M_n^{X,(2\phi)}+\mathcal M_n^{F,(2\phi)}\) (the level being \(\log p\)), this gives the first inequality in (9). The second inequality is identical, using \(\frac{m^{1/2}}{8|\delta|\phi\log p}\le\frac{m^{1/2}}{4|\delta|\phi\log(2p)}\) for \(\delta\ne0\); for \(\delta=0\) both sides vanish by Convention 4. \(\square\)
+
+      We emphasize that (9) is an inequality and not an identity; only the \(L\)-functionals are preserved exactly, as recorded in (6).
+
+      #### 3. Reduction of hyperrectangles to halfspaces
+
+      For \(v\in[0,1]\) put
+      \[
+      W(v)=v^{1/2}\bigl(S_n^X-n^{1/2}\mu^X+\delta S_m^Y-\delta m^{1/2}\mu^Y\bigr)
+      +(1-v)^{1/2}\bigl(S_n^F-n^{1/2}\mu^X+\delta S_m^G-\delta m^{1/2}\mu^Y\bigr),
+      \tag{10}
+      \]
+      \[
+      Z=S_n^F-n^{1/2}\mu^X+\delta S_m^G-\delta m^{1/2}\mu^Y,
+      \tag{11}
+      \]
+      and let \(\tilde W(v)\) and \(\tilde Z\) be the corresponding expressions formed from the doubled arrays. Since the doubling operation \(x\mapsto(x_1,\dots,x_p,-x_1,\dots,-x_p)\) is linear and applied coordinatewise to every summand,
+      \[
+      \tilde W(v)=\bigl(W_1(v),\dots,W_p(v),-W_1(v),\dots,-W_p(v)\bigr)',\qquad
+      \tilde Z=\bigl(Z_1,\dots,Z_p,-Z_1,\dots,-Z_p\bigr)'.
+      \tag{12}
+      \]
+
+      Define
+      \[
+      \tilde\rho_{n,m}=\sup_{v\in[0,1]}\sup_{\tilde y\in\mathbb R^{2p}}
+      \Bigl|P\bigl\{\tilde W(v)\le\tilde y\bigr\}-P\bigl\{\tilde Z\le\tilde y\bigr\}\Bigr|,
+      \]
+      i.e. the analogue of \(\rho_{n,m}^*\) in dimension \(2p\) with hyperrectangles replaced by the halfspaces \(\{\tilde w\in\mathbb R^{2p}:\tilde w\le\tilde y\}\).
+
+      **Lemma 3.1.** \(\rho_{n,m}^*=\tilde\rho_{n,m}\).
+
+      *Proof.* Let \(A\in\mathcal A^{\mathrm{Re}}\), \(A=\{w\in\mathbb R^p:a_j\le w_j\le b_j,\ j=1,\dots,p\}\). First consider the case that all \(a_j,b_j\) are finite and set
+      \[
+      \tilde y_j=b_j\quad(1\le j\le p),\qquad \tilde y_{j+p}=-a_j\quad(1\le j\le p).
+      \tag{13}
+      \]
+      Because \(a_j\le b_j\), the rectangle is nonempty and \(\tilde y\in\mathbb R^{2p}\). By (12), for every \(v\in[0,1]\),
+      \[
+      W(v)\in A
+      \iff a_j\le W_j(v)\le b_j\ \text{for all }j
+      \iff W_j(v)\le \tilde y_j \text{ and } -W_j(v)\le\tilde y_{j+p}\ \text{for all }j
+      \iff \tilde W(v)\le\tilde y,
+      \tag{14}
+      \]
+      and the same equivalence holds with \(Z,\tilde Z\) in place of \(W(v),\tilde W(v)\). Therefore
+      \[
+      \bigl|P\{W(v)\in A\}-P(Z\in A)\bigr|=\bigl|P\{\tilde W(v)\le\tilde y\}-P\{\tilde Z\le\tilde y\}\bigr|\le\tilde\rho_{n,m}.
+      \tag{15}
+      \]
+
+      If \(A=\varnothing\) — which happens exactly when \(a_j=b_j=+\infty\) or \(a_j=b_j=-\infty\) for some \(j\) — then both events in (15) are empty, both probabilities vanish, and (15) holds trivially. Assume therefore that \(A\ne\varnothing\); then \(a_j<\infty\) and \(b_j>-\infty\) for every \(j\), and \(a_j\le b_j\). Choose the approximating bounds
+      \[
+      a_{j,M}=\begin{cases}a_j,& a_j>-\infty,\\ -M,& a_j=-\infty,\end{cases}
+      \qquad
+      b_{j,M}=\begin{cases}b_j,& b_j<\infty,\\ M,& b_j=+\infty.\end{cases}
+      \]
+      Then \(a_{j,M}\downarrow a_j\) and \(b_{j,M}\uparrow b_j\) as \(M\to\infty\), all these numbers are finite, and \(a_{j,M}\le b_{j,M}\) for all large \(M\) (because \(a_j\le b_j\), \(a_j<\infty\), \(b_j>-\infty\)). The rectangles
+      \[
+      A_M=\{w:a_{j,M}\le w_j\le b_{j,M},\ j=1,\dots,p\}
+      \]
+      increase to \(A\), so \(P\{W(v)\in A_M\}\uparrow P\{W(v)\in A\}\) and \(P(Z\in A_M)\uparrow P(Z\in A)\) by monotone continuity. Applying (15) to each \(A_M\) and passing to the limit gives (15) for \(A\) itself. Since \(v\in[0,1]\) and \(A\in\mathcal A^{\mathrm{Re}}\) were arbitrary,
+      \[
+      \rho_{n,m}^*\le\tilde\rho_{n,m}.
+      \tag{16}
+      \]
+
+      Conversely, let \(\tilde y\in\mathbb R^{2p}\). If \(\tilde y_j\ge-\tilde y_{j+p}\) for all \(j=1,\dots,p\), set
+      \[
+      A=\{w\in\mathbb R^p:-\tilde y_{j+p}\le w_j\le \tilde y_j,\ j=1,\dots,p\};
+      \tag{17}
+      \]
+      then \(A\in\mathcal A^{\mathrm{Re}}\) and (14) (read backwards, with the finite rectangle \(A\) and the vector \(\tilde y\) related by (13)) gives
+      \[
+      \bigl|P\{\tilde W(v)\le\tilde y\}-P\{\tilde Z\le\tilde y\}\bigr|
+      =\bigl|P\{W(v)\in A\}-P(Z\in A)\bigr|
+      \le\rho_{n,m}^*.
+      \tag{18}
+      \]
+      If \(\tilde y_j<-\tilde y_{j+p}\) for some \(j\), then the event \(\{\tilde W(v)\le\tilde y\}\) is empty: it would require \(W_j(v)\le\tilde y_j\) and \(-W_j(v)\le\tilde y_{j+p}\), that is \(-\tilde y_{j+p}\le W_j(v)\le\tilde y_j\), which is impossible since \(-\tilde y_{j+p}>\tilde y_j\). Hence both probabilities are zero, the absolute difference is \(0\), and the bound in (18) holds trivially because \(\rho_{n,m}^*\ge0\). Taking the supremum over \(v\in[0,1]\) and \(\tilde y\in\mathbb R^{2p}\) yields
+      \[
+      \tilde\rho_{n,m}\le\rho_{n,m}^*.
+      \tag{19}
+      \]
+      Together, (16) and (19) prove the lemma. \(\square\)
+
+      #### 4. Application of the comparison lemma in dimension \(2p\)
+
+      Let \(\phi_1,\phi_2\ge1\). We distinguish two cases.
+
+      #### Case 1: \(\min\{\phi_1,\phi_2\}<2\)
+
+      Then \((\min\{\phi_1,\phi_2\})^{-1}>\tfrac12\), so the last line of the asserted bound is at least
+      \[
+      K^*\cdot\tfrac12(\log p)^{1/2}\ \ge\ 3\cdot\tfrac12(\log2)^{1/2}\ \ge\ 3\cdot 0.41\ =\ 1.23\ >\ 1,
+      \]
+      where we used \(p\ge2\) (so \(\log p\ge\log 2\)), \(K^*\ge3\), and \(\tfrac12(\log2)^{1/2}=0.41628\ldots\ge0.41\). All other terms on the right-hand side are nonnegative; hence the right-hand side is \(>1\ge\rho_{n,m}^*\) by Convention 2. Thus the asserted inequality holds in Case 1 (with room to spare).
+
+      #### Case 2: \(\min\{\phi_1,\phi_2\}\ge2\)
+
+      Set \(\bar\phi_i=\phi_i/2\ge1\). We apply Lemma 2 with ambient dimension \(d=2p\), parameters \(\bar\phi_1,\bar\phi_2\), and the arrays
+      \[
+      U=\tilde X,\quad V=\tilde Y,\quad H=\tilde F,\quad K=\tilde G,\qquad \mu^U=\mu^{\tilde X},\quad \mu^V=\mu^{\tilde Y},
+      \]
+      which live in \(\mathbb R^{2p}\). Hypothesis (H1) was verified in Section 2, and hypothesis (H2) in dimension \(d=2p\) is (4) together with the assumption of the lemma; note that (1) with \(d=2p\) says exactly that the left-hand side of (4) is at least \(b\). Moreover, with \(d=2p\), the left-hand side \(\rho_{n,m}(U,V;H,K)\) of (2) coincides with \(\tilde\rho_{n,m}\): the random vectors whose laws are compared are \(\tilde W(v)\) and \(\tilde Z\) by (12), and the supremum in (2) is taken over \(v\in[0,1]\) and \(y\in\mathbb R^{2p}\), exactly as in the definition of \(\tilde\rho_{n,m}\). The functionals on the right of (2) are likewise \(\tilde L_n^{\tilde X},\tilde M_n(\bar\phi_1;2p)\) and \(\tilde L_m^{\tilde Y},\tilde M_m^*(\bar\phi_2;2p)\) as computed in (6)–(8), i.e. formed with the truncation levels \(n^{1/2}/(4\bar\phi_1\log(2p))\) and \(m^{1/2}/(4|\delta|\bar\phi_2\log(2p))\). Consequently (2) applies and gives
+      \[
+      \begin{aligned}
+      \tilde\rho_{n,m}\le C_b\Bigl[
+      &n^{-1/2}\bar\phi_1^2\{\log(2p)\}^2\bigl\{\bar\phi_1\tilde L_n^{\tilde X}\tilde\rho_{n,m}+\tilde L_n^{\tilde X}\{\log(2p)\}^{1/2}+\bar\phi_1\tilde M_n(\bar\phi_1)\bigr\}\\
+      &+m^{-1/2}\bar\phi_2^2\{\log(2p)\}^2|\delta|^3\bigl\{\bar\phi_2\tilde L_m^{\tilde Y}\tilde\rho_{n,m}+\tilde L_m^{\tilde Y}\{\log(2p)\}^{1/2}+\bar\phi_2\tilde M_m^*(\bar\phi_2)\bigr\}\\
+      &+(\min\{\bar\phi_1,\bar\phi_2\})^{-1}\{\log(2p)\}^{1/2}\Bigr].
+      \end{aligned}
+      \tag{20}
+      \]
+
+      We now replace every tilded quantity in (20) by the corresponding original quantity, collecting constants. Throughout we use \(p\ge2\), hence \(\log2\le\log p\) and
+      \[
+      \log(2p)\le2\log p,\qquad \{\log(2p)\}^2\le4(\log p)^2,\qquad \{\log(2p)\}^{1/2}\le\sqrt2\,(\log p)^{1/2}.
+      \tag{21}
+      \]
+      By Lemma 3.1, \(\tilde\rho_{n,m}=\rho_{n,m}^*\); by (6), \(\tilde L_n^{\tilde X}=L_n^X\) and \(\tilde L_m^{\tilde Y}=L_m^Y\); by Lemma 2.2 applied with \(\phi=\bar\phi_i\),
+      \[
+      \tilde M_n(\bar\phi_1)\le M_n(2\bar\phi_1)=M_n(\phi_1),\qquad
+      \tilde M_m^*(\bar\phi_2)\le M_m^*(2\bar\phi_2)=M_m^*(\phi_2).
+      \tag{22}
+      \]
+      Term by term, using \(\bar\phi_i=\phi_i/2\le\phi_i\) and (21)–(22):
+      \[
+      \bar\phi_1^2\{\log(2p)\}^2\le4\bar\phi_1^2(\log p)^2=\phi_1^2(\log p)^2,
+      \tag{23}
+      \]
+      \[
+      \bar\phi_1^2\{\log(2p)\}^2\cdot\bar\phi_1\tilde L_n^{\tilde X}\tilde\rho_{n,m}
+      \le \phi_1^2(\log p)^2\cdot\phi_1L_n^X\rho_{n,m}^*,
+      \tag{24}
+      \]
+      \[
+      \bar\phi_1^2\{\log(2p)\}^2\cdot\tilde L_n^{\tilde X}\{\log(2p)\}^{1/2}
+      \le \phi_1^2(\log p)^2\cdot\sqrt2\,L_n^X(\log p)^{1/2},
+      \tag{25}
+      \]
+      \[
+      \bar\phi_1^2\{\log(2p)\}^2\cdot\bar\phi_1\tilde M_n(\bar\phi_1)
+      \le\phi_1^2(\log p)^2\cdot\tfrac{\phi_1}{2}M_n(\phi_1)
+      \le\phi_1^2(\log p)^2\cdot\phi_1M_n(\phi_1),
+      \tag{26}
+      \]
+      and the same three bounds hold in the \(m\)-line with \((\phi_2,L_m^Y,M_m^*,|\delta|^3)\) in place of \((\phi_1,L_n^X,M_n,1)\). Finally, since \(\min\{\bar\phi_1,\bar\phi_2\}=\tfrac12\min\{\phi_1,\phi_2\}\),
+      \[
+      (\min\{\bar\phi_1,\bar\phi_2\})^{-1}\{\log(2p)\}^{1/2}
+      =2(\min\{\phi_1,\phi_2\})^{-1}\{\log(2p)\}^{1/2}
+      \le2\sqrt2\,(\min\{\phi_1,\phi_2\})^{-1}(\log p)^{1/2}.
+      \tag{27}
+      \]
+      Inserting (23)–(27) into (20) and using \(\sqrt2\le2\sqrt2\), we obtain
+      \[
+      \begin{aligned}
+      \rho_{n,m}^*=\tilde\rho_{n,m}\le 2\sqrt2\,C_b\Bigl[
+      &n^{-1/2}\phi_1^2(\log p)^2\bigl\{\phi_1L_n^X\rho_{n,m}^*+L_n^X(\log p)^{1/2}+\phi_1M_n(\phi_1)\bigr\}\\
+      &+m^{-1/2}\phi_2^2(\log p)^2|\delta|^3\bigl\{\phi_2L_m^Y\rho_{n,m}^*+L_m^Y(\log p)^{1/2}+\phi_2M_m^*(\phi_2)\bigr\}\\
+      &+(\min\{\phi_1,\phi_2\})^{-1}(\log p)^{1/2}\Bigr].
+      \end{aligned}
+      \tag{28}
+      \]
+      Thus the asserted inequality holds in Case 2 with \(K^*=2\sqrt2\,C_b\).
+
+      #### 5. Conclusion
+
+      Set
+      \[
+      K^*=\max\bigl\{3,\;2\sqrt2\,C_b\bigr\},
+      \tag{29}
+      \]
+      where \(C_b\) is the constant of Lemma 2; \(K^*>0\) depends only on \(b\). Since \(L_n^X\ge0\), \(L_m^Y\ge0\), \(M_n(\phi_1)\ge0\), \(M_m^*(\phi_2)\ge0\), \(\rho_{n,m}^*\ge0\), \(|\delta_{n,m}|\ge0\) and \(\log p\ge0\), the square bracket multiplying \(K^*\) in the display below is a sum of nonnegative terms; hence the Case 2 bound, which was proved with the constant \(2\sqrt2\,C_b\), remains valid when that constant is replaced by the larger \(K^*=\max\{3,2\sqrt2\,C_b\}\), while Case 1 was proved directly for every \(K^*\ge3\). Therefore, for every \(\phi_1,\phi_2\ge1\),
+      \[
+      \begin{aligned}
+      \rho_{n,m}^{*}\le {}&K^*\Bigl[
+      n^{-1/2}\phi_1^2(\log p)^2
+      \{\phi_1L_n^X\rho_{n,m}^{*}
+      +L_n^X(\log p)^{1/2}
+      +\phi_1M_n(\phi_1)\}\\
+      &+m^{-1/2}\phi_2^2(\log p)^2|\delta_{n,m}|^3
+      \{\phi_2L_m^Y\rho_{n,m}^{*}
+      +L_m^Y(\log p)^{1/2}
+      +\phi_2M_m^*(\phi_2)\}\\
+      &+(\min\{\phi_1,\phi_2\})^{-1}(\log p)^{1/2}\Bigr],
+      \end{aligned}
+      \]
+      which is the asserted bound. This proves Lemma 3. \(\square\)
+
+      #### 6. Remarks
+
+      **6.1 (The case \(p=1\)).** For \(p=1\) one has \(\log p=0\), so every term on the right-hand side of the asserted inequality carries a factor \((\log p)^2\) or \((\log p)^{1/2}\) and the right-hand side equals \(0\), while the assertion \(\rho_{n,m}^*\le0\) fails in general. Explicitly, let \(n=m=1\), \(p=1\), \(\delta_{1,1}=0\); let \(X_1\) take the values \(\pm1\) with \(P(X_1=1)=p_0=1/4\), so that \(\mu^X=2p_0-1=-1/2\) and \(\operatorname{Var}(X_1)=4p_0(1-p_0)=3/4\); let \(Y_1\sim N(0,1)\) with \(\mu^Y=0\); and let \(F_1\sim N(\mu^X,\operatorname{Var}(X_1))=N(-1/2,3/4)\) and \(G_1\sim N(\mu^Y,\operatorname{Var}(Y_1))\) be Gaussian, with \(X_1,Y_1,F_1,G_1\) mutually independent. Then all hypotheses of the assertion are satisfied: the Gaussian vectors have the prescribed means and covariances, the four arrays are independent, \(E|X_1-\mu^X|^3<\infty\) (indeed \(X_1\) is bounded), and the variance assumption holds with \(b=3/4>0\), because \(E\{(S_{1,1}^X-\mu^X+0\cdot S_{1,1}^Y)^2\}=\operatorname{Var}(X_1)=4p_0(1-p_0)=3/4\). Taking \(v=1\) (so that \(W(1)=X_1-\mu^X\) and \(Z=F_1-\mu^X\)) and the halfspace \(A=(-\infty,0]\in\mathcal A^{\mathrm{Re}}\) gives
+      \[
+      P\{W(1)\in A\}-P(Z\in A)=P\{X_1\le -1/2\}-P\{F_1\le\mu^X\}=\tfrac34-\tfrac12=\tfrac14\ne0,
+      \]
+      the middle probability being \(1/2\) because \(Z=F_1-\mu^X\sim N(0,3/4)\) is symmetric about \(0\). Hence \(\rho_{n,m}^*\ge1/4>0\). Since the right-hand side of the asserted inequality is \(0\) for every choice of the constant \(K^*\), the assertion fails for \(p=1\). The assertion is therefore meaningful only in the regime \(p\ge2\) treated in this proof (the source's asymptotic framework has \(p\to\infty\), where eventually \(\log p\ge1\)).
+
+      **6.2 (Relation to the source proof).** In the source the tilded functionals are introduced only as the "corresponding quantities" formed from the \(2p\)-dimensional doubled arrays "analogously", and the displayed relation (103) then asserts \(\tilde L_n^{\tilde X}=L_n^X\), \(\tilde L_m^{\tilde Y}=L_m^Y\) and \(\tilde M_n(\phi)=M_n(\phi)\), \(\tilde M_m^*(\phi)=M_m^*(\phi)\) "for any \(\phi\ge1\)". The \(L\)-identities are literally correct and are proved above as (6). The \(M\)-identities, however, concern *truncated* third moments, which depend on the level at which the truncation is taken: formed in dimension \(2p\) the tilded functionals carry the level \(\log(2p)\) (or, under the alternative reading, the level \(\log p\)), and only in the latter case is the identity an identity. What the argument needs is the one-sided inequality (9), \(\tilde M_n(\phi)\le M_n(2\phi)\), \(\tilde M_m^*(\phi)\le M_m^*(2\phi)\), which is valid under either convention, since \(\log(2p)\le2\log p\) and \(2\phi\ge\phi\). This is the reason for applying Lemma 2 with the halved parameters \(\bar\phi_i=\phi_i/2\) rather than with \(\phi_1,\phi_2\) as the source does in its display (105): the factors \(\bar\phi_i\le\phi_i\), together with \(\{\log(2p)\}^2\le4(\log p)^2\) and \(\{\log(2p)\}^{1/2}\le\sqrt2(\log p)^{1/2}\), absorb the change of level and produce exactly the asserted form with \(K^*=2\sqrt2\,C_b\). Read literally at level \(\log(2p)\), the source's (105) contains \(\tilde M_n(\phi_1)\), which is bounded by \(M_n(2\phi_1)\) and not by \(M_n(\phi_1)\); halving the parameters is precisely what compensates for this. The remaining case \(\min\{\phi_1,\phi_2\}<2\) needs no comparison at all, since the \((\min\{\phi_1,\phi_2\})^{-1}(\log p)^{1/2}\) term alone already dominates \(\rho_{n,m}^*\le1\).
+
+      **6.3 (Which "tilded analogue" is meant).** In the present statement \(\tilde\rho_{n,m}\) is the supremum over the halfspaces \(\{\tilde w\le\tilde y\}\), \(\tilde y\in\mathbb R^{2p}\), which is the quantity to which Lemma 2 applies, and Lemma 3.1 gives \(\rho_{n,m}^*=\tilde\rho_{n,m}\). If instead one used the tilded analogue in the literal sense — the supremum of the same absolute differences over all hyperrectangles \(\tilde A\in\mathcal A^{\mathrm{Re}}\) of \(\mathbb R^{2p}\) — the value would be the same number. Indeed, write \(\tilde A=\prod_{j=1}^{2p}[a_j,b_j]\). By (12), the event \(\{\tilde W(v)\in\tilde A\}\) equals
+      \[
+      \bigcap_{j=1}^{p}\bigl\{W_j(v)\in[a_j,b_j]\cap[-b_{j+p},-a_{j+p}]\bigr\}
+      =\{W(v)\in A'\}
+      \]
+      for some (possibly empty) hyperrectangle \(A'\in\mathcal A^{\mathrm{Re}}\) of \(\mathbb R^p\) — an intersection of two intervals being an interval, and the empty set being admissible as \(A'=[+\infty,+\infty]\) or \([- \infty,-\infty]\). The same holds with \(Z,\tilde Z\). Hence the hyperrectangle supremum in dimension \(2p\) is at most \(\rho_{n,m}^*\). Conversely, every halfspace \(\{\tilde w\le\tilde y\}\) in \(\mathbb R^{2p}\) is the hyperrectangle \(\tilde A=\prod_{j=1}^{2p}[-\infty,\tilde y_j]\), so the halfspace supremum is at most the hyperrectangle supremum; and \(\rho_{n,m}^*\le\tilde\rho_{n,m}\) is (16). Therefore
+      \[
+      \rho_{n,m}^*=\tilde\rho_{n,m}=\sup_{v\in[0,1]}\sup_{\tilde A\in\mathcal A^{\mathrm{Re}}(\mathbb R^{2p})}\bigl|P\{\tilde W(v)\in\tilde A\}-P\{\tilde Z\in\tilde A\}\bigr|,
+      \]
+      so both interpretations of the "tilded analogue" coincide, and the proof is unaffected by the choice.
+
+      ### References
+      #### Reference R1
+      Target: Lemma 2
+      Citation: “In addition, by combining condition (a), (102) with Lemma 2, we have
+      \[
+      \tilde\rho_{n,m}\lesssim n^{-1/2}\phi_1^2\{\log(2p)\}^2[\phi_1\tilde L_n^{\tilde X}\tilde\rho_{n,m}+\tilde L_n^{\tilde X}\{\log(2p)\}^{1/2}+\phi_1\tilde M_n(\phi_1)]+
+      \]
+      \[
+      m^{-1/2}\phi_2^2\{\log(2p)\}^2|\delta_{n,m}|^3
+      \]
+      \[
+      \cdot[\phi_2\tilde L_m^{\tilde Y}\tilde\rho_{n,m}+\tilde L_m^{\tilde Y}\{\log(2p)\}^{1/2}+\phi_2\tilde M_m^*(\phi_2)]
+      \]
+      \[
+      +(\min\{\phi_1,\phi_2\})^{-1}\{\log(2p)\}^{1/2}.
+      \]
+      Hence by combining (103), (104), with (105), we conclude that [the displayed bound for \(\rho_{n,m}^*\)] for a universal constant \(K^*>0\) that depends only on \(b\).”
+      Bibliography: main
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction from the Xue–Yao main paper (D2), Appendix, **LEMMA 2**, where it is described as a two-sample extension of Lemma 5.1 in [9]. The statement, its condition (a), and the definitions of \(\rho_{n,m}\) in (10), \(L_n^X,L_m^Y\), \(M_n,M_m^*\), together with the two-sample Gaussian setup, are taken from D2. This result is the source named in R1 and supports the intermediate invocation of Lemma 2 in the proof of the current Lemma 3, namely the displayed bound for \(\tilde\rho_{n,m}\) after Lemma 2 is applied to the doubled arrays. The source statement of Lemma 2 concerns \(\rho_{n,m}\), not \(\rho_{n,m}^*\); the passage from the doubled \(\tilde\rho_{n,m}\) bound to the final \(\rho_{n,m}^*\) bound and the cited equations (102)–(105) are not part of the supplied Lemma 2 statement and are not reorganized here. The current target Lemma 3 is not restated as an additional external premise.
+
+      ##### Lemma 2
+      ###### Definitions and notation
+      Let \(X^n=\{X_1,\ldots,X_n\}\) be a collection of mutually independent (not necessarily identically distributed) random vectors in \(\mathbb R^p\) with \(X_i=(X_{i1},\ldots,X_{ip})'\) and \(E(X_i)=\mu^X=(\mu_1^X,\ldots,\mu_p^X)'\), \(i=1,\ldots,n\). Let \(Y^m=\{Y_1,\ldots,Y_m\}\) be defined similarly with \(E(Y_i)=\mu^Y=(\mu_1^Y,\ldots,\mu_p^Y)'\) for \(i=1,\ldots,m\).
+
+      Denote the normalized sums
+      \[
+      S_n^X=n^{-1/2}\sum_{i=1}^n X_i=(S_{n1}^X,\ldots,S_{np}^X)',
+      \qquad
+      S_m^Y=m^{-1/2}\sum_{i=1}^m Y_i=(S_{m1}^Y,\ldots,S_{mp}^Y)'.
+      \]
+      Let \(F^n=\{F_1,\ldots,F_n\}\) be mutually independent random vectors in \(\mathbb R^p\) such that \(F_i=(F_{i1},\ldots,F_{ip})'\) and
+      \[
+      F_i\sim N_p\bigl(\mu^X,E\{(X_i-\mu^X)(X_i-\mu^X)'\}\bigr)
+      \]
+      for all \(i=1,\ldots,n\). Likewise, let \(G^m=\{G_1,\ldots,G_m\}\) be mutually independent random vectors in \(\mathbb R^p\) such that \(G_i=(G_{i1},\ldots,G_{ip})'\) and
+      \[
+      G_i\sim N_p\bigl(\mu^Y,E\{(Y_i-\mu^Y)(Y_i-\mu^Y)'\}\bigr)
+      \]
+      for all \(i=1,\ldots,m\). The sets \(X^n\), \(Y^m\), \(F^n\) and \(G^m\) are assumed to be independent of each other. Denote
+      \[
+      S_n^F=n^{-1/2}\sum_{i=1}^n F_i,
+      \qquad
+      S_m^G=m^{-1/2}\sum_{i=1}^m G_i.
+      \]
+
+      For vectors \(x=(x_1,\ldots,x_p)\in\mathbb R^p\) and \(y=(y_1,\ldots,y_p)'\in\mathbb R^p\), write \(x\le y\) if \(x_j\le y_j\) for all \(j=1,\ldots,p\).
+
+      For sequences of constants \(a_n\) and \(b_n\), write \(a_n\lesssim b_n\) if \(a_n\le Cb_n\) up to a universal constant \(C>0\).
+
+      For any sequence of constants \(\delta_{n,m}\) that depends on both \(n\) and \(m\), define the quantity \(\rho_{n,m}\) by the source display (10):
+      \[
+      \begin{aligned}
+      \rho_{n,m}={}&\sup_{v\in[0,1]}\sup_{y\in\mathbb R^p}\Bigl|
+      P\{v^{1/2}(S_n^X-n^{1/2}\mu^X+\delta_{n,m}S_m^Y-\delta_{n,m}m^{1/2}\mu^Y)\\
+      &\qquad +(1-v)^{1/2}(S_n^F-n^{1/2}\mu^X+\delta_{n,m}S_m^G-\delta_{n,m}m^{1/2}\mu^Y)\le y\}\\
+      &\qquad -P(S_n^F-n^{1/2}\mu^X+\delta_{n,m}S_m^G-\delta_{n,m}m^{1/2}\mu^Y\le y)\Bigr|.
+      \end{aligned}
+      \]
+
+      Define
+      \[
+      L_n^X=\max_{1\le j\le p}\sum_{i=1}^n E(|X_{ij}-\mu_j^X|^3)/n,
+      \qquad
+      L_m^Y=\max_{1\le j\le p}\sum_{i=1}^m E(|Y_{ij}-\mu_j^Y|^3)/m.
+      \]
+
+      For any \(\phi\ge1\), denote
+      \[
+      M_n(\phi)=M_n^X(\phi)+M_n^F(\phi),
+      \]
+      where
+      \[
+      M_n^X(\phi)=n^{-1}\sum_{i=1}^n E\Bigl[\max_{1\le j\le p}|X_{ij}-\mu_j^X|^3
+      1\Bigl\{\max_{1\le j\le p}|X_{ij}-\mu_j^X|>n^{1/2}/(4\phi\log p)\Bigr\}\Bigr],
+      \]
+      \[
+      M_n^F(\phi)=n^{-1}\sum_{i=1}^n E\Bigl[\max_{1\le j\le p}|F_{ij}-\mu_j^X|^3
+      1\Bigl\{\max_{1\le j\le p}|F_{ij}-\mu_j^X|>n^{1/2}/(4\phi\log p)\Bigr\}\Bigr].
+      \]
+
+      Likewise, for any \(\phi\ge1\) and any sequence of constants \(\delta_{n,m}\) that depends on both \(n\) and \(m\), denote
+      \[
+      M_m^*(\phi)=M_m^Y(\phi)+M_m^G(\phi),
+      \]
+      where
+      \[
+      M_m^Y(\phi)=m^{-1}\sum_{i=1}^m E\Bigl[\max_{1\le j\le p}|Y_{ij}-\mu_j^Y|^3
+      1\Bigl\{\max_{1\le j\le p}|Y_{ij}-\mu_j^Y|>m^{1/2}/(4|\delta_{n,m}|\phi\log p)\Bigr\}\Bigr],
+      \]
+      \[
+      M_m^G(\phi)=m^{-1}\sum_{i=1}^m E\Bigl[\max_{1\le j\le p}|G_{ij}-\mu_j^Y|^3
+      1\Bigl\{\max_{1\le j\le p}|G_{ij}-\mu_j^Y|>m^{1/2}/(4|\delta_{n,m}|\phi\log p)\Bigr\}\Bigr].
+      \]
+
+      ###### Assumptions
+      Condition (a): There exists a universal constant \(b>0\) such that
+      \[
+      \min_{1\le j\le p}E\{(S_{nj}^X-n^{1/2}\mu_j^X+\delta_{n,m}S_{mj}^Y-\delta_{n,m}m^{1/2}\mu_j^Y)^2\}\ge b.
+      \]
+
+      ###### Statement
+      For any \(\phi_1,\phi_2\ge1\) and any sequence of constants \(\delta_{n,m}\), assume condition (a) in Assumptions holds. Then
+      \[
+      \begin{aligned}
+      \rho_{n,m}\lesssim {}&
+      n^{-1/2}\phi_1^2(\log p)^2\{\phi_1L_n^X\rho_{n,m}+L_n^X(\log p)^{1/2}+\phi_1M_n(\phi_1)\}\\
+      &+m^{-1/2}\phi_2^2(\log p)^2|\delta_{n,m}|^3\{\phi_2L_m^Y\rho_{n,m}+L_m^Y(\log p)^{1/2}+\phi_2M_m^*(\phi_2)\}\\
+      &+(\min\{\phi_1,\phi_2\})^{-1}(\log p)^{1/2},
+      \end{aligned}
+      \]
+      up to a positive universal constant that depends only on \(b\), where \(\rho_{n,m}\) is defined in (10).
+    lean_name: paper_c88218b13cf249bdb98064482dead315
+    lean_namespace: Statlib.Imported
+    layer: formalization
+    priority: 3
+    dependencies: []
+    notes: generated from a persisted ordinary goal; no attack-DAG dependency semantics
+source_document: main.pdf

@@ -1,0 +1,448 @@
+version: v1
+theorem_set: paper-proof-group
+source_tag: document-processing
+theorems:
+  - id: entry:selected:3508d624-f2e5-4c98-9e91-cf4431fb5634
+    title: paper_2d165b9668ee43088292ee6f2129e2cd
+    kind: lemma
+    latex_statement: |-
+      Let \(n,m,p\) be positive integers. Let
+      \[
+      X^n=\{X_1,\ldots,X_n\}
+      \]
+      be mutually independent random vectors in \(\mathbb R^p\), with
+      \[
+      X_i=(X_{i1},\ldots,X_{ip})',\qquad E(X_i)=\mu^X=(\mu_1^X,\ldots,\mu_p^X)',\quad i=1,\ldots,n,
+      \]
+      and let
+      \[
+      Y^m=\{Y_1,\ldots,Y_m\}
+      \]
+      be mutually independent random vectors in \(\mathbb R^p\), with
+      \[
+      Y_i=(Y_{i1},\ldots,Y_{ip})',\qquad E(Y_i)=\mu^Y=(\mu_1^Y,\ldots,\mu_p^Y)',\quad i=1,\ldots,m.
+      \]
+      Let
+      \[
+      F^n=\{F_1,\ldots,F_n\}
+      \]
+      be mutually independent Gaussian random vectors such that
+      \[
+      F_i=(F_{i1},\ldots,F_{ip})'\sim N_p\bigl(\mu^X,E\{(X_i-\mu^X)(X_i-\mu^X)'\}\bigr),
+      \quad i=1,\ldots,n,
+      \]
+      and let
+      \[
+      G^m=\{G_1,\ldots,G_m\}
+      \]
+      be mutually independent Gaussian random vectors such that
+      \[
+      G_i=(G_{i1},\ldots,G_{ip})'\sim N_p\bigl(\mu^Y,E\{(Y_i-\mu^Y)(Y_i-\mu^Y)'\}\bigr),
+      \quad i=1,\ldots,m.
+      \]
+      The arrays \(X^n,Y^m,F^n,G^m\) are independent of each other; coordinates within a vector may be arbitrarily correlated.
+
+      The normalized sums are
+      \[
+      S_n^X=n^{-1/2}\sum_{i=1}^n X_i=(S_{n1}^X,\ldots,S_{np}^X)',\qquad
+      S_n^F=n^{-1/2}\sum_{i=1}^n F_i=(S_{n1}^F,\ldots,S_{np}^F)',
+      \]
+      \[
+      S_m^Y=m^{-1/2}\sum_{i=1}^m Y_i=(S_{m1}^Y,\ldots,S_{mp}^Y)',\qquad
+      S_m^G=m^{-1/2}\sum_{i=1}^m G_i=(S_{m1}^G,\ldots,S_{mp}^G)'.
+      \]
+      Let \(\delta_{n,m}\) be a sequence of constants depending on both \(n\) and \(m\).
+
+      Define
+      \[
+      L_n^X=\max_{1\le j\le p}\sum_{i=1}^n E(|X_{ij}-\mu_j^X|^3)/n,
+      \qquad
+      L_m^Y=\max_{1\le j\le p}\sum_{i=1}^m E(|Y_{ij}-\mu_j^Y|^3)/m.
+      \]
+
+      Let \(\mathcal A^{\mathrm{Re}}\) be the class of all hyperrectangles in \(\mathbb R^p\) of the form
+      \[
+      \{w\in\mathbb R^p:a_j\le w_j\le b_j\text{ for all }j=1,\ldots,p\},
+      \qquad -\infty\le a_j\le b_j\le\infty \text{ for all }j=1,\ldots,p;
+      \]
+      finite, unbounded, and degenerate intervals are included.
+
+      Define
+      \[
+      \begin{aligned}
+      \rho_{n,m}^{**}={}&\sup_{A\in\mathcal A^{\mathrm{Re}}}\bigl|P(S_n^X-n^{1/2}\mu^X+\delta_{n,m}S_m^Y-\delta_{n,m}m^{1/2}\mu^Y\in A)\\
+      &-P(S_n^F-n^{1/2}\mu^X+\delta_{n,m}S_m^G-\delta_{n,m}m^{1/2}\mu^Y\in A)\bigr|.
+      \end{aligned}
+      \]
+
+      For \(\phi\ge1\), define
+      \[
+      M_n(\phi)=M_n^X(\phi)+M_n^F(\phi),
+      \]
+      where
+      \[
+      M_n^X(\phi)=n^{-1}\sum_{i=1}^n E\Bigl[\max_{1\le j\le p}|X_{ij}-\mu_j^X|^3
+      1\Bigl\{\max_{1\le j\le p}|X_{ij}-\mu_j^X|>n^{1/2}/(4\phi\log p)\Bigr\}\Bigr],
+      \]
+      \[
+      M_n^F(\phi)=n^{-1}\sum_{i=1}^n E\Bigl[\max_{1\le j\le p}|F_{ij}-\mu_j^X|^3
+      1\Bigl\{\max_{1\le j\le p}|F_{ij}-\mu_j^X|>n^{1/2}/(4\phi\log p)\Bigr\}\Bigr].
+      \]
+      For \(\phi\ge1\) and the sequence \(\delta_{n,m}\), define
+      \[
+      M_m^*(\phi)=M_m^Y(\phi)+M_m^G(\phi),
+      \]
+      where
+      \[
+      M_m^Y(\phi)=m^{-1}\sum_{i=1}^m E\Bigl[\max_{1\le j\le p}|Y_{ij}-\mu_j^Y|^3
+      1\Bigl\{\max_{1\le j\le p}|Y_{ij}-\mu_j^Y|>m^{1/2}/(4|\delta_{n,m}|\phi\log p)\Bigr\}\Bigr],
+      \]
+      \[
+      M_m^G(\phi)=m^{-1}\sum_{i=1}^m E\Bigl[\max_{1\le j\le p}|G_{ij}-\mu_j^Y|^3
+      1\Bigl\{\max_{1\le j\le p}|G_{ij}-\mu_j^Y|>m^{1/2}/(4|\delta_{n,m}|\phi\log p)\Bigr\}\Bigr].
+      \]
+
+      <!-- formalization-clarifications:v1:4c1507f139d5934d5afadbb660eaa90e555d618ea517d28fa62c67e882136c13 -->
+      Formalization clarifications from source and proof:
+      1. The target is Xue–Yao, main Appendix, Lemma 4. The intended quantifier order is: fix a universal \(b>0\) as in assumption (a); let \(K^*\) be the universal constant from Lemma 3, which depends only on \(b\); choose a universal \(K_1\in(0,(K^*\vee2)^{-1}]\); then for all positive integers \(n,m,p\), all sequences \(\delta_{n,m}\), all arrays/distributions satisfying (a) and the majorant/\(\phi\) conditions in (b), the displayed inequality holds for a universal \(K_2>0\) depending only on \(b\). Thus \(b,K^*,K_1,K_2\) are absolute constants, not allowed to depend on \(n,m,p\), the distributions, the random vectors, \(\delta_{n,m}\), \(\bar L_n^*\), \(\bar L_m^{**}\), \(\phi_n^*\), \(\phi_m^{**}\), the sample sizes, or the hyperrectangles. The source explicitly says \(K^*\) depends only on \(b\) in Lemma 3 and the target statement says \(K_2\) depends only on \(b\); the proof writes \(K_2=\max\{2K^*(K_1^2+K_1^{-1}),2^{-1}\}\). The phrase in main Lemma 4 that \(K^*\) “depends on \(n\)” conflicts with Lemma 3 and with the target; treat it as a source inconsistency, not as a dependence to import.
+
+      2. By contrast, \(\bar L_n^*\) and \(\bar L_m^{**}\) are “sequences of constants” constrained by \(\bar L_n^*\ge L_n^X\), \(\bar L_m^{**}\ge L_m^Y\) (main Lemma 4, assumption (b)). They are parameter-dependent majorants and may depend on \(n,m,p,\delta_{n,m}\) and the underlying distributions through the majorization condition; they are not universal and must not be silently identified with \(L_n^X,L_m^Y\) or with \(B_{n,m}\) from Theorem 1. Likewise \(\phi_n^*\) and \(\phi_m^{**}\) are defined by the displayed formulas involving \(K_1,\bar L_n^*,\bar L_m^{**},\delta_{n,m},n,m,p\), and are required to be \(\ge2\); they are not free universal constants. The inequalities and conclusion are uniform over all admissible hyperrectangles \(A\) because \(\rho^{**}\) and \(\rho^*\) are defined by suprema, but no uniformity in probability or over an extra class of distributions is asserted beyond satisfying the assumptions.
+
+      3. \(\delta_{n,m}\) is a sequence of constants depending on both \(n,m\), and its sign is retained in the centering and in \(S_m^Y\) terms (main Lemma 4 definitions). The absolute value \(|\delta_{n,m}|\) is used in the threshold in \(M_m^Y,M_m^G\), in the formula for \(\phi_m^{**}\) through \(|\delta_{n,m}|^6\), and in Lemma 3’s bound through \(|\delta_{n,m}|^3\); do not replace \(\delta_{n,m}\) by \(|\delta_{n,m}|\) in the probability expressions. Lemma 4 as stated does not explicitly assume \(\delta_{n,m}\neq0\), but \(M_m^Y,M_m^G\), \(\phi_m^{**}\), and the ratios in the conclusion require \(|\delta_{n,m}|\) in denominators. The source leaves this side condition implicit; in formalization one must either assume \(\delta_{n,m}\ne0\) wherever those expressions occur or handle the zero case separately. The main application later uses \(\delta_{n,m}=-n^{1/2}m^{-1/2}\), but that specialization is not part of Lemma 4.
+
+      4. The only norms actually used in the target are coordinatewise absolute values and coordinatewise maxima: \(\max_{1\le j\le p}|\cdot|\). There is no Euclidean \(l_2\), operator, Frobenius, sup-over-function, or normalized-vector norm in Lemma 4. The class \(\mathcal A^{\mathrm{Re}}\) is the class of all hyperrectangles in \(\mathbb R^p\) with coordinate bounds \(-\infty\le a_j\le b_j\le\infty\); finite, unbounded, degenerate, and point intervals are included (main, “Definitions and notation”; main Appendix Lemma 3/4). Do not replace \(\rho_{n,m}^{**}\) by a Kolmogorov distance for the \(\ell_\infty\)-norm test statistic, and do not replace hyperrectangles by \(l_\infty\)-balls; those are related later in the paper but are not the target object. The sums \(S_n^X=n^{-1/2}\sum_i X_i\), etc., and the centering \(S_n^X-n^{1/2}\mu^X\), \(S_m^Y-m^{1/2}\mu^Y\) are exactly as displayed; the powers \(n^{-1/2}\), \(m^{-1/2}\), and factors \(n^{1/2},m^{1/2}\) must not be moved or renormalized.
+
+      5. \(L_n^X\) and \(L_m^Y\) are normalized average third absolute coordinate moments: \(L_n^X=\max_j n^{-1}\sum_i E|X_{ij}-\mu_j^X|^3\), \(L_m^Y=\max_j m^{-1}\sum_i E|Y_{ij}-\mu_j^Y|^3\) (main, “Definitions and notation”). They are not fourth moments, not variances, and not squared norms. \(M_n(\phi)=M_n^X(\phi)+M_n^F(\phi)\) and \(M_m^*(\phi)=M_m^Y(\phi)+M_m^G(\phi)\) use the exact truncated maxima and thresholds in the target: \(n^{1/2}/(4\phi\log p)\) for the \(X,F\) side and \(m^{1/2}/(4|\delta_{n,m}|\phi\log p)\) for the \(Y,G\) side. The max is taken before cubing and before applying the indicator. The source’s printed \(\mu_j^F,\mu_j^G\) in the definitions of \(M_n^F,M_m^G\) is a notational slip; since \(F_i\sim N_p(\mu^X,\operatorname{Cov}(X_i))\) and \(G_i\sim N_p(\mu^Y,\operatorname{Cov}(Y_i))\), the intended means are \(\mu_j^F=\mu_j^X\) and \(\mu_j^G=\mu_j^Y\). The target’s displayed definitions already use this identification; follow them.
+
+      6. The Gaussian objects are \(F_i\sim N_p(\mu^X,E[(X_i-\mu^X)(X_i-\mu^X)'])\) and \(G_i\sim N_p(\mu^Y,E[(Y_i-\mu^Y)(Y_i-\mu^Y)'])\), with \(F_i\) mutually independent over \(i\), \(G_i\) mutually independent over \(i\), and \(X^n,Y^m,F^n,G^m\) independent of each other (main, “Definitions and notation”; main Appendix Lemma 3). Coordinates within a random vector may be arbitrarily correlated; the covariance matrices may vary with \(i\). The source does not explicitly discuss singular versus positive-definite Gaussian covariance; do not add a positive-definite assumption unless separately required. Assumption (a) is a lower bound on the coordinate variances of the combined centered \(X\)- and \(\delta Y\)-sum, not separately on \(X_i\) or \(Y_i\).
+
+      7. There are no asymptotic \(O,o\), probability-one, bootstrap-\(P_e\), or “with high probability” assertions in Lemma 4. Its conclusion is a deterministic finite-sample inequality for the given \(n,m,p\) and data-generating assumptions. The paper’s notation paragraph defines \(a_n\lesssim b_n\) as \(a_n\le Cb_n\) up to a universal \(C\), and \(a_n\sim b_n\) as mutual \(\lesssim\) (main, Section 2 notation), but the target statement itself gives an explicit constant \(K_2\). The later main-paper results involving \(n,m\to\infty\), bounded relative sample sizes, \(B_{n,m}^2\log^7(pn)/n\to0\), or probability-one bootstrap statements are separate results and must not be imported into Lemma 4. In \(\rho_{n,m}^*\), the supremum over \(v\in[0,1]\) is part of the definition; \(v=0,1\) are included. The proof’s first step \(\rho_{n,m}^{**}\le\rho_{n,m}^*\) follows from this definition, not from an asymptotic argument.
+
+      8. The proof of Lemma 4 invokes the supplement’s display (107) and attributes it to condition (a) plus Lemma 3 (supplement, “Proof of Lemma 4”). The cited Lemma 3 is owned by Xue–Yao, main Appendix Lemma 3; the reference material describes it as a two-sample version of Corollary 5.1 of Chernozhukov, Chetverikov and Kato (2017). As a cited universal result, Lemma 3 itself is asserted for every \(\phi_1,\phi_2\ge1\) and every admissible \(\delta_{n,m}\) under its condition (a); the target’s substitution \(\phi_1=2^{-1}\phi_n^*\), \(\phi_2=2^{-1}\phi_m^{**}\) is a specialization, not a restriction on Lemma 3. The selected reference material notes that main Lemma 3 and supplement display (107) are not textually identical: main Lemma 3 has \(M_n(\phi_1),M_m^*(\phi_2)\) and \((\min\{\phi_1,\phi_2\})^{-1}\), while (107) has factors \(8\), \(M_n(2\phi_1),M_m^*(2\phi_2)\), and separate reciprocals \((2\phi_1)^{-1},(2\phi_2)^{-1}\). The supplement asserts (107) as a consequence, but the selected source does not supply the intermediate algebra bridging those displayed forms; for formalization, use (107) only as the stated proof input, not as a verbatim restatement of main Lemma 3.
+
+      9. Several side conditions are not made explicit in the source and should not be invented as theorems: the logarithm base is not specified (natural log is the usual interpretation); \(p=1\) makes \(\log p=0\) and breaks the displayed denominators; \(\bar L_n^*\) and \(\bar L_m^{**}\) must be nonzero whenever the displayed ratios are used, although the source only states the majorization and \(\phi\)-inequalities; finiteness/measurability of the relevant moments and probabilities is implicit in the expectation and probability notation. The indicator event in \(M_n,M_m^*\) is exactly the event that the coordinate maximum exceeds the stated threshold; it is not a union of coordinatewise exceedance events in the definition as written. The arrays are “independent of each other” across \(X^n,Y^m,F^n,G^m\), with only mutual independence asserted within each array; no independence across coordinates is assumed.
+      <!-- /formalization-clarifications -->
+
+      Then
+      \[
+      \begin{aligned}
+      \rho_{n,m}^{**}\le {}&K_2\Big[
+      \{(\bar L_n^*)^2(\log p)^7/n\}^{1/6}
+      +\{M_n(\phi_n^*)/\bar L_n^*\}\\
+      &+\{(\bar L_m^{**})^2(\log p)^7|\delta_{n,m}|^6/m\}^{1/6}
+      +\{M_m^*(\phi_m^{**})/\bar L_m^{**}\}
+      \Big],
+      \end{aligned}
+      \]
+      for a universal constant \(K_2>0\) that depends only on \(b\). The quantities \(\rho_{n,m}^{**}\), \(L_n^X,L_m^Y\), \(M_n\), and \(M_m^*\) are defined in the preceding Definitions and notation.
+    assumptions:
+      - |-
+        Assume:
+
+        (a) There exists a universal constant \(b>0\) such that
+        \[
+        \min_{1\le j\le p}E\{(S_{nj}^X-n^{1/2}\mu_j^X+\delta_{n,m}S_{mj}^Y-\delta_{n,m}m^{1/2}\mu_j^Y)^2\}\ge b.
+        \]
+
+        (b) There exist sequences of constants \(\bar L_n^*\) and \(\bar L_m^{**}\) such that
+        \[
+        \bar L_n^*\ge L_n^X,\qquad \bar L_m^{**}\ge L_m^Y.
+        \]
+        Moreover,
+        \[
+        \phi_n^*=K_1\{(\bar L_n^*)^2(\log p)^4/n\}^{-1/6}\ge2,
+        \]
+        \[
+        \phi_m^{**}=K_1\{(\bar L_m^{**})^2(\log p)^4|\delta_{n,m}|^6/m\}^{-1/6}\ge2,
+        \]
+        for a universal constant \(K_1\in(0,(K^*\vee2)^{-1}]\), where the positive constant \(K^*\) is as defined in Lemma 3 in the Appendix.
+    proof_body: |-
+      ### Definitions and notation used in Proof
+      Define
+      \[
+      \begin{aligned}
+      \rho_{n,m}^*={}&\sup_{v\in[0,1]}\sup_{A\in\mathcal A^{\mathrm{Re}}}\bigl|P\{v^{1/2}(S_n^X-n^{1/2}\mu^X+\delta_{n,m}S_m^Y-\delta_{n,m}m^{1/2}\mu^Y)\\
+      &+(1-v)^{1/2}(S_n^F-n^{1/2}\mu^X+\delta_{n,m}S_m^G-\delta_{n,m}m^{1/2}\mu^Y)\in A\}\\
+      &-P(S_n^F-n^{1/2}\mu^X+\delta_{n,m}S_m^G-\delta_{n,m}m^{1/2}\mu^Y\in A)\bigr|.
+      \end{aligned}
+      \]
+
+      ### Proof
+      First, by definition,
+      \[
+      \rho_{n,m}^{**}\le \rho_{n,m}^*. \tag{106}
+      \]
+
+      Second, condition (a) together with [ref:R1] implies that for every \(\phi_1,\phi_2\ge1\),
+      \[
+      \begin{aligned}
+      \rho_{n,m}^*\le {}&K^*\Big[8n^{-1/2}\phi_1^2(\log p)^2\{\phi_1L_n^X\rho_{n,m}^*+2^{-1}L_n^X(\log p)^{1/2}+\phi_1M_n(2\phi_1)\}\\
+      &+8m^{-1/2}\phi_2^2(\log p)^2|\delta_{n,m}|^3\{\phi_2L_m^Y\rho_{n,m}^*+2^{-1}L_m^Y(\log p)^{1/2}+\phi_2M_m^*(2\phi_2)\}\\
+      &+(2\phi_1)^{-1}(\log p)^{1/2}+(2\phi_2)^{-1}(\log p)^{1/2}\Big],
+      \end{aligned}
+      \tag{107}
+      \]
+      for the universal constant \(K^*>0\) defined in [ref:R1].
+
+      Upon condition (b), substitute \(\phi_1=2^{-1}\phi_n^*\) and \(\phi_2=2^{-1}\phi_m^{**}\) into (107). We obtain
+      \[
+      \begin{aligned}
+      \rho_{n,m}^*
+      \le {}&K^*\Big\{n^{-1/2}(\phi_n^*)^3(\log p)^2L_n^X\rho_{n,m}^*
+      +n^{-1/2}(\phi_n^*)^2(\log p)^{5/2}L_n^X\\
+      &+n^{-1/2}(\phi_n^*)^3(\log p)^2M_n(\phi_n^*)
+      +m^{-1/2}(\phi_m^{**})^3(\log p)^2L_m^Y|\delta_{n,m}|^3\rho_{n,m}^*\\
+      &+m^{-1/2}(\phi_m^{**})^2(\log p)^{5/2}L_m^Y|\delta_{n,m}|^3
+      +m^{-1/2}(\phi_m^{**})^3(\log p)^2|\delta_{n,m}|^3M_m^*(\phi_m^{**})\\
+      &+(\phi_n^*)^{-1}(\log p)^{1/2}+(\phi_m^{**})^{-1}(\log p)^{1/2}\Big\}.
+      \end{aligned}
+      \]
+      Since \(\bar L_n^*\ge L_n^X\) and \(\bar L_m^{**}\ge L_m^Y\),
+      \[
+      \begin{aligned}
+      \rho_{n,m}^*
+      \le {}&K^*\Big\{n^{-1/2}(\phi_n^*)^3(\log p)^2\bar L_n^*\rho_{n,m}^*
+      +n^{-1/2}(\phi_n^*)^2(\log p)^{5/2}\bar L_n^*\\
+      &+n^{-1/2}(\phi_n^*)^3(\log p)^2M_n(\phi_n^*)
+      +m^{-1/2}(\phi_m^{**})^3(\log p)^2\bar L_m^{**}|\delta_{n,m}|^3\rho_{n,m}^*\\
+      &+m^{-1/2}(\phi_m^{**})^2(\log p)^{5/2}\bar L_m^{**}|\delta_{n,m}|^3
+      +m^{-1/2}(\phi_m^{**})^3(\log p)^2|\delta_{n,m}|^3M_m^*(\phi_m^{**})\\
+      &+(\phi_n^*)^{-1}(\log p)^{1/2}+(\phi_m^{**})^{-1}(\log p)^{1/2}\Big\}.
+      \end{aligned}
+      \]
+      Using the definitions of \(\phi_n^*\) and \(\phi_m^{**}\), this becomes
+      \[
+      \begin{aligned}
+      \rho_{n,m}^*
+      \le {}&K^*\Big[K_1^3\rho_{n,m}^*
+      +K_1^2\{(\bar L_n^*)^2(\log p)^7/n\}^{1/6}
+      +K_1^3\{M_n(\phi_n^*)/\bar L_n^*\}
+      +K_1^3\rho_{n,m}^*\\
+      &+K_1^2\{(\bar L_m^{**})^2(\log p)^7|\delta_{n,m}|^6/m\}^{1/6}
+      +K_1^3\{M_m^*(\phi_m^{**})/\bar L_m^{**}\}\\
+      &+K_1^{-1}\{(\bar L_n^*)^2(\log p)^7/n\}^{1/6}
+      +K_1^{-1}\{(\bar L_m^{**})^2(\log p)^7|\delta_{n,m}|^6/m\}^{1/6}\Big]\\
+      ={}&2K^*K_1^3\rho_{n,m}^*
+      +K^*(K_1^2+K_1^{-1})\{(\bar L_n^*)^2(\log p)^7/n\}^{1/6}\\
+      &+K^*K_1^3\{M_n(\phi_n^*)/\bar L_n^*\}
+      +K^*(K_1^2+K_1^{-1})\{(\bar L_m^{**})^2(\log p)^7|\delta_{n,m}|^6/m\}^{1/6}\\
+      &+K^*K_1^3\{M_m^*(\phi_m^{**})/\bar L_m^{**}\}\\
+      \le {}&2^{-1}\rho_{n,m}^*
+      +K^*(K_1^2+K_1^{-1})\{(\bar L_n^*)^2(\log p)^7/n\}^{1/6}
+      +4^{-1}\{M_n(\phi_n^*)/\bar L_n^*\}\\
+      &+K^*(K_1^2+K_1^{-1})\{(\bar L_m^{**})^2(\log p)^7|\delta_{n,m}|^6/m\}^{1/6}
+      +4^{-1}\{M_m^*(\phi_m^{**})/\bar L_m^{**}\},
+      \end{aligned}
+      \tag{108}
+      \]
+      where the last inequality uses \(K_1\in(0,(K^*\vee2)^{-1}]\).
+
+      It follows from (108) that
+      \[
+      \begin{aligned}
+      \rho_{n,m}^*
+      \le {}&K_2\Big[
+      \{(\bar L_n^*)^2(\log p)^7/n\}^{1/6}
+      +\{M_n(\phi_n^*)/\bar L_n^*\}\\
+      &+\{(\bar L_m^{**})^2(\log p)^7|\delta_{n,m}|^6/m\}^{1/6}
+      +\{M_m^*(\phi_m^{**})/\bar L_m^{**}\}
+      \Big],
+      \end{aligned}
+      \tag{109}
+      \]
+      where
+      \[
+      K_2=\max\{2K^*(K_1^2+K_1^{-1}),2^{-1}\}
+      \]
+      is a universal constant depending on \(b\) only.
+
+      Putting (106) and (109) together gives
+      \[
+      \begin{aligned}
+      \rho_{n,m}^{**}
+      \le {}&K_2\Big[
+      \{(\bar L_n^*)^2(\log p)^7/n\}^{1/6}
+      +\{M_n(\phi_n^*)/\bar L_n^*\}\\
+      &+\{(\bar L_m^{**})^2(\log p)^7|\delta_{n,m}|^6/m\}^{1/6}
+      +\{M_m^*(\phi_m^{**})/\bar L_m^{**}\}
+      \Big],
+      \end{aligned}
+      \]
+      which completes the proof. \(\square\)
+
+      ### References
+      #### Reference R1
+      Target: Lemma 3
+
+      Citation: “Second, condition (a) together with Lemma 3 implies that for every \(\phi_1,\phi_2\ge1\),
+      \[
+      \begin{aligned}
+      \rho_{n,m}^*\le {}&K^*\Big[8n^{-1/2}\phi_1^2(\log p)^2\{\phi_1L_n^X\rho_{n,m}^*+2^{-1}L_n^X(\log p)^{1/2}+\phi_1M_n(2\phi_1)\}\\
+      &+8m^{-1/2}\phi_2^2(\log p)^2|\delta_{n,m}|^3\{\phi_2L_m^Y\rho_{n,m}^*+2^{-1}L_m^Y(\log p)^{1/2}+\phi_2M_m^*(2\phi_2)\}\\
+      &+(2\phi_1)^{-1}(\log p)^{1/2}+(2\phi_2)^{-1}(\log p)^{1/2}\Big],
+      \end{aligned}
+      \]
+      for the universal constant \(K^*>0\) defined in Lemma 3.”
+
+      Bibliography: Xue, Kaijie; Yao, Fang. DISTRIBUTION AND CORRELATION-FREE TWO-SAMPLE TEST OF HIGH-DIMENSIONAL MEANS. main.pdf. Lemma 3 is cited in the Appendix of the main article; its proof is supplied in SUPPLEMENTARY MATERIAL FOR DISTRIBUTION AND CORRELATION FREE TWO-SAMPLE TEST OF HIGH DIMENSIONAL MEANS, supp.pdf, by the same authors.
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+
+      Source extraction. The named result is **Lemma 3** in Xue and Yao’s main article (D2, Appendix). D2 describes it as a two-sample version of Corollary 5.1 of Chernozhukov, Chetverikov and Kato (2017). The citation additionally uses the displayed inequality **(107)** in the supplement (D1, Proof of Lemma 4). In D1, (107) is introduced by: “Second, condition (a) together with Lemma 3 implies that for every \(\phi_1,\phi_2\ge1\) … for the universal constant \(K^*>0\) defined in Lemma 3.” The two source displays are kept separate because they are not textually identical: the main Lemma 3 uses \(M_n(\phi_1)\), \(M_m^*(\phi_2)\) and \((\min\{\phi_1,\phi_2\})^{-1}\), while (107) uses \(M_n(2\phi_1)\), \(M_m^*(2\phi_2)\), the factors \(8\), and separate terms \((2\phi_1)^{-1}\), \((2\phi_2)^{-1}\). No bridge between these displayed forms is asserted or derived here. The definitions of \(\rho_{n,m}^*\), \(L_n^X,L_m^Y\), \(M_n,M_m^*\), the Gaussian arrays and the normalized sums are quoted from D2. D2 prints \(\mu_j^F,\mu_j^G\) in the definitions of \(M_n^F,M_m^G\); the intended identifications are \(\mu_j^F=\mu_j^X\), \(\mu_j^G=\mu_j^Y\). The main Lemma 3 states that \(K^*\) depends only on \(b\); a later phrase in D2’s Lemma 4 says “\(K^*\) that depends on \(n\),” which is a separate source inconsistency and is not part of Lemma 3 as stated.
+
+      ##### Lemma 3
+
+      ###### Definitions and notation
+      Let \(n,m,p\) be positive integers. Let
+      \[
+      X^n=\{X_1,\ldots,X_n\}
+      \]
+      be mutually independent random vectors in \(\mathbb R^p\), with
+      \[
+      X_i=(X_{i1},\ldots,X_{ip})',\qquad E(X_i)=\mu^X=(\mu_1^X,\ldots,\mu_p^X)',\quad i=1,\ldots,n,
+      \]
+      and let
+      \[
+      Y^m=\{Y_1,\ldots,Y_m\}
+      \]
+      be mutually independent random vectors in \(\mathbb R^p\), with
+      \[
+      Y_i=(Y_{i1},\ldots,Y_{ip})',\qquad E(Y_i)=\mu^Y=(\mu_1^Y,\ldots,\mu_p^Y)',\quad i=1,\ldots,m.
+      \]
+
+      Let
+      \[
+      F^n=\{F_1,\ldots,F_n\}
+      \]
+      be mutually independent Gaussian random vectors such that
+      \[
+      F_i=(F_{i1},\ldots,F_{ip})'\sim N_p\bigl(\mu^X,E\{(X_i-\mu^X)(X_i-\mu^X)'\}\bigr),
+      \quad i=1,\ldots,n,
+      \]
+      and let
+      \[
+      G^m=\{G_1,\ldots,G_m\}
+      \]
+      be mutually independent Gaussian random vectors such that
+      \[
+      G_i=(G_{i1},\ldots,G_{ip})'\sim N_p\bigl(\mu^Y,E\{(Y_i-\mu^Y)(Y_i-\mu^Y)'\}\bigr),
+      \quad i=1,\ldots,m.
+      \]
+      The sets \(X^n,Y^m,F^n,G^m\) are independent of each other.
+
+      The normalized sums are
+      \[
+      S_n^X=n^{-1/2}\sum_{i=1}^n X_i=(S_{n1}^X,\ldots,S_{np}^X)',\qquad
+      S_n^F=n^{-1/2}\sum_{i=1}^n F_i=(S_{n1}^F,\ldots,S_{np}^F)',
+      \]
+      \[
+      S_m^Y=m^{-1/2}\sum_{i=1}^m Y_i=(S_{m1}^Y,\ldots,S_{mp}^Y)',\qquad
+      S_m^G=m^{-1/2}\sum_{i=1}^m G_i=(S_{m1}^G,\ldots,S_{mp}^G)'.
+      \]
+      Let \(\delta_{n,m}\) be a sequence of constants depending on both \(n\) and \(m\).
+
+      Define
+      \[
+      L_n^X=\max_{1\le j\le p}\sum_{i=1}^n E(|X_{ij}-\mu_j^X|^3)/n,
+      \qquad
+      L_m^Y=\max_{1\le j\le p}\sum_{i=1}^m E(|Y_{ij}-\mu_j^Y|^3)/m.
+      \]
+
+      Let \(\mathcal A^{\mathrm{Re}}\) be the class of all hyperrectangles in \(\mathbb R^p\) of the form
+      \[
+      \{w\in\mathbb R^p:a_j\le w_j\le b_j\text{ for all }j=1,\ldots,p\},
+      \qquad -\infty\le a_j\le b_j\le\infty \text{ for all }j=1,\ldots,p.
+      \]
+
+      Define \(\rho_{n,m}^*\) by
+      \[
+      \begin{aligned}
+      \rho_{n,m}^*={}&\sup_{v\in[0,1]}\sup_{A\in\mathcal A^{\mathrm{Re}}}\bigl|P\{v^{1/2}(S_n^X-n^{1/2}\mu^X+\delta_{n,m}S_m^Y-\delta_{n,m}m^{1/2}\mu^Y)\\
+      &+(1-v)^{1/2}(S_n^F-n^{1/2}\mu^X+\delta_{n,m}S_m^G-\delta_{n,m}m^{1/2}\mu^Y)\in A\}\\
+      &-P(S_n^F-n^{1/2}\mu^X+\delta_{n,m}S_m^G-\delta_{n,m}m^{1/2}\mu^Y\in A)\bigr|.
+      \end{aligned}
+      \tag{11}
+      \]
+
+      For \(\phi\ge1\), define
+      \[
+      M_n(\phi)=M_n^X(\phi)+M_n^F(\phi),
+      \]
+      where
+      \[
+      M_n^X(\phi)=n^{-1}\sum_{i=1}^n E\Bigl[\max_{1\le j\le p}|X_{ij}-\mu_j^X|^3
+      1\Bigl\{\max_{1\le j\le p}|X_{ij}-\mu_j^X|>n^{1/2}/(4\phi\log p)\Bigr\}\Bigr],
+      \]
+      \[
+      M_n^F(\phi)=n^{-1}\sum_{i=1}^n E\Bigl[\max_{1\le j\le p}|F_{ij}-\mu_j^X|^3
+      1\Bigl\{\max_{1\le j\le p}|F_{ij}-\mu_j^X|>n^{1/2}/(4\phi\log p)\Bigr\}\Bigr].
+      \]
+      For \(\phi\ge1\) and the sequence \(\delta_{n,m}\), define
+      \[
+      M_m^*(\phi)=M_m^Y(\phi)+M_m^G(\phi),
+      \]
+      where
+      \[
+      M_m^Y(\phi)=m^{-1}\sum_{i=1}^m E\Bigl[\max_{1\le j\le p}|Y_{ij}-\mu_j^Y|^3
+      1\Bigl\{\max_{1\le j\le p}|Y_{ij}-\mu_j^Y|>m^{1/2}/(4|\delta_{n,m}|\phi\log p)\Bigr\}\Bigr],
+      \]
+      \[
+      M_m^G(\phi)=m^{-1}\sum_{i=1}^m E\Bigl[\max_{1\le j\le p}|G_{ij}-\mu_j^Y|^3
+      1\Bigl\{\max_{1\le j\le p}|G_{ij}-\mu_j^Y|>m^{1/2}/(4|\delta_{n,m}|\phi\log p)\Bigr\}\Bigr].
+      \]
+
+      ###### Assumptions
+      For the sequence \(\delta_{n,m}\), assume:
+
+      (a) There exists a universal constant \(b>0\) such that
+      \[
+      \min_{1\le j\le p}E\{(S_{nj}^X-n^{1/2}\mu_j^X+\delta_{n,m}S_{mj}^Y-\delta_{n,m}m^{1/2}\mu_j^Y)^2\}\ge b.
+      \]
+
+      ###### Statement
+      For any \(\phi_1,\phi_2\ge1\) and any sequence of constants \(\delta_{n,m}\), under assumption (a), there exists a universal constant \(K^*>0\) that depends only on \(b\) such that
+      \[
+      \begin{aligned}
+      \rho_{n,m}^*\le {}&K^*\Bigl[n^{-1/2}\phi_1^2(\log p)^2\{\phi_1L_n^X\rho_{n,m}^*+L_n^X(\log p)^{1/2}+\phi_1M_n(\phi_1)\}\\
+      &+m^{-1/2}\phi_2^2(\log p)^2|\delta_{n,m}|^3\{\phi_2L_m^Y\rho_{n,m}^*+L_m^Y(\log p)^{1/2}+\phi_2M_m^*(\phi_2)\}\\
+      &+(\min\{\phi_1,\phi_2\})^{-1}(\log p)^{1/2}\Bigr],
+      \end{aligned}
+      \]
+      where \(\rho_{n,m}^*\) is the quantity defined in (11) above.
+
+      ##### Equation (107) in the proof of Lemma 4
+
+      ###### Definitions and notation
+      The same setup and definitions as in the Lemma 3 group above apply. In particular, \(X^n,Y^m,F^n,G^m\), \(S_n^X,S_n^F,S_m^Y,S_m^G\), \(\mu^X,\mu^Y\), \(\delta_{n,m}\), \(L_n^X,L_m^Y\), \(\mathcal A^{\mathrm{Re}}\), \(\rho_{n,m}^*\), \(M_n(\phi)\), and \(M_m^*(\phi)\) are exactly as defined there; \(\rho_{n,m}^*\) is given by (11), and \(M_n,M_m^*\) are the thresholded third-moment quantities defined above.
+
+      ###### Assumptions
+      Assume condition (a) of Lemma 3:
+      \[
+      \min_{1\le j\le p}E\{(S_{nj}^X-n^{1/2}\mu_j^X+\delta_{n,m}S_{mj}^Y-\delta_{n,m}m^{1/2}\mu_j^Y)^2\}\ge b,
+      \]
+      for a universal constant \(b>0\). The displayed inequality is asserted for every \(\phi_1,\phi_2\ge1\), with the universal constant \(K^*>0\) defined in Lemma 3.
+
+      ###### Statement
+      Under the above condition (a), for every \(\phi_1,\phi_2\ge1\),
+      \[
+      \begin{aligned}
+      \rho_{n,m}^*\le {}&K^*\Bigl[8n^{-1/2}\phi_1^2(\log p)^2\{\phi_1L_n^X\rho_{n,m}^*+2^{-1}L_n^X(\log p)^{1/2}+\phi_1M_n(2\phi_1)\}\\
+      &+8m^{-1/2}\phi_2^2(\log p)^2|\delta_{n,m}|^3\{\phi_2L_m^Y\rho_{n,m}^*+2^{-1}L_m^Y(\log p)^{1/2}+\phi_2M_m^*(2\phi_2)\}\\
+      &+(2\phi_1)^{-1}(\log p)^{1/2}+(2\phi_2)^{-1}(\log p)^{1/2}\Bigr],
+      \end{aligned}
+      \tag{107}
+      \]
+      where \(K^*>0\) is the universal constant defined in Lemma 3.
+    lean_name: paper_2d165b9668ee43088292ee6f2129e2cd
+    lean_namespace: Statlib.Imported
+    layer: formalization
+    priority: 3
+    dependencies: []
+    notes: generated from a persisted ordinary goal; no attack-DAG dependency semantics
+source_document: main.pdf

@@ -5,7 +5,7 @@ Some selected Lean 4 formalization results verified using [Statopia Prover](http
 - [Statopia Prover](https://prover.statopia.ai/)
 - [Statlib](https://statlib.statopia.ai/)
 
-The collection contains 83 statistics problems, six guided IMO results, fifteen papers (16 main developments and 56 supporting tasks), and a neural-network approximation component.
+The collection contains 83 statistics problems, six guided IMO results, sixteen papers (17 main developments and 60 supporting tasks), and a neural-network approximation component.
 
 - [Paper results](papers/README.md)
 - [Statistics benchmark](statistics-benchmark/README.md)
@@ -21,6 +21,7 @@ Every paper, benchmark task and IMO task has `input/`, `proof/` and a result sum
 | [DP clustering — Theorem 1](papers/dp-clustering/README.md) | 218 | 34,932 | 4 | 0 | 16/16 (1+15) |
 | [Dynamic Matrix Recovery — Theorem 1](papers/dynamic-matrix/README.md) | 28 | 4,827 | 307 | 0 | 2/2 (1+1) |
 | [Residual spectral matching — first main theorem (Theorem 4.1)](papers/residual-matching/README.md) | 329 | 71,973 | 348 | 5 | 5/5 (1+4) |
+| [DCF — Theorem 1](papers/dcf/README.md) | 164 | 41,336 | 91 | 1 | 5/5 (1+4) |
 | [ProTrans — Theorem 1 (corrected model-shift bound)](papers/protrans/README.md) | 88 | 11,643 | 44 | 0 | 10/10 (1+9) |
 | [Deep Regression for Repeated Measurements — Theorem 2.1](papers/repeated-deep-regression/README.md) | 44 | 8,774 | 17 | 2 | 4/4 (1+3) |
 | [Nonparametric Prior Learning — Theorem 2.4 (integrable formulation)](papers/nonparametric-prior-learning/README.md) | 43 | 8,159 | 1 | 1 | 1/1 (1+0) |
@@ -52,6 +53,10 @@ Used external references count distinct citation axioms in the actual recursive 
 - **Lei** — Lihua Lei (2026). [No Universal Multiplicative FDR Bound for the Benjamini–Hochberg Procedure with Correlated Two-Sided Gaussian Tests](https://arxiv.org/abs/2607.14812v1). *arXiv preprint, 2607.14812v1*. [Archived result](papers/lei/README.md).
 
 - **Residual spectral matching** — Ziyuan Chen and Fang Yao. [*Residual spectral matching: a new perspective for matrix completion*](papers/residual-matching/input/main.tex). Supplied revised manuscript and supplement (undated), first main theorem (Theorem 4.1). Related public preprint: [*Matrix Completion via Residual Spectral Matching* (2024), arXiv:2412.10005v2](https://arxiv.org/abs/2412.10005v2). [Archived result](papers/residual-matching/README.md).
+
+
+
+- **DCF** — Kaijie Xue and Fang Yao (2020). [*Distribution and correlation-free two-sample test of high-dimensional means*](https://doi.org/10.1214/19-AOS1848). *The Annals of Statistics, 48(3), 1304–1328*. Related preprint: [arXiv:1904.07416v1](https://arxiv.org/abs/1904.07416v1). [Archived result](papers/dcf/README.md).
 
 ## License and permitted use
 

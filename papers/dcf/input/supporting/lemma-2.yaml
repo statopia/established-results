@@ -1,0 +1,432 @@
+version: v1
+theorem_set: paper-proof-group
+source_tag: document-processing
+theorems:
+  - id: entry:selected:db3b9d69-dd56-4195-bf71-677db5f3a9ef
+    title: paper_ed515f3f70ec457d86e430f1b91735bf
+    kind: lemma
+    latex_statement: |-
+      Write \(x\le y\) for the componentwise order in \(\mathbb R^p\). Define the normalized sums
+      \[
+      S_n^X=n^{-1/2}\sum_{i=1}^n X_i,\qquad
+      S_m^Y=m^{-1/2}\sum_{i=1}^m Y_i,\qquad
+      S_n^F=n^{-1/2}\sum_{i=1}^n F_i,\qquad
+      S_m^G=m^{-1/2}\sum_{i=1}^m G_i.
+      \]
+      Define
+      \[
+      \begin{aligned}\rho_{n,m}={}&\sup_{v\in[0,1]}\sup_{y\in\mathbb R^p}\Bigl|P\{v^{1/2}(S_n^X-n^{1/2}\mu^X+\delta_{n,m}S_m^Y-\delta_{n,m}m^{1/2}\mu^Y)+(1-v)^{1/2}(S_n^F-n^{1/2}\mu^X+\delta_{n,m}S_m^G-\delta_{n,m}m^{1/2}\mu^Y)\le y\}-P\{S_n^F-n^{1/2}\mu^X+\delta_{n,m}S_m^G-\delta_{n,m}m^{1/2}\mu^Y\le y\}\Bigr|.\end{aligned}
+      \]
+      Define
+      \[
+      L_n^X=\max_{1\le j\le p}\frac1n\sum_{i=1}^n E|X_{ij}-\mu_j^X|^3
+      \]
+      and
+      \[
+      L_m^Y=\max_{1\le j\le p}\frac1m\sum_{i=1}^m E|Y_{ij}-\mu_j^Y|^3.
+      \]
+      For \(\phi\ge1\), set \(M_n(\phi)=M_n^X(\phi)+M_n^F(\phi)\), where
+      \[
+      M_n^X(\phi)=\frac1n\sum_{i=1}^n E\!\left[\max_{1\le j\le p}|X_{ij}-\mu_j^X|^3 1\!\left\{\max_{1\le j\le p}|X_{ij}-\mu_j^X|>\frac{n^{1/2}}{4\phi\log p}\right\}\right],
+      \]
+      \[
+      M_n^F(\phi)=\frac1n\sum_{i=1}^n E\!\left[\max_{1\le j\le p}|F_{ij}-\mu_j^X|^3 1\!\left\{\max_{1\le j\le p}|F_{ij}-\mu_j^X|>\frac{n^{1/2}}{4\phi\log p}\right\}\right].
+      \]
+      Likewise, for \(\phi\ge1\), set \(M_m^*(\phi)=M_m^Y(\phi)+M_m^G(\phi)\), where
+      \[
+      M_m^Y(\phi)=\frac1m\sum_{i=1}^m E\!\left[\max_{1\le j\le p}|Y_{ij}-\mu_j^Y|^3 1\!\left\{\max_{1\le j\le p}|Y_{ij}-\mu_j^Y|>\frac{m^{1/2}}{4|\delta_{n,m}|\phi\log p}\right\}\right],
+      \]
+      \[
+      M_m^G(\phi)=\frac1m\sum_{i=1}^m E\!\left[\max_{1\le j\le p}|G_{ij}-\mu_j^Y|^3 1\!\left\{\max_{1\le j\le p}|G_{ij}-\mu_j^Y|>\frac{m^{1/2}}{4|\delta_{n,m}|\phi\log p}\right\}\right].
+      \]
+      Write \(a\lesssim b\) to mean \(a\le Cb\) for a constant \(C>0\). In the displayed equivalence in the Statement, the implicit constant in \(\lesssim\) depends only on \(b\).
+
+      <!-- formalization-clarifications:v1:4833df783fcf7a6f50158720ccf114af48feae11742ecdbb6329f84dfc908bac -->
+      Formalization clarifications from source and proof:
+      1. For the selected Lemma 2 (owner: Xue–Yao), the source is a finite-sample inequality, not an asymptotic one. The intended order is: fix positive integers \(n,m,p\), a two-index constant sequence \(\delta_{n,m}\), random arrays satisfying the stated independence, means, Gaussian approximations, and condition (a); then for every \(\phi_1,\phi_2\ge1\) the displayed bound holds with a positive constant \(C_b\) depending only on the universal lower bound \(b>0\) from condition (a). This is explicit in the Assumptions “there exists a universal constant \(b>0\)” and the Statement “there exists a positive constant \(C_b>0\), depending only on \(b\),” and in “where the implicit constant in \(\lesssim\) depends only on \(b\).” Thus \(C_b\) may not depend on \(n,m,p,\delta_{n,m}\), the laws or realized vectors \(X_i,Y_i,F_i,G_i\), \(j\), \(\phi_1,\phi_2\), \(v\), or \(y\). The supremum in \(\rho_{n,m}\) over \(v\in[0,1]\) and \(y\in\mathbb R^p\) is uniform. The generic notation “\(a_n\lesssim b_n\) if \(a_n\le Cb_n\) up to a universal constant \(C>0\)” appears in the source, but in this lemma the statement explicitly specializes the constant to depend only on \(b\), so one should not formalize it as a totally universal constant independent of \(b\). Reference R2 (CKK 2017 Lemma A.1/Nazarov) likewise says “\(C\) is a constant depending only on \(b\),” not on \(p,y,a\), or the covariance matrix. Reference R1 (Xue–Yao Lemma 1, proved from CKK 2013 Lemmas A.5–A.6) uses universal constants in its \(\lesssim\) estimates for \(Q_{jkl}\), with no dependence on \(b\); its \(Q\) functions do depend on \(p,y,\phi\) through the definition. Reference R3 (CKK 2017 Lemma B.1) gives exact expectation inequalities, with no hidden asymptotic constant; its side condition that all expectations exist finite must not be dropped. Reference R4 (CKK 2015 display (1)) gives an exact inequality, not merely an approximation up to constant.
+
+      2. The selected statement uses only the componentwise order \(x\le y\) in \(\mathbb R^p\), meaning \(x_j\le y_j\) for every \(j=1,\dots,p\), and coordinatewise maxima. The quantity \(\rho_{n,m}\) is a supremum over lower-left orthant probabilities, not a vector \(\ell_2\), sup-norm, operator, or Frobenius norm, and not a supremum over hyperrectangles. The probability comparison must be grouped exactly as
+      \[
+      v^{1/2}(S_n^X-n^{1/2}\mu^X+\delta_{n,m}S_m^Y-\delta_{n,m}m^{1/2}\mu^Y)
+      +(1-v)^{1/2}(S_n^F-n^{1/2}\mu^X+\delta_{n,m}S_m^G-\delta_{n,m}m^{1/2}\mu^Y)\le y,
+      \]
+      compared with the centered Gaussian term \(S_n^F-n^{1/2}\mu^X+\delta_{n,m}S_m^G-\delta_{n,m}m^{1/2}\mu^Y\le y\). In particular \(n^{1/2}\mu^X\) and \(\delta_{n,m}m^{1/2}\mu^Y\) are subtracted inside both the \(v\)-weighted and \((1-v)\)-weighted pieces; do not move them outside the square roots. The normalized sums are \(S_n^X=n^{-1/2}\sum_{i=1}^nX_i\), \(S_n^F=n^{-1/2}\sum_{i=1}^nF_i\), \(S_m^Y=m^{-1/2}\sum_{i=1}^mY_i\), and \(S_m^G=m^{-1/2}\sum_{i=1}^mG_i\), with the corresponding centering. The quantities \(L_n^X,L_m^Y\) are maxima over coordinates of averages of third absolute coordinate moments:
+      \[
+      L_n^X=\max_{1\le j\le p}\frac1n\sum_{i=1}^nE|X_{ij}-\mu_j^X|^3,\qquad
+      L_m^Y=\max_{1\le j\le p}\frac1m\sum_{i=1}^mE|Y_{ij}-\mu_j^Y|^3.
+      \]
+      They are not \(\ell_3\) norms of vectors and not maxima of individual moments without averaging. The objects \(M_n(\phi)=M_n^X(\phi)+M_n^F(\phi)\) and \(M_m^*(\phi)=M_m^Y(\phi)+M_m^G(\phi)\) are truncated third-moment quantities; each uses \(\max_{1\le j\le p}\) inside the expectation, cubes that maximum, multiplies by a strict indicator that the same maximum exceeds the displayed threshold, and averages over \(i\). The \(X\)-threshold is \(n^{1/2}/(4\phi\log p)\); the \(Y\)-threshold is \(m^{1/2}/(4|\delta_{n,m}|\phi\log p)\), with \(|\delta_{n,m}|\) in the denominator. The source’s target definitions use \(F_{ij}-\mu_j^X\) in \(M_n^F\) and \(G_{ij}-\mu_j^Y\) in \(M_m^G\); the main-paper excerpt with \(\mu_j^F\) or \(\mu_j^G\) is inconsistent with \(F_i\sim N_p(\mu^X,\dots)\) and \(G_i\sim N_p(\mu^Y,\dots)\), and the target/proof use \(\mu^X,\mu^Y\). Do not replace \(M_n^F\) by \(L_n^X\) or omit the Gaussian-approximation terms. Condition (a) is the coordinatewise lower bound
+      \[
+      \min_j E\{(S_{nj}^X-n^{1/2}\mu_j^X+\delta_{n,m}S_{mj}^Y-\delta_{n,m}m^{1/2}\mu_j^Y)^2\}\ge b,
+      \]
+      i.e. a lower bound on the variance of the centered combined coordinate, not an \(\ell_2\) lower bound on a covariance matrix. Reference R1 defines the smooth maximum \(F_\beta(w)=\beta^{-1}\log\sum_j\exp\{\beta(w_j-y_j)\}\) and \(\kappa(w)=\varphi_0(\phi F_{\beta}(w))\) with \(\beta=\phi\log p\); this is not the coordinatewise maximum itself. Its \(Q_{jkl}\) are nonnegative majorants of third derivatives \(\kappa_{jkl}\), with the stated sum bound and the comparison \(Q_{jkl}(w)\lesssim Q_{jkl}(w+\tilde w)\lesssim Q_{jkl}(w)\) for \(\max_j|\tilde w_j|\beta\le1\), not merely a one-sided monotonicity. Reference R2 uses centered Gaussian coordinates and the componentwise event \(Y\le y+a\), with \(a>0\), and its bound is \(P(Y\le y+a)-P(Y\le y)\le C a\sqrt{\log p}\); it does not require nonsingular covariance or independent coordinates. Reference R4 gives the exact smooth-max bound \(0\le F_\beta(z)-\max_j z_j\le \beta^{-1}\log p\).
+
+      3. The selected Lemma 2 contains no \(O(\cdot)\), \(o(\cdot)\), convergence, or “with probability tending to one” statement; it is a deterministic finite-sample bound for the fixed arrays under the displayed hypotheses. Its only asymptotic-like notation is \(\lesssim\), whose local meaning is supplied by the Statement and is parameter-dependent only through \(b\). The notation \(\delta_{n,m}\) indicates a two-index sequence, but Lemma 2 does not assume any limit, rate, or nonzero lower bound for \(\delta_{n,m}\); those appear only in other results such as Theorems 1–2 of the main paper, not in this lemma’s stated assumptions. The selected probability \(P\) is the ordinary probability under the joint law of \(X^n,Y^m,F^n,G^m\); there is no bootstrap probability \(P_e\) in \(\rho_{n,m}\) itself. Reference R2 is a uniform quantitative anti-concentration bound for every \(y\in\mathbb R^p\) and \(a>0\), with \(C\) depending only on \(b\). Reference R3 is an exact expectation inequality: equations (18) and (19) require independence of the real \(\xi_1,\xi_2\), while (20) explicitly “holds without independence of \(\xi_1\) and \(\xi_2\).” It also assumes the expectations involved exist and are finite. Reference R1’s \(\lesssim\) estimates are universal for the stated functionals, while Reference R4 is exact and has no asymptotic content.
+
+      4. Several side conditions are implicit or left unresolved in the selected block. The random vectors are mutually independent within \(X^n\) and within \(Y^m\), not necessarily identically distributed; \(F_i\sim N_p(\mu^X,E[(X_i-\mu^X)(X_i-\mu^X)'])\) and \(G_i\sim N_p(\mu^Y,E[(Y_i-\mu^Y)(Y_i-\mu^Y)'])\); the four arrays \(X^n,Y^m,F^n,G^m\) are independent of each other. Covariance matrices may be singular; no independence of coordinates or nonsingularity is stated. The means and covariance identities implicitly require the relevant first and second moments to exist, and \(L_n^X,L_m^Y\) and the \(M\)-quantities require the third absolute moments/expectations appearing in their definitions to be finite; the source does not separately list these integrability side conditions, but without them the displayed real-valued estimates are not fully specified. The definitions of \(M_m^Y(\phi),M_m^G(\phi)\) divide by \(|\delta_{n,m}|\), and the proof uses the same threshold; the selected Assumptions only say \(\delta_{n,m}\) is a sequence depending on \(n,m\) and do not explicitly require \(\delta_{n,m}\ne0\) or bounded away from zero. Thus the interpretation for \(\delta_{n,m}=0\) is not specified in this lemma, even though other results in the main paper impose \(|\delta_{n,m}|\)-bounds. Also, the Assumptions say \(p\) is a positive integer, but the proof sets \(\beta=\phi\log p\) and divides by \(\log p\); the case \(p=1\) is not explicitly handled in the selected block and requires separate convention or a side condition such as \(\log p>0\). The cutoff function \(\varphi_0\) is introduced only in the proof, with \(\varphi_0:\mathbb R\to[0,1]\) thrice continuously differentiable, \(=1\) on \(z\le0\), and \(=0\) on \(z\ge1\); the source does not specify a particular \(\varphi_0\) or derivative bounds. Since the final constant is claimed to depend only on \(b\), a formalization must either fix \(\varphi_0\) globally or verify that the cited Lemma 1 constants are uniform over the chosen cutoff; the selected block does not spell this out. Finally, the paired original proof of Lemma 2 has a visible proof-level inconsistency: displays (100)-(101) show an intermediate \(c_1\phi^{-1}(\log p)^{-1/2}\), while the Lemma 2 statement and final displayed conclusion use \((\min\{\phi_1,\phi_2\})^{-1}(\log p)^{1/2}\). The original statement is authoritative; the negative exponent in those intermediate displays should be treated as a proof typo/inconsistency, not as changing the theorem. The Slepian interpolation, functions \(h\), \(Z(t)\), and the remainder estimates are proof devices, not additional hypotheses of Lemma 2.
+      <!-- /formalization-clarifications -->
+
+      Then for every \(\phi_1,\phi_2\ge1\), there exists a positive constant \(C_b>0\), depending only on \(b\), such that
+      \[
+      \begin{aligned}\rho_{n,m}\le C_b\Bigl[&n^{-1/2}\phi_1^2(\log p)^2\left\{\phi_1L_n^X\rho_{n,m}+L_n^X(\log p)^{1/2}+\phi_1M_n(\phi_1)\right\}\\
+      &+m^{-1/2}\phi_2^2(\log p)^2|\delta_{n,m}|^3\left\{\phi_2L_m^Y\rho_{n,m}+L_m^Y(\log p)^{1/2}+\phi_2M_m^*(\phi_2)\right\}\\
+      &+(\min\{\phi_1,\phi_2\})^{-1}(\log p)^{1/2}\Bigr].
+      \end{aligned}
+      \]
+      Equivalently, in the source notation,
+      \[
+      \begin{aligned}\rho_{n,m}\lesssim{}&n^{-1/2}\phi_1^2(\log p)^2\{\phi_1L_n^X\rho_{n,m}+L_n^X(\log p)^{1/2}+\phi_1M_n(\phi_1)\}\\
+      &+m^{-1/2}\phi_2^2(\log p)^2|\delta_{n,m}|^3\{\phi_2L_m^Y\rho_{n,m}+L_m^Y(\log p)^{1/2}+\phi_2M_m^*(\phi_2)\}\\
+      &+(\min\{\phi_1,\phi_2\})^{-1}(\log p)^{1/2},
+      \end{aligned}
+      \]
+      where the implicit constant in \(\lesssim\) depends only on \(b\).
+    assumptions:
+      - |-
+        Let \(n,m,p\) be positive integers and let \(\delta_{n,m}\) be a sequence of constants depending on both \(n\) and \(m\). Let \(X^n=\{X_1,\dots,X_n\}\) be mutually independent, not necessarily identically distributed, random vectors in \(\mathbb R^p\), with \(E(X_i)=\mu^X=(\mu_1^X,\dots,\mu_p^X)'\) for \(i=1,\dots,n\). Let \(Y^m=\{Y_1,\dots,Y_m\}\) be defined similarly, with \(E(Y_i)=\mu^Y=(\mu_1^Y,\dots,\mu_p^Y)'\) for \(i=1,\dots,m\). Let \(F^n=\{F_1,\dots,F_n\}\) be mutually independent Gaussian vectors with \(F_i\sim N_p(\mu^X,\,E\{(X_i-\mu^X)(X_i-\mu^X)'\})\), \(i=1,\dots,n\), and let \(G^m=\{G_1,\dots,G_m\}\) be mutually independent Gaussian vectors with \(G_i\sim N_p(\mu^Y,\,E\{(Y_i-\mu^Y)(Y_i-\mu^Y)'\})\), \(i=1,\dots,m\). Assume that the four arrays \(X^n,Y^m,F^n,G^m\) are independent of each other.
+
+        Assume condition (a): there exists a universal constant \(b>0\) such that
+        \[
+        \min_{1\le j\le p}E\!\left\{\left(S_{nj}^X-n^{1/2}\mu_j^X+\delta_{n,m}S_{mj}^Y-\delta_{n,m}m^{1/2}\mu_j^Y\right)^2\right\}\ge b.
+        \]
+    proof_body: |-
+      ### Definitions and notation used in Proof
+      Let \(\varphi_0:\mathbb R\to[0,1]\) be thrice continuously differentiable with
+      \[
+      \varphi_0(z)=1\quad\text{for }z\le0,
+      \qquad
+      \varphi_0(z)=0\quad\text{for }z\ge1.
+      \]
+
+      ### Proof
+      Set \(\phi=\min\{\phi_1,\phi_2\}\), \(\beta=\phi\log p\). For fixed \(y\in\mathbb R^p\), define
+      \[
+      F_\beta(w)=\beta^{-1}\log\Bigl[\sum_{j=1}^p\exp\{\beta(w_j-y_j)\}\Bigr],
+      \qquad 
+      \kappa(w)=\varphi_0(\phi F_\beta(w)),
+      \]
+      and
+      \[
+      h(w,t)=1\Bigl\{-\phi^{-1}-t/\beta<\max_{1\le j\le p}(w_j-y_j)\le \phi^{-1}+t/\beta\Bigr\}
+      \]
+      for \(w\in\mathbb R^p\), \(t>0\). Let \(V^n=\{V_1,\dots,V_n\}\) be an independent copy of \(F^n\), and let \(W^m=\{W_1,\dots,W_m\}\) be an independent copy of \(G^m\). Define the Slepian interpolant \(Z(t)=Z^*(t)+Z^{**}(t)\), \(t\in[0,1]\), by
+      \[
+      Z_i^*(t)=n^{-1/2}\Bigl[t^{1/2}\{v^{1/2}(X_i-\mu^X)+(1-v)^{1/2}(F_i-\mu^X)\}
+      +(1-t)^{1/2}(V_i-\mu^X)\Bigr],
+      \]
+      \[
+      Z_{i'}^{**}(t)=m^{-1/2}\delta_{n,m}\Bigl[t^{1/2}\{v^{1/2}(Y_{i'}-\mu^Y)+(1-v)^{1/2}(G_{i'}-\mu^Y)\}
+      +(1-t)^{1/2}(W_{i'}-\mu^Y)\Bigr].
+      \]
+      Then
+      \[
+      Z(1)=v^{1/2}(S_n^X-n^{1/2}\mu^X+\delta_{n,m}S_m^Y-\delta_{n,m}m^{1/2}\mu^Y)
+      +(1-v)^{1/2}(S_n^F-n^{1/2}\mu^X+\delta_{n,m}S_m^G-\delta_{n,m}m^{1/2}\mu^Y),
+      \]
+      and
+      \[
+      Z(0)=S_n^V-n^{1/2}\mu^X+\delta_{n,m}S_m^W-\delta_{n,m}m^{1/2}\mu^Y,
+      \]
+      which has the same distribution as \(S_n^F-n^{1/2}\mu^X+\delta_{n,m}S_m^G-\delta_{n,m}m^{1/2}\mu^Y\). Put
+      \[
+      \mathcal I_{n,m}=\kappa(Z(1))-\kappa(Z(0)).
+      \]
+      By the chain rule,
+      \[
+      \mathcal I_{n,m}
+      =2^{-1}\sum_{j=1}^p\sum_{i=1}^n\int_0^1\kappa_j(Z)\dot Z_{ij}^*\,dt
+      +2^{-1}\sum_{j=1}^p\sum_{i'=1}^m\int_0^1\kappa_j(Z)\dot Z_{i'j}^{**}\,dt
+      =\mathcal I_{n,m}^*+\mathcal I_{n,m}^{**}.
+      \]
+      Using Taylor expansions around the leave-one-out sums and the independence of the arrays, the first-order and second-order expectation terms vanish:
+      \[
+      I^*=0,\qquad II^*=0,
+      \]
+      because \(\dot Z_{ij}^*\) and \(\dot Z_{i'j}^{**}\) have mean zero and because \(X_i,F_i,V_i\) have matching first two moments, and similarly for \(Y_{i'},G_{i'},W_{i'}\).
+
+      It remains to bound the third-order remainder \(III^*\). The terms involving \(1-\lambda_i^*\), where
+      \[
+      \lambda_i^*=1\Bigl\{\max_{1\le j\le p}|X_{ij}-\mu_j^X|\vee|F_{ij}-\mu_j^X|\vee|V_{ij}-\mu_j^X|
+      \le n^{1/2}/(4\beta)\Bigr\},
+      \]
+      are controlled using [ref:R1] and [ref:R3], giving
+      \[
+      |III_2^*|\lesssim n^{-1/2}\phi\beta^2M_n(\phi).
+      \]
+      For the terms involving \(\lambda_i^*\), another application of [ref:R1] and Hölder’s inequality reduces the estimate to
+      \[
+      \Delta_2^*\lesssim n^{-1/2}\phi\beta^2\bigl\{L_n^X\rho_{n,m}+\phi^{-1}L_n^X(\log p)^{1/2}\bigr\},
+      \]
+      where the expectation of the localization function \(h(Z^*+Z^{**},2)\) is bounded by
+      \[
+      E\{h(Z^*+Z^{**},2)\}
+      \le 2\rho_{n,m}
+      +P\{S_n^F+\delta_{n,m}S_m^G-n^{1/2}\mu^X-\delta_{n,m}m^{1/2}\mu^Y\le y+\phi^{-1}+2\beta^{-1}\}
+      -P\{S_n^F+\delta_{n,m}S_m^G-n^{1/2}\mu^X-\delta_{n,m}m^{1/2}\mu^Y\le y-\phi^{-1}-2\beta^{-1}\},
+      \]
+      and the probability difference is \(O(\phi^{-1}(\log p)^{1/2})\) by condition (a) together with [ref:R2]. Combining these estimates gives
+      \[
+      |E(\mathcal I_{n,m}^*)|
+      \lesssim n^{-1/2}\phi_1^2(\log p)^2
+      \{\phi_1L_n^X\rho_{n,m}+L_n^X(\log p)^{1/2}+\phi_1M_n(\phi_1)\}.
+      \]
+      Analogously, using
+      \[
+      \lambda_i^{**}=1\Bigl\{\max_{1\le j\le p}|Y_{ij}-\mu_j^Y|\vee|G_{ij}-\mu_j^Y|\vee|W_{ij}-\mu_j^Y|
+      \le m^{1/2}/(4\beta|\delta_{n,m}|)\Bigr\},
+      \]
+      the same argument for the \(Y\)-part yields
+      \[
+      |E(\mathcal I_{n,m}^{**})|
+      \lesssim m^{-1/2}\phi_2^2(\log p)^2|\delta_{n,m}|^3
+      \{\phi_2L_m^Y\rho_{n,m}+L_m^Y(\log p)^{1/2}+\phi_2M_m^*(\phi_2)\}.
+      \]
+      Therefore
+      \[
+      |E(\mathcal I_{n,m})|
+      \lesssim n^{-1/2}\phi_1^2(\log p)^2
+      \{\phi_1L_n^X\rho_{n,m}+L_n^X(\log p)^{1/2}+\phi_1M_n(\phi_1)\}
+      \]
+      \[
+      \qquad\qquad
+      +m^{-1/2}\phi_2^2(\log p)^2|\delta_{n,m}|^3
+      \{\phi_2L_m^Y\rho_{n,m}+L_m^Y(\log p)^{1/2}+\phi_2M_m^*(\phi_2)\}.
+      \]
+
+      Finally, using
+      \[
+      0\le F_\beta(w)-\max_{1\le j\le p}(w_j-y_j)\le \beta^{-1}\log p
+      \]
+      and the definition of \(\kappa\), we have
+      \[
+      P\{Z(1)\le y-\phi^{-1}\}
+      \le E\kappa(Z(1))
+      =E\kappa(Z(0))+E\mathcal I_{n,m}
+      \le P\{Z(0)\le y+\phi^{-1}\}+|E\mathcal I_{n,m}|.
+      \]
+      Similarly,
+      \[
+      1-P\{Z(1)\le y+\phi^{-1}\}
+      \le 1-P\{Z(0)\le y-\phi^{-1}\}+c_1\phi^{-1}(\log p)^{1/2}+|E\mathcal I_{n,m}|.
+      \]
+      Condition (a) together with [ref:R2] gives the anti-concentration bound
+      \[
+      P\{Z(0)\le y+\phi^{-1}\}-P\{Z(0)\le y-\phi^{-1}\}
+      \lesssim \phi^{-1}(\log p)^{1/2}.
+      \]
+      Therefore, for every \(v\in[0,1]\),
+      \[
+      \sup_{y\in\mathbb R^p}
+      \Bigl|P\{Z(1)\le y\}-P\{Z(0)\le y\}\Bigr|
+      \lesssim \phi^{-1}(\log p)^{1/2}+\sup_{y\in\mathbb R^p}|E\mathcal I_{n,m}|.
+      \]
+      Taking the supremum over \(v\in[0,1]\) and substituting \(\phi=\min\{\phi_1,\phi_2\}\) and the bound on \(|E\mathcal I_{n,m}|\), we obtain
+      \[
+      \rho_{n,m}\lesssim
+      n^{-1/2}\phi_1^2(\log p)^2\{\phi_1L_n^X\rho_{n,m}+L_n^X(\log p)^{1/2}+\phi_1M_n(\phi_1)\}
+      \]
+      \[
+      \qquad\qquad
+      +m^{-1/2}\phi_2^2(\log p)^2|\delta_{n,m}|^3\{\phi_2L_m^Y\rho_{n,m}+L_m^Y(\log p)^{1/2}+\phi_2M_m^*(\phi_2)\}
+      \]
+      \[
+      \qquad\qquad
+      +(\min\{\phi_1,\phi_2\})^{-1}(\log p)^{1/2},
+      \]
+      where the implicit constant depends only on \(b\). This is the desired bound.
+
+      ### References
+      #### Reference R1
+      Target: Lemma 1
+      Citation: “where the first inequality follows from Jensen’s inequality, and the second and the third inequalities follow from Lemma 1.” Also: “where the third inequality is by Lemma 1” and “where the first inequality is by Lemma 1 ... and the fourth inequality is based on Hölder’s inequality and Lemma 1.” The same reference is invoked in the analogous estimates for the \(Y\)-part, e.g. “where the third inequality follows from Lemma 1” and “the first inequality follows from Lemma 1.”
+      Bibliography: supp
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction. This is Lemma 1 of Xue–Yao, *Supplementary Material for Distribution and Correlation Free Two-Sample Test of High Dimensional Means*, §3 “Proofs of Lemmas” (and the Appendix in the obtained arXiv PDF, physical p. 18). Its printed proof states that it follows directly from Lemmas A.5 and A.6 in [1], where [1] is Chernozhukov, Chetverikov and Kato (2013), *Gaussian approximations and multiplier bootstrap for maxima of sums of high-dimensional random vectors*. The result supplies the derivative majorants \(Q_{jkl}\), their summability, and their local stability, which are the Lemma 1 ingredients used in the current proof’s third-order remainder estimates; this identifies the content supplied by the reference and does not assert that the target’s application conditions have been verified.
+
+      ##### Lemma 1
+
+      ###### Definitions and notation
+      For any sequences of constants \(a_n\) and \(b_n\), write \(a_n\lesssim b_n\) if \(a_n\le Cb_n\) up to a universal constant \(C>0\). The source uses the same notation for functions with a universal constant.
+
+      For any \(\beta>0\) and \(y\in\mathbb R^p\), define
+      \[
+      F_\beta(w)=\beta^{-1}\log\Bigl[\sum_{j=1}^p\exp\{\beta(w_j-y_j)\}\Bigr],
+      \qquad w\in\mathbb R^p,
+      \]
+      which satisfies
+      \[
+      0\le F_\beta(w)-\max_{1\le j\le p}(w_j-y_j)\le \beta^{-1}\log p
+      \]
+      for every \(w\in\mathbb R^p\) by (1) in [2].
+
+      Let \(\varphi_0:\mathbb R\to[0,1]\) be thrice continuously differentiable with
+      \[
+      \varphi_0(z)=1\quad\text{for }z\le0,
+      \qquad
+      \varphi_0(z)=0\quad\text{for }z\ge1.
+      \]
+      For any \(\phi\ge1\), define
+      \[
+      \varphi(z)=\varphi_0(\phi z),\qquad z\in\mathbb R.
+      \]
+      For any \(\phi\ge1\) and \(y\in\mathbb R^p\), denote \(\beta=\phi\log p\) and define
+      \[
+      (9)\qquad
+      \kappa(w)=\varphi_0(\phi F_{\phi\log p}(w))=\varphi(F_\beta(w)),
+      \qquad w\in\mathbb R^p.
+      \]
+      The obtained Lemma 1 statement labels this display (9); the supplementary notation excerpt labels the same definition as (4). Write
+      \[
+      \kappa_{jkl}=\partial_j\partial_k\partial_l\kappa.
+      \]
+
+      ###### Assumptions
+      Fix the ambient dimension \(p\). Let \(\phi\ge1\) and \(y\in\mathbb R^p\), and denote
+      \[
+      \beta=\phi\log p.
+      \]
+      Let \(\varphi_0:\mathbb R\to[0,1]\) be thrice continuously differentiable with \(\varphi_0(z)=1\) for \(z\le0\) and \(\varphi_0(z)=0\) for \(z\ge1\). Define \(\varphi(z)=\varphi_0(\phi z)\) and define \(\kappa(w)=\varphi_0(\phi F_{\phi\log p}(w))=\varphi(F_\beta(w))\), \(w\in\mathbb R^p\), as in (9).
+
+      ###### Statement
+      For any \(\phi\ge1\) and \(y\in\mathbb R^p\), denote \(\beta=\phi\log p\). Then the function \(\kappa\) defined in (9) has the following properties, where \(\kappa_{jkl}\) denotes \(\partial_j\partial_k\partial_l\kappa\). For any \(j,k,l=1,\dots,p\), there exists a nonnegative function \(Q_{jkl}\) such that:
+
+      1) \(| \kappa_{jkl}(w)|\le Q_{jkl}(w)\) for all \(w\in\mathbb R^p\);
+
+      2) \(\displaystyle \sum_{j=1}^p\sum_{k=1}^p\sum_{l=1}^p Q_{jkl}(w)\le(\phi^3+\phi^2\beta+\phi\beta^2)\lesssim\phi\beta^2\) for all \(w\in\mathbb R^p\);
+
+      3) \(Q_{jkl}(w)\lesssim Q_{jkl}(w+\tilde w)\lesssim Q_{jkl}(w)\) for all \(w\in\mathbb R^p\) and
+      \[
+      \tilde w\in\Bigl\{w^*\in\mathbb R^p:\max_{1\le j\le p}|w_j^*|\beta\le1\Bigr\}.
+      \]
+
+      As printed in the supplied source material, item 3 reads exactly as displayed above, with the set printed as \(\bigl\{w^*\in\mathbb R^p:\max_{1\le j\le p}|w_j^*|\beta\le1\bigr\}\).
+
+      #### Reference R2
+      Target: Lemma A.1 in [3]
+      Citation: “where the second inequality follows from combining condition (a) with Lemma A.1 in [3].” Also: “the last inequality follows from combining condition (a) with Lemma A.1 in [3].”
+      Bibliography: [3] CHERNOZHUKOV, V., CHETVERIKOV, D. and KATO, K. (2017). Central limit theorems and bootstrap in high dimensions. The Annals of Probability 45 2309–2352.
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction. The result is Lemma A.1 (“Nazarov’s inequality, [30]”) in Chernozhukov–Chetverikov–Kato, arXiv:1412.3661v4, Appendix A, physical/printed p. 15. The supplied source states the complete lemma; no proof is reproduced here. The lemma attributes the inequality to Nazarov [30]. The bibliography for the cited item is the published *Annals of Probability* 45 (2017) version of Chernozhukov–Chetverikov–Kato, but the supplied reading is the arXiv v4; the attempted IMStat PDF was unreadable, so published-version numbering is not independently confirmed. In the current proof this lemma is invoked, together with condition (a), for anti-concentration probability-difference estimates such as \(P\{Z(0)\le y+\phi^{-1}\}-P\{Z(0)\le y-\phi^{-1}\}\lesssim \phi^{-1}(\log p)^{1/2}\). The current proof’s condition (a) is a separate hypothesis used in that application; it is not part of the displayed Lemma A.1.
+
+      ##### Lemma A.1 (Nazarov’s inequality, [30])
+      ###### Definitions and notation
+      For \(p\ge 1\), \(\mathbb R^p\) is the \(p\)-dimensional Euclidean space. The source paper has the global notation convention \(n\ge4\), although \(n\) does not occur in Lemma A.1; the displayed lemma itself repeats only the variance lower bound stated below.
+
+      For \(w=(w_1,\dots,w_p)'\in\mathbb R^p\) and \(y=(y_1,\dots,y_p)'\in\mathbb R^p\), the relation \(w\le y\) means \(w_j\le y_j\) for every \(j=1,\dots,p\). For \(y=(y_1,\dots,y_p)'\in\mathbb R^p\) and \(a\in\mathbb R\), \(y+a=(y_1+a,\dots,y_p+a)'\).
+
+      \(P\) and \(E\) denote probability and expectation under the law of \(Y\). A centered Gaussian random vector means a multivariate Gaussian random vector with mean zero; no independence among coordinates is assumed. \(E[Y_j^2]\) is the variance of the \(j\)-th coordinate. The constant \(C\) in the lemma depends only on \(b\), not on \(p,y,a\) or the covariance matrix.
+
+      ###### Assumptions
+      - \(Y=(Y_1,\dots,Y_p)'\) is a centered Gaussian random vector in \(\mathbb R^p\).
+      - There is a constant \(b>0\) such that
+        \[
+        E[Y_j^2]\ge b
+        \qquad\text{for all }j=1,\dots,p.
+        \]
+        No nonsingularity of the covariance matrix and no independence of the coordinates is required.
+      - \(y\in\mathbb R^p\) and \(a>0\) are arbitrary.
+      - In the source paper’s global notation, \(p\ge3\); this paper-wide convention is not repeated in the displayed statement of Lemma A.1.
+
+      ###### Statement
+      **Lemma A.1** (Nazarov’s inequality, [30]). Let \(Y=(Y_1,\dots,Y_p)'\) be a centered Gaussian random vector in \(\mathbb R^p\) such that \(E[Y_j^2]\ge b\) for all \(j=1,\dots,p\) and some constant \(b>0\). Then for every \(y\in\mathbb R^p\) and \(a>0\),
+      \[
+      P(Y\le y+a)-P(Y\le y)\le C a\sqrt{\log p},
+      \]
+      where \(C\) is a constant depending only on \(b\).
+
+      #### Reference R3
+      Target: Lemma B.1 in [3]
+      Citation: “where the third inequality is by Lemma B.1 in [3].” Also: “the fourth inequality is based on (67), (68) and Lemma B.1 in [3].” The proof uses the same result in the corresponding estimates for the \(Y\)-part.
+      Bibliography: [3] CHERNOZHUKOV, V., CHETVERIKOV, D. and KATO, K. (2017). Central limit theorems and bootstrap in high dimensions. The Annals of Probability 45 2309–2352.
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction. The supplied source (Chernozhukov–Chetverikov–Kato, arXiv:1412.3661, Appendix B, physical/printed page 16) contains the complete statement of Lemma B.1, with displayed inequalities labeled (18), (19), and (20). The statement is extracted directly from that supplied material. The current proof cites Lemma B.1 in its third inequality and, together with (67) and (68), in its fourth inequality, and again in the corresponding \(Y\)-part estimates; no application bridge is asserted here. The supplied excerpt does not contain displayed equations (67) or (68), so their content is not extracted or reconstructed.
+
+      ##### Definitions and notation
+      For \(i=1,2\), \(\varphi_i:\mathbb R\to[0,\infty)\) are functions from the real line into the nonnegative real numbers; “non-decreasing” means that if \(s\le t\), then \(\varphi_i(s)\le \varphi_i(t)\).
+
+      The variables \(\xi_1,\xi_2\) are real-valued random variables. \(\mathbb E[\cdot]\) denotes expectation under the relevant joint law. All displayed expectations are assumed to exist and be finite, as stated in Assumptions.
+
+      ##### Assumptions
+      1. For \(i=1,2\), \(\varphi_i:\mathbb R\to[0,\infty)\) is a non-decreasing function.
+      2. \(\xi_1\) and \(\xi_2\) are independent real-valued random variables for the lemma as stated in (18), (19), and (20). For inequality (20) alone, the independence of \(\xi_1\) and \(\xi_2\) is not required.
+      3. All expectations appearing in (18), (19), and (20) exist and are finite.
+
+      ##### Statement
+      Let \(\varphi_i:\mathbb R\to[0,\infty)\), \(i=1,2\), be non-decreasing functions, and let \(\xi_i\), \(i=1,2\), be independent real-valued random variables. Assume that all expectations below exist and are finite. Then
+      \[
+      \mathbb E[\varphi_1(\xi_1)]\,\mathbb E[\varphi_2(\xi_1)]
+      \le \mathbb E[\varphi_1(\xi_1)\varphi_2(\xi_1)], \tag{18}
+      \]
+      \[
+      \mathbb E[\varphi_1(\xi_1)]\,\mathbb E[\varphi_2(\xi_2)]
+      \le \mathbb E[\varphi_1(\xi_1)\varphi_2(\xi_1)]
+      +\mathbb E[\varphi_1(\xi_2)\varphi_2(\xi_2)], \tag{19}
+      \]
+      \[
+      \mathbb E[\varphi_1(\xi_1)\varphi_2(\xi_2)]
+      \le \mathbb E[\varphi_1(\xi_1)\varphi_2(\xi_1)]
+      +\mathbb E[\varphi_1(\xi_2)\varphi_2(\xi_2)]. \tag{20}
+      \]
+      Moreover, (20) holds without independence of \(\xi_1\) and \(\xi_2\).
+
+      #### Reference R4
+      Target: property (3), attributed to (1) in [2]
+      Citation: “which satisfies the property \(0\le F_\beta(w)-\max_{1\le j\le p}(w_j-y_j)\le \beta^{-1}\log p\) for every \(w\in\mathbb R^p\) by (1) in [2].” In the proof: “the first inequality is by (3)” and “the fifth inequality is owing to (3).”
+      Bibliography: [2] CHERNOZHUKOV, V., CHETVERIKOV, D. and KATO, K. (2015). Comparison and anti-concentration bounds for maxima of Gaussian random vectors. Probability Theory and Related Fields 162 47–70.
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction: The obtained source is Chernozhukov–Chetverikov–Kato (2015) [2], Section 2.1, display (1), page 4. It states the smooth-max approximation formula cited here. The local label “property (3)” is the current paper’s numbering; the retrieved original formula is display (1). The source writes the argument as \(z\), while the current proof applies the same formula after substituting \(z=w-y\). No additional source theorem or proof is needed for this item.
+
+      ##### Definitions and notation
+      For \(z=(z_1,\dots,z_p)^T\in\mathbb R^p\), define the smooth max function
+      \[
+      F_\beta(z):=\beta^{-1}\log\left(\sum_{j=1}^p \exp(\beta z_j)\right),
+      \]
+      where \(\beta>0\) is the smoothing parameter. Here \(\max_{1\le j\le p} z_j\) denotes the coordinatewise maximum. The source uses the variable \(z\) in this definition and in the bound.
+
+      ##### Assumptions
+      Let \(p\) be the dimension of the ambient space \(\mathbb R^p\), with coordinates indexed by \(j=1,\dots,p\). Let \(\beta>0\). The source passage states no further restriction on \(p\) or \(\beta\).
+
+      ##### Statement
+      For every \(z\in\mathbb R^p\),
+      \[
+      0\le F_\beta(z)-\max_{1\le j\le p} z_j\le \beta^{-1}\log p. \tag{1}
+      \]
+      Equivalently,
+      \[
+      \max_{1\le j\le p} z_j\le F_\beta(z)\le \max_{1\le j\le p} z_j+\beta^{-1}\log p.
+      \]
+    lean_name: paper_ed515f3f70ec457d86e430f1b91735bf
+    lean_namespace: Statlib.Imported
+    layer: formalization
+    priority: 3
+    dependencies: []
+    notes: generated from a persisted ordinary goal; no attack-DAG dependency semantics
+source_document: main.pdf
