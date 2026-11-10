@@ -57,10 +57,164 @@
           ]
         }
       ]
+    },
+    {
+      "key": "papers/nonparametric-prior-learning/theorem-3-3",
+      "source": "src",
+      "modules": [
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.Base",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.Main",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_1011247203_7dc03555_72b83afd",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_114927384_d5c2bee4_75a6a0a7",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_1149977467_459d085b_98158d46",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_1159502109_f07fd652_e169c51a",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_1182065402_10a004d7_cff08bd3",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_1214593279_6b91f964_839e3043",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_1218121120_7255afae_cddb3a58",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_1220214867_7bace56e_4839d7d8",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_1240864340_853faf10_38c55dab",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_1415516798_19cc68d1_216fdd41",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_1420010127_b25b6ecd_7a5d1e55",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_1446388444_2df19b16_f145f1f3",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_1461527046_1f5c51aa_fa311c6d",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_1524419607_fd93d37d_e884b403",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_1558896730_aca48620_7ff5d00d",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_1624330496_7a91811d_410d9a96",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_1715789988_72947f49_3e99b995",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_1729749604_be8e8033_a1908b89",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_1768585877_01a1f85c_c590d0f5",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_18671509_e0d2ff36_418b4aba",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_189267838_542a0222_7a0c245e",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_1912460074_9ad458a1_fd8c2d8a",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_1921948430_865bfebf_b8fdcaca",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_1939896492_b20f2010_659f2bca",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_2035098161_9f60db94_bdde90c8",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_2045408823_ad3ced10_a3540a44",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_2103907506_2297e1dc_fe47e4b0",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_2115369929_fddcacc3_34c4d4cd",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_217884646_5adaea34_f1c80027",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_218839130_1c45a586_5d053e6a",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_2196947115_1f200b37_5f16393c",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_2221445841_9c042308_658b4ccc",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_2268300080_7eda57a7_47887b54",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_2291221282_5741a895_ef4586d7",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_2395645464_8193eae1_7e011045",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_2535765968_adf0fe99_17cf80be",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_2540716848_7ce5841c_f4134c6f",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_2590874748_f6a73995_8be56f7d",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_2633566936_711aab76_fba1da53",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_2663820550_efe405d1_5ed6be9e",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_266406687_5f4c375e_1ac7bf3b",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_2688295946_9f415b7c_0ae0088e",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_2795698314_c0cc56f5_c6e067b9",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_2847970413_3f215f33_c9236254",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_2851629989_595f419e_3052f1ce",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_2860392294_355ed9db_f7089ae5",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_2874563188_84f9c4a1_46398dad",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_287562685_40351574_94646401",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_2920011871_df380ed4_b3d7417b",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_2941214830_746485b7_90d29598",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_2987999044_12269b33_978f3216",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3002875505_b32dcfa2_d1affbee",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_303701622_51d4ad9b_2d3121e0",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3037409400_ac6c94eb_d1e4dbc8",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3039133055_9a199646_833aaefb",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3076668657_2d2dfc66_7e264470",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3082865640_d48798c3_6cb1bf8c",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3091194290_4509a8b7_27a85c1e",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3122936556_c663d910_a76bcfe2",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3147937759_08d5a7be_97776da1",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3186299420_34298c40_d72dbf33",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3191669108_71ceb7f7_23142090",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3199133157_4a242571_3372dd7b",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3264912868_3df235ee_bd6bb5d8",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_327730843_5f5f707b_e6718304",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3294149986_d09fdee2_cbff83f5",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3300259176_dcd675c6_198ffd58",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3335101267_d29aed84_787e2e17",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3476376768_6d4cc185_d1c985c7",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3480907983_5dd3c633_93bdea34",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3533682767_61f7e27b_99c420a2",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3551296407_58969dcf_1b749c74",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3561399116_4ab5c1fc_158d698f",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3664839893_07e7a1c0_85f524ed",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3685606887_454ff366_3117069c",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3741426978_6fbf5eac_10ae7a74",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3748965445_c602f3c6_80a972ef",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_376187579_6cbc376f_e2a384b6",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3779846650_359ff4f8_8b0f0688",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3790836939_db69a6aa_df46cf06",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3916768571_a9930ecf_948a7b8d",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3944456172_a26782c9_98a9bbc9",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_3975929643_b00873c3_38223545",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_4026486579_064ccf6a_a9e6ae7a",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_412237305_0915aba3_c91723d3",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_4147388267_4d56357b_aae526a8",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_4158364297_64e7b82f_818b20bf",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_4190851802_dd7b3e47_812a2222",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_4230448783_12afbf86_2cf22502",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_4234478114_9734e7cc_9452e5ed",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_4260936017_8c420380_a93f429d",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_454462448_6086eebe_8546ee4b",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_457006637_708d8d08_c9bb53bc",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_479546447_56c0a7ce_01331cfa",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_480728362_b0f6f73a_9160e5b6",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_488254885_6df2d178_79332d6b",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_54049410_53411e5b_5828847e",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_627162574_1890e6dd_1165f275",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_628101960_eb0c6fc8_752efdfd",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_659555420_43074f04_a6ad3ba0",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_732817276_8749eb7a_d83fbfdc",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_744484935_68a4c774_8f753d90",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_784943557_45aa83b0_5b793da1",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_803467792_48128371_2c34adad",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_842457010_92ed615e_9ed0bfe8",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_934913505_908353c8_30b2122d",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.ProvedNodes.Node_971375954_c360ad8c_83c54105",
+        "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.Vocabulary"
+      ],
+      "targets": [
+        {
+          "module": "ProverJobs.paper_fresh_20261108t120211266248z_prior_learning33.Main",
+          "declaration": "PaperProofTasks.paper_fresh_20261108t120211266248z_prior_learning33.Statlib.Imported.Theorem_3_3_Bayesian_Well_Posedness_of_Inverse_Problems_posterior_density_positive_finite_normalizer_and_Hellinger_conti",
+          "allowedAxioms": []
+        }
+      ]
     }
   ],
   "cache": {
     "modules": [
+      {
+        "module": "Statlib.StatFoundation.BasicAnalysis.CompactSelfAdjoint",
+        "imports": [
+          "Init",
+          "Mathlib.Analysis.Normed.Operator.Compact",
+          "Mathlib.Analysis.InnerProductSpace.Rayleigh",
+          "Mathlib.Analysis.InnerProductSpace.Spectrum",
+          "Mathlib.Analysis.InnerProductSpace.Positive",
+          "Mathlib.Analysis.InnerProductSpace.Orthogonal",
+          "Mathlib.Analysis.InnerProductSpace.Orthonormal",
+          "Mathlib.Analysis.InnerProductSpace.PiL2",
+          "Mathlib.Analysis.InnerProductSpace.Continuous",
+          "Mathlib.Analysis.InnerProductSpace.Projection.Basic",
+          "Mathlib.Analysis.InnerProductSpace.l2Space",
+          "Mathlib.Topology.Algebra.InfiniteSum.Basic",
+          "Mathlib.Data.Set.Countable",
+          "Mathlib.Data.Real.Sqrt",
+          "Mathlib.LinearAlgebra.Dimension.Finrank",
+          "Mathlib.LinearAlgebra.Eigenspace.Basic",
+          "Mathlib.Topology.Algebra.Module.LinearMap",
+          "Mathlib.Topology.MetricSpace.Pseudo.Lemmas"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/BasicAnalysis/CompactSelfAdjoint.olean",
+            "sha256": "72953acdd7536bedd1bc3675a9c20402970886960ef2a2caf1ba4cb88f758800",
+            "bytes": 2827256
+          }
+        ]
+      },
       {
         "module": "Statlib.StatFoundation.BasicAnalysis.ENNRealBridge",
         "imports": [
@@ -72,6 +226,446 @@
             "path": "lib/lean/Statlib/StatFoundation/BasicAnalysis/ENNRealBridge.olean",
             "sha256": "2bf229c669c32801e59cc74b64ed63634e80dd69601e1f3bfcb4be9dae49405b",
             "bytes": 145880
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Convergence.AnalysisTools.ConvergenceModes",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Convergence/AnalysisTools/ConvergenceModes.olean",
+            "sha256": "60007eedda68c6c0f6c8f1d5b8c1fbe1fe23be9b9db409dc903656b3136b3d30",
+            "bytes": 836976
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Convergence.AnalysisTools.CramerWold",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.Convergence.AnalysisTools.LevyContinuity",
+          "Statlib.StatFoundation.Convergence.AnalysisTools.StochasticOrder.ConvergenceBridges",
+          "Statlib.StatFoundation.Vocabulary.FiniteCoordinate"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Convergence/AnalysisTools/CramerWold.olean",
+            "sha256": "a961f82a75150f7f279d43e1cacd12c41a12f89fd368418f540b168b14f64953",
+            "bytes": 755768
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Convergence.AnalysisTools.LevyContinuity",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.Convergence.AnalysisTools.Tightness"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Convergence/AnalysisTools/LevyContinuity.olean",
+            "sha256": "9bc7d47bbff28acd615864264c7062a31b702214c993cb5f341352832c646b99",
+            "bytes": 458096
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Convergence.AnalysisTools.StochasticOrder.Basic",
+        "imports": [
+          "Init",
+          "Statlib.StatFoundation.Vocabulary"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Convergence/AnalysisTools/StochasticOrder/Basic.olean",
+            "sha256": "ae4b54c3be96905a7822d40620594c3ce7ca11d99c0e6e9c6ab67bc0c576cabc",
+            "bytes": 337672
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Convergence.AnalysisTools.StochasticOrder.ConvergenceBridges",
+        "imports": [
+          "Init",
+          "Statlib.StatFoundation.Convergence.AnalysisTools.ConvergenceModes",
+          "Statlib.StatFoundation.Convergence.AnalysisTools.StochasticOrder.Basic",
+          "Statlib.StatFoundation.Convergence.AnalysisTools.StochasticOrder.RateLittle",
+          "Statlib.StatFoundation.Convergence.AnalysisTools.StochasticOrder.RateRefinement"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Convergence/AnalysisTools/StochasticOrder/ConvergenceBridges.olean",
+            "sha256": "a3fca107859b2068e482e4dffb9b739247febd0f42c43fc1a21ea5b45d35e7df",
+            "bytes": 699400
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Convergence.AnalysisTools.StochasticOrder.RateBig",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.Vocabulary"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Convergence/AnalysisTools/StochasticOrder/RateBig.olean",
+            "sha256": "20ecdcec929cc0fe4c2c5389d865bcd9fa9edb88148fff196381a1968133fb41",
+            "bytes": 149352
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Convergence.AnalysisTools.StochasticOrder.RateBounds",
+        "imports": [
+          "Init",
+          "Statlib.StatFoundation.Convergence.AnalysisTools.StochasticOrder.RateBig"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Convergence/AnalysisTools/StochasticOrder/RateBounds.olean",
+            "sha256": "f23dcd19707df600eab21bb5abe2a5727f70c736036d35697e4e59ade626f8b2",
+            "bytes": 184720
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Convergence.AnalysisTools.StochasticOrder.RateLittle",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.Vocabulary"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Convergence/AnalysisTools/StochasticOrder/RateLittle.olean",
+            "sha256": "7792e8075d224113525529d0eb1180e07b029536ecde0343426f5414366b2e8a",
+            "bytes": 166864
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Convergence.AnalysisTools.StochasticOrder.RateRefinement",
+        "imports": [
+          "Init",
+          "Statlib.StatFoundation.Convergence.AnalysisTools.StochasticOrder.RateBounds"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Convergence/AnalysisTools/StochasticOrder/RateRefinement.olean",
+            "sha256": "95d088d7cfc62b36f2cb89224aceadb21249ee7f49da907ef5590bdd05e49ca1",
+            "bytes": 246264
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Convergence.AnalysisTools.Tightness",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.Convergence.AnalysisTools.ConvergenceModes",
+          "Statlib.StatFoundation.Convergence.AnalysisTools.StochasticOrder.ConvergenceBridges",
+          "Statlib.StatFoundation.Vocabulary.StochasticOrder"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Convergence/AnalysisTools/Tightness.olean",
+            "sha256": "eb8b2db393a5c1e64baf2865efda9962a495427e5077d6dd16aa7450e4be5e7c",
+            "bytes": 463456
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Statistics.Asymptotic.Contiguity",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.Statistics.Asymptotic.Vocabulary"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Statistics/Asymptotic/Contiguity.olean",
+            "sha256": "5c9ae815e58b08db63e556c46e63a78b66fa057476da4cd174731bd819891140",
+            "bytes": 253768
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Statistics.Asymptotic.LAN",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.Statistics.Asymptotic.Vocabulary",
+          "Statlib.StatFoundation.Statistics.Asymptotic.Contiguity",
+          "Statlib.StatFoundation.Statistics.Estimation.Vocabulary"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Statistics/Asymptotic/LAN.olean",
+            "sha256": "02e2a4cc31174898a7c683319be1c18ef64cd4acd4e67b66d1eeaea42add2f0d",
+            "bytes": 1485400
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Statistics.Asymptotic.Vocabulary",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Statistics/Asymptotic/Vocabulary.olean",
+            "sha256": "869c689b5f4f3598fedcaa265f36827a1249a97cea0425d84ca493d3ee926b9b",
+            "bytes": 84832
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Statistics.Estimation.Vocabulary",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.Vocabulary.ParametricFamily"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Statistics/Estimation/Vocabulary.olean",
+            "sha256": "3a643a60f95e235a0b7d98999a40be2faa87562eea8d7e25178a6df947e89f94",
+            "bytes": 114456
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary",
+        "imports": [
+          "Init",
+          "Statlib.StatFoundation.Vocabulary.RandomVariable",
+          "Statlib.StatFoundation.Vocabulary.Independence",
+          "Statlib.StatFoundation.Vocabulary.ParametricFamily",
+          "Statlib.StatFoundation.Vocabulary.OrliczNorm",
+          "Statlib.StatFoundation.Vocabulary.EmpiricalProcess",
+          "Statlib.StatFoundation.Vocabulary.CoveringNumbers",
+          "Statlib.StatFoundation.Vocabulary.VCDimension",
+          "Statlib.StatFoundation.Vocabulary.StochasticOrder",
+          "Statlib.StatFoundation.Vocabulary.UniformIntegrability",
+          "Statlib.StatFoundation.Vocabulary.FiniteCoordinate",
+          "Statlib.StatFoundation.Vocabulary.Conformal",
+          "Statlib.StatFoundation.Vocabulary.GaussianCriticalValue",
+          "Statlib.StatFoundation.Vocabulary.MaxType",
+          "Statlib.StatFoundation.Vocabulary.Resampling"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary.olean",
+            "sha256": "0d75c2c1c664dda054e755c72b74b611f2af82d4d8c94829320ee63a263b8b6f",
+            "bytes": 44664
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.Conformal",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.Vocabulary.Independence"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/Conformal.olean",
+            "sha256": "28cc6440166ecd1c88908055f0ef53e67247b448c20f16a3cac2b941e14d57c0",
+            "bytes": 77104
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.CoveringNumbers",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.Vocabulary.EmpiricalProcess"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/CoveringNumbers.olean",
+            "sha256": "db620ec2aef8f590a21e65267299b0d97f63fc62be9bb18cc6df9d95472d2485",
+            "bytes": 245792
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.EmpiricalProcess",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/EmpiricalProcess.olean",
+            "sha256": "2c1847034cf0dd490f678cb7ca51fb8998e766c0c203333e23942c14e9336dbd",
+            "bytes": 108128
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.FiniteCoordinate",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.Vocabulary.StochasticOrder"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/FiniteCoordinate.olean",
+            "sha256": "949f65ab8d9922f3e9c505f54f34e997b5f27003a40163988f7dc72e4306814d",
+            "bytes": 90336
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.GaussianCriticalValue",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/GaussianCriticalValue.olean",
+            "sha256": "73fa1af6617c3c9c3dd50928447b0d942f8f81102e5416fc33af4cd7200a7531",
+            "bytes": 50576
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.Independence",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/Independence.olean",
+            "sha256": "1a77d0dd36c329f15895d1b66c52cc7d743d5c477e0939251b77f22493d6253c",
+            "bytes": 55216
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.MaxType",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/MaxType.olean",
+            "sha256": "99beb3f8b7bdd6492e6fc7f02888b524938e6031199d82a59963ba8265fb4756",
+            "bytes": 66920
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.OrliczNorm",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/OrliczNorm.olean",
+            "sha256": "e5c119153481c4786902366aea7c5bbab50f87ce2b3f644b0ca02651f4dcee62",
+            "bytes": 65328
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.ParametricFamily",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/ParametricFamily.olean",
+            "sha256": "370fcb132fa142cc0a193d8f83768d8ca7f42c9bbe863ee2c42b31754b302bc6",
+            "bytes": 88200
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.RandomVariable",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/RandomVariable.olean",
+            "sha256": "2ab20c5afa14d5b6c2d7b2305789c9ef26fbcda7166f77fbd55aaf4d424c943a",
+            "bytes": 124368
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.Resampling",
+        "imports": [
+          "Init",
+          "Mathlib",
+          "Statlib.StatFoundation.Vocabulary.MaxType"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/Resampling.olean",
+            "sha256": "aef93a1291262e6084aeff2cf2d8b3b8bc00cf5bb97a9e9200b9d8a32a51670b",
+            "bytes": 99960
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.StochasticOrder",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/StochasticOrder.olean",
+            "sha256": "649da2c9101df8151746a78910fcb4b9f2e2d5624dd49effed56080170b32c13",
+            "bytes": 120816
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.UniformIntegrability",
+        "imports": [
+          "Init",
+          "Mathlib.MeasureTheory.Function.UniformIntegrable"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/UniformIntegrability.olean",
+            "sha256": "cfb6b0958f503d1e2d2cff4ec326b5c5fc5b9da8adee9791183fa02b64b64f35",
+            "bytes": 79504
+          }
+        ]
+      },
+      {
+        "module": "Statlib.StatFoundation.Vocabulary.VCDimension",
+        "imports": [
+          "Init",
+          "Mathlib"
+        ],
+        "files": [
+          {
+            "path": "lib/lean/Statlib/StatFoundation/Vocabulary/VCDimension.olean",
+            "sha256": "30959e4a6f6a32d83ea76ec6cfe74153755351eb53b535f29eea12c1388fdd50",
+            "bytes": 420920
           }
         ]
       }

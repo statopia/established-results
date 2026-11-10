@@ -1,0 +1,772 @@
+version: v1
+theorem_set: document-goal
+source_tag: document-processing
+theorems:
+  - id: entry:selected:63c9041b-e306-402a-ab41-5334a989ba09
+    title: Theorem 3.3 (Bayesian Well-Posedness of Inverse Problems; posterior density, positive finite normalizer and Hellinger continuity)
+    kind: theorem
+    latex_statement: |-
+      Consider a forward operator \(\mathcal{G}:\mathcal{U}\to\tilde{\mathcal{H}}\), where \(\mathcal{U}\) and \(\tilde{\mathcal{H}}\) are separable Banach spaces. Data follows the model:
+      \[
+      y_j=\mathcal{L}_{x_j}(\mathcal{G}(u))+\eta_j,\quad \forall j=1,\dots,m,
+      \tag{1}
+      \]
+      with \(u\) as the model parameter, \(x_j\in\mathcal{X}\) denoting measurement points or input functions, \(y_j\in\mathcal{Y}\) as observed data, and \(\eta_j\) representing independent identically distributed (i.i.d.) noise. Introduce another separable Banach space \(\mathcal{H}\subset\mathcal{Y}\), where \(\mathcal{X}\) and \(\mathcal{Y}\) are separable Banach spaces and \(\mathcal{L}_{x_j}:\mathcal{H}\to\mathcal{H}\) is a bounded linear operator dependent on \(x_j\). Define \(\boldsymbol{y}=(y_1,\cdots,y_m)^T\), \(\boldsymbol{\eta}=(\eta_1,\cdots,\eta_m)^T\), \(\boldsymbol{x}=(x_1,\cdots,x_m)^T\), so the model (1) compacts to \(\boldsymbol{y}=\mathcal{L}_{\boldsymbol{x}}\mathcal{G}(u)+\boldsymbol{\eta}\), where \(\mathcal{L}_{\boldsymbol{x}}\mathcal{G}(u):=(\mathcal{L}_{x_1}(\mathcal{G}(u)),\dots,\mathcal{L}_{x_m}(\mathcal{G}(u)))^T\). For inverse problems, assume a true parameter \(u^\dagger\), leading to the forward model \(\boldsymbol{y}=\mathcal{L}_{\boldsymbol{x}}\mathcal{G}(u^\dagger)+\boldsymbol{\eta}\).
+
+      Define \(\mathcal{Z}:=\mathcal{X}\times\mathcal{Y}\), so the random element \(z:=(x,y)\) satisfies \(z\sim\mathbb{D}\in\mathcal{P}(\mathcal{Z})\). The dataset \(S=\{z_j=(x_j,y_j)\}_{j=1}^m\) consists of i.i.d. samples from \(\mathbb{D}\) (denoted \(S\sim\mathbb{D}^m\)).
+
+      To show that Assumption 2.6 holds under certain conditions, consider a Gaussian prior \(\mathbb{P}:=\mathcal{N}(0,\mathcal{C}_0)\), where \(\mathcal{C}_0\) is a positive-definite, symmetric trace-class operator. Let \(\mathcal{U}\) be a separable Hilbert space with orthogonal basis \(\{e_k\}_{k=1}^\infty\). Assume the prior covariance operator has spectral decomposition \(\mathcal{C}_0=\sum_{k=1}^\infty \lambda_k e_k\otimes e_k\) with \(\lambda_1\ge\lambda_2\ge\cdots>0\). Define \(\mathcal{U}^2\) as the Hilbert scale induced by \(\mathcal{C}_0\) (see Engl et al. (1996) or Subsection 3.1).
+
+      We assume that Assumption 2.7 holds true and introduce the mapping \(f(S;\theta):=(f_m(S;\theta_1),\theta_2)\in\mathcal{V}:=\mathcal{U}^2\times\mathbb{R}^{N_c}\). The data-dependent learned prior measure is specified as \(\mathbb{P}^\theta_S:=\mathcal{N}(f_m(S;\theta_1),\mathcal{C}_0(\theta_2))\), where the covariance operator
+      \[
+      \mathcal{C}_0(\theta_2)=\sum_{k=1}^{N_c}e^{\theta_{2k}}e_k\otimes e_k+\sum_{k=N_c+1}^{\infty}\lambda_k e_k\otimes e_k
+      \tag{4}
+      \]
+      with \(N_c\in\mathbb{N}^+\) is a predefined constant. For the mean function \(f_m(S;\theta_1)\), we constrain all admissible \(f_m(S;\theta_1)\) to the ball \(B_{\mathcal{U}^2}(R_u)\subset\mathcal{U}^2\) defined by \(B_{\mathcal{U}^2}(R_u):=\{f\in\mathcal{U}^2\mid \|\mathcal{C}_0^{-1}f\|_{\mathcal{U}}\le R_u\}\), where \(R_u>0\) being a sufficiently large prespecified constant.
+
+      For the potential used below,
+      \[
+      \Phi(u;x_j,y_j):=\frac12\|\Gamma^{-\frac12}\mathcal{L}_{x_j}\mathcal{G}(u)\|_{\mathcal{H}}^2-\langle\Gamma^{-\frac12}y_j,\Gamma^{-\frac12}\mathcal{L}_{x_j}\mathcal{G}(u)\rangle_{\mathcal{H}},
+      \]
+      where \(\beta>0\) is a constant, and \(Z_m\in(0,\infty)\) is the normalizing constant.
+
+      Consider \(\mathcal{H}\), a finite or infinite-dimensional space. For the infinite-dimensional case, we introduce the Hilbert scale (Engl et al. 1996), central to our analysis. Since \(\mathcal{C}_1\) (Assumption 3.1) is injective and self-adjoint, \(\mathcal{H}=\overline{\mathcal{R}(\mathcal{C}_1)}\oplus\mathcal{R}(\mathcal{C}_1)^\perp=\overline{\mathcal{R}(\mathcal{C}_1)}\), making \(\mathcal{C}_1^{-1}:\mathcal{R}(\mathcal{C}_1)\to\mathcal{H}\) a densely defined, unbounded, symmetric, positive-definite linear operator. It extends to a self-adjoint operator with domain \(\mathcal{D}(\mathcal{C}_1^{-1}):=\{u\in\mathcal{H}\mid \mathcal{C}_1^{-1}u\in\mathcal{H}\}\). Thus, we define the Hilbert scale \((\mathcal{H}^t)_{t\in\mathbb{R}}\), where \(\mathcal{H}^t:=\mathcal{M}_1^{\|\cdot\|_{\mathcal{H}^t}}\), \(\mathcal{M}_1:=\bigcap_{\ell=0}^\infty\mathcal{D}(\mathcal{C}_1^{-\ell})\), with inner product and norm \(\langle u,v\rangle_{\mathcal{H}^t}=\langle\mathcal{C}_1^{-t/2}u,\mathcal{C}_1^{-t/2}v\rangle_{\mathcal{H}}\), \(\|u\|_{\mathcal{H}^t}=\|\mathcal{C}_1^{-t/2}u\|_{\mathcal{H}}\). Assumption 3.1 states \(\mathcal{C}_1\Gamma=\Gamma\mathcal{C}_1\) (infinite-dimensional case), a harmless assumption since \(\mathcal{C}_1\) only defines the function space. Analogously, define the Hilbert scale \((\mathcal{U}^t)_{t\in\mathbb{R}}\) for \(\mathcal{U}\) and prior covariance \(\mathcal{C}_0\): \(\mathcal{U}^t:=\mathcal{M}_2^{\|\cdot\|_{\mathcal{U}^t}}\), \(\mathcal{M}_2:=\bigcap_{\ell=0}^\infty\mathcal{D}(\mathcal{C}_0^{-\ell})\), with \(\langle u,v\rangle_{\mathcal{U}^t}=\langle\mathcal{C}_0^{-t/2}u,\mathcal{C}_0^{-t/2}v\rangle_{\mathcal{U}}\), \(\|u\|_{\mathcal{U}^t}=\|\mathcal{C}_0^{-t/2}u\|_{\mathcal{U}}\). The Hilbert scale motivates the following assumptions.
+
+      <!-- formalization-clarifications:v1:7bb3a7564ded978a3050810580819fa072609d93577b57ee3d4f52b1b01d09db -->
+      Formalization clarifications from source and proof:
+      1. Constants and quantifier order. The theorem statement does not display a single fully explicit quantifier string. The literal reading is: first fix the spaces, operators, eigensystems, θ_min < θ_max, N_c, and the other objects satisfying Assumptions 2.7 and 3.1; then fix the Assumption 3.2 parameters s∈(s1,1], \tilde s∈(s0,1], α≥0 and the associated C1,C2,M1,M2; then, for fixed θ∈Θ and dataset S, impose the δ0 exponential-moment condition and the f_m bounds/continuity; finally conclude for that fixed θ and S. This order is inferred from the wording, not printed as a formal string. The source leaves several dependencies unspecified. Assumption 2.7 explicitly says N_c∈N^+ is predefined and θ_min,θ_max are fixed real numbers; it does not claim anything is uniform in N_c. Assumption 3.1 gives s0,s1 existentially for C0 and C1, respectively; they may depend on those operators and are not asserted universal. Assumption 3.2 says “Suppose constants s..., \tilde s..., and α≥0 such that” and then introduces C1,C2,M1,M2; the source does not explicitly say on which fixed data/operator/scale parameters these constants and functions depend, but it does not assert they are absolute or uniform across θ,S,m,N_c, or dimensions. M1 and M2 are functions, with M1 non-decreasing and M2 separately non-decreasing; the inequalities are “for any x∈X and u,…”, so M1,M2 are not allowed to depend on u or x within those inequalities. The M1 in Theorem 3.3 is the same Assumption 3.2 function. The theorem’s δ0 condition is stated as existence of δ0>0 with E_{u∼P^θ_S} exp(δ M1(||u||_{U^{1-\tilde s}})^2)<∞ for all δ∈[0,δ0); because P^θ_S depends on θ and S, the source does not state uniformity of δ0 in θ,S,m or across priors. The theorem’s M(r) is a non-decreasing function in the f_m bound; it appears after “For any fixed θ∈Θ”, so the source does not make M independent of θ, and it also does not spell out dependence on S or m. The source’s R_u in Subsection 2.3 is “a sufficiently large prespecified constant” for the ball B_{U^2}(R_u); it is not repeated in the Theorem 3.3 hypothesis list, and the source does not specify exactly how it is chosen or whether it may depend on S or θ. β is only described in the theorem as a positive constant; the proof and later algorithmic sections use particular choices, but those later choices should not be imported as Theorem 3.3 dependencies. Z_m is not an arbitrary constant: it is the positive finite normalizing constant of (6), depending on S, θ, m, β, P^θ_S, and the potential; Z_m′ is the analogous constant for S′ in the proof. No O/o, probability O_P/o_P, or uniform-in-m asymptotic is stated.
+
+      2. Norms and mathematical objects. All norms in the theorem are the Hilbert-space norms defined by the source: ||·||_H on H, and the Hilbert-scale norms H^t and U^t defined through ||u||_{H^t}=||C1^{-t/2}u||_H and ||u||_{U^t}=||C0^{-t/2}u||_U, with the displayed inner products. In the finite-dimensional case H=R^{N_d}, Theorem 3.3 explicitly says to replace ||·||_{H^{α-s}} by ||·||_H, the standard Euclidean norm on R^{N_d}; Assumption 3.2 says C1 is omitted. The proof also uses the operator norm \tilde C:=||C1^{\tilde s/2}||_{B(H)}, which is explicitly an operator norm; this is not a general replacement for the Hilbert-scale norms. The prior is P^θ_S=N(f_m(S;θ1),C0(θ2)), with covariance exactly as in (4), using e^{θ_{2k}} on the first N_c coordinates and λ_k thereafter; P0=N(0,C0) occurs only in the proof. The mean f_m is restricted in Subsection 2.3 to B_{U^2}(R_u)={f: ||C0^{-1}f||_U≤R_u}; this is the source-defined U^2 ball, not a generic bounded set or a different Cameron-Martin-type ball. The potential is the displayed source object Φ(u;x_j,y_j)=1/2||Γ^{-1/2}L_{x_j}G(u)||_H^2−⟨Γ^{-1/2}y_j,Γ^{-1/2}L_{x_j}G(u)⟩_H; the finite-dimensional Remark 3.4 gives a nonnegative squared-residual alternative, but that should not silently replace the infinite-dimensional formula in the theorem. The source does not fully specify domains for Γ^{-1/2}, C1^{-t/2}, C0^{-t/2}, or the composite L_{x}G; Assumption 3.2’s inequalities are what make the displayed expressions finite. There is also a source-level type ambiguity: the early notation says G:U→\tilde H and L_{x_j}:H→H, but the formulas apply L_{x_j} to G(u) and use the result in H; the exact intended composite L_{x_j}G with codomain H is not reconciled in the selected block. The Hellinger metric is named but not defined in the theorem statement; the proof’s use of squared integrals of half-densities is proof-based evidence of its intended meaning, not a new source definition. The reference R3, Dashti and Stuart (2017), uses general Banach-space norms ||·||_X, ||·||_Y and Hellinger distance on its own spaces; those are not automatically the same as the target’s U^{1-\tilde s} and H^{α-s} norms except through the citing paper’s local substitutions.
+
+      3. Asymptotics. Theorem 3.3 itself states no asymptotic in m or n; m is the fixed number of observations in the displayed sum, and the only limits are the claimed continuity statements as x_j→x_j′ in X and y_j→y_j′ in H^{α-s}, with the finite-dimensional replacement by the Euclidean H norm, for j=1,…,m. The Hellinger conclusion is d_Hell(Q(S,P^θ_S),Q(S′,P^θ_{S′}))→0 under these convergences. The statement does not specify uniformity in θ, m, S, or the radius of the y-neighborhood; the proof uses local boundedness and r-dependent quantities, so any stronger uniform reading must remain unresolved. The proof’s convergence I11→0, I12→0 and I1→0 is proof-based and invokes Reference R5, Lebesgue’s dominated convergence theorem; R5 in the supplied material has no bibliography or exact source statement and supports only the integral-limit step, with measurability, almost-everywhere convergence, and domination not fully verified in the excerpt. The proof’s use of N(r,||u||) and choice of small δ1,δ2 is intermediate proof machinery, not a theorem hypothesis. Reference R3, Dashti and Stuart (2017), gives general well-posedness and Hellinger-stability results: Theorem 4.3 requires μ0(X′)=1, positive μ0-mass of some bounded set, and exp(M1(r,||u||_X))∈L^1 for every fixed r; Theorem 4.5 additionally requires exp(M1)(1+M2^2) integrability and yields a local Hellinger bound C(r)||y−y′||_Y for y,y′ in a fixed ball, with C(r) allowed to depend on r. The supplied reference notes that the citing proof’s displayed continuity and lower-bound checks alone do not literally display the Theorem 4.5 data-Lipschitz M2 condition or the stronger integrability as verified; the exact local identification with the cited universal Banach-space theorems is therefore not fully established in the source material.
+
+      4. Potentially omitted definitions and external-result qualifications. The dataset is S={z_j=(x_j,y_j)} with S∼D^m, z∼D∈P(Z), Z=X×Y, and the noise is i.i.d. D3=N(0,Γ); Theorem 3.3 fixes S and θ for the posterior formula, while the Hellinger part compares S with S′. Assumption 2.7 only gives θ2∈[θ_min,θ_max]^{N_c} almost surely under the hyper-prior; the theorem says “For any fixed θ∈Θ”, and the source does not explicitly restrict an arbitrary fixed θ to the support of P2, although the proof uses θ_min and λ_{N_c} in bounds. The proof’s statement u∈U^{1-\tilde s} P^θ_S-a.s. is proof-based: it cites Reference R2, Agapiou, Larsson and Stuart (2013), Lemma 3.3, but that lemma as supplied is stated for u∼μ0=N(0,C0), not for the learned prior, and gives u∈X^{1-s} a.s. for s>s0. Extending it to P^θ_S requires the proof’s equivalence P^θ_S∼P0, which uses the Cameron-Martin condition; this application is not part of the original Lemma 3.3. Reference R1, Prato and Zabczyk (2014), Theorem 2.23, is cited for dP^θ_S/dP0=exp(−\tildeΦ). The supplied reference evidence verifies the equal-covariance Feldman–Hájek/Radon–Nikodym framework, but the unequal-covariance density displayed in the current proof is not confirmed by the retrieved original theorem text; its exact hypotheses and numbering remain unverified, so it should not be treated as discharged source evidence. Reference R4, Prato (2006), Proposition 1.13, is used for exponential-square integrability of a Gaussian measure; the supplied material labels the exact statement as source-unconfirmed and standard Fernique-type content. It does not by itself imply the theorem’s small-δ moment under P^θ_S; that moment is an explicit additional assumption in Theorem 3.3, and the proof’s (73) is an application-side inference. The assertion that Z_m∈(0,∞) is tied in the proof to Reference R3, Dashti and Stuart (2017), Theorem 4.3-type conditions, but the target’s assumptions are not literally the same and the source does not display a complete verification of all R3 hypotheses; finite-dimensional Remark 3.4 explicitly says the δ0 condition is not required there. Intermediate proof objects such as N(r,||u||), δ1,δ2, and the constructed lower bound must not be promoted to source hypotheses or conclusions.
+      <!-- /formalization-clarifications -->
+
+      Suppose that Assumptions 2.7, 3.1, and 3.2 are satisfied. For the function \(M_1(\cdot)\) in Assumption 3.2, assume there exists a constant \(\delta_0>0\) such that for all \(\delta\in[0,\delta_0)\), the quantity \(\mathbb{E}_{u\sim\mathbb{P}^\theta_S}\exp\left(\delta M_1(\|u\|_{\mathcal{U}^{1-\tilde s}})^2\right)\) is finite. Let \(\mathcal{H}\) be a separable Hilbert space. For any fixed \(\theta\in\Theta\), suppose that \(\|f_m(S;\theta_1)\|_{\mathcal{U}^{1+\tilde s}}\le M(r)\) whenever \(\|y_j\|_{\mathcal{H}^{\alpha-s}}\le r\) for all \(j=1,\dots,m\), where \(M(\cdot)\) is a non-decreasing function. Additionally, assume that \(\|f_m(S;\theta_1)-f(S';\theta_1)\|_{\mathcal{U}^{1+\tilde s}}\to0\), as \(x_j\to x_j'\) in \(\mathcal{X}\) and \(y_j\to y_j'\) in \(\mathcal{H}^{\alpha-s}\), for \(j=1,\dots,m\), where \(S'=\{(x_j',y_j')\}_{j=1}^m\). Under these conditions, the generalized posterior measure \(\mathbb{Q}(S,\mathbb{P}^\theta_S)\) is absolutely continuous with respect to \(\mathbb{P}^\theta_S\), and
+      \[
+      \frac{d\mathbb{Q}(S,\mathbb{P}^\theta_S)}{d\mathbb{P}^\theta_S}(u)=\frac{1}{Z_m}\exp\left(-\frac{\beta}{m}\sum_{j=1}^m\Phi(u;x_j,y_j)\right),
+      \tag{6}
+      \]
+      where \(\beta>0\) is a constant, \(\Phi(u;x_j,y_j):=\frac12\|\Gamma^{-\frac12}\mathcal{L}_{x_j}\mathcal{G}(u)\|_{\mathcal{H}}^2-\langle\Gamma^{-\frac12}y_j,\Gamma^{-\frac12}\mathcal{L}_{x_j}\mathcal{G}(u)\rangle_{\mathcal{H}}\), and \(Z_m\in(0,\infty)\) is the normalizing constant. Moreover, the mapping \(S\mapsto\mathbb{Q}(S,\mathbb{P}^\theta_S)\) is continuous with respect to the Hellinger metric: \(d_{\mathrm{Hell}}(\mathbb{Q}(S,\mathbb{P}^\theta_S),\mathbb{Q}(S',\mathbb{P}^\theta_{S'}))\to0\), as \(x_j\to x_j'\) in \(\mathcal{X}\) and \(y_j\to y_j'\) in \(\mathcal{H}^{\alpha-s}\). If \(\mathcal{H}=\mathbb{R}^{N_d}\) is finite-dimensional, then all of the above results remain valid upon replacing \(\|\cdot\|_{\mathcal{H}^{\alpha-s}}\) with \(\|\cdot\|_{\mathcal{H}}\), which corresponds to the standard Euclidean norm on \(\mathbb{R}^{N_d}\).
+    assumptions:
+      - |-
+        Assumption 2.7. Consider the parameter space \(\Theta=\Theta_1\times\Theta_2\), with \(\Theta_1\) a separable Hilbert space and \(\Theta_2=\mathbb{R}^{N_c}\). Assume the hyper-prior measure \(\mathscr{P}=\mathscr{P}_1\otimes\mathscr{P}_2\), where \(\mathscr{P}_1\) is a probability measure on \(\Theta_1\), and \(\mathscr{P}_2\) is a probability measure on \(\mathbb{R}^{N_c}\) with compact support \([\theta_{\min},\theta_{\max}]^{N_c}\). Here, the parameters \(\theta_{\min},\theta_{\max}\in\mathbb{R}\) \((\theta_{\min}<\theta_{\max})\) are fixed real numbers. In particular, \(\theta_2\in[\theta_{\min},\theta_{\max}]^{N_c}\) almost surely.
+
+        Assumption 3.1. Let us give some basic assumptions used in the rest of this section:
+
+        1. Assume \(\mathcal{U}\) is an infinite-dimensional separable Hilbert space. The prior measure \(\mathbb{P}^\theta_S:=\mathcal{N}(f_m(S;\theta_1),\mathcal{C}_0(\theta_2))\) defined on \(\mathcal{U}\) as in Subsection 2.3, with the mean function \(f_m(S;\theta_1)\) lying in the Cameron-Martin space of \(\mathcal{C}_0\) (see Subsection 2.3) for all \(S\in\mathcal{Z}^m\) and \(\theta\in\Theta\). Without loss of generality, let \(\{\lambda_k,e_k\}_{k=1}^\infty\) be the eigensystem of \(\mathcal{C}_0\), where \(\{\lambda_k\}_{k=1}^\infty\) are non-increasing and \(\{e_k\}_{k=1}^\infty\) are normalized eigenfunctions. Assume there exists \(s_0\in[0,1)\) such that \(\mathcal{C}_0^s\) is trace class for all \(s>s_0\).
+
+        2. Assume that the space \(\mathcal{H}\) introduced in Subsection 2.1 is either \(\mathbb{R}^{N_d}\), where \(N_d\) is a positive integer, or \(\mathcal{H}\) is an infinite-dimensional separable Hilbert space.
+
+        3. Assume that the noise \(\eta\) is distributed according to a Gaussian distribution \(\mathbb{D}_3\) defined as \(\mathbb{D}_3:=\mathcal{N}(0,\Gamma)\), where \(\Gamma:\mathcal{H}\to\mathcal{H}\) is a self-adjoint, positive-definite linear operator, but not necessarily trace class. Similar settings can be found in (Agapiou et al. 2013).
+
+        4. If \(\mathcal{H}\) is an infinite-dimensional Hilbert space, let us introduce \(\mathcal{C}_1:\mathcal{H}\to\mathcal{H}\), which is a self-adjoint, positive-definite, trace class, linear operator. Suppose \(\mathcal{C}_1\Gamma=\Gamma\mathcal{C}_1\) and there exists \(s_1\in[0,1)\) such that \(\mathcal{C}_1^s\) is trace class for all \(s>s_1\).
+
+        Assumption 3.2. Suppose constants \(s\in(s_1,1]\), \(\tilde s\in(s_0,1]\), and \(\alpha\ge0\) such that
+
+        1. If the space \(\mathcal{H}\) is a separable Hilbert space, for all \(w\in\mathcal{H}^{\alpha-s}\), \(s\in(s_1,1]\) and \(\rho\in[[\alpha-s_1-1],\alpha-s_1)\), we assume
+        \[
+        \|\mathcal{C}_1^{\frac{\tilde s}{2}}\Gamma^{-\frac12}w\|_{\mathcal{H}}\le C_1\|\mathcal{C}_1^{\frac{s-\alpha}{2}}w\|_{\mathcal{H}}
+        \quad\text{and}\quad
+        \|\mathcal{C}_1^{-\frac{\tilde s}{2}}\Gamma^{\frac12}w\|_{\mathcal{H}}\le C_2\|\mathcal{C}_1^{\frac{\alpha-\rho}{2}}w\|_{\mathcal{H}}.
+        \]
+
+        2. If the space \(\mathcal{H}\) is a separable Hilbert space, for any \(x\in\mathcal{X}\) and \(u,u_1,u_2\in\mathcal{U}^{1-\tilde s}\), we have
+        \[
+        \|\mathcal{C}_1^{-\frac{\tilde s}{2}}\Gamma^{-\frac12}\mathcal{L}_x\mathcal{G}(u)\|_{\mathcal{H}}\le M_1(\|u\|_{\mathcal{U}^{1-\tilde s}}),
+        \]
+        \[
+        \|\mathcal{C}_1^{-\frac{\tilde s}{2}}\Gamma^{-\frac12}(\mathcal{L}_x\mathcal{G}(u_1)-\mathcal{L}_x\mathcal{G}(u_2))\|_{\mathcal{H}}\le M_2(\|u_1\|_{\mathcal{U}^{1-\tilde s}},\|u_2\|_{\mathcal{U}^{1-\tilde s}})\|u_1-u_2\|_{\mathcal{U}^{1-\tilde s}},
+        \]
+        \[
+        \|\mathcal{C}_1^{-\frac{\tilde s}{2}}\Gamma^{-\frac12}(\mathcal{L}_x\mathcal{G}(u)-\mathcal{L}_{x'}\mathcal{G}(u))\|_{\mathcal{H}}\to0,\quad\text{as }x\to x'\text{ in }\mathcal{X},
+        \]
+        where \(M_1(\cdot)\) is a monotonic non-decreasing function and \(M_2(\cdot,\cdot)\) is a function monotonic non-decreasing separately in each argument. If \(\mathcal{H}\) is a finite-dimensional space, say \(\mathcal{H}=\mathbb{R}^{N_d}\), we can omit the operator \(\mathcal{C}_1\) from the aforementioned requirements.
+    proof_body: |-
+      ### Definitions and notation used in Proof
+      For the potential used in the proof, as supplied in the main target,
+      \[
+      \Phi(u;x_j,y_j):=\frac12\|\Gamma^{-\frac12}\mathcal{L}_{x_j}\mathcal{G}(u)\|_{\mathcal{H}}^2-\langle\Gamma^{-\frac12}y_j,\Gamma^{-\frac12}\mathcal{L}_{x_j}\mathcal{G}(u)\rangle_{\mathcal{H}},
+      \]
+      where \(\beta>0\) is a constant, and \(Z_m\in(0,\infty)\) is the normalizing constant.
+
+      Under Assumption 2.7, \(\Theta=\Theta_1\times\Theta_2\), with \(\Theta_1\) a separable Hilbert space and \(\Theta_2=\mathbb{R}^{N_c}\). The hyper-prior measure is \(\mathscr{P}=\mathscr{P}_1\otimes\mathscr{P}_2\), where \(\mathscr{P}_1\) is a probability measure on \(\Theta_1\), and \(\mathscr{P}_2\) is a probability measure on \(\mathbb{R}^{N_c}\) with compact support \([\theta_{\min},\theta_{\max}]^{N_c}\), where \(\theta_{\min},\theta_{\max}\in\mathbb{R}\) \((\theta_{\min}<\theta_{\max})\) are fixed real numbers. In particular, \(\theta_2\in[\theta_{\min},\theta_{\max}]^{N_c}\) almost surely.
+
+      The data-dependent learned prior measure is
+      \[
+      \mathbb{P}^\theta_S:=\mathcal{N}(f_m(S;\theta_1),\mathcal{C}_0(\theta_2)),
+      \]
+      where the covariance operator
+      \[
+      \mathcal{C}_0(\theta_2)=\sum_{k=1}^{N_c}e^{\theta_{2k}}e_k\otimes e_k+\sum_{k=N_c+1}^{\infty}\lambda_k e_k\otimes e_k
+      \tag{4}
+      \]
+      with \(N_c\in\mathbb{N}^+\) a predefined constant.
+
+      Under Assumption 3.1, \(\mathcal{U}\) is an infinite-dimensional separable Hilbert space. The prior measure \(\mathbb{P}^\theta_S:=\mathcal{N}(f_m(S;\theta_1),\mathcal{C}_0(\theta_2))\) is defined on \(\mathcal{U}\) as in Subsection 2.3, with the mean function \(f_m(S;\theta_1)\) lying in the Cameron-Martin space of \(\mathcal{C}_0\) for all \(S\in\mathcal{Z}^m\) and \(\theta\in\Theta\). Let \(\{\lambda_k,e_k\}_{k=1}^\infty\) be the eigensystem of \(\mathcal{C}_0\), where \(\{\lambda_k\}_{k=1}^\infty\) are non-increasing and \(\{e_k\}_{k=1}^\infty\) are normalized eigenfunctions. Assume there exists \(s_0\in[0,1)\) such that \(\mathcal{C}_0^s\) is trace class for all \(s>s_0\).
+
+      The space \(\mathcal{H}\) introduced in Subsection 2.1 is either \(\mathbb{R}^{N_d}\), where \(N_d\) is a positive integer, or \(\mathcal{H}\) is an infinite-dimensional separable Hilbert space.
+
+      The noise \(\eta\) is distributed according to
+      \[
+      \mathbb{D}_3:=\mathcal{N}(0,\Gamma),
+      \]
+      where \(\Gamma:\mathcal{H}\to\mathcal{H}\) is a self-adjoint, positive-definite linear operator, but not necessarily trace class.
+
+      If \(\mathcal{H}\) is an infinite-dimensional Hilbert space, \(\mathcal{C}_1:\mathcal{H}\to\mathcal{H}\) is a self-adjoint, positive-definite, trace class, linear operator. Suppose \(\mathcal{C}_1\Gamma=\Gamma\mathcal{C}_1\) and there exists \(s_1\in[0,1)\) such that \(\mathcal{C}_1^s\) is trace class for all \(s>s_1\).
+
+      The Hilbert scale \((\mathcal{H}^t)_{t\in\mathbb{R}}\) is defined by
+      \[
+      \mathcal{H}^t:=\mathcal{M}_1^{\|\cdot\|_{\mathcal{H}^t}},
+      \qquad
+      \mathcal{M}_1:=\bigcap_{\ell=0}^\infty\mathcal{D}(\mathcal{C}_1^{-\ell}),
+      \]
+      with inner product and norm
+      \[
+      \langle u,v\rangle_{\mathcal{H}^t}
+      =
+      \langle \mathcal{C}_1^{-t/2}u,\mathcal{C}_1^{-t/2}v\rangle_{\mathcal{H}},
+      \qquad
+      \|u\|_{\mathcal{H}^t}
+      =
+      \|\mathcal{C}_1^{-t/2}u\|_{\mathcal{H}}.
+      \]
+      Analogously, the Hilbert scale \((\mathcal{U}^t)_{t\in\mathbb{R}}\) for \(\mathcal{U}\) and prior covariance \(\mathcal{C}_0\) is defined by
+      \[
+      \mathcal{U}^t:=\mathcal{M}_2^{\|\cdot\|_{\mathcal{U}^t}},
+      \qquad
+      \mathcal{M}_2:=\bigcap_{\ell=0}^\infty\mathcal{D}(\mathcal{C}_0^{-\ell}),
+      \]
+      with
+      \[
+      \langle u,v\rangle_{\mathcal{U}^t}
+      =
+      \langle \mathcal{C}_0^{-t/2}u,\mathcal{C}_0^{-t/2}v\rangle_{\mathcal{U}},
+      \qquad
+      \|u\|_{\mathcal{U}^t}
+      =
+      \|\mathcal{C}_0^{-t/2}u\|_{\mathcal{U}}.
+      \]
+
+      Assumption 3.2 is used with constants \(s\in(s_1,1]\), \(\tilde s\in(s_0,1]\), and \(\alpha\ge0\) such that:
+
+      1. If the space \(\mathcal{H}\) is a separable Hilbert space, for all \(w\in\mathcal{H}^{\alpha-s}\), \(s\in(s_1,1]\) and \(\rho\in[[\alpha-s_1-1],\alpha-s_1)\),
+      \[
+      \|\mathcal{C}_1^{\frac{\tilde s}{2}}\Gamma^{-\frac12}w\|_{\mathcal{H}}\le C_1\|\mathcal{C}_1^{\frac{s-\alpha}{2}}w\|_{\mathcal{H}}
+      \quad\text{and}\quad
+      \|\mathcal{C}_1^{-\frac{\tilde s}{2}}\Gamma^{\frac12}w\|_{\mathcal{H}}\le C_2\|\mathcal{C}_1^{\frac{\alpha-\rho}{2}}w\|_{\mathcal{H}}.
+      \]
+
+      2. If the space \(\mathcal{H}\) is a separable Hilbert space, for any \(x\in\mathcal{X}\) and \(u,u_1,u_2\in\mathcal{U}^{1-\tilde s}\),
+      \[
+      \|\mathcal{C}_1^{-\frac{\tilde s}{2}}\Gamma^{-\frac12}\mathcal{L}_x\mathcal{G}(u)\|_{\mathcal{H}}\le M_1(\|u\|_{\mathcal{U}^{1-\tilde s}}),
+      \]
+      \[
+      \|\mathcal{C}_1^{-\frac{\tilde s}{2}}\Gamma^{-\frac12}(\mathcal{L}_x\mathcal{G}(u_1)-\mathcal{L}_x\mathcal{G}(u_2))\|_{\mathcal{H}}
+      \le M_2(\|u_1\|_{\mathcal{U}^{1-\tilde s}},\|u_2\|_{\mathcal{U}^{1-\tilde s}})\|u_1-u_2\|_{\mathcal{U}^{1-\tilde s}},
+      \]
+      \[
+      \|\mathcal{C}_1^{-\frac{\tilde s}{2}}\Gamma^{-\frac12}(\mathcal{L}_x\mathcal{G}(u)-\mathcal{L}_{x'}\mathcal{G}(u))\|_{\mathcal{H}}\to0,
+      \quad\text{as }x\to x'\text{ in }\mathcal{X},
+      \]
+      where \(M_1(\cdot)\) is a monotonic non-decreasing function and \(M_2(\cdot,\cdot)\) is a function monotonic non-decreasing separately in each argument. If \(\mathcal{H}\) is finite-dimensional, say \(\mathcal{H}=\mathbb{R}^{N_d}\), the operator \(\mathcal{C}_1\) is omitted from the aforementioned requirements.
+
+      ### Proof
+      In the following, we only present the proofs when \(\mathcal{H}\) is assumed to be an infinite-dimensional separable Hilbert space. When \(\mathcal{H}=\mathbb{R}^{N_d}\), the proof is similar.
+
+      Step 1 (Well defined Bayes’ formula). Let us define
+      \[
+      \mathbb{P}_0:=\mathcal{N}(0,\mathcal{C}_0).
+      \]
+      Since \(f(S;\theta)\in\mathcal{C}_0^{\frac12}\mathcal{U}\), the measure \(\mathbb{P}^\theta_S\) is equivalent to the measure \(\mathbb{P}_0\). Then we transform the Bayes’ formulation as follows:
+      \[
+      \frac{d\mathbb{Q}(S,\mathbb{P}^\theta_S)}{d\mathbb{P}_0}
+      =
+      \frac{1}{Z_m}\exp\left(-\frac{\beta}{m}\sum_{j=1}^m\Phi(u;x_j,y_j)\right)\frac{d\mathbb{P}^\theta_S}{d\mathbb{P}_0}.
+      \tag{62}
+      \]
+      If formula (62) is well defined, we know that the posterior density
+      \[
+      \frac{d\mathbb{Q}(S,\mathbb{P}^\theta_S)}{d\mathbb{P}^\theta_S}(u)
+      =
+      \frac{1}{Z_m}\exp\left(-\frac{\beta}{m}\sum_{j=1}^m\Phi(u;x_j,y_j)\right)
+      \tag{6}
+      \]
+      is well defined. Let \(u_k:=\langle u,e_k\rangle\), where \(\{e_k\}_{k=1}^\infty\) denotes the complete orthonormal system of eigenfunctions associated with the covariance operator \(\mathcal{C}_0\). Based on [ref:R1], we find that
+      \[
+      \frac{d\mathbb{P}^\theta_S}{d\mathbb{P}_0}(u)=\exp\left(-\tilde{\Phi}(u;S)\right),
+      \]
+      where
+      \[
+      \begin{aligned}
+      \tilde{\Phi}(u;S):=&-\left\langle\mathcal{C}_0(\theta_2)^{-\frac12}f_m(S;\theta_1),\mathcal{C}_0(\theta_2)^{-\frac12}(u-f_m(S;\theta_1))\right\rangle_{\mathcal{U}}
+      +\frac12\left\|\mathcal{C}_0(\theta_2)^{-\frac12}f_m(S;\theta_1)\right\|_{\mathcal{U}}^2\\
+      &+\frac12\sum_{k=1}^{N_c}(e^{-\theta_{2k}}-\lambda_k^{-1})u_k^2+\frac12\sum_{k=1}^{N_c}(\theta_{2k}-\ln\lambda_k).
+      \end{aligned}
+      \]
+      Then, formula (62) can be written as
+      \[
+      \frac{d\mathbb{Q}(S,\mathbb{P}^\theta_S)}{d\mathbb{P}_0}
+      =
+      \frac{1}{Z_m}\exp\left(-\frac{\beta}{m}\sum_{j=1}^m\Phi(u;x_j,y_j)-\tilde{\Phi}(u;S)\right).
+      \tag{63}
+      \]
+      Considering Assumption 3.1 of the main text and [ref:R2], we notice that \(u\in\mathcal{U}^{1-\tilde{s}}\) \(\mathbb{P}^\theta_S\)-a.s. when \(\tilde{s}\in(s_0,1]\). According to the theory presented in [ref:R3], we need to verify
+
+      - (continuity condition) the potential function
+      \[
+      \frac{\beta}{m}\sum_{j=1}^m\Phi(u;x_j,y_j)+\tilde{\Phi}(u;S)\in C(\mathcal{U}^{1-\tilde{s}}\times(\mathcal{H}^{\alpha-s})^m;\mathbb{R}),
+      \]
+
+      - (lower bound condition) for all \(u\in\mathcal{U}^{1-\tilde{s}}\), \(y_j\in B_{\mathcal{H}^{\alpha-s}}(r):=\{y\in\mathcal{H}:\|y\|_{\mathcal{H}^{\alpha-s}}<r\}\)
+      \[
+      \frac{\beta}{m}\sum_{j=1}^m\Phi(u;x_j,y_j)+\tilde{\Phi}(u;S)\ge-N(r,\|u\|_{\mathcal{U}^{1-\tilde{s}}}),
+      \]
+      where \(N:\mathbb{R}^+\times\mathbb{R}^+\to\mathbb{R}^+\) is monotonic non-decreasing separately in each argument. In addition, \(\exp(N(r,\|u\|_{\mathcal{U}^{1-\tilde{s}}}))\in L_{\mathbb{P}_0}^1(\mathcal{U}^{1-\tilde{s}};\mathbb{R})\).
+
+      Continuity of \(\frac{\beta}{m}\sum_{j=1}^m\Phi(u;x_j,y_j)\). For the summation \(\frac{\beta}{m}\sum_{j=1}^m\Phi(u;x_j,y_j)\), it is enough to consider one of its terms \(\Phi(u;x_j,y_j)\). For the continuity of \(u\), we have
+      \[
+      \begin{aligned}
+      |\Phi(u_1;x_j,y_j)-\Phi(u_2;x_j,y_j)|
+      &=\frac12\left|\|\Gamma^{-\frac12}\mathcal{L}_{x_j}\mathcal{G}(u_1)\|_{\mathcal{H}}^2-\|\Gamma^{-\frac12}\mathcal{L}_{x_j}\mathcal{G}(u_2)\|_{\mathcal{H}}^2\right|\\
+      &\quad+\left|\left\langle\Gamma^{-\frac12}y_j,\Gamma^{-\frac12}\mathcal{L}_{x_j}\mathcal{G}(u_1)-\Gamma^{-\frac12}\mathcal{L}_{x_j}\mathcal{G}(u_2)\right\rangle_{\mathcal{H}}\right|
+      \tag{64}\\
+      &=\mathrm{I}_1+\mathrm{I}_2.
+      \end{aligned}
+      \]
+      For the first term on the right-hand side of (64), we have
+      \[
+      \begin{aligned}
+      \mathrm{I}_1
+      &\le\frac{\tilde{C}^2}{2}(M_1(\|u_1\|_{\mathcal{U}^{1-\tilde{s}}})+M_1(\|u_2\|_{\mathcal{U}^{1-\tilde{s}}}))\|\mathcal{C}_1^{-\frac{\tilde{s}}{2}}\Gamma^{-\frac12}\mathcal{L}_{x_j}(\mathcal{G}(u_1)-\mathcal{G}(u_2))\|_{\mathcal{H}}\\
+      &\le\frac{\tilde{C}^2}{2}(M_1(\|u_1\|_{\mathcal{U}^{1-\tilde{s}}})+M_1(\|u_2\|_{\mathcal{U}^{1-\tilde{s}}}))
+      M_2(\|u_1\|_{\mathcal{U}^{1-\tilde{s}}},\|u_2\|_{\mathcal{U}^{1-\tilde{s}}})
+      \|u_1-u_2\|_{\mathcal{U}^{1-\tilde{s}}},
+      \tag{65}
+      \end{aligned}
+      \]
+      where
+      \[
+      \tilde{C}:=\|\mathcal{C}_1^{\frac{\tilde{s}}{2}}\|_{\mathcal{B}(\mathcal{H})}
+      \]
+      is the operator norm of \(\mathcal{C}_1^{\frac{\tilde{s}}{2}}\). For the second term on the right-hand side of (64), we have
+      \[
+      \begin{aligned}
+      \mathrm{I}_2
+      &\le\|y_j\|_{\mathcal{H}^{\alpha-s}}\|\mathcal{C}_1^{-\frac{\tilde{s}}{2}}\Gamma^{-\frac12}(\mathcal{L}_{x_j}\mathcal{G}(u_1)-\mathcal{L}_{x_j}\mathcal{G}(u_2))\|_{\mathcal{H}}\\
+      &\le\|y_j\|_{\mathcal{H}^{\alpha-s}}M_2(\|u_1\|_{\mathcal{U}^{1-\tilde{s}}},\|u_2\|_{\mathcal{U}^{1-\tilde{s}}})\|u_1-u_2\|_{\mathcal{U}^{1-\tilde{s}}}.
+      \tag{66}
+      \end{aligned}
+      \]
+      From estimates (64), (65), and (66), we obtain the continuity of \(\Phi\) for the parameter \(u\). For the variable \(y_j\), we have
+      \[
+      \begin{aligned}
+      |\Phi(u;x_j,y_j)-\Phi(u;x_j,y_j')|
+      &=\left|\left\langle\Gamma^{-\frac12}(y_j-y_j'),\Gamma^{-\frac12}\mathcal{L}_{x_j}\mathcal{G}(u)\right\rangle_{\mathcal{H}}\right|
+      +\frac12\sum_{k=1}^{N_c}|e^{-\theta_{2k}}-\lambda_k^{-1}||u_{1k}^2-u_{2k}^2|\\
+      &\le\|y_j-y_j'\|_{\mathcal{H}^{\alpha-s}}M_1(\|u\|_{\mathcal{U}^{1-\tilde{s}}})
+      +\frac12N_c(e^{-\theta_{\min}}+\lambda_{N_c}^{-1})\max_{1\le k\le N_c}|u_{1k}^2-u_{2k}^2|,
+      \end{aligned}
+      \]
+      which implies the continuity of \(\Phi\) for the variable \(y_j\). Hence, we proved
+      \[
+      \frac{\beta}{m}\sum_{j=1}^m\Phi(u;x_j,y_j)\in C(\mathcal{U}^{1-\tilde{s}}\times(\mathcal{H}^{\alpha-s})^m;\mathbb{R}).
+      \tag{67}
+      \]
+
+      Continuity of \(\tilde{\Phi}(u;S)\). For the continuity of \(u\), we have
+      \[
+      \begin{aligned}
+      |\tilde{\Phi}(u_1,S)-\tilde{\Phi}(u_2,S)|
+      &\le\left|\left\langle\mathcal{C}_0(\theta_2)^{-\frac12}f_m(S;\theta_1),\mathcal{C}_0(\theta_2)^{-\frac12}(u_1-u_2)\right\rangle_{\mathcal{U}}\right|
+      \tag{68}\\
+      &\le\lambda_1e^{-\theta_{\min}}\|f_m(S;\theta_1)\|_{\mathcal{U}^{1+\tilde{s}}}\|u_1-u_2\|_{\mathcal{U}^{1-\tilde{s}}}.
+      \end{aligned}
+      \]
+      Let \(S=\{(x_j,y_j)\}_{j=1}^m\) and \(S'=\{(x_j,y_j')\}_{j=1}^m\). We have
+      \[
+      \begin{aligned}
+      |\tilde{\Phi}(u,S)-\tilde{\Phi}(u,S')|
+      &=\left|\left\langle\mathcal{C}_0(\theta_2)^{-\frac12}(f_m(S;\theta_1)-f(S';\theta_1)),\mathcal{C}_0(\theta_2)^{-\frac12}u\right\rangle_{\mathcal{U}}\right|\\
+      &\quad+\frac32\left|\|\mathcal{C}_0(\theta_2)^{-\frac12}f(S';\theta_1)\|_{\mathcal{U}}^2-\|\mathcal{C}_0(\theta_2)^{-\frac12}f_m(S;\theta_1)\|_{\mathcal{U}}^2\right|
+      \tag{69}\\
+      &\le\lambda_1e^{-\theta_{\min}}\|f_m(S;\theta_1)-f(S';\theta_1)\|_{\mathcal{U}^{1+\tilde{s}}}\|u\|_{\mathcal{U}^{1-\tilde{s}}}\\
+      &\quad+\frac{3\lambda_1e^{-\theta_{\min}}}{2}\left(\|f_m(S;\theta_1)\|_{\mathcal{U}^1}+\|f(S';\theta_1)\|_{\mathcal{U}^1}\right)
+      \|f_m(S;\theta_1)-f(S';\theta_1)\|_{\mathcal{U}^1}.
+      \end{aligned}
+      \]
+      Combining estimates (68) and (69), and the assumptions
+      \[
+      \|f(S;\theta)-f(S';\theta)\|_{\mathcal{U}^{1+\tilde{s}}}\to0,
+      \quad\text{as }x_j\to x_j'\text{ in }\mathcal{X}\text{ and }y_j\to y_j'\text{ in }\mathcal{H}^{\alpha-s},
+      \tag{70}
+      \]
+      we obtain
+      \[
+      \tilde{\Phi}(u;S)\in C(\mathcal{U}^{1-\tilde{s}}\times(\mathcal{H}^{\alpha-s})^m;\mathbb{R}).
+      \]
+
+      To verify the lower bound condition, we have
+      \[
+      \begin{aligned}
+      \frac{\beta}{m}\sum_{j=1}^m\Phi(u;x_j,y_j)
+      &\ge-\frac{\beta}{m}\sum_{j=1}^m\|\mathcal{C}_1^{\frac{\tilde{s}}{2}}\Gamma^{-\frac12}y_j\|_{\mathcal{H}}\|\mathcal{C}_1^{-\frac{\tilde{s}}{2}}\Gamma^{-\frac12}\mathcal{L}_{x_j}\mathcal{G}(u)\|_{\mathcal{H}}\\
+      &\ge-\frac{\beta}{m}\sum_{j=1}^m\|y_j\|_{\mathcal{H}^{\alpha-s}}M_1(\|u\|_{\mathcal{U}^{1-\tilde{s}}})\\
+      &\ge-\frac{1}{4\delta_1}\left(\frac{\beta}{m}\sum_{j=1}^m\|y_j\|_{\mathcal{H}^{\alpha-s}}\right)^2-\delta_1M_1(\|u\|_{\mathcal{U}^{1-\tilde{s}}})^2,
+      \tag{71}
+      \end{aligned}
+      \]
+      and
+      \[
+      \begin{aligned}
+      \tilde{\Phi}(u,S)
+      &=-\left\langle\mathcal{C}_0(\theta_2)^{-\frac12}f_m(S;\theta_1),\mathcal{C}_0(\theta_2)^{-\frac12}u\right\rangle_{\mathcal{U}}+\frac32\|\mathcal{C}_0(\theta_2)^{-\frac12}f_m(S;\theta_1)\|_{\mathcal{U}}^2\\
+      &\quad+\frac12\sum_{k=1}^{N_c}(e^{-\theta_{2k}}-\lambda_k^{-1})u_k^2+\frac12\sum_{k=1}^{N_c}(\theta_{2k}-\ln\lambda_k)\\
+      &\ge-\lambda_1e^{-\theta_{\min}}\|f_m(S;\theta_1)\|_{\mathcal{U}^{1+\tilde{s}}}\|u\|_{\mathcal{U}^{1-\tilde{s}}}
+      +\frac{3\lambda_1}{2e^{\theta_{\min}}}\|\mathcal{C}_0^{-\frac12}f_m(S;\theta_1)\|_{\mathcal{U}}^2\\
+      &\quad+\frac12\sum_{k=1}^{N_c}(e^{-\theta_{2k}}-\lambda_k^{-1})u_k^2+\frac12\sum_{k=1}^{N_c}(\theta_{2k}-\ln\lambda_k)
+      \tag{72}\\
+      &\ge-\delta_2\|u\|_{\mathcal{U}^{1-\tilde{s}}}^2
+      -\left(\frac{\lambda_1^2}{4\delta_2e^{2\theta_{\min}}}-\frac{3\lambda_1}{2e^{\theta_{\min}}}\right)\|f(S;\theta)\|_{\mathcal{U}^{1+\tilde{s}}}^2\\
+      &\quad+\frac12\sum_{k=1}^{N_c}(e^{-\theta_{2k}}-\lambda_k^{-1})u_k^2+\frac12\sum_{k=1}^{N_c}(\theta_{2k}-\ln\lambda_k).
+      \end{aligned}
+      \]
+      According to the assumptions on \(M_1(\cdot)\) and [ref:R4], we know that
+      \[
+      \mathbb{E}_{u\sim\mathbb{P}_0^\theta}\exp\left(\delta_1M_1(\|u\|_{\mathcal{U}^{1-\tilde{s}}})^2+\delta_2\|u\|_{\mathcal{U}^{1-\tilde{s}}}^2\right)<+\infty,
+      \tag{73}
+      \]
+      when \(\delta_1\) and \(\delta_2\) are chosen to be small enough positive numbers. Considering inequality (73) and
+      \[
+      \|f(S;\theta)\|_{\mathcal{U}^{1+\tilde{s}}}\le M(r)
+      \quad\text{if }\|y_j\|_{\mathcal{H}^{\beta-s}}\le r,\quad (j=1,\dots,m),
+      \]
+      we easily find that the lower bound condition is fulfilled.
+
+      Step 2 (Stability with respect to datasets). From the definition of Hellinger distance, we have
+      \[
+      d_{\mathrm{Hell}}(\mathbb{Q}(S,\mathbb{P}^\theta_S),\mathbb{Q}(S',\mathbb{P}^\theta_{S'}))^2\le I_1+I_2,
+      \]
+      where
+      \[
+      \begin{aligned}
+      I_1=&\frac{1}{Z_m}\int_{\mathcal{U}^{1-\tilde{s}}}\Bigg[\exp\left(-\frac{\beta}{2m}\sum_{j=1}^m\Phi(u;x_j,y_j)-\frac12\tilde{\Phi}(u;S)\right)\\
+      &-\exp\left(-\frac{\beta}{2m}\sum_{j=1}^m\Phi(u;x_j',y_j')-\frac12\tilde{\Phi}(u;S')\right)\Bigg]^2\mathbb{P}_0(du),
+      \end{aligned}
+      \]
+      and
+      \[
+      I_2=
+      \left|Z_m^{-\frac12}-(Z_m')^{-\frac12}\right|^2
+      \int_{\mathcal{U}^{1-\tilde{s}}}\exp\left(-\frac{\beta}{m}\sum_{j=1}^m\Phi(u;x_j',y_j')-\tilde{\Phi}(u;S')\right)\mathbb{P}_0(du),
+      \]
+      where \(Z_m'\) is the normalization constant concerned with the datasets \(S'\). For the term \(I_1\), we have
+      \[
+      I_1\le\frac{1}{2Z_m}\int_{\mathcal{U}^{1-\tilde{s}}}e^{N(r,\|u\|_{\mathcal{U}^{1-\tilde{s}}})}(I_{11}+I_{12})\mathbb{P}_0(du),
+      \]
+      where
+      \[
+      I_{11}=\left|\frac{\beta}{m}\sum_{j=1}^m\left[\Phi(u;x_j,y_j)-\Phi(u;x_j',y_j')\right]\right|^2,
+      \]
+      \[
+      I_{12}=\left|\tilde{\Phi}(u;S)-\tilde{\Phi}(u;S')\right|^2.
+      \]
+      For the term \(I_{11}\), we firstly consider the following calculations:
+      \[
+      \begin{aligned}
+      \Phi(u;x_j,y_j)-&\Phi(u;x_j',y_j')\\
+      =&\frac12\|\Gamma^{-\frac12}\mathcal{L}_{x_j}\mathcal{G}(u)\|_{\mathcal{H}}^2-\frac12\|\Gamma^{-\frac12}\mathcal{L}_{x_j'}\mathcal{G}(u)\|_{\mathcal{H}}^2\\
+      &+\left\langle\Gamma^{-\frac12}y_j',\Gamma^{-\frac12}\mathcal{L}_{x_j'}\mathcal{G}(u)\right\rangle_{\mathcal{H}}
+      -\left\langle\Gamma^{-\frac12}y_j',\Gamma^{-\frac12}\mathcal{L}_{x_j}\mathcal{G}(u)\right\rangle_{\mathcal{H}}\\
+      &+\left\langle\Gamma^{-\frac12}y_j',\Gamma^{-\frac12}\mathcal{L}_{x_j}\mathcal{G}(u)\right\rangle_{\mathcal{H}}
+      -\left\langle\Gamma^{-\frac12}y_j,\Gamma^{-\frac12}\mathcal{L}_{x_j}\mathcal{G}(u)\right\rangle_{\mathcal{H}},
+      \end{aligned}
+      \]
+      which implies that
+      \[
+      \begin{aligned}
+      |\Phi(u;x_j,y_j)-\Phi(u;x_j',y_j')|
+      &\le\tilde{C}^2M_1(\|u\|_{\mathcal{U}^{1-\tilde{s}}})\|\mathcal{C}_1^{-\frac{\tilde{s}}{2}}\Gamma^{-\frac12}(\mathcal{L}_{x_j}\mathcal{G}(u)-\mathcal{L}_{x_j'}\mathcal{G}(u))\|_{\mathcal{H}}\\
+      &\quad+M_1(\|u\|_{\mathcal{U}^{1-\tilde{s}}})\|y_j-y_j'\|_{\mathcal{H}^{\alpha-s}}
+      +\|y_j\|_{\mathcal{H}^{\alpha-s}}\|\mathcal{C}_1^{-\frac{\tilde{s}}{2}}\Gamma^{-\frac12}(\mathcal{L}_{x_j}\mathcal{G}(u)-\mathcal{L}_{x_j'}\mathcal{G}(u))\|_{\mathcal{H}}.
+      \tag{74}
+      \end{aligned}
+      \]
+      The above estimate (74) yields the following result:
+      \[
+      I_{11}\to0,
+      \quad\text{as }x_j\to x_j'\text{ in }\mathcal{X}\text{ and }y_j\to y_j'\text{ in }\mathcal{H}^{\alpha-s}.
+      \tag{75}
+      \]
+      Concerning the term \(I_{12}\), estimate (69) already implies
+      \[
+      I_{12}\to0,
+      \quad\text{as }x_j\to x_j'\text{ in }\mathcal{X}\text{ and }y_j\to y_j'\text{ in }\mathcal{H}^{\alpha-s}.
+      \tag{76}
+      \]
+      Combining the above statements (75) and (76), we finally obtain
+      \[
+      I_1\to0,
+      \quad\text{as }x_j\to x_j'\text{ in }\mathcal{X}\text{ and }y_j\to y_j'\text{ in }\mathcal{H}^{\alpha-s}
+      \tag{77}
+      \]
+      by applying [ref:R5]. For the term \(I_2\), we have
+      \[
+      I_2\le C\max\left(Z_m^{-3},(Z_m')^{-3}\right)|Z_m-Z_m'|^2.
+      \]
+      Similar to the derivation of (77), we can prove \(Z_m\to Z_m'\) as \(x_j\to x_j'\) in \(\mathcal{X}\) and \(y_j\to y_j'\) in \(\mathcal{H}^{\alpha-s}\). Hence, we easily obtain
+      \[
+      I_2\to0,
+      \quad\text{as }x_j\to x_j'\text{ in }\mathcal{X}\text{ and }y_j\to y_j'\text{ in }\mathcal{H}^{\alpha-s}.
+      \tag{78}
+      \]
+      \(\square\)
+
+      ### References
+      #### Reference R1
+      Target: Theorem 2.23
+      Citation: Based on Theorem 2.23 in Prato & Zabczyk (2014), we find that
+      \[
+      \frac{d\mathbb{P}_S^\theta}{d\mathbb{P}_0}(u)=\exp\left(-\tilde{\Phi}(u;S)\right),
+      \]
+      where
+      \[
+      \begin{aligned}
+      \tilde{\Phi}(u;S):=&-\left\langle\mathcal{C}_0(\theta_2)^{-\frac12}f_m(S;\theta_1),\mathcal{C}_0(\theta_2)^{-\frac12}(u-f_m(S;\theta_1))\right\rangle_{\mathcal{U}}
+      +\frac12\left\|\mathcal{C}_0(\theta_2)^{-\frac12}f_m(S;\theta_1)\right\|_{\mathcal{U}}^2\\
+      &+\frac12\sum_{k=1}^{N_c}(e^{-\theta_{2k}}-\lambda_k^{-1})u_k^2+\frac12\sum_{k=1}^{N_c}(\theta_{2k}-\ln\lambda_k).
+      \end{aligned}
+      \]
+      Bibliography: Prato, G. D. & Zabczyk, J. (2014), Stochastic Equations in Infinite Dimensions, second edn, Cambridge University Press, Cambridge.
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction of secondary restatements, with model-organization qualification. The literal text of Da Prato & Zabczyk (2014, §2.3.2, Theorem 2.23) was not retrieved; only the book’s table of contents and secondary restatements were available. Stuart’s survey explicitly states that its Theorem 37 “mirrors Theorem 2.23 of [28],” where [28] is Da Prato & Zabczyk, so that secondary statement is extracted below as the best available mathematical content for Theorem 2.23. Kerrigan, Ley & Smyth restate the general Feldman–Hájek theorem and an equal-covariance Radon–Nikodym derivative attributed to Da Prato & Zabczyk (2014, Theorem 2.23); their supplement refers also to Da Prato & Zabczyk Theorem 2.25 for proofs. These sources support the Gaussian equivalence/singularity criterion and an equal-covariance Radon–Nikodym formula. They do not supply the unequal-covariance density displayed in the current Citation, where \(\mathbb P_S^\theta=\mathcal N(f_m(S;\theta_1),\mathcal C_0(\theta_2))\) is differentiated with respect to \(\mathbb P_0=\mathcal N(0,\mathcal C_0)\). The exact original statement of Da Prato & Zabczyk Theorem 2.23, its printed numbering, and the precise hypotheses for that unequal-covariance density remain unverified. No claim is made that the original theorem wording was retrieved, and no assertion is made that the application conditions to the current target are discharged.
+
+      ##### Da Prato & Zabczyk (2014), Theorem 2.23 — secondary restatement via Stuart, Theorem 37
+      ###### Definitions and notation
+      Let \(\mathcal H\) be a fixed separable Hilbert space with inner product \(\langle\cdot,\cdot\rangle\) and norm \(\|\cdot\|\). A Gaussian measure \(\mathcal N(m,\mathcal C)\) has mean \(m\in\mathcal H\) and covariance operator \(\mathcal C\). For \(i=1,2\), \(\mathcal C_i^{1/2}\) denotes the positive square root of \(\mathcal C_i\), \(\mathcal C_i^{1/2}(\mathcal H)\) its image, and \(\mathcal C_i^{-1/2}\) the corresponding inverse/pseudoinverse where defined. The common image space in the equivalence condition is denoted \(E\). For a bounded operator \(L\) on a Hilbert space, the Hilbert–Schmidt norm is defined, for an orthonormal basis \(\{\varphi_j\}\), by
+      \[
+      \|L\|_{\mathrm{HS}}^2:=\sum_{j=1}^{\infty}\|L\varphi_j\|^2.
+      \]
+
+      ###### Assumptions
+      Let \(\mu_i\), \(i=1,2\), be two Gaussian measures on the fixed separable Hilbert space \(\mathcal H\) with means \(m_i\) and strictly positive covariance operators \(\mathcal C_i\).
+
+      ###### Statement
+      1. \(\mu_1\) and \(\mu_2\) are either singular or equivalent.
+
+      2. The measures \(\mu_1\) and \(\mu_2\) are equivalent Gaussian measures if and only if:
+         - (a) the images of \(\mathcal H\) under \(\mathcal C_i^{1/2}\) coincide for \(i=1,2\), and this common image space is denoted \(E\);
+         - (b) \(m_1-m_2\in E\);
+         - (c)
+           \[
+           \left\|\left(\mathcal C_1^{-1/2}\mathcal C_2^{1/2}\right)\left(\mathcal C_1^{-1/2}\mathcal C_2^{1/2}\right)^*-I\right\|_{\mathrm{HS}}<\infty.
+           \]
+
+      Remark. The final condition may be replaced by the condition that
+      \[
+      \left\|\left(\mathcal C_1^{1/2}\mathcal C_2^{-1/2}\right)\left(\mathcal C_1^{1/2}\mathcal C_2^{-1/2}\right)^*-I\right\|_{\mathrm{HS}}<\infty
+      \]
+      and the theorem remains true.
+
+      ##### Kerrigan, Ley & Smyth, Theorem 2 (The Feldman–Hájek Theorem, General Case)
+      ###### Definitions and notation
+      Let \(\mathcal F\) be a separable Hilbert space of measurable real-valued functions on \(\mathcal X\) with inner product \(\langle-,-\rangle_{\mathcal F}\). For \(i=1,2\), let \(\mathbb P=\mathcal N(m_1,C_1)\) and \(\mathbb Q=\mathcal N(m_2,C_2)\) be Gaussian measures on \(\mathcal F\), with means \(m_i\) and covariance operators \(C_i\). The images \(C_i^{1/2}(\mathcal F)\) are considered; if they coincide, their common image space is denoted \(H_0\). The closure of \(H_0\) is denoted \(\overline{H_0}\). The inverse/pseudoinverse of \(C_i^{1/2}\) is denoted \(C_i^{-1/2}\). Hilbert–Schmidt operators are understood on the indicated Hilbert space, here \(\overline{H_0}\).
+
+      ###### Assumptions
+      Let \(\mathbb P=\mathcal N(m_1,C_1)\) and \(\mathbb Q=\mathcal N(m_2,C_2)\) be Gaussian measures on the separable Hilbert space \(\mathcal F\). The theorem below is the supplied restatement in Kerrigan, Ley & Smyth; its supplement states that it refers to Da Prato & Zabczyk (2014, Theorem 2.23 and Theorem 2.25) for a proof.
+
+      ###### Statement
+      1. The measures \(\mathbb P\) and \(\mathbb Q\) are either equivalent, that is, \(\mathbb P\ll\mathbb Q\) and \(\mathbb Q\ll\mathbb P\), or mutually singular, that is, \(\mathbb P\) is not absolutely continuous with respect to \(\mathbb Q\) and vice versa.
+
+      2. The measures \(\mathbb P\) and \(\mathbb Q\) are equivalent if and only if:
+         - (a) \(C_1^{1/2}(\mathcal F)=C_2^{1/2}(\mathcal F)=H_0\);
+         - (b) \(m_1-m_2\in H_0\);
+         - (c) the operator
+           \[
+           \left(C_1^{-1/2}C_2^{1/2}\right)\left(C_1^{-1/2}C_2^{1/2}\right)^*-I
+           \]
+           is Hilbert–Schmidt on the closure \(\overline{H_0}\).
+
+      3. If \(\mathbb P\) and \(\mathbb Q\) are equivalent and \(C_1=C_2=C\), then \(\mathbb Q\)-a.s. the Radon–Nikodym derivative is given by
+      \[
+      \frac{d\mathbb P}{d\mathbb Q}(f)
+      =
+      \exp\left[
+      \left\langle C^{-1/2}(m_1-m_2),C^{-1/2}(f-m_2)\right\rangle
+      -\frac12\left\|C^{-1/2}m_1-m_2\right\|^2
+      \right]
+      \qquad \forall f\in\mathcal F,
+      \tag{A.1.19}
+      \]
+
+      ##### Kerrigan, Ley & Smyth, Theorem 1 (The Feldman–Hájek Theorem; equal-covariance Radon–Nikodym derivative)
+      ###### Definitions and notation
+      Let \(\mathcal F\) be a separable Hilbert space of measurable real-valued functions on \(\mathcal X\) with inner product \(\langle-,-\rangle_{\mathcal F}\). Let \(\mathbb P=\mathcal N(m_1,C)\) and \(\mathbb Q=\mathcal N(m_2,C)\) be Gaussian measures on \(\mathcal F\) with equal covariance operator \(C\). Define
+      \[
+      \Delta m=m_1-m_2\in\mathcal F.
+      \]
+      Here \(C^{-1}\) denotes the pseudoinverse of \(C\), and \(C^{-1/2}\) denotes the pseudoinverse of \(C^{1/2}\). The image space appearing in the equivalence criterion is \(C^{1/2}(\mathcal F)\).
+
+      ###### Assumptions
+      Let \(\mathbb P=\mathcal N(m_1,C)\) and \(\mathbb Q=\mathcal N(m_2,C)\) be Gaussian measures on the separable Hilbert space \(\mathcal F\) with equal covariance operator \(C\), and define \(\Delta m=m_1-m_2\in\mathcal F\).
+
+      ###### Statement
+      The measures \(\mathbb P\) and \(\mathbb Q\) are equivalent, that is, mutually absolutely continuous, if and only if
+      \[
+      \Delta m\in C^{1/2}(\mathcal F).
+      \]
+      In this case, for any \(f\in\mathcal F\), the Radon–Nikodym derivative is
+      \[
+      \frac{d\mathbb P}{d\mathbb Q}(f)
+      =
+      \exp\left[
+      \left\langle \Delta m, C^{-1}(f-m_2)\right\rangle_{\mathcal F}
+      -\frac12\left\|C^{-1/2}\Delta m\right\|_{\mathcal F}^2
+      \right],
+      \tag{3.4}
+      \]
+      where \(C^{-1}\) is the pseudoinverse of \(C\) and \(C^{-1/2}\) is the pseudoinverse of \(C^{1/2}\).
+
+      #### Reference R2
+      Target: Lemma 3.3
+      Citation: Considering Assumption 3.1 of the main text and Lemma 3.3 in Agapiou et al. (2013), we notice that \(u\in\mathcal{U}^{1-\tilde{s}}\) \(\mathbb{P}_S^\theta\)-a.s. when \(\tilde{s}\in(s_0,1]\).
+      Bibliography: Agapiou, S., Larsson, S. & Stuart, A. M. (2013), ‘Posterior contraction rates for the Bayesian approach to linear ill-posed inverse problems’, Stoch. Proc. Appl. 123(10), 3828–3860.
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+      Source extraction: Agapiou, Larsson & Stuart (2013), Lemma 3.3, physical p. 12, under Assumption 3.1(1) on physical p. 11, with Hilbert-scale definitions from physical p. 10. The current proof cites “Lemma 3.3 in Agapiou et al. (2013)” together with Assumption 3.1 of the main text and specializes part (ii) to \(s=\tilde{s}\in(s_0,1]\), writing \(\mathcal U^{1-\tilde{s}}\) for the source \(X^{1-s}\) and using the learned prior \(\mathbb P_S^\theta\). The source lemma itself is stated for \(u\sim\mu_0=\mathcal N(0,\mathcal C_0)\); the learned-prior version is part of the current proof’s application, not of the original Lemma 3.3. The supplied source also contains a distinct Lemma 3.5, which is not the cited Lemma 3.3 and is not needed for this prior-regularity conclusion.
+
+      ##### Definitions and notation
+      For the source lemma, let \(\mathcal X\) be an infinite-dimensional separable Hilbert space and let \(\mathcal C_0:\mathcal X\to\mathcal X\) be a self-adjoint, positive-definite, trace class, linear operator (injective in the Hilbert-scale setup). Define the Hilbert scale \((X^t)_{t\in\mathbb R}\) by
+      \[
+      X^t:=\overline{\mathcal M}^{\,\|\cdot\|_t},
+      \qquad
+      \mathcal M:=\bigcap_{\ell=0}^{\infty}\mathcal D(\mathcal C_0^{-\ell}),
+      \]
+      with inner product and norm
+      \[
+      \langle u,v\rangle_t:=\langle \mathcal C_0^{-t/2}u,\mathcal C_0^{-t/2}v\rangle,
+      \qquad
+      \|u\|_t:=\|\mathcal C_0^{-t/2}u\|.
+      \]
+      Here \(\mathcal C_0^{-1}:\mathcal R(\mathcal C_0)\to\mathcal X\) is densely defined, unbounded, symmetric and positive-definite; it extends to a self-adjoint operator with domain
+      \[
+      \mathcal D(\mathcal C_0^{-1}):=\{u\in\mathcal X:\mathcal C_0^{-1}u\in\mathcal X\}.
+      \]
+      The centered Gaussian prior is \(\mu_0:=\mathcal N(0,\mathcal C_0)\). Its Cameron-Martin space is \(X^1\). A white noise is a random variable \(\xi\sim\mathcal N(0,I)\).
+
+      ##### Assumptions
+      Source Assumption 3.1(1), which is the assumption used by Lemma 3.3: There exists \(s_0\in[0,1)\) such that \(\mathcal C_0^s\) is trace class for every \(s>s_0\).
+
+      ##### Statement
+      **Lemma 3.3 (Agapiou, Larsson & Stuart (2013)).** Under Assumption 3.1(1) we have:
+
+      i) Let \(\xi\) be a white noise. Then
+      \[
+      \mathbb E\|\mathcal C_0^{s/2}\xi\|^2<\infty
+      \]
+      for all \(s>s_0\).
+
+      ii) Let \(u\sim\mu_0\). Then
+      \[
+      u\in X^{1-s}\quad \mu_0\text{-a.s.}
+      \]
+      for every \(s>s_0\).
+
+      #### Reference R3
+      Target: Section 4.1
+      Citation: According to the theory presented in Section 4.1 of Dashti & Stuart (2017), we need to verify
+
+      - (continuity condition) the potential function
+      \[
+      \frac{\beta}{m}\sum_{j=1}^m\Phi(u;x_j,y_j)+\tilde{\Phi}(u;S)\in C(\mathcal{U}^{1-\tilde{s}}\times(\mathcal{H}^{\alpha-s})^m;\mathbb{R}),
+      \]
+
+      - (lower bound condition) for all \(u\in\mathcal{U}^{1-\tilde{s}}\), \(y_j\in B_{\mathcal{H}^{\alpha-s}}(r):=\{y\in\mathcal{H}:\|y\|_{\mathcal{H}^{\alpha-s}}<r\}\)
+      \[
+      \frac{\beta}{m}\sum_{j=1}^m\Phi(u;x_j,y_j)+\tilde{\Phi}(u;S)\ge-N(r,\|u\|_{\mathcal{U}^{1-\tilde{s}}}),
+      \]
+      where \(N:\mathbb{R}^+\times\mathbb{R}^+\to\mathbb{R}^+\) is monotonic non-decreasing separately in each argument. In addition, \(\exp(N(r,\|u\|_{\mathcal{U}^{1-\tilde{s}}}))\in L_{\mathbb{P}_0}^1(\mathcal{U}^{1-\tilde{s}};\mathbb{R})\).
+      Bibliography: Dashti, M. & Stuart, A. M. (2017), ‘The Bayesian approach to inverse problems’, Handbook of Uncertainty Quantification pp. 311–428.
+
+      ##### Use
+      Proof or method citation — original source material
+
+      ##### Source basis
+      source-material
+
+      ##### Content basis
+
+      Source extraction from Dashti & Stuart (2017), Section 4.1 “Well-Posedness” (arXiv:1302.6989, physical pp. 36–39). The supplied source does not contain a result numbered “Theorem 4.1” or “Theorem 4.2” in Section 4.1; the numbered items visible there are Assumptions 4.2, Theorem 4.3, Remarks 4.4, Theorem 4.5, and Remark 4.6. The statements below are organized under the source’s own general Banach-space objects \(X,Y,\mu_0,\Phi,M_1,M_2\). The reference item’s notation \(\mathcal U^{1-\tilde s}\), \(\mathcal H^{\alpha-s}\), \(\frac{\beta}{m}\sum_j\Phi(u;x_j,y_j)+\tilde\Phi(u;S)\), and \(N(r,\|u\|_{\mathcal U^{1-\tilde s}})\) is from the citing paper; the supplied source does not literally state those substitutions. In the citing proof, the displayed continuity and lower-bound conditions correspond to the source’s Assumptions 4.2 and the integrability condition of Theorem 4.3, while the target’s Hellinger-continuity conclusion also draws on Theorem 4.5. Theorem 4.5 additionally requires the source’s data-Lipschitz condition with \(M_2\) and the stronger integrability condition on \(\exp(M_1)(1+M_2^2)\); the reference item’s listed checks alone do not display these as verified. The exact identification and verification for the citing paper’s combined potential and \(N\) remains a local adaptation/gap in the supplied material. No proof, new specialization, or bridge is reconstructed here. The source’s Section 4.4 Bibliographic Notes attributes the well-posedness theory of Subsection 4.1 to [18] and [93].
+
+      ##### Assumptions 4.2
+
+      ###### Definitions and notation
+      Let \(X,Y\) be separable Banach spaces, equipped with the Borel \(\sigma\)-algebra, and let \(\mu_0\) be a measure on \(X\). Let \(X'\subseteq X\) and let \(\Phi:X\times Y\to\mathbb R\). For \(r>0\), \(B_Y(0,r)\) denotes the open ball of radius \(r\) in \(Y\) centered at \(0\). The functions \(M_i:\mathbb R^+\times\mathbb R^+\to\mathbb R^+\), \(i=1,2\), are monotonic non-decreasing separately in each argument, and \(M_2\) is strictly positive. The source defines, for the potential \(\Phi\),
+      \[
+      \frac{d\mu^y}{d\mu_0}(u)=\frac{1}{Z(y)}\exp(-\Phi(u;y)),
+      \tag{4.1a}
+      \]
+      \[
+      Z(y)=\int_X \exp(-\Phi(u;y))\,\mu_0(du).
+      \tag{4.1b}
+      \]
+
+      ###### Assumptions
+      No additional hypotheses beyond the ambient setup of Section 4.1 are stated for Assumptions 4.2 themselves.
+
+      ###### Statement
+      Let \(X'\subseteq X\) and assume that \(\Phi\in C(X'\times Y;\mathbb R)\). Assume further that there are functions \(M_i:\mathbb R^+\times\mathbb R^+\to\mathbb R^+\), \(i=1,2\), monotonic non-decreasing separately in each argument, and with \(M_2\) strictly positive, such that for all \(u\in X'\) and \(y,y_1,y_2\in B_Y(0,r)\),
+      \[
+      \Phi(u;y)\ge -M_1(r,\|u\|_X),
+      \]
+      \[
+      |\Phi(u;y_1)-\Phi(u;y_2)|\le M_2(r,\|u\|_X)\|y_1-y_2\|_Y.
+      \]
+
+      ##### Theorem 4.3
+
+      ###### Definitions and notation
+      With \(X,Y,\mu_0,\Phi,X'\) as above, \(Z(y)\) is defined by (4.1b) and \(\mu^y\) by (4.1a). The condition \(\mu_0(X')=1\) and the positivity condition \(\mu_0(X'\cap B)>0\) for some bounded set \(B\) in \(X\) are part of the theorem hypotheses. The notation \(L^1_{\mu_0}(X;\mathbb R)\) is the usual integrability space with respect to \(\mu_0\).
+
+      ###### Assumptions
+      Assumptions 4.2 hold. In addition,
+      \[
+      \mu_0(X')=1,
+      \]
+      and there exists a bounded set \(B\) in \(X\) such that
+      \[
+      \mu_0(X'\cap B)>0.
+      \]
+      Also, for every fixed \(r>0\),
+      \[
+      \exp\bigl(M_1(r,\|u\|_X)\bigr)\in L^1_{\mu_0}(X;\mathbb R).
+      \]
+
+      ###### Statement
+      Theorem 4.3. Let Assumptions 4.2 hold. Assume that \(\mu_0(X')=1\) and that \(\mu_0(X'\cap B)>0\) for some bounded set \(B\) in \(X\). Assume additionally that, for every fixed \(r>0\),
+      \[
+      \exp\bigl(M_1(r,\|u\|_X)\bigr)\in L^1_{\mu_0}(X;\mathbb R).
+      \]
+      Then, for every \(y\in Y\), \(Z(y)\) given by (4.1b) is positive and finite, and the probability measure \(\mu^y\) given by (4.1a) is well-defined.
+
+      ##### Theorem 4.5
+
+      ###### Definitions and notation
+      The posterior measures \(\mu^y,\mu^{y'}\) are defined from the potential \(\Phi\) and normalizers \(Z(y),Z(y')\) as in (4.1a)–(4.1b). The Hellinger distance is denoted \(d_{\mathrm{Hell}}\). For \(r>0\), \(B_Y(0,r)\) is the open ball of radius \(r\) in \(Y\) centered at \(0\). The constant \(C=C(r)>0\) may depend on \(r\) but not on \(u\).
+
+      ###### Assumptions
+      Assumptions 4.2 hold. Also,
+      \[
+      \mu_0(X')=1,
+      \]
+      and there exists a bounded set \(B\) in \(X\) such that
+      \[
+      \mu_0(X'\cap B)>0.
+      \]
+      Additionally, for every fixed \(r>0\),
+      \[
+      \exp\bigl(M_1(r,\|u\|_X)\bigr)\Bigl(1+M_2(r,\|u\|_X)^2\Bigr)
+      \in L^1_{\mu_0}(X;\mathbb R).
+      \]
+
+      ###### Statement
+      Let Assumptions 4.2 hold. Assume that \(\mu_0(X')=1\) and that \(\mu_0(X'\cap B)>0\) for some bounded set \(B\) in \(X\). Assume additionally that, for every fixed \(r>0\),
+      \[
+      \exp\bigl(M_1(r,\|u\|_X)\bigr)\Bigl(1+M_2(r,\|u\|_X)^2\Bigr)
+      \in L^1_{\mu_0}(X;\mathbb R).
+      \]
+      Then there is \(C=C(r)>0\) such that, for all \(y,y'\in B_Y(0,r)\),
+      \[
+      d_{\mathrm{Hell}}(\mu^y,\mu^{y'})\le C\|y-y'\|_Y.
+      \]
+
+      #### Reference R4
+      Target: Proposition 1.13
+      Citation: According to the assumptions on \(M_1(\cdot)\) and Proposition 1.13 in Prato (2006), we know that
+      \[
+      \mathbb{E}_{u\sim\mathbb{P}_0^\theta}\exp\left(\delta_1M_1(\|u\|_{\mathcal{U}^{1-\tilde{s}}})^2+\delta_2\|u\|_{\mathcal{U}^{1-\tilde{s}}}^2\right)<+\infty,
+      \]
+      when \(\delta_1\) and \(\delta_2\) are chosen to be small enough positive numbers.
+      Bibliography: Prato, G. D. (2006), An Introduction to Infinite-Dimensional Analysis, Springer-Verlag, Berlin.
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      model-supplemented
+
+      ##### Content basis
+      Model organization (source-unconfirmed). No original text of Prato (2006), Proposition 1.13, was obtained in the supplied material. The citation context invokes the standard Fernique-type exponential-square integrability theorem for Gaussian measures. The statement below is therefore a source-unconfirmed reconstruction of that standard result, not a quotation or a verified transcription of the book’s exact wording or numbering. The specialized exponential bound with \(M_1\) displayed in the current proof is an application-side consequence; it requires the current theorem’s additional small-\(\delta\) integrability assumption on \(M_1\), and is not part of Proposition 1.13 itself.
+
+      ##### Proposition 1.13 (Prato 2006, *An Introduction to Infinite-Dimensional Analysis*)
+      ###### Definitions and notation
+      Let \((\mathcal{B},\|\cdot\|_{\mathcal{B}})\) be a separable Banach space with Borel \(\sigma\)-algebra \(\mathcal{B}(\mathcal{B})\). A Borel probability measure \(\mu\) on \(\mathcal{B}\) is Gaussian if for every continuous linear functional \(\ell\in\mathcal{B}^*\), the law of \(\ell\) under \(\mu\) is a Gaussian probability measure on \(\mathbb{R}\). In the Hilbert-space setting used by the current proof, this is the usual Gaussian measure \(\mathcal{N}(m,\mathcal{C})\) on a separable Hilbert space; \(\|\cdot\|_{\mathcal{B}}\) is then the relevant Hilbert norm, for example a norm on \(\mathcal{U}\) or on a Hilbert scale \(\mathcal{U}^{t}\).
+
+      ###### Assumptions
+      \(\mu\) is a Gaussian Borel probability measure on a separable Banach space \(\mathcal{B}\). The exact hypotheses of the original Proposition 1.13 were not retrieved. If the book states the result for a separable Hilbert space instead of a general separable Banach space, replace \(\mathcal{B}\) by that Hilbert space; the precise source wording is unconfirmed.
+
+      ###### Statement
+      Source-unconfirmed standard Fernique-type content: There exists a constant \(\alpha>0\), depending on \(\mu\) and the norm \(\|\cdot\|_{\mathcal{B}}\), such that
+      \[
+      \int_{\mathcal{B}} \exp\!\left(\alpha\|x\|_{\mathcal{B}}^2\right)\,\mu(dx)<+\infty .
+      \]
+      No numerical value of \(\alpha\) is asserted. This is the exponential-square integrability of a Gaussian measure on a separable Banach space.
+
+      #### Reference R5
+      Target: Lebesgue’s dominated convergence theorem
+      Citation: Combining the above statements (75) and (76), we finally obtain
+      \[
+      I_1\to0,
+      \quad\text{as }x_j\to x_j'\text{ in }\mathcal{X}\text{ and }y_j\to y_j'\text{ in }\mathcal{H}^{\alpha-s}
+      \]
+      by applying Lebesgue’s dominated convergence theorem.
+      Bibliography:
+
+      ##### Use
+      Direct result citation
+
+      ##### Source basis
+      model-supplemented
+
+      ##### Content basis
+      Reference R5 cites Lebesgue’s dominated convergence theorem in Step 2 of the proof of Theorem 3.3, immediately before equation (77), to support the conclusion \(I_1\to0\) after the pointwise limits (75)–(76). Reference R5 has no bibliography, edition, page, or supplied quotation. No matching original-source text was supplied or retrieved, so the formulation below is a standard, source-unconfirmed sequence form of the theorem rather than a retrieved source quotation. It supports only the integral-limit step; no assertion is made here that its measurability, almost-everywhere convergence, or domination hypotheses have been verified in the current proof, and no bridge from the proof’s parametric convergence notation to this sequence formulation is supplied. No additional source result is present in the available material.
+
+      ##### Definitions and notation
+      Let \((\Omega,\Sigma,\mu)\) be a measure space. Let \(f_n:\Omega\to\mathbb R\), \(n\ge1\), and \(f:\Omega\to\mathbb R\) be \(\Sigma\)-measurable functions. The statement \(f_n\to f\) \(\mu\)-almost everywhere means that there is a set \(N\in\Sigma\) with \(\mu(N)=0\) such that \(f_n(\omega)\to f(\omega)\) for every \(\omega\notin N\). The notation \(g\in L^1(\mu)\) means that \(g:\Omega\to[0,\infty]\) is \(\Sigma\)-measurable and \(\int_\Omega g\,d\mu<\infty\). Integrals are Lebesgue integrals with respect to \(\mu\). Real-valued functions are stated; for complex-valued functions one replaces \(|\cdot|\) by the complex modulus.
+
+      ##### Assumptions
+      - \((\Omega,\Sigma,\mu)\) is a measure space.
+      - Each \(f_n\), \(n\ge1\), and \(f\) are \(\Sigma\)-measurable real-valued functions on \(\Omega\).
+      - \(f_n\to f\) \(\mu\)-almost everywhere.
+      - There exists \(g\in L^1(\mu)\) such that \(g\ge0\) and, for \(\mu\)-almost every \(\omega\),
+        \[
+        |f_n(\omega)|\le g(\omega)\qquad\text{for every }n\ge1.
+        \]
+        Equivalently, there is one \(\mu\)-null exceptional set outside which the domination holds simultaneously for all \(n\).
+      - Source qualification and missing information: the bibliography is empty and no original statement, edition, page, or exact wording was obtained. Hence the original source’s precise conventions—real versus complex-valued functions, “for all \(n\)” versus “eventually,” almost-everywhere versus everywhere convergence/domination, and the exact stated conclusion—have not been source-verified. No directed-set or net formulation is included or attributed to the source; the formulation above is the standard sequence-indexed version.
+
+      ##### Statement
+      Under these assumptions, \(f\in L^1(\mu)\) and
+      \[
+      \lim_{n\to\infty}\int_\Omega f_n\,d\mu=\int_\Omega f\,d\mu.
+      \]
+    lean_name: Theorem_3_3_Bayesian_Well_Posedness_of_Inverse_Problems_posterior_density_positive_finite_normalizer_and_Hellinger_conti
+    lean_namespace: Statlib.Imported
+    layer: formalization
+    priority: 3
+    dependencies: []
+    notes: generated from a persisted ordinary goal; no attack-DAG dependency semantics
